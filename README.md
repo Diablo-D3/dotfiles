@@ -14,7 +14,7 @@
 * Syntastic reuqires many things to be useful
 
 ## Add-on list
-* [molokai](http://winterdom.com/2008/08/molokaiforvim)
+* [molokai](https://github.com/tomasr/molokai)
 * [rainbow parentheses](https://github.com/kien/rainbow_parentheses.vim)
 * [gitv](https://github.com/gregsexton/gitv)
 * [powerline](https://github.com/Lokaltog/vim-powerline)

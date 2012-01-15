@@ -19,6 +19,7 @@ Bundle 'majutsushi/tagbar'
 Bundle 'sjl/gundo.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'ciaranm/securemodelines'
+Bundle 'tomasr/molokai'
 
 syn on
 filetype plugin indent on
