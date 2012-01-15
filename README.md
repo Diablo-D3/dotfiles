@@ -28,5 +28,5 @@
 * [syntastic](https://github.com/scrooloose/syntastic)
 * [supertab](https://github.com/ervandew/supertab)
 * [MatchTag](https://github.com/gregsexton/MatchTag)
-* [neocomplcache](https://github.com/Shougo/neocomplcache)
+* [securemodelines](https://github.com/ciaranm/securemodelines)
 
