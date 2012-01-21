@@ -20,6 +20,9 @@ Bundle 'sjl/gundo.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'ciaranm/securemodelines'
 Bundle 'tomasr/molokai'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'pangloss/vim-javascript'
+Bundle 'mmalecki/vim-node.js'
 
 syn on
 filetype plugin indent on
@@ -72,8 +75,6 @@ noremap <silent> <F12> :TagbarToggle<CR>
 
 if has("gui_running")
   set guifont=Fixed\ 11
-  set columns=120
-  set lines=72
   set go-=T
   set t_md=
 endif
