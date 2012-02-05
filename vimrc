@@ -39,8 +39,10 @@ set undofile
 set undolevels=1000
 set undoreload=10000
 set backup
-set backupdir=~/.vim/backup/
-set directory=~/.vim/tmp/
+set backupdir=~/.vim/backup//
+set directory=~/.vim/tmp//
+set undofile
+set undodir=~/.vim/undo//
 set foldenable
 set wildmenu
 set wildmode=longest,full

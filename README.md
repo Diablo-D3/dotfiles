@@ -4,7 +4,7 @@
 
 1. `git clone http://github.com/Diablo-D3/dot_vim.git ~/.vim`
 2. `ln -s ~/.vim/vimrc ~/.vimrc`
-3. `mkdir ~/.vim/backup/ ~/.vim/tmp/`
+3. `mkdir ~/.vim/backup/ ~/.vim/tmp/ ~/.vim/undo/`
 4. `git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
 5. On first execution of vim, do `:BundleInstall` and wait for [Vundle](https://github.com/gmarik/vundle) to finish
 6. `git pull` will not update Vundle bundles, use `:BundleInstall` to update bundles
