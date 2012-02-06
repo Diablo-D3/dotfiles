@@ -29,4 +29,6 @@
 * [supertab](https://github.com/ervandew/supertab)
 * [MatchTag](https://github.com/gregsexton/MatchTag)
 * [securemodelines](https://github.com/ciaranm/securemodelines)
-
+* [markdown](https://github.com/plasticboy/vim-markdown)
+* [javascript](https://github.com/pangloss/vim-javascript)
+* [node.js](https://github.com/mmalecki/vim-node.js)
