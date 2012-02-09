@@ -12,7 +12,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'ervandew/supertab'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive'
-Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'Diablo-D3/rainbow_parentheses.vim'
 Bundle 'gregsexton/gitv'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'majutsushi/tagbar'
@@ -61,9 +61,7 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
-au VimEnter * RainbowParenthesesToggle
-au VimEnter * RainbowParenthesesLoadSquare
-au VimEnter * RainbowParenthesesLoadBraces
+au VimEnter * RainbowParenthesesToggleAll
 
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
