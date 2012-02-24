@@ -21,8 +21,6 @@ Bundle 'gregsexton/MatchTag'
 Bundle 'ciaranm/securemodelines'
 Bundle 'tomasr/molokai'
 Bundle 'plasticboy/vim-markdown'
-Bundle 'pangloss/vim-javascript'
-Bundle 'mmalecki/vim-node.js'
 
 syn on
 filetype plugin indent on
@@ -30,7 +28,6 @@ colorscheme molokai
 
 set sw=2
 set ts=2
-set expandtab
 set hidden
 set ignorecase
 set smartcase
