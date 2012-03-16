@@ -1,26 +1,7 @@
 set nocompatible
-filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-
-Bundle 'godlygeek/csapprox'
-Bundle 'Raimondi/delimitMate'
-Bundle 'scrooloose/nerdtree'
-Bundle 'ervandew/supertab'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Diablo-D3/rainbow_parentheses.vim'
-Bundle 'gregsexton/gitv'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'majutsushi/tagbar'
-Bundle 'sjl/gundo.vim'
-Bundle 'gregsexton/MatchTag'
-Bundle 'ciaranm/securemodelines'
-Bundle 'tomasr/molokai'
-Bundle 'plasticboy/vim-markdown'
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
 
 syn on
 filetype plugin indent on
@@ -43,20 +24,12 @@ set undodir=~/.vim/undo//
 set foldenable
 set wildmenu
 set wildmode=longest,full
+set completeopt=menu,menuone,longest
 set nomodeline
 set mouse=a
 set t_Co=256
 set laststatus=2
 set encoding=utf-8
-
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 
 au VimEnter * RainbowParenthesesToggleAll
 
@@ -64,8 +37,17 @@ let g:tagbar_autofocus=1
 let g:tagbar_compact=1
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeDirArrows=1
+let g:SuperTabDefaultCompletionType="context"
 let g:syntastic_enable_signs=1
 let g:syntastic_enable_balloons=1
+let g:syntastic_check_on_open=1
+let g:syntastic_auto_loc_list=1
+let g:clang_use_library=1
+let g:clang_complete_auto=0
+let g:clang_complete_macros=1
+let g:clang_complete_patterns=1
+let g:clang_complete_copen=1
+let g:clang_periodic_quickfix=1
 let g:Powerline_symbols='unicode'
 
 noremap <silent> <F10> :GundoToggle<CR>
