@@ -49,6 +49,7 @@ let g:clang_complete_patterns=1
 let g:clang_complete_copen=1
 let g:clang_periodic_quickfix=1
 let g:Powerline_symbols='unicode'
+let g:easytags_file="~/.vim/tags"
 
 noremap <silent> <F10> :GundoToggle<CR>
 noremap <silent> <F11> :NERDTreeToggle<CR>
