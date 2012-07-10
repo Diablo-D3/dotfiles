@@ -5,20 +5,26 @@ call pathogen#infect()
 
 syn on
 filetype plugin indent on
+
 colorscheme molokai
+
+hi Comment guifg=#5C7073
 
 set sw=2
 set ts=2
 set hidden
 set ignorecase
 set smartcase
-set history=1000
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+set history=10000
 set undofile
-set undolevels=1000
+set undolevels=10000
 set undoreload=10000
-set backup
-set backupdir=~/.vim/backup//
-set directory=~/.vim/tmp//
+set noswapfile
+set nobackup
 set undofile
 set undodir=~/.vim/undo//
 set foldenable
@@ -31,13 +37,22 @@ set t_Co=256
 set laststatus=2
 set encoding=utf-8
 set autochdir
+set colorcolumn=79
+set title
+
+noremap ; :
+
+noremap <silent> <leader>w :wincmd k<cr>
+noremap <silent> <leader>a :wincmd h<cr>
+noremap <silent> <leader>s :wincmd j<cr>
+noremap <silent> <leader>d :wincmd l<cr>
+
+inoremap <leader><leader> <ESC>
 
 au VimEnter * RainbowParenthesesToggleAll
 
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
-let g:NERDTreeMinimalUI=1
-let g:NERDTreeDirArrows=1
 let g:SuperTabDefaultCompletionType="context"
 let g:syntastic_enable_signs=1
 let g:syntastic_enable_balloons=1
@@ -55,9 +70,8 @@ let g:clang_user_options=' -I. -I.. -I../.. -I../../.. -I../../../..'
 let g:Powerline_symbols='unicode'
 let g:easytags_file="~/.vim/tags"
 
-noremap <silent> <F10> :GundoToggle<CR>
-noremap <silent> <F11> :NERDTreeToggle<CR>
-noremap <silent> <F12> :TagbarToggle<CR>
+noremap <silent> <leader>e :GundoToggle<CR>
+noremap <silent> <leader>r :TagbarToggle<CR>
 
 if has("gui_running")
   set guifont=Fixed\ 11
