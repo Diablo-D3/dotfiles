@@ -36,7 +36,6 @@ set mouse=a
 set t_Co=256
 set laststatus=2
 set encoding=utf-8
-set autochdir
 set colorcolumn=79
 set title
 
