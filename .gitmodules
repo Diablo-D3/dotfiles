@@ -40,18 +40,9 @@
 [submodule "bundle/clang_complete"]
 	path = bundle/clang_complete
 	url = https://github.com/Rip-Rip/clang_complete.git
-[submodule "bundle/snipmate-snippets"]
-	path = bundle/snipmate-snippets
-	url = https://github.com/honza/snipmate-snippets.git
 [submodule "bundle/vim-markdown"]
 	path = bundle/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
-[submodule "bundle/tlib_vim"]
-	path = bundle/tlib_vim
-	url = https://github.com/tomtom/tlib_vim.git
-[submodule "bundle/vim-addon-mw-utils"]
-	path = bundle/vim-addon-mw-utils
-	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "bundle/vim-easytags"]
 	path = bundle/vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
