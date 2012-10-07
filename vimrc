@@ -49,6 +49,7 @@ noremap <silent> <leader>d :wincmd l<cr>
 inoremap <leader><leader> <ESC>
 
 au VimEnter * RainbowParenthesesToggleAll
+au FileType c,cpp :Rooter
 au FileType c,cpp let g:syntastic_c_include_dirs=split(system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u"), '\n')
 au FileType c,cpp let g:clang_user_options="-I" . system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
 
