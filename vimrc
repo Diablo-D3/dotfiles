@@ -46,6 +46,11 @@ noremap <silent> <leader>a :wincmd h<cr>
 noremap <silent> <leader>s :wincmd j<cr>
 noremap <silent> <leader>d :wincmd l<cr>
 
+nmap <C-W> <Plug>DWMNew
+nmap <C-A> <Plug>DWMRotateCounterclockwise
+nmap <C-S> <Plug>DWMClose
+nmap <C-D> <Plug>DWMRotateClockwise
+
 inoremap <leader><leader> <ESC>
 
 au VimEnter * RainbowParenthesesToggleAll
