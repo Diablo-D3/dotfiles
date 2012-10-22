@@ -7,7 +7,6 @@ syn on
 filetype plugin indent on
 
 colorscheme molokai
-
 hi Comment guifg=#5C7073
 
 set sw=2
