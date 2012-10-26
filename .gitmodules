@@ -58,6 +58,4 @@
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "bundle/dwm.vim"]
-	path = bundle/dwm.vim
-	url = https://github.com/spolu/dwm.vim.git
+
