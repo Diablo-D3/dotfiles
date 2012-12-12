@@ -6,6 +6,8 @@ call pathogen#infect()
 syn on
 filetype plugin indent on
 
+set t_Co=256
+
 colorscheme molokai
 hi Comment guifg=#5C7073
 
@@ -32,7 +34,6 @@ set wildmode=longest,full
 set completeopt=menu,menuone,longest
 set nomodeline
 set mouse=a
-set t_Co=256
 set laststatus=2
 set encoding=utf-8
 set colorcolumn=79
@@ -40,12 +41,27 @@ set title
 
 noremap ; :
 
-noremap <silent> <leader>w :wincmd k<cr>
-noremap <silent> <leader>a :wincmd h<cr>
-noremap <silent> <leader>s :wincmd j<cr>
-noremap <silent> <leader>d :wincmd l<cr>
+nnoremap Q <nop>
 
-inoremap <leader><leader> <ESC>
+noremap <silent> <C-w> :wincmd k<cr>
+noremap <silent> <C-a> :wincmd h<cr>
+noremap <silent> <C-s> :wincmd j<cr>
+noremap <silent> <C-d> :wincmd l<cr>
+inoremap <silent> <C-w> <C-o>:wincmd k<cr>
+inoremap <silent> <C-a> <C-o>:wincmd h<cr>
+inoremap <silent> <C-s> <C-o>:wincmd j<cr>
+inoremap <silent> <C-d> <C-o>:wincmd l<cr>
+
+noremap <silent> <C-/> :nohlsearch<cr>
+inoremap <silent> <C-/> <C-o>:nohlsearch<cr>
+
+vnoremap <silent> <C-x> "+x
+vnoremap <silent> <C-c> "+y
+noremap <silent> <C-v> "+gP
+inoremap <silent> <C-v> <C-o>"+gP
+
+noremap <silent> <C-z> u
+inoremap <silent> <C-z> <C-o>u
 
 au VimEnter * RainbowParenthesesToggleAll
 au FileType c,cpp :Rooter
@@ -54,6 +70,7 @@ au FileType c,cpp let g:clang_user_options="-I" . system("find . -print0 -iname 
 
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
+let g:tagbar_autoclose=1
 let g:SuperTabDefaultCompletionType="context"
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=1
@@ -73,8 +90,11 @@ let g:clang_snippets_engine='ultisnips'
 let g:Powerline_symbols='unicode'
 let g:easytags_file="~/.vim/tags"
 
-noremap <silent> <leader>e :GundoToggle<CR>
-noremap <silent> <leader>r :TagbarToggle<CR>
+let g:ctrlp_map = '<C-q>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+noremap <silent> <C-e> :GundoToggle<CR>
+noremap <silent> <C-r> :TagbarToggle<CR>
 
 if has("gui_running")
   set guifont=Fixed\ 11
