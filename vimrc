@@ -64,17 +64,22 @@ noremap <silent> <C-z> u
 inoremap <silent> <C-z> <C-o>u
 
 au VimEnter * RainbowParenthesesToggleAll
-au FileType c,cpp :Rooter
-au FileType c,cpp let g:syntastic_c_include_dirs=split(system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u"), '\n')
-au FileType c,cpp let g:clang_user_options="-I" . system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
+au FileType c,cpp,h :Rooter
+
+"au FileType c,cpp let g:syntastic_c_include_dirs=split(system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u"), '\n')
+"au FileType c,cpp let g:clang_user_options="-I" . system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
 
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
 let g:tagbar_autoclose=1
-let g:SuperTabDefaultCompletionType="context"
+let g:SuperTabDefaultCompletionType="<c-x><c-u>"
+"let g:SuperTabContextTextOmniPrecedence=['ClangComplete']
+"let g:SuperTabContextDiscoveryDiscovery=["ClangComplete:<c-x><c-u>"]
+"let g:SuperTabCompletionContexts=['s:ContextText', 's:ContextDiscover']
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
+au FileType c,cpp,h let g:syntastic_auto_loc_list=2
 let g:syntastic_c_auto_refresh_includes=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
@@ -88,13 +93,17 @@ let g:clang_periodic_quickfix=1
 let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
 let g:Powerline_symbols='unicode'
-let g:easytags_file="~/.vim/tags"
+let g:easytags_by_filetype="~/.vim/tags/"
 
-let g:ctrlp_map = '<C-q>'
-let g:ctrlp_cmd = 'CtrlPMixed'
+noremap <silent> <C-q> :CtrlPBuffer<cr>
+noremap <silent> <C-e> :CtrlP<cr>
+noremap <silent> <C-r> :GundoToggle<cr>
+noremap <silent> <C-t> :TagbarToggle<cr>
 
-noremap <silent> <C-e> :GundoToggle<CR>
-noremap <silent> <C-r> :TagbarToggle<CR>
+inoremap <silent> <C-q> <C-o>:CtrlPBuffer<cr>
+inoremap <silent> <C-e> <C-o>:CtrlP<cr>
+inoremap <silent> <C-t> <C-o>:GundoToggle<cr>
+inoremap <silent> <C-t> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
   set guifont=Fixed\ 11
