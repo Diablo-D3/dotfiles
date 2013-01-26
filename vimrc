@@ -9,7 +9,6 @@ filetype plugin indent on
 set t_Co=256
 
 colorscheme molokai
-hi Comment guifg=#5C7073
 
 set sw=2
 set ts=2
