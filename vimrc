@@ -75,7 +75,7 @@ noremap <silent> <C-z> u
 inoremap <silent> <C-z> <C-o>u
 
 au VimEnter * RainbowParenthesesToggleAll
-au FileType c,cpp,h :Rooter
+au FileType c,cpp :Rooter
 
 "au FileType c,cpp let g:syntastic_c_include_dirs=split(system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u"), '\n')
 "au FileType c,cpp let g:clang_user_options="-I" . system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
@@ -87,12 +87,11 @@ let g:SuperTabDefaultCompletionType="<c-x><c-u>"
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
-au FileType c,cpp,h let g:syntastic_auto_loc_list=2
 let g:syntastic_c_auto_refresh_includes=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:clang_use_library=1
-let g:clang_complete_copen=1
+let g:clang_complete_copen=0
 let g:clang_hl_errors=1
 let g:clang_complete_auto=0
 let g:clang_complete_macros=1
