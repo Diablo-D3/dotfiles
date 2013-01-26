@@ -52,6 +52,9 @@ inoremap <silent> <C-a> <C-o>:wincmd h<cr>
 inoremap <silent> <C-s> <C-o>:wincmd j<cr>
 inoremap <silent> <C-d> <C-o>:wincmd l<cr>
 
+noremap <silent> <C-f> <C-w>v<cr>
+inoremap <silent> <C-f> <C-o><C-w>v<cr>
+
 noremap <silent> <C-/> :nohlsearch<cr>
 inoremap <silent> <C-/> <C-o>:nohlsearch<cr>
 
@@ -99,7 +102,7 @@ noremap <silent> <C-t> :TagbarToggle<cr>
 
 inoremap <silent> <C-q> <C-o>:CtrlPBuffer<cr>
 inoremap <silent> <C-e> <C-o>:CtrlP<cr>
-inoremap <silent> <C-t> <C-o>:GundoToggle<cr>
+inoremap <silent> <C-r> <C-o>:GundoToggle<cr>
 inoremap <silent> <C-t> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
