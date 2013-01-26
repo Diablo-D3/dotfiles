@@ -47,13 +47,21 @@ noremap <silent> <C-w> :wincmd k<cr>
 noremap <silent> <C-a> :wincmd h<cr>
 noremap <silent> <C-s> :wincmd j<cr>
 noremap <silent> <C-d> :wincmd l<cr>
+noremap <silent> <C-W> :wincmd J<cr>
+noremap <silent> <C-A> :wincmd H<cr>
+noremap <silent> <C-S> :wincmd K<cr>
+noremap <silent> <C-D> :wincmd L<cr>
 inoremap <silent> <C-w> <C-o>:wincmd k<cr>
 inoremap <silent> <C-a> <C-o>:wincmd h<cr>
 inoremap <silent> <C-s> <C-o>:wincmd j<cr>
 inoremap <silent> <C-d> <C-o>:wincmd l<cr>
+noremap <silent> <C-W> <C-o>:wincmd J<cr>
+noremap <silent> <C-A> <C-o>:wincmd H<cr>
+noremap <silent> <C-S> <C-o>:wincmd K<cr>
+noremap <silent> <C-D> <C-o>:wincmd L<cr>
 
-noremap <silent> <C-f> <C-w>v<cr>
-inoremap <silent> <C-f> <C-o><C-w>v<cr>
+noremap <silent> <C-r> <C-w>v<cr>
+inoremap <silent> <C-r> <C-o><C-w>v<cr>
 
 noremap <silent> <C-/> :nohlsearch<cr>
 inoremap <silent> <C-/> <C-o>:nohlsearch<cr>
@@ -97,13 +105,13 @@ let g:easytags_by_filetype="~/.vim/tags/"
 
 noremap <silent> <C-q> :CtrlPBuffer<cr>
 noremap <silent> <C-e> :CtrlP<cr>
-noremap <silent> <C-r> :GundoToggle<cr>
-noremap <silent> <C-t> :TagbarToggle<cr>
+noremap <silent> <C-g> :GundoToggle<cr>
+noremap <silent> <C-f> :TagbarToggle<cr>
 
 inoremap <silent> <C-q> <C-o>:CtrlPBuffer<cr>
 inoremap <silent> <C-e> <C-o>:CtrlP<cr>
-inoremap <silent> <C-r> <C-o>:GundoToggle<cr>
-inoremap <silent> <C-t> <C-o>:TagbarToggle<cr>
+inoremap <silent> <C-g> <C-o>:GundoToggle<cr>
+inoremap <silent> <C-f> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
   set guifont=Fixed\ 11
