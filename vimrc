@@ -46,18 +46,18 @@ noremap <silent> <C-w> :wincmd k<cr>
 noremap <silent> <C-a> :wincmd h<cr>
 noremap <silent> <C-s> :wincmd j<cr>
 noremap <silent> <C-d> :wincmd l<cr>
-noremap <silent> <C-W> :wincmd J<cr>
-noremap <silent> <C-A> :wincmd H<cr>
-noremap <silent> <C-S> :wincmd K<cr>
-noremap <silent> <C-D> :wincmd L<cr>
+noremap <silent> <A-w> :wincmd J<cr>
+noremap <silent> <A-a> :wincmd H<cr>
+noremap <silent> <A-s> :wincmd K<cr>
+noremap <silent> <A-d> :wincmd L<cr>
 inoremap <silent> <C-w> <C-o>:wincmd k<cr>
 inoremap <silent> <C-a> <C-o>:wincmd h<cr>
 inoremap <silent> <C-s> <C-o>:wincmd j<cr>
 inoremap <silent> <C-d> <C-o>:wincmd l<cr>
-noremap <silent> <C-W> <C-o>:wincmd J<cr>
-noremap <silent> <C-A> <C-o>:wincmd H<cr>
-noremap <silent> <C-S> <C-o>:wincmd K<cr>
-noremap <silent> <C-D> <C-o>:wincmd L<cr>
+inoremap <silent> <A-w> <C-o>:wincmd J<cr>
+inoremap <silent> <A-a> <C-o>:wincmd H<cr>
+inoremap <silent> <A-s> <C-o>:wincmd K<cr>
+inoremap <silent> <A-d> <C-o>:wincmd L<cr>
 
 noremap <silent> <C-r> <C-w>v<cr>
 inoremap <silent> <C-r> <C-o><C-w>v<cr>
@@ -114,6 +114,7 @@ inoremap <silent> <C-f> <C-o>:TagbarToggle<cr>
 if has("gui_running")
   set guifont=Fixed\ 11
   set go-=T
+  set go-=m
   set t_md=
 endif
 
