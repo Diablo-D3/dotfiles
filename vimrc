@@ -46,17 +46,17 @@ noremap <silent> <C-w> :wincmd k<cr>
 noremap <silent> <C-a> :wincmd h<cr>
 noremap <silent> <C-s> :wincmd j<cr>
 noremap <silent> <C-d> :wincmd l<cr>
-noremap <silent> <A-w> :wincmd J<cr>
+noremap <silent> <A-w> :wincmd K<cr>
 noremap <silent> <A-a> :wincmd H<cr>
-noremap <silent> <A-s> :wincmd K<cr>
+noremap <silent> <A-s> :wincmd J<cr>
 noremap <silent> <A-d> :wincmd L<cr>
 inoremap <silent> <C-w> <C-o>:wincmd k<cr>
 inoremap <silent> <C-a> <C-o>:wincmd h<cr>
 inoremap <silent> <C-s> <C-o>:wincmd j<cr>
 inoremap <silent> <C-d> <C-o>:wincmd l<cr>
-inoremap <silent> <A-w> <C-o>:wincmd J<cr>
+inoremap <silent> <A-w> <C-o>:wincmd K<cr>
 inoremap <silent> <A-a> <C-o>:wincmd H<cr>
-inoremap <silent> <A-s> <C-o>:wincmd K<cr>
+inoremap <silent> <A-s> <C-o>:wincmd J<cr>
 inoremap <silent> <A-d> <C-o>:wincmd L<cr>
 
 noremap <silent> <C-r> <C-w>v<cr>
@@ -88,7 +88,7 @@ let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_c_auto_refresh_includes=1
 let g:syntastic_c_check_header=1
-let g:syntastic_c_compiler_options='-Wall -Wextra -Wno-unused-parameter -pedantic'
+let g:syntastic_c_compiler_options='-Wall -Wextra -Wno-unused-parameter -pedantic -std=c99'
 let g:syntastic_error_symbol='E'
 let g:syntastic_warning_symbol='W'
 let g:clang_use_library=1
@@ -100,7 +100,7 @@ let g:clang_complete_patterns=1
 let g:clang_periodic_quickfix=1
 let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
-let g:clang_user_options='-Wall -Wextra -Wno-unused-parameter -pedantic'
+let g:clang_user_options='-Wall -Wextra -Wno-unused-parameter -pedantic -std=c99'
 let g:Powerline_symbols='unicode'
 let g:easytags_by_filetype="~/.vim/tags/"
 
