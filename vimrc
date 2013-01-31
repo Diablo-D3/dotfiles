@@ -76,8 +76,7 @@ inoremap <silent> <C-z> <C-o>u
 au VimEnter * RainbowParenthesesToggleAll
 au FileType c,cpp :Rooter
 
-"au FileType c,cpp let g:syntastic_c_include_dirs=split(system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u"), '\n')
-"au FileType c,cpp let g:clang_user_options="-I" . system("find . -print0 -iname \*.h | xargs -0 -r -n 1 dirname | grep -v \.git | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
+let cflags='-Wall -Wextra -Wno-unused-parameter -pedantic -std=c99'
 
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
@@ -88,7 +87,8 @@ let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_c_auto_refresh_includes=1
 let g:syntastic_c_check_header=1
-let g:syntastic_c_compiler_options='-Wall -Wextra -Wno-unused-parameter -pedantic -std=c99'
+let g:syntastic_c_compiler_options=cflags
+let g:syntastic_c_include_dirs=split(system("find src -print0 -iname \*.h | xargs -0 -r -n 1 dirname | sort -u"), '\n')
 let g:syntastic_error_symbol='E'
 let g:syntastic_warning_symbol='W'
 let g:clang_use_library=1
@@ -100,7 +100,7 @@ let g:clang_complete_patterns=1
 let g:clang_periodic_quickfix=1
 let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
-let g:clang_user_options='-Wall -Wextra -Wno-unused-parameter -pedantic -std=c99'
+let g:clang_user_options=cflags . '-I' . system("find src -print0 -iname \*.h | xargs -0 -r -n 1 dirname | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
 let g:Powerline_symbols='unicode'
 let g:easytags_by_filetype="~/.vim/tags/"
 
