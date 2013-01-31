@@ -76,7 +76,7 @@ inoremap <silent> <C-z> <C-o>u
 au VimEnter * RainbowParenthesesToggleAll
 au FileType c,cpp :Rooter
 
-let cflags='-Wall -Wextra -Wno-unused-parameter -pedantic -std=c99'
+let cflags='-Wall -Wextra -Wno-unused-parameter -pedantic -std=gnu99'
 
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
