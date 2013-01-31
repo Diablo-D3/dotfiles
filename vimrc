@@ -100,7 +100,7 @@ let g:clang_complete_patterns=1
 let g:clang_periodic_quickfix=1
 let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
-let g:clang_user_options=cflags . '-I' . system("find src -print0 -iname \*.h | xargs -0 -r -n 1 dirname | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
+let g:clang_user_options=cflags . ' -I' . system("find src -print0 -iname \*.h | xargs -0 -r -n 1 dirname | sort -u | sed ':a;N;$!ba;s/\\n/ -I/g'")
 let g:Powerline_symbols='unicode'
 let g:easytags_by_filetype="~/.vim/tags/"
 
