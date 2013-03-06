@@ -73,6 +73,8 @@ inoremap <silent> <C-v> <C-o>"+gP
 noremap <silent> <C-z> u
 inoremap <silent> <C-z> <C-o>u
 
+au BufWritePre * :%s/\s\+$//e
+
 au VimEnter * RainbowParenthesesToggleAll
 au FileType c,cpp :Rooter
 
