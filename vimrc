@@ -37,10 +37,18 @@ set laststatus=2
 set encoding=utf-8
 set colorcolumn=79
 set title
+set wrap
+set linebreak
+set nolist
 
 noremap ; :
 
 nnoremap Q <nop>
+
+noremap <silent> <Up> gk
+noremap <silent> <Down> gj
+vnoremap <silent> <Up> gk
+vnoremap <silent> <Down> gj
 
 noremap <silent> <C-w> :wincmd k<cr>
 noremap <silent> <C-a> :wincmd h<cr>
@@ -60,7 +68,7 @@ inoremap <silent> <A-s> <C-o>:wincmd J<cr>
 inoremap <silent> <A-d> <C-o>:wincmd L<cr>
 
 noremap <silent> <C-r> <C-w>v<cr>
-inoremap <silent> <C-r> <C-o><C-w>v<cr>
+vnoremap <silent> <C-r> <C-o><C-w>v<cr>
 
 noremap <silent> <C-/> :nohlsearch<cr>
 inoremap <silent> <C-/> <C-o>:nohlsearch<cr>
