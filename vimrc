@@ -112,9 +112,13 @@ inoremap <silent> <C-g> <C-o>:GundoToggle<cr>
 inoremap <silent> <C-f> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
-  set guifont=Fixed\ 11
-  set go-=T
-  set go-=m
-  set t_md=
+	if has("gui_macvim")
+		set guifont=Inconsolata\ 16
+	else
+		set guifont=Fixed\ 11
+	endif
+	set go-=T
+	set go-=m
+	set t_md=
 endif
 
