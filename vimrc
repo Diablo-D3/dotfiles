@@ -113,7 +113,7 @@ inoremap <silent> <C-f> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
 	if has("gui_macvim")
-		set guifont=Inconsolata\ 16
+		set guifont=Inconsolata:h16
 	else
 		set guifont=Fixed\ 11
 	endif
