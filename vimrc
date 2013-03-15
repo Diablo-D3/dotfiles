@@ -10,8 +10,8 @@ set t_Co=256
 
 colorscheme molokai
 
-set sw=2
-set ts=2
+set sw=8
+set ts=8
 set hidden
 set ignorecase
 set smartcase
