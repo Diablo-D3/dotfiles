@@ -30,7 +30,7 @@ set undodir=~/.vim/undo//
 set foldenable
 set wildmenu
 set wildmode=longest,full
-set completeopt=menu,menuone,longest
+set completeopt=menuone,menu,longest,preview
 set nomodeline
 set mouse=a
 set laststatus=2
@@ -90,16 +90,19 @@ let g:tagbar_autofocus=1
 let g:tagbar_compact=1
 let g:tagbar_autoclose=1
 let g:syntastic_enable_signs=1
-let g:syntastic_check_on_open=1
+let g:syntastic_check_on_open=0
 let g:syntastic_auto_loc_list=1
 let g:syntastic_c_auto_refresh_includes=1
 let g:syntastic_c_check_header=1
-let g:syntastic_c_compiler_options='-Wall -Wextra -Wno-unused-parameter -pedantic -std=gnu99'
-let g:syntastic_c_include_dirs=split(system("find src -print0 -iname \*.h | xargs -0 -r -n 1 dirname | sort -u"), '\n')
 let g:syntastic_error_symbol='E'
 let g:syntastic_warning_symbol='W'
 let g:Powerline_symbols='unicode'
 let g:easytags_by_filetype="~/.vim/tags/"
+let g:easytags_updatetime_min=2000
+let g:ycm_allow_changing_updatetime=0
+let g:ycm_key_list_select_completion=['<TAB>']
+let g:ycm_key_list_previous_completion=['<S-TAB>']
+let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
 
 noremap <silent> <C-q> :CtrlPBuffer<cr>
 noremap <silent> <C-e> :CtrlP<cr>
