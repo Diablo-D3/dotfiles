@@ -3,6 +3,8 @@ set nocompatible
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
 syn on
 filetype plugin indent on
 
@@ -96,7 +98,6 @@ let g:syntastic_c_auto_refresh_includes=1
 let g:syntastic_c_check_header=1
 let g:syntastic_error_symbol='E'
 let g:syntastic_warning_symbol='W'
-let g:Powerline_symbols='unicode'
 let g:easytags_by_filetype="~/.vim/tags/"
 let g:easytags_updatetime_min=2000
 let g:ycm_allow_changing_updatetime=0
@@ -116,9 +117,9 @@ inoremap <silent> <C-f> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
 	if has("gui_macvim")
-		set guifont=Inconsolata:h16
+		set guifont=Inconsolata\ for\ Powerline:h16,Inconsolata:h16
 	else
-		set guifont=Fixed\ 11
+		set guifont=Inconsolata\ for\ Powerline\ 12,Inconsolata\ 12
 	endif
 	set go-=T
 	set go-=m
