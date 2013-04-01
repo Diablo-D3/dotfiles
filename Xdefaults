@@ -1,0 +1,17 @@
+URxvt*background: Black
+URxvt*foreground: White
+URxvt*scrollBar: False
+URxvt*saveLines: 50000
+URxvt*jumpScroll: false
+URxvt*multiScroll: true
+URxvt*perl-ext-common: default,matcher
+URxvt*urlLauncher: /usr/bin/firefox
+URxvt*font:           xft:Source Code Pro for Powerline:pixelsize=15:style=RegularForPowerline
+URxvt*boldFont:       xft:Source Code Pro for Powerline:pixelsize=15:style=BoldForPowerline
+URxvt*italicFont:     xft:Source Code Pro for Powerline:pixelsize=15:slant=100
+URxvt*boldItalicFont: xft:Source Code Pro for Powerline:pixelsize=15:style=BoldForPowerline:slant=100
+URxvt*letterSpace: -1
+URxvt*cursorBlink: true
+URxvt*cursorUnderline: true
+
+
