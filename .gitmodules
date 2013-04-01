@@ -1,54 +1,54 @@
-[submodule "bundle/vim-pathogen"]
-	path = bundle/vim-pathogen
+[submodule "vim/bundle/vim-pathogen"]
+	path = vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
-[submodule "bundle/gundo.vim"]
-	path = bundle/gundo.vim
+[submodule "vim/bundle/gundo.vim"]
+	path = vim/bundle/gundo.vim
 	url = https://github.com/sjl/gundo.vim.git
-[submodule "bundle/syntastic"]
-	path = bundle/syntastic
+[submodule "vim/bundle/syntastic"]
+	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
-[submodule "bundle/vim-fugitive"]
-	path = bundle/vim-fugitive
+[submodule "vim/bundle/vim-fugitive"]
+	path = vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "bundle/molokai"]
-	path = bundle/molokai
+[submodule "vim/bundle/molokai"]
+	path = vim/bundle/molokai
 	url = https://github.com/tomasr/molokai.git
-[submodule "bundle/rainbow_parentheses.vim"]
-	path = bundle/rainbow_parentheses.vim
+[submodule "vim/bundle/rainbow_parentheses.vim"]
+	path = vim/bundle/rainbow_parentheses.vim
 	url = https://github.com/kien/rainbow_parentheses.vim.git
-[submodule "bundle/gitv"]
-	path = bundle/gitv
+[submodule "vim/bundle/gitv"]
+	path = vim/bundle/gitv
 	url = https://github.com/gregsexton/gitv.git
-[submodule "bundle/tagbar"]
-	path = bundle/tagbar
+[submodule "vim/bundle/tagbar"]
+	path = vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
-[submodule "bundle/MatchTag"]
-	path = bundle/MatchTag
+[submodule "vim/bundle/MatchTag"]
+	path = vim/bundle/MatchTag
 	url = https://github.com/gregsexton/MatchTag.git
-[submodule "bundle/securemodelines"]
-	path = bundle/securemodelines
+[submodule "vim/bundle/securemodelines"]
+	path = vim/bundle/securemodelines
 	url = https://github.com/ciaranm/securemodelines.git
-[submodule "bundle/vim-markdown"]
-	path = bundle/vim-markdown
+[submodule "vim/bundle/vim-markdown"]
+	path = vim/bundle/vim-markdown
 	url = https://github.com/tpope/vim-markdown.git
-[submodule "bundle/vim-easytags"]
-	path = bundle/vim-easytags
+[submodule "vim/bundle/vim-easytags"]
+	path = vim/bundle/vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
-[submodule "bundle/ack.vim"]
-	path = bundle/ack.vim
+[submodule "vim/bundle/ack.vim"]
+	path = vim/bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
-[submodule "bundle/rooter.vim"]
-	path = bundle/rooter.vim
+[submodule "vim/bundle/rooter.vim"]
+	path = vim/bundle/rooter.vim
 	url = https://github.com/airblade/vim-rooter.git
-[submodule "bundle/ultisnips"]
-	path = bundle/ultisnips
+[submodule "vim/bundle/ultisnips"]
+	path = vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "bundle/ctrlp.vim"]
-	path = bundle/ctrlp.vim
+[submodule "vim/bundle/ctrlp.vim"]
+	path = vim/bundle/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule "bundle/YouCompleteMe"]
-	path = bundle/YouCompleteMe
+[submodule "vim/bundle/YouCompleteMe"]
+	path = vim/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
-[submodule "bundle/powerline"]
-	path = bundle/powerline
+[submodule "vim/bundle/powerline"]
+	path = vim/bundle/powerline
 	url = https://github.com/Lokaltog/powerline.git
