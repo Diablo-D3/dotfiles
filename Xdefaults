@@ -13,5 +13,6 @@ URxvt*boldItalicFont: xft:Source Code Pro for Powerline:pixelsize=15:style=BoldF
 URxvt*letterSpace: -1
 URxvt*cursorBlink: true
 URxvt*cursorUnderline: true
+URxvt*termName: xterm-256color
 
 

@@ -120,7 +120,6 @@ if has("gui_running")
 		set guifont=Source\ Code\ Pro\ ExtraLight\ for\ Powerline:h15
 	else
 		set guifont=Source\ Code\ Pro\ for\ Powerline\ 11
-		set lsp=1
 	endif
 	set go-=T
 	set go-=m
