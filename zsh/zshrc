@@ -1,0 +1,118 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.zsh/oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="robbyrussell"
+
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git git-extras screen autojump brew)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+
+rvm_current() {
+	rvm current 2>/dev/null
+}
+
+# I don't care for powerline's version of the prompt
+
+RESET=%f%k
+SEP=$'\ue0b0'
+HALFSEP=$'\ue0b1'
+RSEP=$'\ue0b2'
+
+if [ $(id -u) -eq 0 ]; then
+	PRI_BG=%K{196}
+	PRI_FG=%F{196}
+	PRI_TXT=%F{231}
+	SEC_BG=%K{52}
+	SEC_FG=%F{52}
+	SEC_TXT=%F{217}
+else
+	PRI_TXT=%F{16}
+
+	case $HOST in
+	[a-h]*)
+		PRI_BG=%K{33}
+		PRI_FG=%F{33}
+		SEC_BG=%K{17}
+		SEC_FG=%F{17}
+		SEC_TXT=%F{147}
+		;;
+	[i-q]*)
+		PRI_BG=%K{46}
+		PRI_FG=%F{46}
+		SEC_BG=%K{22}
+		SEC_FG=%F{22}
+		SEC_TXT=%F{157}
+		;;
+	[r-z]*)
+		PRI_BG=%K{226}
+		PRI_FG=%F{226}
+		SEC_BG=%K{058}
+		SEC_FG=%F{058}
+		SEC_TXT=%F{229}
+	esac
+fi
+
+ZSH_THEME_GIT_PROMPT_PREFIX=" $HALFSEP "
+ZSH_THEME_GIT_PROMPT_SUFFIX=
+ZSH_THEME_GIT_PROMPT_DIRTY=" %F{196}✘"
+ZSH_THEME_GIT_PROMPT_CLEAN=" %F{046}✔"
+
+ZSH_THEME_GIT_PROMPT_ADDED=
+ZSH_THEME_GIT_PROMPT_MODIFIED=
+ZSH_THEME_GIT_PROMPT_DELETED=
+ZSH_THEME_GIT_PROMPT_UNTRACKED=
+ZSH_THEME_GIT_PROMPT_RENAMED=
+ZSH_THEME_GIT_PROMPT_UNMERGED=
+ZSH_THEME_GIT_PROMPT_AHEAD=
+ZSH_THEME_GIT_PROMPT_BEHIND=
+ZSH_THEME_GIT_PROMPT_DIVERGED=
+
+USR_PROMPT="$RESET$PRI_BG$PRI_TXT %m $PRI_FG"
+
+PATH_PROMPT="$SEC_BG$SEP$SEC_TXT %3~"
+
+GIT_PROMPT=$'$(git_prompt_info)$(git_prompt_status)'
+
+END_PROMPT=" $RESET$SEC_FG$SEP$RESET "
+
+PROMPT="
+$USR_PROMPT$PATH_PROMPT$GIT_PROMPT$END_PROMPT"
+
+ERR_BG=%K{52}
+ERR_FG=%F{52}
+ERR_TXT=%F{217}
+
+EXIT_PROMPT='%(?..$RESET$ERR_FG$RSEP$ERR_BG$ERR_TXT $? $RESET)'
+
+RPROMPT="$EXIT_PROMPT"

@@ -8,6 +8,9 @@ mkdir ~/config/vim/tags
 
 ln -s ~/config/Xdefaults ~/.Xdefaults
 
+ln -s ~/config/zsh/zshrc ~/.zshrc
+ln -s ~/config/zsh ~/.zsh
+
 cd ~/config
 git submodule init && git submodule update
 
