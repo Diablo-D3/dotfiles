@@ -117,9 +117,9 @@ inoremap <silent> <C-f> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
 	if has("gui_macvim")
-		set guifont=Inconsolata\ for\ Powerline:h16,Inconsolata:h16
+		set guifont=Source\ Code\ Pro\ for\ Powerline:h14
 	else
-		set guifont=Inconsolata\ for\ Powerline\ 12,Inconsolata\ 12
+		set guifont=Source\ Code\ Pro\ for\ Powerline\ 10
 	endif
 	set go-=T
 	set go-=m
