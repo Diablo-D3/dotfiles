@@ -42,6 +42,9 @@ rvm_current() {
 	rvm current 2>/dev/null
 }
 
+setopt no_hup
+unsetopt check_jobs
+
 # I don't care for powerline's version of the prompt
 
 RESET=%f%k
