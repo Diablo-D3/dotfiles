@@ -11,6 +11,8 @@ filetype plugin indent on
 set t_Co=256
 
 colorscheme molokai
+let g:rehash256=1
+set background=dark
 
 set sw=8
 set ts=8
@@ -123,6 +125,9 @@ if has("gui_running")
 	endif
 	set go-=T
 	set go-=m
+	set go+=LlRrb
+	set go-=LlRrb
 	set t_md=
+	set nomousehide
 endif
 
