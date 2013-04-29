@@ -14,5 +14,5 @@ URxvt*letterSpace: -1
 URxvt*cursorBlink: true
 URxvt*cursorUnderline: true
 URxvt*termName: xterm-256color
-
-
+URxvt*keysym.Home: \033[1~
+URxvt*keysym.End: \033[4~
