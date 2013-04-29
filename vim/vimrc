@@ -12,7 +12,6 @@ set t_Co=256
 
 colorscheme molokai
 let g:rehash256=1
-set background=dark
 
 set sw=8
 set ts=8
@@ -39,7 +38,6 @@ set nomodeline
 set mouse=a
 set laststatus=2
 set encoding=utf-8
-set colorcolumn=79
 set title
 set wrap
 set linebreak
@@ -129,5 +127,7 @@ if has("gui_running")
 	set go-=LlRrb
 	set t_md=
 	set nomousehide
+else
+	set background=light
 endif
 
