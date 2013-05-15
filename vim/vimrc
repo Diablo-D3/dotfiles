@@ -33,7 +33,7 @@ set undodir=~/.vim/undo//
 set foldenable
 set wildmenu
 set wildmode=longest,full
-set completeopt=menuone,menu,longest,preview
+set completeopt=menuone,menu,longest
 set nomodeline
 set mouse=a
 set laststatus=2
@@ -72,9 +72,6 @@ inoremap <silent> <A-d> <C-o>:wincmd L<cr>
 noremap <silent> <C-r> <C-w>v<cr>
 vnoremap <silent> <C-r> <C-o><C-w>v<cr>
 
-noremap <silent> <C-/> :nohlsearch<cr>
-inoremap <silent> <C-/> <C-o>:nohlsearch<cr>
-
 vnoremap <silent> <C-x> "+x
 vnoremap <silent> <C-c> "+y
 noremap <silent> <C-v> "+gp
@@ -85,9 +82,11 @@ inoremap <silent> <C-z> <C-o>u
 
 au BufWritePre * :%s/\s\+$//e
 
-au VimEnter * RainbowParenthesesToggleAll
+au BufReadPost * :DetectIndent
+au BufReadPost * :RainbowParenthesesToggleAll
 au FileType * :Rooter
 
+let g:detectindent_preferred_expandtab=1
 let g:tagbar_autofocus=1
 let g:tagbar_compact=1
 let g:tagbar_autoclose=1

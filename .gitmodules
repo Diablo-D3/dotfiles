@@ -55,3 +55,6 @@
 [submodule "vim/bundle/vim-erlang"]
 	path = vim/bundle/vim-erlang
 	url = https://github.com/hcs42/vim-erlang.git
+[submodule "vim/bundle/DetectIndent"]
+	path = vim/bundle/DetectIndent
+	url = https://github.com/vim-scripts/DetectIndent.git
