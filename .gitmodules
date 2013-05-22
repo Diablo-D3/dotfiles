@@ -58,3 +58,6 @@
 [submodule "vim/bundle/DetectIndent"]
 	path = vim/bundle/DetectIndent
 	url = https://github.com/vim-scripts/DetectIndent.git
+[submodule "vim/bundle/vim-eunuch"]
+	path = vim/bundle/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch.git

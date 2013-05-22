@@ -85,6 +85,7 @@ au BufWritePre * :%s/\s\+$//e
 au BufReadPost * :DetectIndent
 au BufReadPost * :RainbowParenthesesToggleAll
 au FileType * :Rooter
+au FileType html :set ft=htmldjango
 
 let g:detectindent_preferred_expandtab=1
 let g:tagbar_autofocus=1
