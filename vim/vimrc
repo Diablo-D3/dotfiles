@@ -15,6 +15,7 @@ let g:rehash256=1
 
 set sw=8
 set ts=8
+set sts=8
 set hidden
 set ignorecase
 set smartcase
@@ -33,7 +34,7 @@ set undodir=~/.vim/undo//
 set foldenable
 set wildmenu
 set wildmode=longest,full
-set completeopt=menuone,menu,longest
+set completeopt=menuone,menu
 set nomodeline
 set mouse=a
 set laststatus=2
@@ -42,6 +43,8 @@ set title
 set wrap
 set linebreak
 set nolist
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 noremap ; :
 
@@ -83,9 +86,13 @@ inoremap <silent> <C-z> <C-o>u
 au BufWritePre * :%s/\s\+$//e
 
 au BufReadPost * :DetectIndent
-au BufReadPost * :RainbowParenthesesToggleAll
+au VimEnter * RainbowParenthesesToggleAll
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 au FileType * :Rooter
 au FileType html :set ft=htmldjango
+au FileType erlang :set sw=4 sts=4 expandtab
 
 let g:detectindent_preferred_expandtab=1
 let g:tagbar_autofocus=1
@@ -105,15 +112,15 @@ let g:ycm_key_list_select_completion=['<TAB>']
 let g:ycm_key_list_previous_completion=['<S-TAB>']
 let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
 
-noremap <silent> <C-q> :CtrlPBuffer<cr>
-noremap <silent> <C-e> :CtrlP<cr>
-noremap <silent> <C-g> :GundoToggle<cr>
-noremap <silent> <C-f> :TagbarToggle<cr>
+noremap <silent> <F1> :CtrlPBuffer<cr>
+noremap <silent> <F2> :CtrlPClearCache <bar> CtrlP<cr>
+noremap <silent> <F3> :GundoToggle<cr>
+noremap <silent> <F4> :TagbarToggle<cr>
 
-inoremap <silent> <C-q> <C-o>:CtrlPBuffer<cr>
-inoremap <silent> <C-e> <C-o>:CtrlP<cr>
-inoremap <silent> <C-g> <C-o>:GundoToggle<cr>
-inoremap <silent> <C-f> <C-o>:TagbarToggle<cr>
+inoremap <silent> <F1> <C-o>:CtrlPBuffer<cr>
+inoremap <silent> <F2> <C-o>:CtrlPClearCache <bar> CtrlP<cr>
+inoremap <silent> <F3> <C-o>:GundoToggle<cr>
+inoremap <silent> <F4> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
 	if has("gui_macvim")
