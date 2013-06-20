@@ -64,3 +64,9 @@
 [submodule "vim/bundle/vim-misc"]
 	path = vim/bundle/vim-misc
 	url = https://github.com/xolox/vim-misc.git
+[submodule "vim/bundle/vim-tmux-navigator"]
+	path = vim/bundle/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "bin/tmux-vim-select-pane"]
+	path = bin/tmux-vim-select-pane
+	url = https://github.com/derekprior/tmux-vim-select-pane
