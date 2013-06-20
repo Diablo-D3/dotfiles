@@ -1,4 +1,4 @@
-PATH=$HOME/config/bin:$PATH
+PATH=$HOME/config/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh/oh-my-zsh
