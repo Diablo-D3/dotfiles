@@ -11,7 +11,7 @@ ln -s ~/config/Xdefaults ~/.Xdefaults
 ln -s ~/config/zsh/zshrc ~/.zshrc
 ln -s ~/config/zsh ~/.zsh
 
-ln -s ~/config/tmux.confg ~/.tmux.conf
+ln -s ~/config/tmux.conf ~/.tmux.conf
 
 cd ~/config
 git submodule init && git submodule update
