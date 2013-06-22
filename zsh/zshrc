@@ -46,6 +46,9 @@ rvm_current() {
 
 setopt no_hup
 unsetopt check_jobs
+setopt inc_append_history
+unsetopt share_history
+unsetopt correct
 
 # I don't care for powerline's version of the prompt
 
