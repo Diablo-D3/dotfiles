@@ -18,10 +18,10 @@
 	url = https://github.com/tpope/vim-endwise.git
 [submodule "vim/bundle/vim-haml"]
 	path = vim/bundle/vim-haml
-	url = https://github.com/tpope/vim-endwise.git
+	url = https://github.com/tpope/vim-haml.git
 [submodule "vim/bundle/vim-obesssion"]
 	path = vim/bundle/vim-obsession
-	url = https://github.com/tpope/vim-endwise.git
+	url = https://github.com/tpope/vim-obession.git
 [submodule "vim/bundle/vim-scriptease"]
 	path = vim/bundle/vim-scriptease
 	url = https://github.com/tpope/vim-scriptease
