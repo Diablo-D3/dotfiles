@@ -87,7 +87,6 @@ inoremap <silent> <C-z> <C-o>u
 
 au BufWritePre * :%s/\s\+$//e
 
-au BufReadPost * :DetectIndent
 au VimEnter * RainbowParenthesesToggleAll
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
@@ -96,10 +95,6 @@ au FileType * :Rooter
 au FileType html :set ft=htmldjango
 au FileType erlang :set sw=4 sts=4 expandtab
 
-let g:detectindent_preferred_expandtab=1
-let g:tagbar_autofocus=1
-let g:tagbar_compact=1
-let g:tagbar_autoclose=1
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=0
 let g:syntastic_auto_loc_list=1
@@ -116,13 +111,9 @@ let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
 
 noremap <silent> <F1> :CtrlPBuffer<cr>
 noremap <silent> <F2> :CtrlPClearCache <bar> CtrlP<cr>
-noremap <silent> <F3> :GundoToggle<cr>
-noremap <silent> <F4> :TagbarToggle<cr>
 
 inoremap <silent> <F1> <C-o>:CtrlPBuffer<cr>
 inoremap <silent> <F2> <C-o>:CtrlPClearCache <bar> CtrlP<cr>
-inoremap <silent> <F3> <C-o>:GundoToggle<cr>
-inoremap <silent> <F4> <C-o>:TagbarToggle<cr>
 
 if has("gui_running")
 	if has("gui_macvim")
