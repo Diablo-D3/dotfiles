@@ -66,8 +66,8 @@ imap <silent> <C-k> <C-o>:TmuxNavigateUp<cr>
 imap <silent> <C-l> <C-o>:TmuxNavigateRight<cr>
 imap <silent> <C-\> <C-o>:TmuxNavigatePrevious<cr>
 
-noremap <silent> <C-i> :split<cr>
-noremap <silent> <C-o> :vsplit<cr>
+noremap <silent> hh :split<cr>
+noremap <silent> vv :vsplit<cr>
 
 if bufwinnr(1)
 	noremap + <C-W>+
