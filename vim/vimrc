@@ -36,7 +36,7 @@ set wildmenu
 set wildmode=longest,full
 set completeopt=longest,menuone
 set nomodeline
-set mouse=a
+set mouse+=a
 set laststatus=2
 set encoding=utf-8
 set title
@@ -128,6 +128,10 @@ if has("gui_running")
 	set t_md=
 	set nomousehide
 else
+	if &term =~ '^screen'
+	    set ttymouse=xterm2
+	endif
+
 	set background=light
 endif
 
