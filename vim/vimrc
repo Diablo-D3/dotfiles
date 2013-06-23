@@ -61,10 +61,12 @@ nmap <silent> <C-h> :TmuxNavigateLeft<cr>
 nmap <silent> <C-j> :TmuxNavigateDown<cr>
 nmap <silent> <C-k> :TmuxNavigateUp<cr>
 nmap <silent> <C-l> :TmuxNavigateRight<cr>
+nmap <silent> <C-\> :TmuxNavigatePrevious<cr>
 imap <silent> <C-h> <C-o>:TmuxNavigateLeft<cr>
 imap <silent> <C-j> <C-o>:TmuxNavigateDown<cr>
 imap <silent> <C-k> <C-o>:TmuxNavigateUp<cr>
 imap <silent> <C-l> <C-o>:TmuxNavigateRight<cr>
+imap <silent> <C-\> <C-o>:TmuxNavigatePrevious<cr>
 
 noremap <silent> <C-i> :split<cr>
 noremap <silent> <C-o> :vsplit<cr>
