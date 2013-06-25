@@ -10,8 +10,7 @@ filetype plugin indent on
 
 set t_Co=256
 
-colorscheme molokai
-let g:rehash256=1
+colorscheme solarized
 
 set sw=8
 set ts=8
@@ -131,7 +130,5 @@ else
 	if &term =~ '^screen'
 	    set ttymouse=xterm2
 	endif
-
-	set background=light
 endif
 

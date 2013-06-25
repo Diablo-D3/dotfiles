@@ -13,6 +13,8 @@ ln -s ~/config/zsh ~/.zsh
 
 ln -s ~/config/tmux.conf ~/.tmux.conf
 
+ln -s ~/config/config/powerline ~/.config/powerline
+
 cd ~/config
 git submodule init && git submodule update
 
