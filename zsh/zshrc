@@ -50,6 +50,8 @@ setopt inc_append_history
 unsetopt share_history
 unsetopt correct
 
+eval `dircolors ${HOME}/config/dircolors-solarized/dircolors.ansi-dark`
+
 # I don't care for powerline's version of the prompt
 
 RESET=%f%k
