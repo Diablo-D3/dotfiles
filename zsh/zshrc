@@ -48,7 +48,7 @@ setopt no_hup
 unsetopt check_jobs
 setopt inc_append_history
 unsetopt share_history
-unsetopt correct
+unsetopt correct_all
 
 eval `dircolors ${HOME}/config/dircolors-solarized/dircolors.ansi-dark`
 
