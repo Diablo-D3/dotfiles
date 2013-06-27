@@ -34,9 +34,6 @@ URxvt*cursorUnderline: true
 #define S_base2 #eee8d5
 #define S_base3 #fdf6e3
 
-URxvt*background: #002b36
-URxvt*foreground: #839496
-
 *background: S_base03
 *foreground: S_base0
 *fading: 0
