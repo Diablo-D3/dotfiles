@@ -9,7 +9,7 @@ mkdir ~/config/vim/tags
 ln -s ~/config/zsh/zshrc ~/.zshrc
 ln -s ~/config/zsh ~/.zsh
 
-ln -s ~/config/Xdefaults ~/.Xdefaults
+ln -s ~/config/Xresources ~/.Xresources
 ln -s ~/config/tmux.conf ~/.tmux.conf
 ln -s ~/config/config/powerline ~/.config/powerline
 ln -s ~/config/dircolors-solarized/dircolors.ansi-dark ~/.dir_colors
