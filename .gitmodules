@@ -62,7 +62,7 @@
 	path = vim/bundle/powerline
 	url = https://github.com/Lokaltog/powerline.git
 [submodule "vim/bundle/vim-erlang-runtime"]
-	path = vim/bundle/vim-erlang-runtime
+	path = vim/bundle/vim-erlang
 	url = https://github.com/hcs42/vim-erlang-runtime.git
 [submodule "vim/bundle/vim-tmux-navigator"]
 	path = vim/bundle/vim-tmux-navigator
