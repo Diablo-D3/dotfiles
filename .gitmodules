@@ -61,16 +61,15 @@
 [submodule "vim/bundle/powerline"]
 	path = vim/bundle/powerline
 	url = https://github.com/Lokaltog/powerline.git
-[submodule "vim/bundle/vim-erlang"]
-	path = vim/bundle/vim-erlang
-	url = https://github.com/hcs42/vim-erlang.git
+[submodule "vim/bundle/vim-erlang-runtime"]
+	path = vim/bundle/vim-erlang-runtime
+	url = https://github.com/hcs42/vim-erlang-runtime.git
 [submodule "vim/bundle/vim-tmux-navigator"]
 	path = vim/bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
 [submodule "zsh/oh-my-zsh"]
 	path = zsh/oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
-
 [submodule "vim/bundle/vim-colors-solarized"]
 	path = vim/bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
