@@ -1,5 +1,3 @@
-!URxvt*background: Black
-!URxvt*foreground: White
 URxvt*scrollBar: False
 URxvt*saveLines: 50000
 URxvt*jumpScroll: false
@@ -13,6 +11,7 @@ URxvt*boldItalicFont: xft:Source Code Pro for Powerline:pixelsize=16:style=Regul
 URxvt*letterSpace: -1
 URxvt*cursorBlink: true
 URxvt*cursorUnderline: true
+URxvt.intensityStyles: false
 
 ! From https://github.com/solarized/xresources/blob/master/solarized
 
@@ -25,6 +24,8 @@ URxvt*cursorUnderline: true
 #define S_cyan #2aa198
 #define S_green #859900
 
+! Dark
+
 #define S_base03 #002b36
 #define S_base02 #073642
 #define S_base01 #586e75
@@ -33,6 +34,17 @@ URxvt*cursorUnderline: true
 #define S_base1 #93a1a1
 #define S_base2 #eee8d5
 #define S_base3 #fdf6e3
+
+! Light
+
+! #define S_base03 #fdf6e3
+! #define S_base02 #eee8d5
+! #define S_base01 #93a1a1
+! #define S_base00 #839496
+! #define S_base0 #657b83
+! #define S_base1 #586e75
+! #define S_base2 #073642
+! #define S_base3 #002b36
 
 *background: S_base03
 *foreground: S_base0

@@ -8,10 +8,16 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 syn on
 filetype plugin indent on
 
-set t_Co=256
+set t_Co=16
+let g:solarized_termcolors=16
 
 colorscheme solarized
-set background=dark
+
+if has('gui_running')
+    set background=dark " set to light if using soalrized light
+else
+    set background=dark
+endif
 
 set sw=8
 set ts=8
