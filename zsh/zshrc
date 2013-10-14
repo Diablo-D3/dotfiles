@@ -23,13 +23,13 @@ DISABLE_AUTO_UPDATE="true"
 # export UPDATE_ZSH_DAYS=13
 
 # Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
+DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -52,76 +52,46 @@ unsetopt correct_all
 
 eval `dircolors ${HOME}/config/dircolors-solarized/dircolors.ansi-dark`
 
-# I don't care for powerline's version of the prompt
-
 RESET=%f%k
-SEP=$'\ue0b0'
-HALFSEP=$'\ue0b1'
-RSEP=$'\ue0b2'
 
 if [ $(id -u) -eq 0 ]; then
-	PRI_BG=%K{196}
-	PRI_FG=%F{196}
-	PRI_TXT=%F{231}
-	SEC_BG=%K{52}
-	SEC_FG=%F{52}
-	SEC_TXT=%F{217}
+	PRO_FG=%F{196}
+	PRO_SYM="#"
 else
-	PRI_TXT=%F{16}
+	PRO_SYM="\$"
 
 	case $HOST in
 	[a-h]*)
-		PRI_BG=%K{33}
-		PRI_FG=%F{33}
-		SEC_BG=%K{17}
-		SEC_FG=%F{17}
-		SEC_TXT=%F{147}
+		PRO_FG=%F{33}
 		;;
 	[i-q]*)
-		PRI_BG=%K{46}
-		PRI_FG=%F{46}
-		SEC_BG=%K{22}
-		SEC_FG=%F{22}
-		SEC_TXT=%F{157}
+		PRO_FG=%F{46}
 		;;
 	[r-z]*)
-		PRI_BG=%K{226}
-		PRI_FG=%F{226}
-		SEC_BG=%K{058}
-		SEC_FG=%F{058}
-		SEC_TXT=%F{229}
+		PRO_FG=%F{226}
 	esac
 fi
 
-ZSH_THEME_GIT_PROMPT_PREFIX=" $HALFSEP "
+ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=
-ZSH_THEME_GIT_PROMPT_DIRTY=" %F{196}x"
-ZSH_THEME_GIT_PROMPT_CLEAN=
+ZSH_THEME_GIT_PROMPT_DIRTY=" %F{196}x$RESET"
+ZSH_THEME_GIT_PROMPT_CLEAN=" "
 
-ZSH_THEME_GIT_PROMPT_ADDED=
-ZSH_THEME_GIT_PROMPT_MODIFIED=
-ZSH_THEME_GIT_PROMPT_DELETED=
+ZSH_THEME_GIT_PROMPT_ADDED="%F{226}+$RESET"
+ZSH_THEME_GIT_PROMPT_MODIFIED="%F{226}*$RESET"
+ZSH_THEME_GIT_PROMPT_DELETED="%F{226}-$RESET"
 ZSH_THEME_GIT_PROMPT_UNTRACKED=
-ZSH_THEME_GIT_PROMPT_RENAMED=
-ZSH_THEME_GIT_PROMPT_UNMERGED=
-ZSH_THEME_GIT_PROMPT_AHEAD=
-ZSH_THEME_GIT_PROMPT_BEHIND=
+ZSH_THEME_GIT_PROMPT_RENAMED="%F{226}\u2192$RESET"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%F{226}!$RESET"
+ZSH_THEME_GIT_PROMPT_AHEAD="%F{021}\u21AA$RESET"
+ZSH_THEME_GIT_PROMPT_BEHIND="%F{021}\u21A9$RESET"
 ZSH_THEME_GIT_PROMPT_DIVERGED=
 
-USR_PROMPT="$RESET$PRI_BG$PRI_TXT %m $PRI_FG"
+PRO_GIT=$'$(git_prompt_info)$(git_prompt_status)'
 
-PATH_PROMPT="$SEC_BG$SEP$SEC_TXT %3~"
+PROMPT="[$PRO_FG%m$RESET %3~$PRO_GIT]$PRO_SYM "
 
-GIT_PROMPT=$'$(git_prompt_info)$(git_prompt_status)'
+ERR_FG=%F{196}
 
-END_PROMPT=" $RESET$SEC_FG$SEP$RESET "
+RPROMPT=$'%(?..$ERR_FG\u21B3$RESET $?)'
 
-PROMPT="$USR_PROMPT$PATH_PROMPT$GIT_PROMPT$END_PROMPT"
-
-ERR_BG=%K{52}
-ERR_FG=%F{52}
-ERR_TXT=%F{217}
-
-EXIT_PROMPT='%(?..$RESET$ERR_FG$RSEP$ERR_BG$ERR_TXT $? $RESET)'
-
-RPROMPT="$EXIT_PROMPT"
