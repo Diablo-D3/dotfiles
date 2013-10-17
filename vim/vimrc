@@ -3,8 +3,6 @@ set nocompatible
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-
 syn on
 filetype plugin indent on
 
@@ -76,8 +74,8 @@ noremap <silent> hh :split<cr>
 noremap <silent> vv :vsplit<cr>
 
 if bufwinnr(1)
-	noremap + <C-W>+
-	noremap - <C-W>-
+    noremap + <C-W>+
+    noremap - <C-W>-
 endif
 
 noremap <silent> <C-r> <C-w>v<cr>
@@ -131,20 +129,21 @@ inoremap <silent> <F1> <C-o>:CtrlPBuffer<cr>
 inoremap <silent> <F2> <C-o>:CtrlPClearCache <bar> CtrlP<cr>
 
 if has("gui_running")
-	if has("gui_macvim")
-		set guifont=Source\ Code\ Pro:h16
-	else
-		set guifont=Source\ Code\ Pro\ 12
-	endif
-	set go-=T
-	set go-=m
-	set go+=LlRrb
-	set go-=LlRrb
-	set t_md=
-	set nomousehide
+    if has("gui_macvim")
+	set guifont=Source\ Code\ Pro:h16
+    else
+	set guifont=Source\ Code\ Pro\ 12
+    endif
+
+    set go-=T
+    set go-=m
+    set go+=LlRrb
+    set go-=LlRrb
+    set t_md=
+    set nomousehide
 else
-	if &term =~ '^screen'
-	    set ttymouse=xterm2
-	endif
+    if &term =~ '^screen'
+	set ttymouse=xterm2
+    endif
 endif
 
