@@ -4,10 +4,10 @@ URxvt*jumpScroll: false
 URxvt*multiScroll: true
 URxvt*perl-ext-common: default,matcher
 URxvt*urlLauncher: /usr/bin/firefox
-URxvt*font:           xft:Source Code Pro:pixelsize=16:style=Regular
-URxvt*boldFont:       xft:Source Code Pro:pixelsize=16:style=Regular
-URxvt*italicFont:     xft:Source Code Pro:pixelsize=16:style=Regular
-URxvt*boldItalicFont: xft:Source Code Pro:pixelsize=16:style=Regular
+URxvt*font:           xft:Source Code Pro:pixelsize=16
+URxvt*boldFont:       xft:Source Code Pro:pixelsize=16
+URxvt*italicFont:     xft:Source Code Pro:pixelsize=16
+URxvt*boldItalicFont: xft:Source Code Pro:pixelsize=16
 URxvt*letterSpace: -1
 URxvt*cursorBlink: true
 URxvt*cursorUnderline: true
