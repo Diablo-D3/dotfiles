@@ -38,19 +38,11 @@ plugins=(git git-extras tmux autojump brew)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-
-rvm_current() {
-	rvm current 2>/dev/null
-}
-
 setopt no_hup
 unsetopt check_jobs
 setopt inc_append_history
 unsetopt share_history
 unsetopt correct_all
-
-eval `dircolors ${HOME}/config/dircolors-solarized/dircolors.ansi-dark`
 
 RESET=%f%k
 

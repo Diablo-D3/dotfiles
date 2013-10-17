@@ -7,12 +7,11 @@ syn on
 filetype plugin indent on
 
 set t_Co=16
-let g:solarized_termcolors=16
 
-colorscheme solarized
+colorscheme base16-default
 
 if has('gui_running')
-    set background=dark " set to light if using soalrized light
+    set background=dark " set to light if using light terminal
 else
     set background=dark
 endif
@@ -130,9 +129,9 @@ inoremap <silent> <F2> <C-o>:CtrlPClearCache <bar> CtrlP<cr>
 
 if has("gui_running")
     if has("gui_macvim")
-	set guifont=Source\ Code\ Pro:h16
+	set guifont=Terminus:h20
     else
-	set guifont=Source\ Code\ Pro\ 12
+	set guifont=Terminus\ 15
     endif
 
     set go-=T
