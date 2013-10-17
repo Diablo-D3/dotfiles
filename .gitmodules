@@ -58,9 +58,6 @@
 [submodule "vim/bundle/YouCompleteMe"]
 	path = vim/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
-[submodule "vim/bundle/powerline"]
-	path = vim/bundle/powerline
-	url = https://github.com/Lokaltog/powerline.git
 [submodule "vim/bundle/vim-erlang-runtime"]
 	path = vim/bundle/vim-erlang
 	url = https://github.com/hcs42/vim-erlang-runtime.git
