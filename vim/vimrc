@@ -129,7 +129,7 @@ inoremap <silent> <F2> <C-o>:CtrlPClearCache <bar> CtrlP<cr>
 
 if has("gui_running")
     if has("gui_macvim")
-	set guifont=Terminus:h16
+	set guifont=Terminus Medium:h16
     else
 	set guifont=Terminus\ 12
     endif
@@ -140,6 +140,7 @@ if has("gui_running")
     set go-=LlRrb
     set t_md=
     set nomousehide
+    set noantialias
 else
     if &term =~ '^screen'
 	set ttymouse=xterm2
