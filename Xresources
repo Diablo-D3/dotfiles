@@ -7,9 +7,9 @@ URxvt*multiScroll: true
 URxvt*perl-ext-common: default,matcher
 URxvt*urlLauncher: /usr/bin/firefox
 URxvt*font:           -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
-URxvt*boldFont:       -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+URxvt*boldFont:       -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
 URxvt*italicFont:     -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
-URxvt*boldItalicFont: -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+URxvt*boldItalicFont: -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
 URxvt*letterSpace: 0
 URxvt*lineSpace: 1
 URxvt*cursorBlink: true
