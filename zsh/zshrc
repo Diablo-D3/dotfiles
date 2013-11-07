@@ -1,4 +1,4 @@
-PATH=/usr/local/opt/coreutils/libexec/gnubin::/usr/local/bin:$PATH
+PATH=$HOME/bin:/usr/local/opt/coreutils/libexec/gnubin::/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh/oh-my-zsh
