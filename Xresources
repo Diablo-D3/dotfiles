@@ -11,7 +11,7 @@ URxvt*boldFont:       -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
 URxvt*italicFont:     -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
 URxvt*boldItalicFont: -xos4-terminus-bold-r-normal--16-160-72-72-c-80-iso10646-1
 URxvt*letterSpace: 0
-URxvt*lineSpace: 1
+URxvt*lineSpace: 0
 URxvt*cursorBlink: true
 URxvt*cursorUnderline: true
 URxvt*intensityStyles: false
