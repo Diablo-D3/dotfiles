@@ -131,16 +131,18 @@ let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 
 noremap <silent> <F1> :CtrlPBuffer<cr>
-noremap <silent> <F2> :CtrlPClearCache <bar> CtrlP<cr>
+noremap <silent> <F2> :CtrlP<cr>
+noremap <silent> <F3> :CtrlPClearCache<cr>
 
 inoremap <silent> <F1> <C-o>:CtrlPBuffer<cr>
-inoremap <silent> <F2> <C-o>:CtrlPClearCache <bar> CtrlP<cr>
+inoremap <silent> <F2> <C-o>:CtrlP<cr>
+inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
 
 if has("gui_running")
     if has("gui_macvim")
-	set guifont=Terminus\ Medium:h16
+        set guifont=Source\ Code\ Pro:h14
     else
-	set guifont=Terminus\ 12
+        set guifont=Terminus\ 12
     endif
 
     set go-=T
@@ -152,7 +154,7 @@ if has("gui_running")
     set noantialias
 else
     if &term =~ '^screen'
-	set ttymouse=xterm2
+    set ttymouse=xterm2
     endif
 endif
 
