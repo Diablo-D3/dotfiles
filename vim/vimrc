@@ -51,6 +51,17 @@ noremap ; :
 
 nnoremap Q <nop>
 
+noremap <silent> <C-r> <C-w>v<cr>
+vnoremap <silent> <C-r> <C-o><C-w>v<cr>
+
+vnoremap <silent> <C-x> "+x
+vnoremap <silent> <C-c> "+y
+noremap <silent> <C-v> "+gp
+inoremap <silent> <C-v> <C-o>"+gp
+
+noremap <silent> <C-z> u
+inoremap <silent> <C-z> <C-o>u
+
 noremap <silent> <Up> gk
 noremap <silent> <Down> gj
 vnoremap <silent> <Up> gk
@@ -77,25 +88,16 @@ if bufwinnr(1)
     noremap - <C-W>-
 endif
 
-noremap <silent> <C-r> <C-w>v<cr>
-vnoremap <silent> <C-r> <C-o><C-w>v<cr>
-
-vnoremap <silent> <C-x> "+x
-vnoremap <silent> <C-c> "+y
-noremap <silent> <C-v> "+gp
-inoremap <silent> <C-v> <C-o>"+gp
-
-noremap <silent> <C-z> u
-inoremap <silent> <C-z> <C-o>u
-
 au BufWritePre * :%s/\s\+$//e
+
 au BufNewFile,BufRead *.dtl :set ft=htmldjango
 au FileType html :set ft=htmldjango
-au FileType erlang :set sw=4 sts=4 expandtab
+
 au VimEnter * RainbowParenthesesToggleAll
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
 au FileType * :Rooter
 
 let g:syntastic_enable_signs=1
@@ -105,8 +107,10 @@ let g:syntastic_c_auto_refresh_includes=1
 let g:syntastic_c_check_header=1
 let g:syntastic_error_symbol='E'
 let g:syntastic_warning_symbol='W'
+
 let g:easytags_by_filetype="~/.vim/tags/"
 let g:easytags_updatetime_min=2000
+
 let g:ycm_min_num_of_chars_for_completion=99
 let g:ycm_allow_changing_updatetime=0
 let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
@@ -118,7 +122,7 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_add_preview_to_completeopt=1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_autoclose_preview_window_after_insertion=1
-let g:ycm_semantic_triggers={ 'css,scss' : ['#', '.', '%'], }
+let g:ycm_semantic_triggers={ 'css,scss' : ['#', '.', '%', '$'], }
 let g:ycm_cache_omnifunc=0
 
 if !exists('g:airline_symbols')
@@ -139,22 +143,52 @@ inoremap <silent> <F2> <C-o>:CtrlP<cr>
 inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
 
 if has("gui_running")
-    if has("gui_macvim")
-        set guifont=Source\ Code\ Pro:h14
-    else
-        set guifont=Terminus\ 12
-    endif
+  if has("gui_macvim")
+    set guifont=Source\ Code\ Pro:h14
+  else
+    set guifont=Terminus\ 12
+  endif
 
-    set go-=T
-    set go-=m
-    set go+=LlRrb
-    set go-=LlRrb
-    set t_md=
-    set nomousehide
-    set noantialias
+  set go-=T
+  set go-=m
+  set go+=LlRrb
+  set go-=LlRrb
+  set t_md=
+  set nomousehide
+  set noantialias
 else
-    if &term =~ '^screen'
+  if &term =~ '^screen'
     set ttymouse=xterm2
-    endif
+  endif
 endif
+
+" 80 column highlight on demand
+call matchadd('ColorColumn', '\%80v', 100)
+
+" hlnext
+function! HLNext (blinktime)
+  let [bufnum, lnum, col, off] = getpos('.')
+  let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+  let target_pat = '\c\%#'.@/
+  let ring = matchadd('WhiteOnRed', target_pat, 101)
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  call matchdelete(ring)
+  redraw
+endfunction
+
+" handle pgp encrypted files
+augroup pgp
+  au!
+  autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+  autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
+  autocmd BufReadPre,FileReadPre *.gpg set bin
+  autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+  autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+  autocmd BufReadPost,FileReadPost *.gpg set nobin
+  autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
+  autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+  autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+  autocmd BufWritePost,FileWritePost *.gpg u
+augroup END
 
