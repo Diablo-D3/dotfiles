@@ -51,23 +51,21 @@ BLUE=%F{027}
 YELLOW=%F{226}
 
 if [ $(id -u) -eq 0 ]; then
-	PRO_SYM="#"
-
-	PRO_FG=$RED
+	PRO_SYM="$RED#$RESET"
 else
 	PRO_SYM="\$"
-
-	case $HOST in
-	[a-h]*)
-		PRO_FG=$BLUE
-		;;
-	[i-q]*)
-		PRO_FG=$GREEN
-		;;
-	[r-z]*)
-		PRO_FG=$YELLOW
-	esac
 fi
+
+case $HOST in
+[a-h]*)
+	PRO_FG=$BLUE
+	;;
+[i-q]*)
+	PRO_FG=$GREEN
+	;;
+[r-z]*)
+	PRO_FG=$YELLOW
+esac
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=
