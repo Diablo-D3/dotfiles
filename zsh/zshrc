@@ -45,10 +45,14 @@ unsetopt share_history
 unsetopt correct_all
 
 RESET=%f%k
-RED=%F{196}
-GREEN=%F{046}
-BLUE=%F{027}
-YELLOW=%F{226}
+RED=%F{001}
+GREEN=%F{002}
+YELLOW=%F{003}
+BLUE=%F{004}
+PURPLE=%F{005}
+CYAN=%F{006}
+ORANGE=%F{009}
+BROWN=%F{014}
 
 if [ $(id -u) -eq 0 ]; then
 	PRO_SYM="$RED#$RESET"
@@ -57,14 +61,27 @@ else
 fi
 
 case $HOST in
-[a-h]*)
-	PRO_FG=$BLUE
-	;;
-[i-q]*)
+[a-d]*)
 	PRO_FG=$GREEN
 	;;
-[r-z]*)
+[f-h]*)
 	PRO_FG=$YELLOW
+	;;
+[i-l]*)
+	PRO_FG=$BLUE
+	;;
+[m-p]*)
+	PRO_FG=$ORANGE
+	;;
+[q-t]*)
+	PRO_FG=$CYAN
+	;;
+[u-w]*)
+	PRO_FG=$PURPLE
+	;;
+[x-z]*)
+	PRO_FG=$BROWN
+	;;
 esac
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" "
