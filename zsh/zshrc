@@ -64,7 +64,7 @@ case $HOST in
 [a-d]*)
 	PRO_FG=$GREEN
 	;;
-[f-h]*)
+[e-h]*)
 	PRO_FG=$YELLOW
 	;;
 [i-l]*)
