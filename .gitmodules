@@ -13,7 +13,7 @@
 [submodule "vim/bundle/vim-endwise"]
 	path = vim/bundle/vim-endwise
 	url = https://github.com/tpope/vim-endwise.git
-[submodule "vim/bundle/vim-haml"]
+[SUBMODULe "vim/bundle/vim-haml"]
 	path = vim/bundle/vim-haml
 	url = https://github.com/tpope/vim-haml.git
 [submodule "vim/bundle/vim-obsession"]
@@ -78,10 +78,10 @@
 	url = https://github.com/bling/vim-airline.git
 [submodule "base16-xresources"]
 	path = base16-xresources
-	url = https://github.com/chriskempson/base16-xresources
+	url = https://github.com/chriskempson/base16-xresources.git
 [submodule "base16-iterm2"]
 	path = base16-iterm2
-	url = https://github.com/chriskempson/base16-iterm2
+	url = https://github.com/chriskempson/base16-iterm2.git
 [submodule "vim/bundle/base16-vim"]
 	path = vim/bundle/base16-vim
 	url = https://github.com/chriskempson/base16-vim.git
