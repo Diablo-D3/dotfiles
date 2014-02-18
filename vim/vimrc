@@ -6,7 +6,8 @@ call pathogen#infect()
 syn on
 filetype plugin indent on
 
-set t_Co=16
+set t_Co=256
+let base16colorspace=256
 
 colorscheme base16-default
 
@@ -56,8 +57,8 @@ vnoremap <silent> <C-r> <C-o><C-w>v<cr>
 
 vnoremap <silent> <C-x> "+x
 vnoremap <silent> <C-c> "+y
-noremap <silent> <C-v> "+gp
-inoremap <silent> <C-v> <C-o>"+gp
+noremap <silent> <C-v> "+gP
+inoremap <silent> <C-v> <C-o>"+gP
 
 noremap <silent> <C-z> u
 inoremap <silent> <C-z> <C-o>u

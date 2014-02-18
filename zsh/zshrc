@@ -44,6 +44,10 @@ setopt inc_append_history
 unsetopt share_history
 unsetopt correct_all
 
+BASE16_SCHEME="default"
+BASE16_SHELL="$HOME/config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
+[[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
+
 RESET=%f%k
 RED=%F{196}
 GREEN=%F{002}
