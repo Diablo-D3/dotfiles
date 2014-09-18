@@ -146,7 +146,8 @@ inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
 
 if has("gui_running")
   if has("gui_macvim")
-    set guifont=Source\ Code\ Pro:h14
+    set guifont=Source\ Code\ Pro\ Light:h14
+    set anti
   else
     set guifont=Terminus\ 12
   endif
@@ -157,7 +158,6 @@ if has("gui_running")
   set go-=LlRrb
   set t_md=
   set nomousehide
-  set noantialias
 else
   if &term =~ '^screen'
     set ttymouse=xterm2
@@ -166,18 +166,6 @@ endif
 
 " 80 column highlight on demand
 call matchadd('ColorColumn', '\%80v', 100)
-
-" hlnext
-function! HLNext (blinktime)
-  let [bufnum, lnum, col, off] = getpos('.')
-  let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-  let target_pat = '\c\%#'.@/
-  let ring = matchadd('WhiteOnRed', target_pat, 101)
-  redraw
-  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-  call matchdelete(ring)
-  redraw
-endfunction
 
 " handle pgp encrypted files
 augroup pgp
