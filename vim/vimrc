@@ -147,10 +147,10 @@ inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
 
 if has("gui_running")
   if has("gui_macvim")
-    set guifont=Source\ Code\ Pro\ Light:h14
+    set guifont=Source\ Code\ Pro\ Light:h15
     set anti
   else
-    set guifont=Terminus\ 12
+    set guifont=Source\ Code\ Pro\ 11
   endif
 
   set go-=T
