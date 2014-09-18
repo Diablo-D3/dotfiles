@@ -65,26 +65,26 @@ else
 fi
 
 case $HOST in
-[a-d]*)
+[a,n,o]*)
 	PRO_FG=$GREEN
 	;;
-[e-h]*)
-	PRO_FG=$YELLOW
-	;;
-[i-l]*)
-	PRO_FG=$BLUE
-	;;
-[m-p]*)
+[b,m,p]*)
 	PRO_FG=$ORANGE
 	;;
-[q-t]*)
+[c,l,q,z]*)
 	PRO_FG=$CYAN
 	;;
-[u-w]*)
-	PRO_FG=$PURPLE
-	;;
-[x-z]*)
+[d,k,r,y]*)
 	PRO_FG=$BROWN
+	;;
+[e,j,s,x]*)
+	PRO_FG=$YELLOW
+	;;
+[f,i,t,w]*)
+	PRO_FG=$BLUE
+	;;
+[g,h,u,v]*)
+	PRO_FG=$PURPLE
 	;;
 esac
 
