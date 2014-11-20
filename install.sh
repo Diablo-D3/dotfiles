@@ -12,6 +12,7 @@ ln -s ~/config/zsh ~/.zsh
 ln -s ~/config/Xresources ~/.Xresources
 ln -s ~/config/tmux.conf ~/.tmux.conf
 ln -s ~/config/minttyrc ~/.minttyrc
+ln -s ~/config/toprc ~/.toprc
 
 cd ~/config
 git submodule update --init --recursive
