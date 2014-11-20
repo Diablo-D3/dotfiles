@@ -48,6 +48,7 @@ set title
 set wrap
 set linebreak
 set nolist
+set virtualedit=onemore
 
 noremap ; :
 
@@ -58,7 +59,8 @@ vnoremap <silent> <C-r> <C-o><C-w>v<cr>
 
 vnoremap <silent> <C-x> "+x
 vnoremap <silent> <C-c> "+y
-noremap <silent> <C-v> "+gP
+map <silent> <C-v> "+gP
+cmap <silent> <C-v> <C-r>+
 inoremap <silent> <C-v> <C-o>"+gP
 
 noremap <silent> <C-z> u
