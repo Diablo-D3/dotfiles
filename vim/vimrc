@@ -94,8 +94,9 @@ endif
 
 au BufWritePre * :%s/\s\+$//e
 
+" gui0D, gui08, gui0B, gui0A, gui0E
 let g:rainbow_ctermfgs = ['blue', 'red', 'green', 'yellow', 'magenta']
-let g:rainbow_guifgs = ['blue', 'red', 'green', 'yellow', 'magenta']
+let g:rainbow_guifgs = ['#7cafc2', '#ab4642', '#a1b56c', '#f7ca88', '#ba8baf']
 
 au FileType c,cpp,objc,objcpp,perl call rainbow#load()
 
