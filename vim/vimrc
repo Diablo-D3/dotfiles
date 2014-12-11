@@ -94,6 +94,11 @@ endif
 
 au BufWritePre * :%s/\s\+$//e
 
+let g:rainbow_ctermfgs = ['blue', 'red', 'green', 'yellow', 'magenta']
+let g:rainbow_guifgs = ['blue', 'red', 'green', 'yellow', 'magenta']
+
+au FileType c,cpp,objc,objcpp,perl call rainbow#load()
+
 au BufNewFile,BufRead *.dtl :set ft=htmldjango
 au FileType html :set ft=htmldjango
 
