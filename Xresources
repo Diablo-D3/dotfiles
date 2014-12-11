@@ -1,4 +1,4 @@
-#include "config/base16-xresources/base16-default.dark.xresources"
+#include "config/base16-xresources/base16-bright.dark.xresources"
 
 URxvt*scrollBar: False
 URxvt*saveLines: 50000
