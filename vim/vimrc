@@ -97,11 +97,6 @@ au BufWritePre * :%s/\s\+$//e
 au BufNewFile,BufRead *.dtl :set ft=htmldjango
 au FileType html :set ft=htmldjango
 
-au VimEnter * RainbowParenthesesToggleAll
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
 au FileType * :Rooter
 
 let g:syntastic_enable_signs=1
