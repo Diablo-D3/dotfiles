@@ -95,9 +95,8 @@ endif
 
 au BufWritePre * :%s/\s\+$//e
 
-" gui0D, gui08, gui0B, gui0A, gui0E
-let g:rainbow_ctermfgs = ['blue', 'red', 'green', 'yellow', 'magenta']
-let g:rainbow_guifgs = ['#7cafc2', '#ab4642', '#a1b56c', '#f7ca88', '#ba8baf']
+let g:rainbow_ctermfgs = ['blue', 'red', 'green', 'yellow', 'magenta', 'cyan']
+let g:rainbow_guifgs = ['#7cafc2', '#ab4642', '#a1b56c', '#f7ca88', '#ba8baf', '#86c1b9']
 
 au FileType c,cpp,objc,objcpp,perl call rainbow#load()
 
@@ -109,27 +108,17 @@ au FileType * :Rooter
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=0
 let g:syntastic_auto_loc_list=1
-let g:syntastic_c_auto_refresh_includes=1
-let g:syntastic_c_check_header=1
-let g:syntastic_error_symbol='E'
-let g:syntastic_warning_symbol='W'
 
 let g:easytags_by_filetype="~/.vim/tags/"
 let g:easytags_updatetime_min=2000
 
-let g:ycm_min_num_of_chars_for_completion=99
+let g:ycm_auto_trigger=0
 let g:ycm_allow_changing_updatetime=0
 let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
-let g:ycm_complete_in_comments=1
-let g:ycm_complete_in_strings=1
-let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_add_preview_to_completeopt=1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_autoclose_preview_window_after_insertion=1
-let g:ycm_semantic_triggers={ 'css,scss' : ['#', '.', '%', '$'], }
-let g:ycm_cache_omnifunc=0
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -151,10 +140,10 @@ inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
 
 if has("gui_running")
   if has("gui_macvim")
-    set guifont=Source\ Code\ Pro\ Light:h15
+    set guifont=Source\ Code\ Pro\ Light:h16
     set anti
   else
-    set guifont=Source\ Code\ Pro\ 11
+    set guifont=Source\ Code\ Pro\ 12
   endif
 
   set go-=T

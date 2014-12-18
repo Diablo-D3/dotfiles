@@ -4,6 +4,6 @@ Charset=UTF-8
 Term=xterm-256color
 ConfirmExit=no
 Font=Source Code Pro ExtraLight
-FontHeight=11
+FontHeight=12
 Transparency=off
 Scrollbar=none
