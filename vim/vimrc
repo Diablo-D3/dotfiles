@@ -124,11 +124,11 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-let g:airline_left_sep = ''
-let g:airline_left_alt_step = '|'
-let g:airline_right_sep = ''
-let g:airline_symbols.linenr = "\u00A7"
-let g:airline_symbols.branch = ''
+let g:airline_left_sep=''
+let g:airline_left_alt_step='|'
+let g:airline_right_sep=''
+let g:airline_symbols.linenr="\u00A7"
+let g:airline_symbols.branch=''
 
 noremap <silent> <F1> :CtrlPBuffer<cr>
 noremap <silent> <F2> :CtrlP<cr>
