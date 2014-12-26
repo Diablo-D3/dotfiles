@@ -9,4 +9,9 @@ Transparency=off
 Scrollbar=none
 CopyAsRTF=no
 ClicksTargetApp=yes
+FontSmoothing=none
+ScrollMod=shift
+OpaqueWhenFocused=no
+PgUpDnScroll=no
+ClickTargetMod=shift
 
