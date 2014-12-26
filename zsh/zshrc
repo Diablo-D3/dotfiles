@@ -7,6 +7,10 @@ EDITOR=vim
 VISUAL=vim
 GIT_EDITOR=vim
 
+if [ `hostname` = "chaos" ]; then
+	export DISPLAY=127.0.0.1:0
+fi
+
 # base16
 BASE16_SCHEME="bright"
 BASE16_SHELL="$HOME/config/base16-shell/base16-$BASE16_SCHEME.dark.sh"
