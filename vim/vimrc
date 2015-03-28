@@ -122,7 +122,7 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname != "infinity"
-  let g:loaded_youcomplete_me=1
+  let g:loaded_youcompleteme=1
 endif
 
 if !exists('g:airline_symbols')
