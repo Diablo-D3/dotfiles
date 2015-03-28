@@ -111,7 +111,7 @@ let g:syntastic_auto_loc_list=1
 
 let g:easytags_by_filetype='~/.vim/tags/'
 let g:easytags_updatetime_min=2000
-let g:easytags_supress_ctags_warning=1
+let g:easytags_suppress_ctags_warning=1
 
 let g:ycm_auto_trigger=0
 let g:ycm_allow_changing_updatetime=0
