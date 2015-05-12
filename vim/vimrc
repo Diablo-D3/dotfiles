@@ -9,9 +9,9 @@ au Syntax * syn sync minlines=999999999
 filetype plugin indent on
 
 if has('gui_running')
-    set background=dark " set to light if using light scheme
+	set background=dark " set to light if using light scheme
 else
-    set background=dark
+	set background=dark
 endif
 
 set t_Co=256
@@ -91,8 +91,8 @@ noremap <silent> hh :split<cr>
 noremap <silent> vv :vsplit<cr>
 
 if bufwinnr(1)
-    noremap + <C-W>+
-    noremap - <C-W>-
+	noremap + <C-W>+
+	noremap - <C-W>-
 endif
 
 au BufWritePre * :%s/\s\+$//e
@@ -125,11 +125,11 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 
 let hostname = substitute(system('hostname'), '\n', '', '')
 if hostname != "infinity"
-  let g:loaded_youcompleteme=1
+	let g:loaded_youcompleteme=1
 endif
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 
 let g:airline_left_sep=''
@@ -137,6 +137,11 @@ let g:airline_left_alt_step='|'
 let g:airline_right_sep=''
 let g:airline_symbols.linenr="\u00A7"
 let g:airline_symbols.branch=''
+
+let g:ctrlp_custom_ignore={
+	\ 'dir': '\v[\/](bower_components|node_modules|dist)$',
+	\ 'file': '\v\.(so|jar)$'
+\}
 
 noremap <silent> <F1> :CtrlPBuffer<cr>
 noremap <silent> <F2> :CtrlP<cr>
@@ -147,23 +152,23 @@ inoremap <silent> <F2> <C-o>:CtrlP<cr>
 inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
 
 if has("gui_running")
-  if has("gui_macvim")
-    set guifont=Source\ Code\ Pro\ Light:h16
-    set anti
-  else
-    set guifont=Source\ Code\ Pro\ 12
-  endif
+	if has("gui_macvim")
+	set guifont=Source\ Code\ Pro\ Light:h16
+	set anti
+	else
+	set guifont=Source\ Code\ Pro\ 12
+	endif
 
-  set go-=T
-  set go-=m
-  set go+=LlRrb
-  set go-=LlRrb
-  set t_md=
-  set nomousehide
+	set go-=T
+	set go-=m
+	set go+=LlRrb
+	set go-=LlRrb
+	set t_md=
+	set nomousehide
 else
-  if &term =~ '^screen'
-    set ttymouse=xterm2
-  endif
+	if &term =~ '^screen'
+	set ttymouse=xterm2
+	endif
 endif
 
 " 80 column highlight on demand
@@ -171,16 +176,16 @@ call matchadd('ColorColumn', '\%80v', 100)
 
 " handle pgp encrypted files
 augroup pgp
-  au!
-  autocmd BufReadPre,FileReadPre *.gpg set viminfo=
-  autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
-  autocmd BufReadPre,FileReadPre *.gpg set bin
-  autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
-  autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
-  autocmd BufReadPost,FileReadPost *.gpg set nobin
-  autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
-  autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
-  autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
-  autocmd BufWritePost,FileWritePost *.gpg u
+	au!
+	autocmd BufReadPre,FileReadPre *.gpg set viminfo=
+	autocmd BufReadPre,FileReadPre *.gpg set noswapfile noundofile nobackup
+	autocmd BufReadPre,FileReadPre *.gpg set bin
+	autocmd BufReadPre,FileReadPre *.gpg let ch_save = &ch|set ch=2
+	autocmd BufReadPost,FileReadPost *.gpg '[,']!gpg --decrypt 2> /dev/null
+	autocmd BufReadPost,FileReadPost *.gpg set nobin
+	autocmd BufReadPost,FileReadPost *.gpg let &ch = ch_save|unlet ch_save
+	autocmd BufReadPost,FileReadPost *.gpg execute ":doautocmd BufReadPost " . expand("%:r")
+	autocmd BufWritePre,FileWritePre *.gpg '[,']!gpg --default-recipient-self -ae 2>/dev/null
+	autocmd BufWritePost,FileWritePost *.gpg u
 augroup END
 
