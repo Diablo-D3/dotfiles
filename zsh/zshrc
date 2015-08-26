@@ -21,7 +21,7 @@ ZSH=$HOME/.zsh/oh-my-zsh
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git git-extras tmux brew common-aliases completeat sudo)
+plugins=(git git-extras sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -38,9 +38,9 @@ GREEN=%F{002}
 YELLOW=%F{003}
 BLUE=%F{004}
 PURPLE=%F{005}
-CYAN=%F{006}
+CYAN=%F{014}
 ORANGE=%F{009}
-BROWN=%F{014}
+BROWN=%F{06}
 
 if [ $(id -u) -eq 0 ]; then
 	PRO_SYM="$RED#$RESET"
