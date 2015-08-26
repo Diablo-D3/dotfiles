@@ -38,9 +38,9 @@ GREEN=%F{002}
 YELLOW=%F{003}
 BLUE=%F{004}
 PURPLE=%F{005}
-CYAN=%F{014}
-ORANGE=%F{009}
-BROWN=%F{06}
+CYAN=%F{006}
+ORANGE=%F{016}
+BROWN=%F{017}
 
 if [ $(id -u) -eq 0 ]; then
 	PRO_SYM="$RED#$RESET"
