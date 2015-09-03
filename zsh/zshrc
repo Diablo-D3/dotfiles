@@ -1,5 +1,5 @@
 # Environment
-PATH=$HOME/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/local/bin:$PATH
+PATH=$HOME/bin:node_modules/.bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/local/bin:$PATH
 
 LC_CTYPE=en_US.UTF-8
 
