@@ -6,7 +6,6 @@ call pathogen#infect()
 syn on
 au Syntax * syn sync maxlines=999999999
 au Syntax * syn sync minlines=999999999
-filetype plugin indent on
 
 if has('gui_running')
 	set background=dark " set to light if using light scheme
@@ -24,6 +23,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set noexpandtab
+filetype plugin indent on
 
 set backspace=2
 set hidden
