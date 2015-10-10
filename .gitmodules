@@ -25,9 +25,6 @@
 [submodule "vim/bundle/vim-sleuth"]
 	path = vim/bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth.git
-[submodule "vim/bundle/gitv"]
-	path = vim/bundle/gitv
-	url = https://github.com/gregsexton/gitv.git
 [submodule "vim/bundle/MatchTag"]
 	path = vim/bundle/MatchTag
 	url = https://github.com/gregsexton/MatchTag.git
