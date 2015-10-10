@@ -20,9 +20,11 @@ let base16_shell_path="~/config/base16-shell"
 
 colorscheme base16-bright
 
-set sw=8
-set ts=8
-set sts=8
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+
 set backspace=2
 set hidden
 set ignorecase
