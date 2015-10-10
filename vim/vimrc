@@ -1,15 +1,17 @@
+""" Load plugins
 set nocompatible
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
-"Syntax and colorscheme
+""" UI and colors
 syn on
 au Syntax * syn sync maxlines=999999999
 au Syntax * syn sync minlines=999999999
 
 if has('gui_running')
-	set background=dark " set to light if using light scheme
+	" Set to light if using light scheme
+	set background=dark
 else
 	set background=dark
 endif
@@ -20,21 +22,59 @@ let base16_shell_path="~/config/base16-shell"
 
 colorscheme base16-bright
 
-" Tabs
+call matchadd('ColorColumn', '\%80v', 100)
+
+if has("gui_running")
+	if has("gui_macvim")
+	set guifont=Source\ Code\ Pro\ Light:h16
+	set anti
+	else
+	set guifont=Source\ Code\ Pro\ 12
+	endif
+
+	" Remove menubar and toolbar
+	set go-=mT
+
+	" Remove scrollbars
+	set go+=LlRrb
+	set go-=LlRrb
+
+	" Turn bold off
+	set t_md=
+
+	" Do not hide cursor when in insert
+	set nomousehide
+else
+	if &term =~ '^screen'
+	set ttymouse=xterm2
+	endif
+endif
+
+" Don't tell me I haven't written changes
+set hidden
+
+" Turn off errorbells and visualbells
+set noeb vb t_vb=
+au GUIEnter * set vb t_vb=
+
+" Don't flash cursor at matching paren
+set noshowmatch
+
+""" Tabs
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 filetype plugin indent on
 
-set backspace=2
-set hidden
+""" Search and replace
+set incsearch
+set hlsearch
 set ignorecase
 set smartcase
 set gdefault
-set incsearch
-set showmatch
-set hlsearch
+
+""" History and undo
 set history=10000
 set undofile
 set undolevels=10000
@@ -43,6 +83,8 @@ set noswapfile
 set nobackup
 set undofile
 set undodir=~/.vim/undo//
+
+
 set foldenable
 set wildmenu
 set wildmode=longest,full
@@ -56,6 +98,9 @@ set wrap
 set linebreak
 set nolist
 set virtualedit=onemore
+
+""" Bindings
+set backspace=2
 
 noremap ; :
 
@@ -136,29 +181,6 @@ noremap <silent> <F3> :CtrlPClearCache<cr>
 inoremap <silent> <F1> <C-o>:CtrlPBuffer<cr>
 inoremap <silent> <F2> <C-o>:CtrlP<cr>
 inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
-
-if has("gui_running")
-	if has("gui_macvim")
-	set guifont=Source\ Code\ Pro\ Light:h16
-	set anti
-	else
-	set guifont=Source\ Code\ Pro\ 12
-	endif
-
-	set go-=T
-	set go-=m
-	set go+=LlRrb
-	set go-=LlRrb
-	set t_md=
-	set nomousehide
-else
-	if &term =~ '^screen'
-	set ttymouse=xterm2
-	endif
-endif
-
-" 80 column highlight on demand
-call matchadd('ColorColumn', '\%80v', 100)
 
 " handle pgp encrypted files
 augroup pgp
