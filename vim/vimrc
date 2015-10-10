@@ -1,10 +1,11 @@
 """ Load plugins
 set nocompatible
+set encoding=utf-8
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
-""" UI and colors
+""" Colorscheme and highlighting
 syn on
 au Syntax * syn sync maxlines=999999999
 au Syntax * syn sync minlines=999999999
@@ -22,8 +23,16 @@ let base16_shell_path="~/config/base16-shell"
 
 colorscheme base16-bright
 
+" Color column 80 on demand
 call matchadd('ColorColumn', '\%80v', 100)
 
+" Don't flash cursor at matching paren
+set noshowmatch
+
+" Enable rainbow parens
+let g:rainbow_active = 1
+
+""" UI
 if has("gui_running")
 	if has("gui_macvim")
 	set guifont=Source\ Code\ Pro\ Light:h16
@@ -50,6 +59,9 @@ else
 	endif
 endif
 
+" Set xterm title
+set title
+
 " Don't tell me I haven't written changes
 set hidden
 
@@ -57,8 +69,37 @@ set hidden
 set noeb vb t_vb=
 au GUIEnter * set vb t_vb=
 
-" Don't flash cursor at matching paren
-set noshowmatch
+" Enable mouse everywhere
+set mouse+=a
+
+" Line wrap
+set wrap
+set linebreak
+
+" Don't highlight special characters
+set nolist
+
+" Always show status line
+set laststatus=2
+
+" Select last character on line
+set virtualedit=onemore
+
+" Fix backspace
+set backspace=2
+
+" Set html parsing to django
+au BufNewFile,BufRead *.dtl :set ft=htmldjango
+au FileType html :set ft=htmldjango
+
+" Remove whitespace at ends of lines at write
+au BufWritePre * :%s/\s\+$//e
+
+" Enable folds
+set foldenable
+
+" No modelines, overridden by securemodelines
+set nomodeline
 
 """ Tabs
 set tabstop=4
@@ -84,24 +125,12 @@ set nobackup
 set undofile
 set undodir=~/.vim/undo//
 
-
-set foldenable
-set wildmenu
-set wildmode=longest,full
+""" Completion
 set completeopt=longest,menuone
-set nomodeline
-set mouse+=a
-set laststatus=2
-set encoding=utf-8
-set title
-set wrap
-set linebreak
-set nolist
-set virtualedit=onemore
+set wildmenu
+set wildmode=longest:full,full
 
 """ Bindings
-set backspace=2
-
 noremap ; :
 
 nnoremap Q <nop>
@@ -123,6 +152,14 @@ noremap <silent> <Down> gj
 vnoremap <silent> <Up> gk
 vnoremap <silent> <Down> gj
 
+noremap <silent> hh :split<cr>
+noremap <silent> vv :vsplit<cr>
+
+if bufwinnr(1)
+	noremap + <C-W>+
+	noremap - <C-W>-
+endif
+
 let g:tmux_navigator_no_mappings=1
 
 nmap <silent> <C-h> :TmuxNavigateLeft<cr>
@@ -136,19 +173,20 @@ imap <silent> <C-k> <C-o>:TmuxNavigateUp<cr>
 imap <silent> <C-l> <C-o>:TmuxNavigateRight<cr>
 imap <silent> <C-\> <C-o>:TmuxNavigatePrevious<cr>
 
-noremap <silent> hh :split<cr>
-noremap <silent> vv :vsplit<cr>
+let g:ctrlp_custom_ignore={
+	\ 'dir': '\v[\/](bower_components|node_modules|dist)$',
+	\ 'file': '\v\.(so|jar)$'
+\}
 
-if bufwinnr(1)
-	noremap + <C-W>+
-	noremap - <C-W>-
-endif
+noremap <silent> <F1> :CtrlPBuffer<cr>
+noremap <silent> <F2> :CtrlP<cr>
+noremap <silent> <F3> :CtrlPClearCache<cr>
 
-au BufWritePre * :%s/\s\+$//e
+inoremap <silent> <F1> <C-o>:CtrlPBuffer<cr>
+inoremap <silent> <F2> <C-o>:CtrlP<cr>
+inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
 
-au BufNewFile,BufRead *.dtl :set ft=htmldjango
-au FileType html :set ft=htmldjango
-
+""" Plugins
 au FileType * :Rooter
 
 let g:syntastic_enable_signs=1
@@ -169,20 +207,7 @@ let g:airline_right_sep=''
 let g:airline_symbols.linenr="\u00A7"
 let g:airline_symbols.branch=''
 
-let g:ctrlp_custom_ignore={
-	\ 'dir': '\v[\/](bower_components|node_modules|dist)$',
-	\ 'file': '\v\.(so|jar)$'
-\}
-
-noremap <silent> <F1> :CtrlPBuffer<cr>
-noremap <silent> <F2> :CtrlP<cr>
-noremap <silent> <F3> :CtrlPClearCache<cr>
-
-inoremap <silent> <F1> <C-o>:CtrlPBuffer<cr>
-inoremap <silent> <F2> <C-o>:CtrlP<cr>
-inoremap <silent> <F3> <C-o>:CtrlPClearCache<cr>
-
-" handle pgp encrypted files
+""" Handle pgp encrypted files
 augroup pgp
 	au!
 	autocmd BufReadPre,FileReadPre *.gpg set viminfo=
