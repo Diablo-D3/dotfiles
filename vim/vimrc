@@ -3,6 +3,7 @@ set nocompatible
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 
+"Syntax and colorscheme
 syn on
 au Syntax * syn sync maxlines=999999999
 au Syntax * syn sync minlines=999999999
@@ -19,6 +20,7 @@ let base16_shell_path="~/config/base16-shell"
 
 colorscheme base16-bright
 
+" Tabs
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -99,11 +101,6 @@ endif
 
 au BufWritePre * :%s/\s\+$//e
 
-let g:rainbow_ctermfgs = ['blue', 'red', 'green', 'yellow', 'magenta', 'cyan']
-let g:rainbow_guifgs = ['#7cafc2', '#ab4642', '#a1b56c', '#f7ca88', '#ba8baf', '#86c1b9']
-
-au FileType c,cpp,objc,objcpp,perl call rainbow#load()
-
 au BufNewFile,BufRead *.dtl :set ft=htmldjango
 au FileType html :set ft=htmldjango
 
@@ -116,19 +113,6 @@ let g:syntastic_auto_loc_list=1
 let g:easytags_by_filetype='~/.vim/tags/'
 let g:easytags_updatetime_min=2000
 let g:easytags_suppress_ctags_warning=1
-
-let g:ycm_auto_trigger=0
-let g:ycm_allow_changing_updatetime=0
-let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
-let g:ycm_collect_identifiers_from_tags_files=1
-let g:ycm_add_preview_to_completeopt=1
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_autoclose_preview_window_after_insertion=1
-
-let hostname = substitute(system('hostname'), '\n', '', '')
-if hostname != "infinity"
-	let g:loaded_youcompleteme=1
-endif
 
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
