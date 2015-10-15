@@ -152,6 +152,10 @@ noremap <silent> <Down> gj
 vnoremap <silent> <Up> gk
 vnoremap <silent> <Down> gj
 
+cnoreabbrev wq w
+command W SudoWrite
+command WQ SudoWrite
+
 noremap <silent> hh :split<cr>
 noremap <silent> vv :vsplit<cr>
 
