@@ -153,7 +153,7 @@ vnoremap <silent> <Up> gk
 vnoremap <silent> <Down> gj
 
 cnoreabbrev wq w
-command W SudoWrite
+command! W SudoWrite
 command WQ SudoWrite
 
 noremap <silent> hh :split<cr>
