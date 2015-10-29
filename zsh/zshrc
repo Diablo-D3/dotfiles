@@ -33,12 +33,14 @@ unsetopt correct_all
 
 # zsh prompt theme
 RESET=%f%k
-RED=%F{196}
+RED=%F{001}
 GREEN=%F{002}
 YELLOW=%F{003}
 BLUE=%F{004}
 PURPLE=%F{005}
 CYAN=%F{006}
+WHITE=%F{007}
+GREY=%F{008}
 ORANGE=%F{016}
 BROWN=%F{017}
 
@@ -48,27 +50,32 @@ else
 	PRO_SYM="\$"
 fi
 
-case $HOST in
-[a,n,o]*)
-	PRO_FG=$GREEN
-	;;
-[b,m,p]*)
-	PRO_FG=$ORANGE
-	;;
-[c,l,q,z]*)
+HOSTCHECKSUM=$(echo $HOST | md5sum)
+
+case $HOSTCHECKSUM in
+[0,8]*)
 	PRO_FG=$CYAN
 	;;
-[d,k,r,y]*)
-	PRO_FG=$BROWN
-	;;
-[e,j,s,x]*)
+[1,9]*)
 	PRO_FG=$YELLOW
 	;;
-[f,i,t,w]*)
-	PRO_FG=$BLUE
+[2,a]*)
+	PRO_FG=$BROWN
 	;;
-[g,h,u,v]*)
+[3,b]*)
 	PRO_FG=$PURPLE
+	;;
+[4,c]*)
+	PRO_FG=$ORANGE
+	;;
+[5,d]*)
+	PRO_FG=$GREY
+	;;
+[6,e]*)
+	PRO_FG=$GREEN
+	;;
+[7,f]*)
+	PRO_FG=$BLUE
 	;;
 esac
 
