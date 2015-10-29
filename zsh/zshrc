@@ -50,32 +50,21 @@ else
 	PRO_SYM="\$"
 fi
 
-HOSTCHECKSUM=$(echo $HOST | md5sum)
+HOSTCHECKSUM=`echo $HOST | md5sum | cut -b1-2`
+HOSTCOLOR=`printf "%d" 0x$HOSTCHECKSUM`
 
-case $HOSTCHECKSUM in
-[0,8]*)
+case $HOSTCOLOR in
+12)
 	PRO_FG=$CYAN
 	;;
-[1,9]*)
-	PRO_FG=$YELLOW
+127)
+	PRO_FG=$BLUE
 	;;
-[2,a]*)
-	PRO_FG=$BROWN
-	;;
-[3,b]*)
-	PRO_FG=$PURPLE
-	;;
-[4,c]*)
-	PRO_FG=$ORANGE
-	;;
-[5,d]*)
-	PRO_FG=$GREY
-	;;
-[6,e]*)
+228)
 	PRO_FG=$GREEN
 	;;
-[7,f]*)
-	PRO_FG=$BLUE
+*)
+	PRO_FG=%F{$HOSTCOLOR}
 	;;
 esac
 
