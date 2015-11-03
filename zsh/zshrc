@@ -50,8 +50,16 @@ else
 	PRO_SYM="\$"
 fi
 
-HOSTCHECKSUM=`echo $HOST | md5sum | cut -b1-2`
-HOSTCOLOR=`printf "%d" 0x$HOSTCHECKSUM`
+HOSTCOLOR=0
+I=1
+J=2
+while [ $HOSTCOLOR -eq 0 -o $HOSTCOLOR -gt 231 ]; do
+	HOSTCHECKSUM=`echo $HOST | md5sum | cut -b$I-$J`
+	HOSTCOLOR=`printf "%d" 0x$HOSTCHECKSUM`
+
+	I=$[$I+1]
+	J=$[$J+1]
+done
 
 case $HOSTCOLOR in
 12)
@@ -60,7 +68,7 @@ case $HOSTCOLOR in
 127)
 	PRO_FG=$BLUE
 	;;
-228)
+221)
 	PRO_FG=$GREEN
 	;;
 *)
