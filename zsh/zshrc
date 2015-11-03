@@ -53,7 +53,7 @@ fi
 HOSTCOLOR=0
 I=1
 J=2
-while [ $HOSTCOLOR -eq 0 -o $HOSTCOLOR -gt 231 ]; do
+while [ $HOSTCOLOR -eq 0 -o $HOSTCOLOR -eq 124 -o $HOSTCOLOR -gt 231 ]; do
 	HOSTCHECKSUM=`echo $HOST | md5sum | cut -b$I-$J`
 	HOSTCOLOR=`printf "%d" 0x$HOSTCHECKSUM`
 
