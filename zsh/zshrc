@@ -67,7 +67,7 @@ case $HOSTCOLOR in
 12)
 	PRO_FG=$CYAN
 	;;
-127)
+87)
 	PRO_FG=$BLUE
 	;;
 221)
