@@ -23,6 +23,9 @@ let base16_shell_path="~/config/base16-shell"
 
 colorscheme base16-bright
 
+" Fix search/location list color
+hi Search ctermfg=00
+
 " Color column 80 on demand
 call matchadd('ColorColumn', '\%80v', 100)
 
