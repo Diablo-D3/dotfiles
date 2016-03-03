@@ -4,9 +4,6 @@
 [submodule "vim/bundle/vim-fugitive"]
 	path = vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/vim-markdown"]
-	path = vim/bundle/vim-markdown
-	url = https://github.com/tpope/vim-markdown.git
 [submodule "vim/bundle/vim-eunuch"]
 	path = vim/bundle/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch.git
@@ -49,9 +46,6 @@
 [submodule "vim/bundle/rooter.vim"]
 	path = vim/bundle/rooter.vim
 	url = https://github.com/airblade/vim-rooter.git
-[submodule "vim/bundle/vim-erlang-runtime"]
-	path = vim/bundle/vim-erlang
-	url = https://github.com/hcs42/vim-erlang-runtime.git
 [submodule "vim/bundle/vim-tmux-navigator"]
 	path = vim/bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
