@@ -91,10 +91,6 @@ set virtualedit=onemore
 " Fix backspace
 set backspace=2
 
-" Set html parsing to django
-au BufNewFile,BufRead *.dtl :set ft=htmldjango
-au FileType html :set ft=htmldjango
-
 " Remove whitespace at ends of lines at write
 au BufWritePre * :%s/\s\+$//e
 
