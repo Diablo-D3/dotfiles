@@ -8,7 +8,7 @@ VISUAL=vim
 GIT_EDITOR=vim
 
 if [ `hostname` = "chaos" ] || [ `hostname` = "infinity.lan" ] || [ `hostname` = "absolute.lan" ]; then
-	export DISPLAY=infinity.lan:0
+	export DISPLAY=chaos.lan:0
 fi
 
 alias scp='noglob scp'
