@@ -7,8 +7,8 @@ EDITOR=vim
 VISUAL=vim
 GIT_EDITOR=vim
 
-if [ `hostname` = "chaos" ]; then
-	export DISPLAY=127.0.0.1:0
+if [ `hostname` = "chaos" ] || [ `hostname` = "infinity.lan" ] || [ `hostname` = "absolute.lan" ]; then
+	export DISPLAY=infinity.lan:0
 fi
 
 alias scp='noglob scp'
@@ -100,4 +100,11 @@ PROMPT="[$PRO_FG%m$RESET %3~$PRO_GIT]$PRO_SYM "
 ERR_FG=$RED
 
 RPROMPT=$'%(?..$ERR_FG\u25B6$RESET $?)'
+
+# update DISPLAY in tmux
+precmd() {
+	if [[ -n $TMUX ]]; then
+		export `tmux show-environment DISPLAY`;
+	fi;
+}
 
