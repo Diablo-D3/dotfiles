@@ -70,7 +70,7 @@ case $HOSTCOLOR in
 87)
 	PRO_FG=$BLUE
 	;;
-221)
+221|228)
 	PRO_FG=$GREEN
 	;;
 *)
