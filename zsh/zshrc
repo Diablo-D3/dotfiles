@@ -1,15 +1,11 @@
 # Environment
-PATH=$HOME/bin:node_modules/.bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/local/bin:$PATH
+PATH=$HOME/bin:node_modules/.bin:/usr/local/sbin:/usr/local/bin:$PATH
 
 LC_CTYPE=en_US.UTF-8
 
 EDITOR=vim
 VISUAL=vim
 GIT_EDITOR=vim
-
-if [ `hostname` = "chaos" ] || [ `hostname` = "infinity.lan" ] || [ `hostname` = "absolute.lan" ]; then
-	export DISPLAY=chaos.lan:0
-fi
 
 alias scp='noglob scp'
 
