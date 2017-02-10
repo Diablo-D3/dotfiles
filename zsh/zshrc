@@ -7,7 +7,18 @@ EDITOR=vim
 VISUAL=vim
 GIT_EDITOR=vim
 
-alias scp='noglob scp'
+# better scp globbing
+alias scp='noglob scp_wrap'
+
+function scp_wrap {
+	local -a args
+	local i
+	for i in "$@"; do case $i in
+    	(*:*) args+=($i) ;;
+    	(*) args+=(${~i}) ;;
+	esac; done
+	command scp "${(@)args}"
+}
 
 # base16
 BASE16_SCHEME="bright"
