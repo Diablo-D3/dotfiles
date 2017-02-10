@@ -30,7 +30,7 @@ ZSH=$HOME/.zsh/oh-my-zsh
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 
-plugins=(git git-extras sudo)
+plugins=(git sudo)
 
 source $ZSH/oh-my-zsh.sh
 
