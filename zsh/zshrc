@@ -115,7 +115,7 @@ RPROMPT=$'%(?..$ERR_FG\u25B6$RESET $?)'
 # update DISPLAY in tmux
 precmd() {
 	if [[ -n $TMUX ]]; then
-		export `tmux show-environment DISPLAY`;
+		`tmux show-environment -s`;
 	fi;
 }
 
