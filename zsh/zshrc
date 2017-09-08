@@ -104,18 +104,21 @@ ZSH_THEME_GIT_PROMPT_AHEAD="$BLUE\u2191$RESET"
 ZSH_THEME_GIT_PROMPT_BEHIND="$BLUE\u2193$RESET"
 ZSH_THEME_GIT_PROMPT_DIVERGED="$BLUE\u21F5$RESET"
 
-PRO_GIT=$'$(git_prompt_info)$(git_prompt_status)'
+precmd() {
+	if [[ $PWD != $HOME ]]; then
+		PRO_GIT="$(git_prompt_info)$(git_prompt_status)"
+	else
+		PRO_GIT=""
+	fi
 
-PROMPT="[$PRO_FG%m$RESET %3~$PRO_GIT]$PRO_SYM "
+	if [[ -n $TMUX ]]; then
+		eval $(tmux show-environment -s)
+	fi
+}
+
+PROMPT='[$PRO_FG%m$RESET %3~$PRO_GIT]$PRO_SYM '
 
 ERR_FG=$RED
 
 RPROMPT=$'%(?..$ERR_FG\u25B6$RESET $?)'
-
-# update DISPLAY in tmux
-precmd() {
-	if [[ -n $TMUX ]]; then
-		`tmux show-environment -s`;
-	fi;
-}
 
