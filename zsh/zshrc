@@ -1,3 +1,5 @@
+#declare -F SECONDS; PS4='$SECONDS '; setopt promptsubst; set -x
+
 # Environment
 PATH=$HOME/bin:node_modules/.bin:/usr/local/sbin:/usr/local/bin:/mingw64/bin:$PATH
 
@@ -78,10 +80,10 @@ case $HOSTCOLOR in
 12)
 	PRO_FG=$CYAN
 	;;
-87)
+174)
 	PRO_FG=$BLUE
 	;;
-221|228)
+228)
 	PRO_FG=$GREEN
 	;;
 *)
