@@ -6,8 +6,10 @@ ln -s ~/config/vim ~/.vim
 mkdir ~/config/vim/undo
 mkdir ~/config/vim/tags
 
-ln -s ~/config/zsh/zshrc ~/.zshrc
-ln -s ~/config/zsh ~/.zsh
+rm ~/.bashrc
+rm ~/.bash_profile
+ln -s ~/config/bashrc ~/.bashrc
+ln -s ~/config/bash_profile ~/.bash_profile
 
 ln -s ~/config/Xresources ~/.Xresources
 ln -s ~/config/tmux.conf ~/.tmux.conf
