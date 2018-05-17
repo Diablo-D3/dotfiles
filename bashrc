@@ -130,7 +130,7 @@ preexec() {
 		COMMAND=$BASH_COMMAND
 	fi
 
-	PRO_TITLE="\033]0;$(hostname -s): $COMMAND\007"
+	PRO_TITLE="\033]0;${HOSTNAME%%.*}: $COMMAND\007"
 	echo -ne "$PRO_TITLE"
 }
 
