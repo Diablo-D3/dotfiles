@@ -1,11 +1,13 @@
-# Environment
-PATH=$HOME/bin:node_modules/.bin:/usr/local/sbin:/usr/local/bin:/mingw64/bin:$PATH
+# environment
+PATH=$HOME/bin:node_modules/.bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/mingw64/bin:$PATH
 
 LC_CTYPE=en_US.UTF-8
 
 EDITOR=vim
 VISUAL=vim
 GIT_EDITOR=vim
+
+[ -z "$PS1" ] && return
 
 if [[ -a ~/.bashrc.local ]]; then
 	. ~/.bashrc.local
