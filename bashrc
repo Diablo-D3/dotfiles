@@ -5,7 +5,7 @@
 
 
 # environment
-PATH=$HOME/bin:node_modules/.bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/mingw64/bin:$PATH
+PATH=$HOME/bin:node_modules/.bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/mingw64/bin:/snap/bin:$PATH
 
 LC_CTYPE=en_US.UTF-8
 
