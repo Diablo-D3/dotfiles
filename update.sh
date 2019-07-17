@@ -1,5 +1,6 @@
 #!/bin/sh
-git pull --recurse-submodules
-git submodule foreach git checkout master
+git pull
+git submodule foreach git pull
+git submodule foreach git checkout --theirs master
 git submodule foreach git reset --hard
 
