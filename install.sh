@@ -18,4 +18,5 @@ ln -s ~/config/toprc ~/.toprc
 
 cd ~/config
 git submodule update --init --recursive
+./update.sh
 
