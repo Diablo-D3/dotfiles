@@ -1,6 +1,5 @@
 #!/bin/sh
-cd ~/config
-
-git pull
-git submodule update --rebase --recursive
+git pull --recurse-submodules
+git submodule foreach git checkout master
+git submodule foreach git reset --hard
 
