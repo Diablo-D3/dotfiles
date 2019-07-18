@@ -5,6 +5,10 @@
 
 
 # environment
+if [ -x /usr/bin/cygpath.exe ]; then
+    JAVA_HOME=$(cygpath "$JAVA_HOME")
+fi
+
 PATH=$HOME/bin:node_modules/.bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/mingw64/bin:$JAVA_HOME/bin:$PATH
 
 LC_CTYPE=en_US.UTF-8
