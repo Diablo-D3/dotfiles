@@ -11,9 +11,6 @@ au Syntax * syn sync maxlines=999999999
 au Syntax * syn sync minlines=999999999
 
 if has('gui_running')
-	" Set to light if using light scheme
-	set background=dark
-else
 	set background=dark
 endif
 
@@ -21,7 +18,7 @@ set t_Co=256
 let base16colorspace=256
 let base16_shell_path="~/config/base16-shell/scripts"
 
-colorscheme base16-bright
+colorscheme base16-onedark
 
 " Fix search/location list color
 hi Search ctermfg=00
@@ -37,12 +34,8 @@ let g:rainbow_active = 1
 
 """ UI
 if has("gui_running")
-	if has("gui_macvim")
-	set guifont=Source\ Code\ Pro\ Light:h16
-	set anti
-	else
+	" Set font
 	set guifont=Source\ Code\ Pro\ 12
-	endif
 
 	" Remove menubar and toolbar
 	set go-=mT
