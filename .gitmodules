@@ -61,3 +61,6 @@
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim
+[submodule "base16-mintty"]
+	path = base16-mintty
+	url = https://github.com/iamthad/base16-mintty.git
