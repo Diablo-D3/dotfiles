@@ -15,9 +15,7 @@ if has('gui_running')
 endif
 
 set t_Co=256
-let base16colorspace=256
-let base16_shell_path="~/config/base16-shell/scripts"
-
+set termguicolors
 colorscheme base16-onedark
 
 " Fix search/location list color
