@@ -49,9 +49,6 @@
 [submodule "vim/bundle/base16-vim"]
 	path = vim/bundle/base16-vim
 	url = https://github.com/chriskempson/base16-vim.git
-[submodule "base16-shell"]
-	path = base16-shell
-	url = https://github.com/chriskempson/base16-shell.git
 [submodule "vim/bundle/vim-polyglot"]
 	path = vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
