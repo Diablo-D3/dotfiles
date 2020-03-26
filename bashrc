@@ -5,7 +5,7 @@
 
 
 # environment
-if [ -x /usr/bin/cygpath.exe ]; then
+if [ -x /usr/bin/cygpath.exe ] && [ -n "$JAVA_HOME" ]; then
     JAVA_HOME=$(cygpath "$JAVA_HOME")
 fi
 
