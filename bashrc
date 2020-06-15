@@ -81,29 +81,19 @@ absolute*)
 	PRO_FG=$GREEN
 	;;
 *)
-	BANNEDCOLOR=(0 124 231 234 238)
+	HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]')
 
-	HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum)
-	HOSTCOLOR=0
-	I=1
-	J=2
+	HOSTRED=$(echo "$HOSTCHECKSUM" | cut -b1-2 | sed -En 's/.*/obase=10; ibase=16; &\/2/p' | bc)
+	HOSTGREEN=$(echo "$HOSTCHECKSUM" | cut -b2-3 | sed -En 's/.*/obase=10; ibase=16; &\/2/p' | bc)
+	HOSTBLUE=$(echo "$HOSTCHECKSUM" | cut -b3-4 | sed -En 's/.*/obase=10; ibase=16; &\/2/p' | bc)
 
-	while (printf '%s\n' "${BANNEDCOLOR[@]}" | grep -xq $HOSTCOLOR); do
-		HOSTCOLORBYTE=$(echo "$HOSTCHECKSUM" | cut -b"$I"-"$J")
-		HOSTCOLOR=$(printf '%d' "0x$HOSTCOLORBYTE")
+	PRO_FG="\033[38;2;${HOSTRED};${HOSTGREEN};${HOSTBLUE}m"
 
-		I=$((I + 1))
-		J=$((J + 1))
-	done
-
-	PRO_FG=$(tput setaf "$HOSTCOLOR")
-
-	unset BANNEDCOLOR
 	unset HOSTCHECKSUM
 	unset HOSTCOLOR
-	unset HOSTCOLORBYTE
-	unset I
-	unset J
+	unset HOSTRED
+	unset HOSTGREEN
+	unset HOSTBLUE
 	;;
 esac
 
