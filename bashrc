@@ -83,9 +83,9 @@ absolute*)
 *)
 	HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]')
 
-	HOSTRED=$(echo "$HOSTCHECKSUM" | cut -b1-2 | sed -En 's/.*/obase=10; ibase=16; &\/2+64/p' | bc)
-	HOSTGREEN=$(echo "$HOSTCHECKSUM" | cut -b2-3 | sed -En 's/.*/obase=10; ibase=16; &\/2+64/p' | bc)
-	HOSTBLUE=$(echo "$HOSTCHECKSUM" | cut -b3-4 | sed -En 's/.*/obase=10; ibase=16; &\/2+64/p' | bc)
+	HOSTRED=$(echo "$HOSTCHECKSUM" | cut -b1-2 | sed -En 's/.*/obase=10; ibase=16; &\/2+32/p' | bc)
+	HOSTGREEN=$(echo "$HOSTCHECKSUM" | cut -b2-3 | sed -En 's/.*/obase=10; ibase=16; &\/2+32/p' | bc)
+	HOSTBLUE=$(echo "$HOSTCHECKSUM" | cut -b3-4 | sed -En 's/.*/obase=10; ibase=16; &\/2+32/p' | bc)
 
 	PRO_FG="\033[38;2;${HOSTRED};${HOSTGREEN};${HOSTBLUE}m"
 
