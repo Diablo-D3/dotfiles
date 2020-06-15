@@ -3,20 +3,17 @@ set nocompatible
 set encoding=utf-8
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
+execute pathogen#infect()
 
 """ Colorscheme and highlighting
 syn on
 au Syntax * syn sync maxlines=999999999
 au Syntax * syn sync minlines=999999999
 
-if has('gui_running')
-	set background=dark
-endif
-
 set t_Co=256
 set termguicolors
-colorscheme base16-onedark
+set background=light
+colorscheme base16-solarized-light
 
 " Fix search/location list color
 hi Search ctermfg=00
@@ -33,10 +30,11 @@ let g:rainbow_active = 1
 """ UI
 if has("gui_running")
 	" Set font
-	set guifont=Source\ Code\ Pro\ 12
+	set guifont=Iosevka_Light_Extended:h9:W300
 
 	" Remove menubar and toolbar
-	set go-=mT
+	set go-=m
+	set go-=T
 
 	" Remove scrollbars
 	set go+=LlRrb
@@ -49,7 +47,7 @@ if has("gui_running")
 	set nomousehide
 else
 	if &term =~ '^screen'
-	set ttymouse=xterm2
+		set ttymouse=xterm2
 	endif
 endif
 
@@ -200,6 +198,7 @@ let g:airline_left_alt_step='|'
 let g:airline_right_sep=''
 let g:airline_symbols.linenr="\u00A7"
 let g:airline_symbols.branch=''
+let g:airline_theme='base16_vim'
 
 """ Handle pgp encrypted files
 augroup pgp
