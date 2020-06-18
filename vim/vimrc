@@ -13,7 +13,7 @@ au Syntax * syn sync minlines=999999999
 set t_Co=256
 set termguicolors
 set background=light
-colorscheme base16-solarized-light
+colorscheme base16-tomorrow
 
 " Fix search/location list color
 hi Search ctermfg=00
