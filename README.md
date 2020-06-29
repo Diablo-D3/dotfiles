@@ -7,4 +7,4 @@
 
 # Other important config
 
-1. ~~[Set matching Firefox Color theme](https://github.com/TeddyDD/firefox-base16)~~ Default on Win10 seems to be a better fit than Tomorrow in Firefox is
+1. [Set matching Firefox Color theme](https://github.com/TeddyDD/firefox-base16)
