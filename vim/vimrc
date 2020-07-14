@@ -53,6 +53,8 @@ endif
 
 " Set xterm title
 set title
+let host=substitute(hostname(), '\v(\w+)\.\S*', '\1', '')
+set titlestring=%{host}:\ %F\ a%r%m titlelen=78
 
 " Don't tell me I haven't written changes
 set hidden
