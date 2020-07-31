@@ -1,0 +1,19 @@
+[include]
+	path = ~/.gitconfig.github
+[color]
+	ui = auto
+[color "branch"]
+	remote = blue
+	local = cyan
+[user]
+	name = Patrick McFarland
+	email = pmcfarland@adterrasperaspera.com
+[core]
+	compression = 9
+	editor = vim
+[pull]
+	rebase = true
+[push]
+	default = simple
+[submodule]
+	recurse = true

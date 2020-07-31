@@ -15,6 +15,7 @@ ln -sf ~/config/Xresources ~/.Xresources
 ln -sf ~/config/tmux.conf ~/.tmux.conf
 ln -sf ~/config/minttyrc ~/.minttyrc
 ln -sf ~/config/toprc ~/.toprc
+ln -sf ~/config/gitconfig ~/.gitconfig
 
 cd ~/config
 git submodule update --init --recursive
