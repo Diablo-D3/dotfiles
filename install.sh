@@ -1,10 +1,10 @@
 #!/bin/sh
-cd ~
+cd "$(dirname "$0")" || exit
 
 ln -sf ~/config/vim/vimrc ~/.vimrc
 ln -nsf ~/config/vim ~/.vim
-mkdir -p ~/config/vim/undo
-mkdir -p ~/config/vim/tags
+mkdir -p ~/.vim/undo
+mkdir -p ~/.vim/tags
 
 rm ~/.bashrc
 rm ~/.bash_profile
@@ -17,10 +17,7 @@ ln -sf ~/config/minttyrc ~/.minttyrc
 ln -sf ~/config/toprc ~/.toprc
 ln -sf ~/config/gitconfig ~/.gitconfig
 
-cd ~/config
-git submodule update --init --recursive
-./update.sh
-
 mkdir -p ~/.mintty
 ln -nsf ~/config/base16-mintty/mintty ~/.mintty/themes
 
+git pull
