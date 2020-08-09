@@ -71,3 +71,7 @@
 	path = base16-hexchat
 	url = https://github.com/Diablo-D3/base16-hexchat.git
 	ignore = dirty
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot.git
+	ignore = dirty
