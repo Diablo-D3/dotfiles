@@ -2,67 +2,54 @@
 	path = vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-eunuch"]
 	path = vim/bundle/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-sleuth"]
 	path = vim/bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/MatchTag"]
 	path = vim/bundle/MatchTag
 	url = https://github.com/gregsexton/MatchTag.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-easytags"]
 	path = vim/bundle/vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-misc"]
 	path = vim/bundle/vim-misc
 	url = https://github.com/xolox/vim-misc.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/syntastic"]
 	path = vim/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/securemodelines"]
 	path = vim/bundle/securemodelines
 	url = https://github.com/ciaranm/securemodelines.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/rooter.vim"]
 	path = vim/bundle/rooter.vim
 	url = https://github.com/airblade/vim-rooter.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-tmux-navigator"]
 	path = vim/bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-airline"]
 	path = vim/bundle/vim-airline
 	url = https://github.com/bling/vim-airline.git
 	ignore = dirty
-	branch = master
 [submodule "base16-xresources"]
 	path = base16-xresources
 	url = https://github.com/chriskempson/base16-xresources.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/base16-vim"]
 	path = vim/bundle/base16-vim
 	url = https://github.com/chriskempson/base16-vim.git
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-polyglot"]
 	path = vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
@@ -72,19 +59,15 @@
 	path = vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/ctrlp.vim"]
 	path = vim/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim
 	ignore = dirty
-	branch = master
 [submodule "base16-mintty"]
 	path = base16-mintty
 	url = https://github.com/iamthad/base16-mintty.git
 	ignore = dirty
-	branch = master
 [submodule "base16-hexchat"]
 	path = base16-hexchat
 	url = https://github.com/Diablo-D3/base16-hexchat.git
 	ignore = dirty
-	branch = master
