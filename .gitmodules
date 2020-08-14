@@ -54,7 +54,6 @@
 	path = vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
 	ignore = dirty
-	branch = master
 [submodule "vim/bundle/vim-airline-themes"]
 	path = vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
@@ -75,3 +74,4 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot.git
 	ignore = dirty
+
