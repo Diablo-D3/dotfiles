@@ -1,0 +1,25 @@
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- link:
+    ~/.bashrc:
+    ~/.bash_profile:
+    ~/.gitconfig:
+    ~/.minttyrc:
+    ~/.tmux.conf:
+    ~/.toprc:
+    ~/.vimrc: vim/vimrc
+    ~/.Xresources:
+
+    ~/.mintty/themes: base16-mintty/mintty/
+    ~/.vim:
+
+- create:
+    - ~/.vim/undo
+    - ~/.vim/tags
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+
