@@ -3,6 +3,8 @@
         create: true
         relink: true
 
+- clean: ['~']
+
 - link:
     ~/.bashrc:
     ~/.bash_profile:
