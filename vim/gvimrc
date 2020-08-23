@@ -1,4 +1,0 @@
-if has("gui_running")
-  set columns=117
-  set lines=51
-endif
