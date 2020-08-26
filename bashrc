@@ -1,58 +1,91 @@
 #!/bin/bash
-# shellcheck disable=SC1090
-# shellcheck disable=SC1091
-# shellcheck disable=SC2034
+# shellcheck disable=SC1090  # can't follow non-constant source
+# shellcheck disable=SC1091  # can't follow source
+# shellcheck disable=SC2034  # unused variables
 
+# if not interactive, exit early
+[ -z "$PS1" ] && return
+shopt -oq posix && return
 
-# environment
+# msys2: rewrite $JAVA_HOME if Java is installed
 if [ -x /usr/bin/cygpath.exe ] && [ -n "$JAVA_HOME" ]; then
     JAVA_HOME=$(cygpath "$JAVA_HOME")
 fi
 
-PATH=$HOME/bin:node_modules/.bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin:/mingw64/bin:$JAVA_HOME/bin:$PATH
+# paths
+# home, nodejs, msys2 java, $PATH, sbin, msys2 mingw64
+# global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
 
+PATH=$HOME/bin:./node_modules/.bin:$JAVA_HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin:mingw64/bin
+
+# noramlize locale
 LC_CTYPE=en_US.UTF-8
 
+# set editor
 EDITOR=vim
 VISUAL=vim
 GIT_EDITOR=vim
 
-[ -z "$PS1" ] && return
-shopt -oq posix && return
-
-if [[ -a ~/.bashrc.local ]]; then
-	. ~/.bashrc.local
-fi
-
+# set window size
 shopt -s checkwinsize
+
+# recursive glob
 shopt -s globstar 2> /dev/null
+
+# case-insensitive glob
 shopt -s nocaseglob
+
+# append, not overwrite, history
 shopt -s histappend
+
+# save multi-line commands as single entry with embeded newlines
 shopt -s cmdhist
 shopt -s lithist
 
+# unlimited power
 HISTSIZE=999999999
 HISTFILESIZE=999999999
+
+# ignore deps
 HISTCONTROL="erasedups:ignoreboth"
 
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
-
+# don't record useless commands
+HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 
 # aliases
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
-
-# completion
+# ignore case for autocomplete
 bind "set completion-ignore-case on"
+
+# ... including - and _
 bind "set completion-map-case on"
+
+# don't require tab twice to get list
 bind "set show-all-if-ambiguous on"
+
+# treat symlinked dirs as dirs
 bind "set mark-symlinked-directories on"
 
+# add bash-completion when available
 if [ -f /usr/share/bash-completion/bash_completion ]; then
 	. /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
+fi
+
+# add git-prompt when available
+GIT_PS1_SHOWCOLORHINTS=true
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM=auto
+
+if [[ -a /usr/share/git/completion/git-prompt.sh ]]; then
+	. /usr/share/git/completion/git-prompt.sh
+elif [[ -a /usr/lib/git-core/git-sh-prompt ]]; then
+	. /usr/lib/git-core/git-sh-prompt
 fi
 
 # colors
@@ -67,7 +100,6 @@ WHITE=$(tput setaf 7)
 GREY=$(tput setaf 8)
 ORANGE=$(tput setaf 16)
 BROWN=$(tput setaf 17)
-
 
 # hostname color
 case $HOSTNAME in
@@ -97,22 +129,7 @@ absolute*)
 	;;
 esac
 
-
-# git prompt
-GIT_PS1_SHOWCOLORHINTS=true
-GIT_PS1_SHOWDIRTYSTATE=true
-GIT_PS1_SHOWSTASHSTATE=true
-GIT_PS1_SHOWUNTRACKEDFILES=true
-GIT_PS1_SHOWUPSTREAM=auto
-
-if [[ -a /usr/share/git/completion/git-prompt.sh ]]; then
-	. /usr/share/git/completion/git-prompt.sh
-elif [[ -a /usr/lib/git-core/git-sh-prompt ]]; then
-	. /usr/lib/git-core/git-sh-prompt
-fi
-
-
-# prompt theme
+# set prompt
 PRO_START="[\\[$PRO_FG\\]\\h\\[$RESET\\] \\W"
 
 if [ "$(id -u)" -eq 0 ]; then
@@ -137,6 +154,7 @@ precmd() {
 
 PROMPT_COMMAND=precmd
 
+# set xterm title
 preexec() {
 	if [[ $BASH_COMMAND == "precmd" ]]; then
 		COMMAND=${DIRSTACK[*]}
@@ -150,3 +168,7 @@ preexec() {
 
 trap preexec DEBUG
 
+# load local config
+if [[ -a ~/.bashrc.local ]]; then
+	. ~/.bashrc.local
+fi
