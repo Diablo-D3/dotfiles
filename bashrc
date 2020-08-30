@@ -90,44 +90,30 @@ fi
 
 # colors
 RESET=$(tput sgr0)
+BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 YELLOW=$(tput setaf 3)
 BLUE=$(tput setaf 4)
-PURPLE=$(tput setaf 5)
+MAGENTA=$(tput setaf 5)
 CYAN=$(tput setaf 6)
 WHITE=$(tput setaf 7)
-GREY=$(tput setaf 8)
-ORANGE=$(tput setaf 16)
-BROWN=$(tput setaf 17)
 
 # hostname color
-case $HOSTNAME in
-infinity*)
-	PRO_FG=$BLUE
-	;;
-chaos*)
-	PRO_FG=$CYAN
-	;;
-absolute*)
-	PRO_FG=$GREEN
-	;;
+HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)
+HOSTCOLOR=$(( 16#"$HOSTCHECKSUM"%8 ))
+
+case $HOSTCOLOR in
+0)
+  PRO_FG=$(tput setaf "$HOSTCOLOR")$(tput setab "$WHITE")
+  ;;
 *)
-	HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]')
-
-	HOSTRED=$(echo "$HOSTCHECKSUM" | cut -b1-2 | sed -En 's/.*/obase=10; ibase=16; &\/2+32/p' | bc)
-	HOSTGREEN=$(echo "$HOSTCHECKSUM" | cut -b2-3 | sed -En 's/.*/obase=10; ibase=16; &\/2+32/p' | bc)
-	HOSTBLUE=$(echo "$HOSTCHECKSUM" | cut -b3-4 | sed -En 's/.*/obase=10; ibase=16; &\/2+32/p' | bc)
-
-	PRO_FG="\033[38;2;${HOSTRED};${HOSTGREEN};${HOSTBLUE}m"
-
-	unset HOSTCHECKSUM
-	unset HOSTCOLOR
-	unset HOSTRED
-	unset HOSTGREEN
-	unset HOSTBLUE
-	;;
+  PRO_FG=$(tput setaf "$HOSTCOLOR")
+  ;;
 esac
+
+unset HOSTCHECKSUM
+unset HOSTCOLOR
 
 # set prompt
 PRO_START="[\\[$PRO_FG\\]\\h\\[$RESET\\] \\W"
