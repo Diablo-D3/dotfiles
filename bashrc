@@ -55,6 +55,7 @@ HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 # aliases
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
+alias bc="bc -ql"
 
 # ignore case for autocomplete
 bind "set completion-ignore-case on"
