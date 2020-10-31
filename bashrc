@@ -9,7 +9,12 @@ shopt -oq posix && return
 
 # msys2: rewrite $JAVA_HOME if Java is installed
 if [ -x /usr/bin/cygpath.exe ] && [ -n "$JAVA_HOME" ]; then
-    JAVA_HOME=$(cygpath "$JAVA_HOME")
+  JAVA_HOME=$(cygpath "$JAVA_HOME")
+fi
+
+# msys2: force enable NT junctions
+if [ -x /usr/bin/cygpath.exe ]; then
+  MSYS="winsymlinks:nativestrict"
 fi
 
 # paths
@@ -120,9 +125,9 @@ unset HOSTCOLOR
 PRO_START="[\\[$PRO_FG\\]\\h\\[$RESET\\] \\W"
 
 if [ "$(id -u)" -eq 0 ]; then
-    PRO_END="]\\[$RED\\]#\\[$RESET\\] "
+  PRO_END="]\\[$RED\\]#\\[$RESET\\] "
 else
-    PRO_END="]\$ "
+  PRO_END="]\$ "
 fi
 
 precmd() {
@@ -159,3 +164,4 @@ trap preexec DEBUG
 if [[ -a ~/.bashrc.local ]]; then
 	. ~/.bashrc.local
 fi
+
