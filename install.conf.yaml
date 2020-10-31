@@ -12,15 +12,13 @@
     ~/.minttyrc:
     ~/.tmux.conf:
     ~/.toprc:
-    ~/.vimrc: vim/vimrc
     ~/.Xresources:
 
     ~/.mintty/themes: base16-mintty/mintty/
-    ~/.vim:
-
-- create:
-    - ~/.vim/undo
-    - ~/.vim/tags
+    ~/.vim: spacevim/
+    ~/.config/nvim: spacevim/
+    ~/.SpaceVim: spacevim/
+    ~/.SpaceVim.d: spacevim.d/
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
