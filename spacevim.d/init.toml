@@ -10,7 +10,7 @@
   enable_tabline_filetype_icon = false
   enable_statusline_mode = false
   
-  filemanager = "vimfiler"
+  filemanager = "nerdtree"
 
 [[layers]]
   name = 'core'
