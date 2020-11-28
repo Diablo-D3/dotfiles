@@ -21,5 +21,7 @@
     ~/.SpaceVim.d: spacevim.d/
 
 - shell:
-    - [git submodule update --init --recursive, Installing submodules]
-
+    - [git pull, Updating .dotfiles]
+    - [git submodule update --init --recursive, Updating .dotfiles submodules]
+    - [vim +SPUpdate +qall 2>&1 /dev/null, Updating Spacevim]
+  
