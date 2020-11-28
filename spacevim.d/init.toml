@@ -10,7 +10,7 @@
   enable_tabline_filetype_icon = false
   enable_statusline_mode = false
   
-  filemanager = "defx"
+  filemanager = "vimfiler"
 
 [[layers]]
   name = 'core'
@@ -23,6 +23,9 @@
 
 [[layers]]
   name = 'colorscheme'
+
+[[layers]]
+  name = 'ctrlp'
 
 [[layers]]
   name = 'shell'
