@@ -14,6 +14,7 @@
 
 [[layers]]
   name = 'core'
+  filetree_show_hidden = true
 
 [[layers]]
   name = 'autocomplete'
