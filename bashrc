@@ -21,7 +21,7 @@ fi
 # home, nodejs, msys2 java, $PATH, sbin, msys2 mingw64
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
 
-PATH=$HOME/bin:./node_modules/.bin:$JAVA_HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin:mingw64/bin
+PATH=$HOME/bin:./node_modules/.bin:$JAVA_HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin:/mingw64/bin
 
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
