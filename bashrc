@@ -8,11 +8,6 @@
 [ -z "$PS1" ] && return
 shopt -oq posix && return
 
-# msys2: force enable NT junctions
-if [ -x /usr/bin/cygpath.exe ]; then
-  MSYS="winsymlinks:nativestrict"
-fi
-
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
 PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
