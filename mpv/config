@@ -1,0 +1,65 @@
+profile=low-latency
+
+cache=yes
+fs=yes
+screen=1
+fs-screen=1
+embeddedfonts
+volume-max=200
+no-taskbar-progress
+ytdl-raw-options=cookies=~/.cookies.txt
+force-seekable
+
+vo=gpu
+hwdec=auto
+
+scaler-resizes-only
+
+target-prim=bt.709
+target-trc=bt.1886
+#icc-profile-auto
+
+[hq]
+profile=gpu-hq
+
+# https://github.com/igv/FSRCNN-TensorFlow/releases
+glsl-shaders-append="~~/FSRCNNX_x2_16-0-4-1.glsl"
+
+# https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637
+glsl-shaders-append="~~/KrigBilateral.glsl"
+
+#https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
+glsl-shaders-append="~~/SSimDownscaler.glsl"
+dscale=mitchell
+linear-downscaling=no
+
+dither=fruit
+temporal-dither=yes
+
+[interpolation]
+video-sync=display-vdrop
+interpolation=yes
+tscale=box
+tscale-window=sphinx
+tscale-clamp=0.0
+
+[24hz]
+profile-cond=container_fps > 23 and container_fps < 25
+profile=interpolation
+tscale-radius=1.25
+
+[25hz]
+profile-cond=container_fps > 24 and container_fps < 26
+profile=interpolation
+tscale-radius=1.20
+
+[30hz]
+profile-cond=container_fps > 29 and container_fps < 31
+profile=interpolation
+tscale-radius=1.0
+
+[50hz]
+profile-cond=container_fps > 49 and container_fps < 51
+profile=interpolation
+tscale-radius=1.20
+
