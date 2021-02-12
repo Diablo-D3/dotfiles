@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # shellcheck disable=SC1090  # can't follow non-constant source
 # shellcheck disable=SC1091  # can't follow source
 # shellcheck disable=SC2034  # unused variables
@@ -7,21 +8,30 @@
 [ -z "$PS1" ] && return
 shopt -oq posix && return
 
-# msys2: rewrite $JAVA_HOME if Java is installed
-if [ -x /usr/bin/cygpath.exe ] && [ -n "$JAVA_HOME" ]; then
-  JAVA_HOME=$(cygpath "$JAVA_HOME")
-fi
-
 # msys2: force enable NT junctions
 if [ -x /usr/bin/cygpath.exe ]; then
   MSYS="winsymlinks:nativestrict"
 fi
 
-# paths
-# home, nodejs, msys2 java, $PATH, sbin, msys2 mingw64
+# path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
+PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
-PATH=$HOME/bin:./node_modules/.bin:$JAVA_HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin:/mingw64/bin
+# msys2: add Windows-only paths
+if [ -x /usr/bin/cygpath.exe ]; then
+  PF=/c/Program\ Files
+  PFX86=/c/Program\ Files\ \(x86\)
+
+  PATH=$PATH:/mingw64/bin
+  PATH=$PATH:$PF/dotnet/
+  PATH=$PATH:$PFX86/Streamlink/bin
+
+  # java: rewrite $JAVA_HOME and add to path
+  if [ -n "$JAVA_HOME" ]; then
+    JAVA_HOME=$(cygpath "$JAVA_HOME")
+    PATH=$PATH:$JAVA_HOME/bin
+  fi
+fi
 
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
