@@ -1,0 +1,12 @@
+auto-version-check=yes
+
+player="mpv"
+verbose-player
+
+twitch-disable-ads
+twitch-low-latency
+hls-live-edge=1
+
+hls-segment-threads=2
+hds-segment-threads=2
+stream-segment-threads=2
