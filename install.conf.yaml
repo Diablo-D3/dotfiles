@@ -20,6 +20,20 @@
     ~/.SpaceVim: spacevim/
     ~/.SpaceVim.d: spacevim.d/
 
+    ~/.mpv: mpv/
+    $APPDATA/mpv:
+      if: '[[ `uname` = MSYS* ]]'
+      path: mpv/
+
+    ~/.streamlink/streamlinkrc: streamlinkrc
+    $APPDATA/streamlink/streamlinkrc:
+      if: '[[ `uname` = MSYS* ]]'
+      path: streamlinkrc
+
+    /c/Users/$USER/.ssh:
+      if: '[[ `uname` = MSYS* ]]'
+      path: ~/.ssh
+
 - shell:
     - [git pull, Updating .dotfiles]
     - [git submodule update --init --recursive, Updating .dotfiles submodules]
