@@ -34,6 +34,9 @@
       if: '[[ `uname` = MSYS* ]]'
       path: ~/.ssh
 
+    /sshd_msys2.bat:
+      if: '[[ `uname` = MSYS* ]]'
+      path: sshd_msys2.bat
 - shell:
     - [git pull, Updating .dotfiles]
     - [git submodule update --init --recursive, Updating .dotfiles submodules]
