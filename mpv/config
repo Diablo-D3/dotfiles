@@ -19,6 +19,7 @@ target-prim=bt.709
 target-trc=bt.1886
 #icc-profile-auto
 
+[exclusive]
 audio-exclusive=yes
 
 [interpolation]
