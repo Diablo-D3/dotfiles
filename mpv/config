@@ -19,11 +19,13 @@ target-prim=bt.709
 target-trc=bt.1886
 #icc-profile-auto
 
+audio-exclusive=yes
+
+[interpolation]
+profile-cond=container_fps > 23 and container_fps < 26
 video-sync=display-resample
 interpolation=yes
 tscale=catmull_rom
-
-audio-exclusive=yes
 
 [hq]
 profile=gpu-hq
