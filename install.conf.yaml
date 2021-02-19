@@ -40,5 +40,11 @@
 - shell:
     - [git pull, Updating .dotfiles]
     - [git submodule update --init --recursive, Updating .dotfiles submodules]
-    - [vim +SPUpdate +qall 2>&1 /dev/null, Updating Spacevim]
+    # - [vim +SPUpdate +qall 2>&1 /dev/null, Updating Spacevim]
+    - command: ./checkgittag.sh dotbot
+      description: Check Dotbot version
+      stdout: true
+    - command: ./checkgittag.sh spacevim
+      description: Check Spacevim versions
+      stdout: true
   
