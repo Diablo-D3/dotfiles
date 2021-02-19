@@ -32,3 +32,7 @@ Microsoft ships an odd configuation with OpenSSH. Working install instructions, 
 5. `Set-Service -Name sshd -StartupType 'Automatic'`
 6. `Start-Service sshd`
 7. `icacls.exe "$($env:USERPROFILE)/.ssh/authorized_keys" /inheritance:r /grant "$($env:USERNAME):F" /grant "NT AUTHORITY\SYSTEM:F"` to fix permissions
+
+### Apple Multitouch
+
+Did you know Apple doesn't want you to use the hardware you paid for on the world's most popular desktop OS? Without [this driver](https://github.com/imbushuo/mac-precision-touchpad), your multitouch touchpad is just a plain boring touchpad that can only left and right click, scroll badly, and have annoyingly coarse cursor precision; with that driver, you now have all of your usual two, three, and four finger gestures, just like in OSX, using Windows 10's native precision touchpad support.
