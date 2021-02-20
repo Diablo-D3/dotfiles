@@ -26,7 +26,7 @@
   name = 'colorscheme'
 
 [[layers]]
-  name = 'ctrlp'
+  name = 'leaderf'
 
 [[layers]]
   name = 'sudo'
