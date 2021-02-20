@@ -29,11 +29,6 @@
   name = 'ctrlp'
 
 [[layers]]
-  name = 'shell'
-  default_position = "top"
-  default_height = 30
-
-[[layers]]
   name = 'sudo'
 
 [[layers]]
@@ -43,7 +38,16 @@
   name = 'lang#csharp'
 
 [[layers]]
+  name = 'lang#json'
+
+[[layers]]
   name = 'lang#perl'
 
 [[layers]]
   name = 'lang#sh'
+
+[[layers]]
+  name = 'lang#toml'
+
+[[layers]]
+  name = 'lang#xml'
