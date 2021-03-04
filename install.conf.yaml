@@ -5,6 +5,9 @@
 
 - clean: ['~']
 
+- create:
+  - ~/.cache
+
 - link:
     ~/.bashrc:
     ~/.bash_profile:
@@ -15,10 +18,26 @@
     ~/.Xresources:
 
     ~/.mintty/themes: base16-mintty/mintty/
+
     ~/.vim: spacevim/
+    $USERPROFILE/vimfiles:
+      if: '[[ `uname` = MSYS* ]]'
+      path: spacevim/
+
     ~/.config/nvim: spacevim/
+    $LOCALAPPDATA/nvim:
+      if: '[[ `uname` = MSYS* ]]'
+      path: spacevim/
+
     ~/.SpaceVim: spacevim/
+    $USERPROFILE/.SpaceVim:
+      if: '[[ `uname` = MSYS* ]]'
+      path: spacevim/
+
     ~/.SpaceVim.d: spacevim.d/
+    $USERPROFILE/.Spacevim.d:
+      if: '[[ `uname` = MSYS* ]]'
+      path: spacevim.d/
 
     ~/.mpv: mpv/
     $APPDATA/mpv:
@@ -30,9 +49,13 @@
       if: '[[ `uname` = MSYS* ]]'
       path: streamlinkrc
 
-    /c/Users/$USER/.ssh:
+    $USERPROFILE/.ssh:
       if: '[[ `uname` = MSYS* ]]'
       path: ~/.ssh
+
+    $USERPROFILE/.cache:
+      if: '[[ `uname` = MSYS* ]]'
+      path: ~/.cache
 
     /sshd_msys2.bat:
       if: '[[ `uname` = MSYS* ]]'
