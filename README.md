@@ -31,7 +31,7 @@ Microsoft ships an odd configuation with OpenSSH. Working install instructions, 
 4. `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\msys64\sshd_msys2.bat" -PropertyType String -Force`
 5. `Set-Service -Name sshd -StartupType 'Automatic'`
 6. `Start-Service sshd`
-7. `icacls.exe "$($env:USERPROFILE)/.ssh/authorized_keys" /inheritance:r /grant "$($env:USERNAME):F" /grant "NT AUTHORITY\SYSTEM:F"` to fix permissions
+7. `icacls.exe "$($env:USERPROFILE)\.ssh\authorized_keys" /inheritance:r /grant "$($env:USERNAME):F" /grant "NT AUTHORITY\SYSTEM:F"` to fix permissions
 
 ### Apple Multitouch
 
