@@ -9,9 +9,14 @@
   statusline_unicode_symbols = false
   enable_tabline_filetype_icon = false
   enable_statusline_mode = false
-  
+
   filemanager = "nerdtree"
+
+  autocomplete_method = "coc"
   autocomplete_parens = false
+
+  bootstrap_before = 'override#before'
+  bootstrap_after = 'override#after'
 
 [[layers]]
   name = 'core'
@@ -19,8 +24,13 @@
 
 [[layers]]
   name = 'autocomplete'
-  auto_completion_return_key_behavior = "complete"
+  auto_completion_return_key_behavior = "nil"
   auto_completion_tab_key_behavior = "smart"
+  auto_completion_complete_with_key_sequence = "<Tab><Tab>"
+  auto_completion_complete_with_key_sequence_delay = 0.25
+
+[[layers]]
+  name = 'gtags'
 
 [[layers]]
   name = 'colorscheme'
