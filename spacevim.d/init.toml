@@ -9,6 +9,7 @@
   statusline_unicode_symbols = false
   enable_tabline_filetype_icon = false
   enable_statusline_mode = false
+  relativenumber = false
 
   filemanager = "nerdtree"
 
@@ -16,7 +17,6 @@
   autocomplete_parens = false
 
   bootstrap_before = 'override#before'
-  bootstrap_after = 'override#after'
 
 [[layers]]
   name = 'core'
@@ -30,10 +30,10 @@
   auto_completion_complete_with_key_sequence_delay = 0.25
 
 [[layers]]
-  name = 'gtags'
+  name = 'colorscheme'
 
 [[layers]]
-  name = 'colorscheme'
+  name = 'gtags'
 
 [[layers]]
   name = 'leaderf'
@@ -46,6 +46,7 @@
 
 [[layers]]
   name = 'lang#csharp'
+  highlight_types = 0
 
 [[layers]]
   name = 'lang#json'
