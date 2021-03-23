@@ -49,6 +49,14 @@
       if: '[[ `uname` = MSYS* ]]'
       path: streamlinkrc
 
+    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json:
+      if: '[[ `uname` = MSYS* ]]'
+      path: windowsterminal.settings.json
+
+    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json:
+      if: '[[ `uname` = MSYS* ]]'
+      path: windowsterminal.settings.json
+
     $USERPROFILE/.ssh:
       if: '[[ `uname` = MSYS* ]]'
       path: ~/.ssh
