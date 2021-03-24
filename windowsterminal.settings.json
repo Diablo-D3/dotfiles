@@ -48,6 +48,7 @@
     {
         "defaults": 
         {
+            "closeOnExit": "always",
             "colorScheme": "OneDark",
             "experimental.retroTerminalEffect": false,
             "fontFace": "Iosevka",
@@ -317,5 +318,6 @@
         }
     ],
     "showTabsInTitlebar": true,
+    "snapToGridOnResize": false,
     "theme": "system"
 }
