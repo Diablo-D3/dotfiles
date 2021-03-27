@@ -25,9 +25,7 @@
 [[layers]]
   name = 'autocomplete'
   auto_completion_return_key_behavior = "nil"
-  auto_completion_tab_key_behavior = "smart"
-  auto_completion_complete_with_key_sequence = "<Tab><Tab>"
-  auto_completion_complete_with_key_sequence_delay = 0.25
+  auto_completion_tab_key_behavior = "nil"
 
 [[layers]]
   name = 'colorscheme'
