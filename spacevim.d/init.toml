@@ -13,7 +13,6 @@
 
   filemanager = "nerdtree"
 
-  autocomplete_method = "coc"
   autocomplete_parens = false
 
   bootstrap_before = 'override#before'
@@ -41,10 +40,6 @@
 
 [[layers]]
   name = 'tmux'
-
-[[layers]]
-  name = 'lang#csharp'
-  highlight_types = 0
 
 [[layers]]
   name = 'lang#json'
