@@ -14,6 +14,7 @@
   filemanager = "nerdtree"
 
   autocomplete_parens = false
+  expand_tab = true
 
   bootstrap_before = 'override#before'
 
@@ -23,8 +24,8 @@
 
 [[layers]]
   name = 'autocomplete'
-  auto_completion_return_key_behavior = "nil"
-  auto_completion_tab_key_behavior = "nil"
+  auto_completion_return_key_behavior = "smart"
+  auto_completion_tab_key_behavior = "smart"
 
 [[layers]]
   name = 'colorscheme'
@@ -40,6 +41,9 @@
 
 [[layers]]
   name = 'tmux'
+
+[[layers]]
+  name = 'lang#csharp'
 
 [[layers]]
   name = 'lang#json'
