@@ -29,6 +29,8 @@ interpolation=yes
 tscale=catmull_rom
 
 [hq]
+profile-restore=copy
+
 profile=gpu-hq
 
 # https://github.com/igv/FSRCNN-TensorFlow/releases
