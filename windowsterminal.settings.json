@@ -39,21 +39,26 @@
             "keys": "alt+shift+d"
         }
     ],
-    "alwaysShowTabs": true,
+    "alwaysShowTabs": false,
     "copyFormatting": "none",
     "copyOnSelect": true,
     "defaultProfile": "{b71ecc55-7430-4bea-8f4f-0874abe7c4d1}",
+    "initialCols": 120,
+    "initialRows": 24,
     "launchMode": "default",
     "profiles": 
     {
         "defaults": 
         {
+            "antialiasingMode": "cleartype",
             "closeOnExit": "always",
             "colorScheme": "OneDark",
             "experimental.retroTerminalEffect": false,
-            "fontFace": "Iosevka",
+            "fontFace": "Iosevka Term",
             "fontSize": 12,
-            "fontWeight": "normal",
+            "fontWeight": "light",
+            "padding": "1",
+            "scrollbarState": "hidden",
             "useAcrylic": false
         },
         "list": 
@@ -62,6 +67,7 @@
                 "commandline": "c:\\msys64\\usr\\bin\\env.exe MSYSTEM=MSYS MSYS=winsymlinks:nativestrict HOME=/home/%USERNAME% /usr/bin/bash.exe --login -i",
                 "guid": "{b71ecc55-7430-4bea-8f4f-0874abe7c4d1}",
                 "hidden": false,
+                "icon": "C:\\msys64\\msys2.ico",
                 "name": "msys2"
             },
             {
@@ -317,7 +323,7 @@
             "yellow": "#808000"
         }
     ],
-    "showTabsInTitlebar": true,
+    "showTabsInTitlebar": false,
     "snapToGridOnResize": false,
     "theme": "system"
 }
