@@ -43,20 +43,20 @@
     "copyFormatting": "none",
     "copyOnSelect": true,
     "defaultProfile": "{b71ecc55-7430-4bea-8f4f-0874abe7c4d1}",
-    "initialCols": 120,
+    "initialCols": 132,
     "initialRows": 24,
     "launchMode": "default",
     "profiles": 
     {
         "defaults": 
         {
-            "antialiasingMode": "cleartype",
+            "antialiasingMode": "grayscale",
             "closeOnExit": "always",
             "colorScheme": "OneDark",
             "experimental.retroTerminalEffect": false,
             "fontFace": "Iosevka Term",
             "fontSize": 12,
-            "fontWeight": "light",
+            "fontWeight": "normal",
             "padding": "1",
             "scrollbarState": "hidden",
             "useAcrylic": false
