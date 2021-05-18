@@ -2,14 +2,65 @@
 
 set -e
 
-CONFIG="install.conf.yaml"
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 DOTBOT_DIR="dotbot"
-
 DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTBOT="${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}"
 
-cd "${BASEDIR}"
+MODULES_DIR="${BASE_DIR}/modules"
+
+GREEN="$(tput setaf 2)"
+
+case "$(uname)" in
+  Linux*)
+    OS="linux";;
+  MSYS*)
+    OS="win";;
+esac
+
+echo -e "${GREEN}==> Performing housekeeping..."
+
+cd "${BASE_DIR}"
 git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${DOTBOT_DIR}"
+"${DOTBOT}" -d "${BASE_DIR}" -c "install.conf.yaml"
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+for MODULE_DIR in "${MODULES_DIR}"/*/; do
+  MODULE_DIR=${MODULE_DIR%/}
+  MODULE=${MODULE_DIR#$MODULES_DIR/}
+
+  if [[ ${MODULE} == "os"-* ]]; then
+    if [ ${MODULE} == "os-${OS}" ]; then
+      CONF_YAML="${MODULES_DIR}/${MODULE}.conf.yaml"
+
+      if [ -f "${CONF_YAML}" ]; then
+        echo -e "\n${GREEN}==> Installing ${MODULE}..."
+        "${DOTBOT}" -d "${MODULES_DIR}" -c "${CONF_YAML}"
+      fi
+    else
+      echo -e "\n==> Not on ${MODULE-#os-}, skipping..."
+      continue
+    fi
+  else
+    if command -v ${MODULE} >/dev/null 2>&1; then
+      ANY_CONF_YAML="${MODULES_DIR}/${MODULE}.any.conf.yaml"
+      OS_CONF_YAML="${MODULES_DIR}/${MODULE}.${OS}.conf.yaml"
+
+      if [ -f "${ANY_CONF_YAML}" ]; then
+        echo -e "\n${GREEN}==> Installing ${MODULE}..."
+        "${DOTBOT}" -d "${MODULES_DIR}" -c "${ANY_CONF_YAML}"
+      fi
+
+      if [ -f "${OS_CONF_YAML}" ]; then
+        echo -e "\n${GREEN}==> Installing ${MODULE}.${OS}..."
+        "${DOTBOT}" -d "${MODULES_DIR}" -c "${OS_CONF_YAML}"
+      fi
+    else
+      echo -e "\n==> ${MODULE} not installed, skipping..."
+      continue
+    fi
+  fi
+done
+
+echo -e "\n==> Finished installing"

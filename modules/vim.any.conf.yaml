@@ -1,0 +1,9 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    ~/.vim: vim/spacevim/
+    ~/.config/nvim: vim/spacevim/
+    ~/.SpaceVim: vim/spacevim/
+    ~/.SpaceVim.d: vim/spacevim.d/

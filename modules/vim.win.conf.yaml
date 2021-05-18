@@ -1,0 +1,9 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    $USERPROFILE/vimfiles: vim/spacevim/
+    $LOCALAPPDATA/nvim: vim/spacevim/
+    $USERPROFILE/.SpaceVim: vim/spacevim/
+    $USERPROFILE/.Spacevim.d: vim/spacevim.d/

@@ -1,0 +1,8 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    ~/.minttyrc: mintty/minttyrc
+    ~/.mintty/themes: mintty/base16-mintty/mintty
+

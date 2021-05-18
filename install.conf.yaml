@@ -1,6 +1,5 @@
 - defaults:
     link:
-      create: true
       relink: true
 
 - clean: ['~']
@@ -8,66 +7,6 @@
 - create:
   - ~/.cache
 
-- link:
-    ~/.bashrc:
-    ~/.bash_profile:
-    ~/.gitconfig:
-    ~/.minttyrc:
-    ~/.tmux.conf:
-    ~/.toprc:
-    ~/.Xresources:
-
-    ~/.mintty/themes: base16-mintty/mintty/
-
-    ~/.vim: spacevim/
-    $USERPROFILE/vimfiles:
-      if: '[[ `uname` = MSYS* ]]'
-      path: spacevim/
-
-    ~/.config/nvim: spacevim/
-    $LOCALAPPDATA/nvim:
-      if: '[[ `uname` = MSYS* ]]'
-      path: spacevim/
-
-    ~/.SpaceVim: spacevim/
-    $USERPROFILE/.SpaceVim:
-      if: '[[ `uname` = MSYS* ]]'
-      path: spacevim/
-
-    ~/.SpaceVim.d: spacevim.d/
-    $USERPROFILE/.Spacevim.d:
-      if: '[[ `uname` = MSYS* ]]'
-      path: spacevim.d/
-
-    ~/.mpv: mpv/
-    $APPDATA/mpv:
-      if: '[[ `uname` = MSYS* ]]'
-      path: mpv/
-
-    ~/.streamlink/streamlinkrc: streamlinkrc
-    $APPDATA/streamlink/streamlinkrc:
-      if: '[[ `uname` = MSYS* ]]'
-      path: streamlinkrc
-
-    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json:
-      if: '[[ `uname` = MSYS* ]]'
-      path: windowsterminal.settings.json
-
-    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json:
-      if: '[[ `uname` = MSYS* ]]'
-      path: windowsterminal.settings.json
-
-    $USERPROFILE/.ssh:
-      if: '[[ `uname` = MSYS* ]]'
-      path: ~/.ssh
-
-    $USERPROFILE/.cache:
-      if: '[[ `uname` = MSYS* ]]'
-      path: ~/.cache
-
-    /sshd_msys2.bat:
-      if: '[[ `uname` = MSYS* ]]'
-      path: sshd_msys2.bat
 - shell:
     - [git pull, Updating .dotfiles]
     - [git submodule update --init --recursive, Updating .dotfiles submodules]
@@ -75,7 +14,7 @@
     - command: ./checkgittag.sh dotbot
       description: Check Dotbot version
       stdout: true
-    - command: ./checkgittag.sh spacevim
+    - command: ./checkgittag.sh modules/vim/spacevim
       description: Check Spacevim versions
       stdout: true
   

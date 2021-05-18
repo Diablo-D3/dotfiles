@@ -1,0 +1,11 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    $APPDATA/mpv:
+      if: '[[ `uname` = MSYS* ]]'
+      path: mpv/
+
+
+

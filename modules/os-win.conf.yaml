@@ -1,0 +1,10 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json: os-win/windowsterminal.settings.json
+    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json: os-win/windowsterminal.settings.json
+    $USERPROFILE/.cache: ~/.cache
+    $USERPROFILE/.ssh: ~/.ssh
+    /ssh_msys2.bat: os-win/sshd_msys2.bat

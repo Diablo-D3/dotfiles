@@ -1,0 +1,8 @@
+- defaults:
+    link:
+      relink: true
+
+- link:
+    ~/.bashrc: bash/bashrc
+    ~/.bash_profile: bash/bashrc
+
