@@ -43,9 +43,6 @@
   name = 'tmux'
 
 [[layers]]
-  name = 'lang#csharp'
-
-[[layers]]
   name = 'lang#json'
 
 [[layers]]
@@ -59,3 +56,6 @@
 
 [[layers]]
   name = 'lang#xml'
+
+[[layers]]
+  name = 'lang#vim'
