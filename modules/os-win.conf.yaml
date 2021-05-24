@@ -16,7 +16,7 @@
 
 # Can't use link for sources that are dos style paths
 - shell:
-    - ln -fs $USERPROFILE\\Desktop ~/Desktop/
-    - ln -fs $USERPROFILE\\Documents ~/Documents/
-    - ln -fs $USERPROFILE\\Downloads ~/Downloads/
-    - ln -fs $USERPROFILE\\workspace ~/workspace/
+    - ln -fsT $USERPROFILE\\Desktop\\ ~/Desktop
+    - ln -fsT $USERPROFILE\\Documents\\ ~/Documents
+    - ln -fsT $USERPROFILE\\Downloads\\ ~/Downloads
+    - ln -fsT $USERPROFILE\\workspace\\ ~/workspace
