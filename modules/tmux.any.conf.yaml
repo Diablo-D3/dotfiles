@@ -3,5 +3,5 @@
       relink: true
 
 - link:
-  ~/.tmux.conf: tmux/tmux.conf
+    ~/.tmux.conf: tmux/tmux.conf
 
