@@ -8,7 +8,7 @@
   - ~/.cache
 
 - shell:
-    - [git pull, Updating .dotfiles]
+    - [git stash; git pull; git stash pop, Updating .dotfiles]
     - [git submodule update --init --recursive, Updating .dotfiles submodules]
     # - [vim +SPUpdate +qall 2>&1 /dev/null, Updating Spacevim]
     - command: ./checkgittag.sh dotbot
