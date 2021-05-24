@@ -8,9 +8,10 @@
   - ~/.cache
 
 - shell:
-    - [git stash; git pull; git stash pop, Updating .dotfiles]
-    - [git submodule update --init --recursive, Updating .dotfiles submodules]
-    # - [vim +SPUpdate +qall 2>&1 /dev/null, Updating Spacevim]
+    - command: git stash; git pull; if [ $(git stash list | wc -l) -gt 0 ]; then git stash pop; fi
+      description: Updating .dotfiles
+    - command: git submodule update --init --recursive
+      description: Updating .dotfiles submodules
     - command: ./checkgittag.sh dotbot
       description: Check Dotbot version
       stdout: true
