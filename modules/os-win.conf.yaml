@@ -2,9 +2,21 @@
     link:
       relink: true
 
+- clean:
+    $USERPROFILE:
+    $APPDATA:
+    $LOCALAPPDATA:
+
 - link:
-    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json: os-win/windowsterminal.settings.json
-    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json: os-win/windowsterminal.settings.json
     $USERPROFILE/.cache: ~/.cache
     $USERPROFILE/.ssh: ~/.ssh
-    /ssh_msys2.bat: os-win/sshd_msys2.bat
+    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json: os-win/windowsterminal.settings.json
+    $LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json: os-win/windowsterminal.settings.json
+    /sshd_msys2.bat: os-win/sshd_msys2.bat
+
+# Can't use link for sources that are dos style paths
+- shell:
+    - ln -fs $USERPROFILE\\Desktop ~/Desktop/
+    - ln -fs $USERPROFILE\\Documents ~/Documents/
+    - ln -fs $USERPROFILE\\Downloads ~/Downloads/
+    - ln -fs $USERPROFILE\\workspace ~/workspace/
