@@ -15,6 +15,6 @@ ScrollMod=shift
 OpaqueWhenFocused=no
 PgUpDnScroll=no
 ClickTargetMod=shift
-ThemeFile=base16-onedark-256.minttyrc
+ThemeFile=material-ocean.minttyrc
 FontWeight=400
 Columns=132

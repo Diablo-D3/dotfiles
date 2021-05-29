@@ -1,5 +1,5 @@
 [options]
-  colorscheme = "one"
+  colorscheme = "material"
   colorscheme_bg = "dark"
   enable_guicolors = true
 
@@ -17,6 +17,10 @@
   expand_tab = true
 
   bootstrap_before = 'override#before'
+
+[[custom_plugins]]
+  repo = "kaicataldo/material.vim"
+  merged = false
 
 [[layers]]
   name = 'core'

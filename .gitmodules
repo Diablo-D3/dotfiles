@@ -1,21 +1,3 @@
-[submodule "base16-xresources"]
-	path = modules/Xorg/base16-xresources
-  url = https://github.com/chriskempson/base16-xresources.git
-  branch = master
-  ignore = dirty
-  shallow = true
-[submodule "base16-mintty"]
-	path = modules/mintty/base16-mintty
-  url = https://github.com/iamthad/base16-mintty.git
-  branch = master
-  ignore = dirty
-  shallow = true
-[submodule "base16-hexchat"]
-	path = modules/hexchat/base16-hexchat
-  url = https://github.com/Diablo-D3/base16-hexchat.git
-  branch = master
-  ignore = dirty
-  shallow = true
 [submodule "dotbot"]
   path = dotbot
   url = https://github.com/anishathalye/dotbot.git

@@ -4,5 +4,5 @@
 
 - link:
     ~/.minttyrc: mintty/minttyrc
-    ~/.mintty/themes: mintty/base16-mintty/mintty
+    ~/.mintty/themes: mintty/themes
 
