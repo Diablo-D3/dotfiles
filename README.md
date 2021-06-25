@@ -28,7 +28,7 @@ Microsoft ships an odd configuation with OpenSSH. Working install instructions, 
 1. `Get-WindowsCapability -Online | ? Name -like 'OpenSSH*'` - Get version here
 2. `Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0` - Replace version here
 3. Edit `c:\ProgramData\ssh\sshd_config` to uncomment `PasswordAuthentication` and set to `no`, and comment out the `Match Group administrators` block at the bottom
-4. `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "`[`C:\msys64\sshd_msys2.bat`](https://raw.githubusercontent.com/Diablo-D3/dotfiles/master/modules/os-win/sshd_msys2.bat)`" PropertyType String -Force`
+4. `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "`[`C:\msys64\sshd_msys2.bat`](https://raw.githubusercontent.com/Diablo-D3/dotfiles/master/modules/os-win/sshd_msys2.bat)`" -PropertyType String -Force`
 5. `Set-Service -Name sshd -StartupType 'Automatic'`
 6. `Start-Service sshd`
 7. `icacls.exe "$($env:USERPROFILE)\.ssh\authorized_keys" /inheritance:r /grant "$($env:USERNAME):F" /grant "NT AUTHORITY\SYSTEM:F"` to fix permissions
