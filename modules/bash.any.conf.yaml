@@ -1,6 +1,7 @@
 - defaults:
     link:
       relink: true
+      create: true
 
 - link:
     ~/.bashrc: bash/bashrc
