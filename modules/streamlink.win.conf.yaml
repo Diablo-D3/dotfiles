@@ -1,7 +1,8 @@
 - defaults:
     link:
+      create: true
       relink: true
 
 - link:
-    $APPDATA/streamlink/streamlinkrc: streamlink/streamlinkrc
+    $APPDATA/streamlink/config: streamlink/streamlinkrc
 

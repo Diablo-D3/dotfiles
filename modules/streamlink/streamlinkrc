@@ -1,8 +1,8 @@
 auto-version-check=yes
 
-player="mpv" --demuxer-max-bytes=1MiB --demuxer-readahead-secs=1 --volume=50
+player="mpv" --volume=50 --profile=hq
 verbose-player
 
 twitch-disable-ads
-twitch-low-latency
-hls-live-edge=1
+#twitch-low-latency
+#hls-live-edge=1

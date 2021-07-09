@@ -1,7 +1,8 @@
 - defaults:
     link:
+      create: true
       relink: true
 
 - link:
-    ~/.streamlinkrc: streamlink/streamlinkrc
+    ~/.local/share/streamlink/config: streamlink/streamlinkrc
 

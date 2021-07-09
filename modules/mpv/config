@@ -1,4 +1,5 @@
-profile=low-latency
+#profile=low-latency
+
 term-status-msg="${time-pos:?}s ${video-frame-info/picture-type:?} | ${video-bitrate:? kbps}/${audio-bitrate:? kbps} ${demuxer-cache-duration:?}s | ${video-params/w:?}x${video-params/h:?}@${estimated-vf-fps:?} (${video-params/pixelformat:?} ${video-params/colorlevels:?})"
 
 cache=yes
@@ -18,9 +19,6 @@ scaler-resizes-only
 target-prim=bt.709
 target-trc=bt.1886
 #icc-profile-auto
-
-[exclusive]
-audio-exclusive=yes
 
 [interpolation]
 profile-cond=container_fps > 23 and container_fps < 26
