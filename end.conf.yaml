@@ -1,0 +1,13 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- shell:
+    - command: ./checkgittag.sh dotbot
+      description: Check Dotbot version
+      stdout: true
+    - command: ./checkgittag.sh modules/vim/spacevim
+      description: Check Spacevim version
+      stdout: true
+  

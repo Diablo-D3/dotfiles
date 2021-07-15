@@ -28,10 +28,13 @@ case "$(uname)" in
     OS="linux";;
   MSYS*)
     OS="win";;
+  *)
+    echo "Unhandled OS"
+    exit -1;;
 esac
 
 # Stage 1
-status_msg "Performing housekeeping..."
+status_msg "Starting..."
 
 cd "${BASE_DIR}"
 git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
@@ -43,7 +46,7 @@ for MODULE_DIR in "${MODULES_DIR}"/os-*/; do
   MODULE_DIR=${MODULE_DIR%/}
   MODULE=${MODULE_DIR#$MODULES_DIR/}
 
-  if [ ${MODULE} == "os-${OS}" ]; then
+  if [ "${MODULE}" == "os-${OS}" ]; then
     CONF_YAML="${MODULES_DIR}/${MODULE}.conf.yaml"
 
     if [ -f "${CONF_YAML}" ]; then
@@ -61,7 +64,7 @@ for MODULE_DIR in "${MODULES_DIR}"/!(os-*)/; do
   MODULE_DIR=${MODULE_DIR%/}
   MODULE=${MODULE_DIR#$MODULES_DIR/}
 
-  if command -v ${MODULE} >/dev/null 2>&1; then
+  if command -v "${MODULE}" >/dev/null 2>&1; then
     ANY_CONF_YAML="${MODULES_DIR}/${MODULE}.any.conf.yaml"
     OS_CONF_YAML="${MODULES_DIR}/${MODULE}.${OS}.conf.yaml"
 
@@ -79,5 +82,8 @@ for MODULE_DIR in "${MODULES_DIR}"/!(os-*)/; do
     continue
   fi
 done
+
+status_msg "Finishing..."
+"${DOTBOT}" -d "${BASE_DIR}" -c "end.conf.yaml" "${@}"
 
 status_msg "Finished installing"

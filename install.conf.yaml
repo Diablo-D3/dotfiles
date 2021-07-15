@@ -13,10 +13,4 @@
       description: Updating .dotfiles
     - command: git submodule update --init --recursive
       description: Updating .dotfiles submodules
-    - command: ./checkgittag.sh dotbot
-      description: Check Dotbot version
-      stdout: true
-    - command: ./checkgittag.sh modules/vim/spacevim
-      description: Check Spacevim versions
-      stdout: true
   
