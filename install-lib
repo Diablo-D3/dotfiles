@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+GREEN="$(tput setaf 2)"
+RESET="$(tput sgr0)"
+
+function status_msg()
+{
+  if [ "$STATUS_OFFSET" -gt 0 ]; then echo -e ""; fi
+  echo -e "${GREEN}==> ${1}${RESET}"
+  STATUS_OFFSET=1
+}
+
+function status_warn()
+{
+  if [ "$STATUS_OFFSET" -eq 1 ]; then echo -e ""; fi
+  echo -e "==> ${1}"
+  STATUS_OFFSET=2
+}
+
+function xln {
+  rm -f "${2}"
+
+  if [[ "${2}" != "/mnt/c"* ]]; then
+    ln -sTv "${1}" "${2}"
+  else
+    # hack: wslpath can't generate paths for non-existant files
+    WIN_ROOT=$(wslpath -a -w "/" | sed "s/.$//")
+    
+    OLD_PATH=$PWD
+    cd "/mnt/c" || return
+
+    W2=$(sed 's/\/mnt\/c/c:/; s/\//\\/g' <<< "$2")
+    W1=$WIN_ROOT$(sed 's/\//\\/g' <<< "$1")
+
+    if [[ -L $2 ]]; then
+      1>&2 echo "Does not support targets being symlinks"
+      exit 1
+    elif [[ -d $2 ]]; then
+      cmd.exe /c mklink /D "$W2" "$W1"
+    else
+      cmd.exe /c mklink "$W2" "$W1"
+    fi
+  fi
+
+  cd "$OLD_PATH" || return
+}
+
+function xwslenv() {
+  export "${1}"="$(wslpath "$(powershell.exe -Command "\$env:${1}")" | sed 's/\r//')"
+}
+

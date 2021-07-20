@@ -12,22 +12,6 @@ shopt -oq posix && return
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
 PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
-# msys2: add Windows-only paths
-if [ -x /usr/bin/cygpath.exe ]; then
-  PF=/c/Program\ Files
-  PFX86=/c/Program\ Files\ \(x86\)
-
-  PATH=$PATH:/mingw64/bin
-  PATH=$PATH:$PF/dotnet/
-  PATH=$PATH:$PFX86/Streamlink/bin
-
-  # java: rewrite $JAVA_HOME and add to path
-  if [ -n "$JAVA_HOME" ]; then
-    JAVA_HOME=$(cygpath "$JAVA_HOME")
-    PATH=$PATH:$JAVA_HOME/bin
-  fi
-fi
-
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
 
