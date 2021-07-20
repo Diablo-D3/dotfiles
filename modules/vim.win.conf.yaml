@@ -2,6 +2,7 @@
     link:
       relink: true
       create: true
+      force: true
 
 - link:
     $USERPROFILE/vimfiles: vim/spacevim/
