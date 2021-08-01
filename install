@@ -45,29 +45,17 @@ for MODULE_DIR in "${MODULES_DIR}"/*/; do
   MODULE=${MODULE_DIR#$MODULES_DIR/}
 
   if ( command -v "${MODULE}" >/dev/null 2>&1 || command -v "${MODULE}.exe" >/dev/null 2>&1 ); then
-    ANY_CONF_YAML="${MODULES_DIR}/${MODULE}.any.conf.yaml"
-    ANY_CONF_SH="${MODULES_DIR}/${MODULE}.any.sh"
-    OS_CONF_YAML="${MODULES_DIR}/${MODULE}.${OS}.conf.yaml" 
-    ANY_CONF_SH="${MODULES_DIR}/${MODULE}.${OS}.sh"
+    ANY_CONF="${MODULES_DIR}/${MODULE}.any.sh"
+    OS_CONF="${MODULES_DIR}/${MODULE}.${OS}.sh"
 
-    if [ -f "${ANY_CONF_YAML}" ]; then
-      status_msg "Installing ${ANY_CONF_YAML}..."
-      "${DOTBOT}" -d "${MODULES_DIR}" -c "${ANY_CONF_YAML}" "${@}"
+    if [ -f "${ANY_CONF}" ]; then
+      status_msg "Installing ${ANY_CONF}..."
+      $ANY_CONF
     fi
 
-    if [ -f "${ANY_CONF_SH}" ]; then
-      status_msg "Installing ${ANY_CONF_SH}..."
-      $ANY_CONF_SH
-    fi
-
-    if [ -f "${OS_CONF_YAML}" ]; then
-      status_msg "Installing ${OS_CONF_YAML}..."
-      "${DOTBOT}" -d "${MODULES_DIR}" -c "${OS_CONF_YAML}" "${@}"
-    fi
-
-    if [ -f "${OS_CONF_SH}" ]; then
-      status_msg "Installing ${OS_CONF_SH}..."
-      $OS_CONF_YAML
+    if [ -f "${OS_CONF}" ]; then
+      status_msg "Installing ${OS_CONF}..."
+      $OS_CONF
     fi
 
   else
