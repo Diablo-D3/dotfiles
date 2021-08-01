@@ -23,7 +23,7 @@ status_msg "Starting..."
 case "$(uname -a)" in
   *WSL*)
     OS="win"
-    ./modules/wsl/stealenv.sh
+    ${MODULES_DIR}/wsl/stealenv.sh
     . ~/.bashrc.local
     ;;
   *)
