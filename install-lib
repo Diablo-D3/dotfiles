@@ -32,11 +32,11 @@ function xln {
     W2=$(sed 's/\/mnt\/c/c:/; s/\//\\/g' <<< "$2")
     W1=$WIN_ROOT$(sed 's/\//\\/g' <<< "$1")
 
-    if [[ -L $2 ]]; then
+    if [ -L $1 ]; then
       1>&2 echo "Does not support targets being symlinks"
       exit 1
-    elif [[ -d $2 ]]; then
-      cmd.exe /c mklink /D "$W2" "$W1"
+    elif [ -d $1 ]; then
+      cmd.exe /c mklink /d "$W2" "$W1"
     else
       cmd.exe /c mklink "$W2" "$W1"
     fi
