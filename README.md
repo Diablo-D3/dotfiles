@@ -21,23 +21,21 @@ Note: My `.gitmodules` are habitually set to `ignore = dirty`, and, thus, no lon
 
 Note: Although I use base16 everywhere, I do not use base16-shell, but I do use 256 color terminals. The configuration of my terminals and Vim reflects this; this is considered mildly unusual.
 
-### opensshd on Windows
-
-Microsoft ships an odd configuation with OpenSSH. Working install instructions, in elevated Powershell:
-
-1. `Get-WindowsCapability -Online | ? Name -like 'OpenSSH*'` - Get version here
-2. `Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0` - Replace version here
-3. Edit `c:\ProgramData\ssh\sshd_config` to uncomment `PasswordAuthentication` and set to `no`, and comment out the `Match Group administrators` block at the bottom
-4. `New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\bash.exe" -PropertyType String -Force`
-5. `Set-Service -Name sshd -StartupType 'Automatic'`
-6. `Start-Service sshd`
-7. `icacls.exe "$($env:USERPROFILE)\.ssh\authorized_keys" /inheritance:r /grant "$($env:USERNAME):F" /grant "NT AUTHORITY\SYSTEM:F"` to fix permissions
-
 ### Debian
 
 I should write an actual script to standup my personal Debian VMs. Until then...
 
-`apt-get install sysvinit-core neovim man-db manpages manpages-dev manpages-posix manpages-posix-dev bash-completion bc deborphan shellcheck`
+`apt install sysvinit-core bash-completion deborphan bc neovim shellcheck man-db manpages manpages-dev manpages-posix manpages-posix-dev` (remove systemd, install basic tools, install all the relevant manpages)
+
+`apt install libpam-elogin openssh-server` (install sshd without systemd)
+
+### opensshd on WSL2
+
+Enable Developer Mode in Developer Settings, enable unsigned Powershell execution at the bottom, from elevated Powershell run:
+
+`\\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\firewall.ps1` to setup the firewall and port foward.
+
+`\\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\install-tasks.ps1` to install the scheduled task to start services inside of WSL2.
 
 ### Apple Multitouch
 
