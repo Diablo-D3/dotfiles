@@ -1,9 +1,0 @@
-- defaults:
-    link:
-      relink: true
-      create: true
-      force: true
-
-- link:
-    ~/.toprc: top/toprc
-
