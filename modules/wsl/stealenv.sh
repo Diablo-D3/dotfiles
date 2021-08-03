@@ -13,3 +13,4 @@ vars=(APPDATA LOCALAPPDATA USERPROFILE)
 
 chmod +x ~/.bashrc.local
 
+

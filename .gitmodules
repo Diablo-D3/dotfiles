@@ -1,9 +1,3 @@
-[submodule "dotbot"]
-  path = dotbot
-  url = https://github.com/anishathalye/dotbot.git
-  branch = master
-  ignore = dirty
-  shallow = true
 [submodule "spacevim"]
 	path = modules/vim/spacevim
   url = https://github.com/SpaceVim/SpaceVim.git

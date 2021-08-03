@@ -7,39 +7,77 @@ set -e
 shopt -s extglob
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-DOTBOT_DIR="dotbot"
-DOTBOT_BIN="bin/dotbot"
-DOTBOT="${BASE_DIR}/${DOTBOT_DIR}/${DOTBOT_BIN}"
-
 MODULES_DIR="${BASE_DIR}/modules"
 
-export STATUS_OFFSET=0
 . "$BASE_DIR/install-lib"
 
-# Stage 1
-status_msg "Starting..."
+###
+### Stage 1
+###
+
+start "Starting..."
+
+# Discover OS quirks
 
 case "$(uname -a)" in
   *WSL*)
-    OS="win"
-    ${MODULES_DIR}/wsl/stealenv.sh
-    . ~/.bashrc.local
+    export OS="win"
+    . "${MODULES_DIR}/wsl/stealenv.sh"
     ;;
   *)
   ;;
 esac
 
 if [ x"${OS}" != x ]; then
-  status_warn "Discovered platform ${OS}"
+  status "Discovered platform ${OS}"
 fi
 
-cd "${BASE_DIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
-"${DOTBOT}" -d "${BASE_DIR}" -c "install.conf.yaml" "${@}"
+end
 
-# Stage 2
+start "Make required skeleton directories..."
+
+mkdir -vp "$HOME/.cache"
+mkdir -vp "$HOME/.ssh"
+
+mkdir -vp "$HOME/bin"
+
+end
+
+start "Remove stale symlinks..."
+
+paths=( "$HOME" "$HOME/.config" )
+
+if [ x"${OS}" == x"WSL" ]; then
+  paths+=( "$USERPROFILE" "$APPDATA" "$LOCALAPPDATA" )
+fi
+
+for path in "${paths[@]}"; do
+  find "$path" -mindepth 1 -maxdepth 2 -xtype l -print0 | xargs -0 -r -t -n 1 unlink
+done
+
+unset paths
+
+end
+
+start "Update git repos..."
+
+cd "${BASE_DIR}"
+
+git stash
+git pull
+
+if [ "$(git stash list | wc -l)" -gt 0 ]; then
+  git stash pop
+fi
+
+git submodule update --init --recursive
+
+end
+
+###
+### Stage 2
+###
+
 for MODULE_DIR in "${MODULES_DIR}"/*/; do
   MODULE_DIR=${MODULE_DIR%/}
   MODULE=${MODULE_DIR#$MODULES_DIR/}
@@ -49,23 +87,30 @@ for MODULE_DIR in "${MODULES_DIR}"/*/; do
     OS_CONF="${MODULES_DIR}/${MODULE}.${OS}.sh"
 
     if [ -f "${ANY_CONF}" ]; then
-      status_msg "Installing ${ANY_CONF}..."
+      start "Installing ${ANY_CONF}..."
       $ANY_CONF
+      end
     fi
 
     if [ -f "${OS_CONF}" ]; then
-      status_msg "Installing ${OS_CONF}..."
+      start "Installing ${OS_CONF}..."
       $OS_CONF
+      end
     fi
 
   else
-    status_warn "${MODULE} not installed, skipping"
+    status "${MODULE} not installed, skipping"
     continue
   fi
 done
 
-# Stage 3
-status_msg "Finishing..."
-"${DOTBOT}" -d "${BASE_DIR}" -c "end.conf.yaml" "${@}"
+###
+### Stage 3
+###
 
-status_msg "Finished installing"
+start "Checking git tags..."
+"${BASE_DIR}/checkgittag.sh" modules/vim/spacevim
+end
+
+status "Finished installing"
+
