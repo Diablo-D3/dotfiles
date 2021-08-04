@@ -2,8 +2,6 @@
 
 These are my own dotfiles. I share them to make it easier for other people to understand how maintain their own. I suggest you make your own dotfiles repo from scratch, and do not fork my, or anyone else's, dotfile repo.
 
-I use [dotbot](https://github.com/anishathalye/dotbot) to automate the task. I use a custom modularized dotbot config to achieve this.
-
 ## Installation
 
 `git clone --recursive https://github.com/Diablo-D3/dotfiles.git ~/.dotfiles && ~/.dotfiles/install`
