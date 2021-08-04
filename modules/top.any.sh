@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-xln "${MODULE_DIR}/toprc"  "$HOME/.toprc"
+_ln "$MODULE_DIR/toprc"  "$HOME/.toprc"
 

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-xln "${MODULE_DIR}/tmux.conf" "$HOME/.tmux.conf"
+_ln "$MODULE_DIR/tmux.conf" "$HOME/.tmux.conf"
 

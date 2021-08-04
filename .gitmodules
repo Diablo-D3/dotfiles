@@ -1,6 +1,0 @@
-[submodule "spacevim"]
-	path = modules/vim/spacevim
-  url = https://github.com/SpaceVim/SpaceVim.git
-  branch = master
-  ignore = dirty
-  shallow = true

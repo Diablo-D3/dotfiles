@@ -16,9 +16,9 @@ PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 LC_CTYPE=en_US.UTF-8
 
 # set editor
-EDITOR=vim
-VISUAL=vim
-GIT_EDITOR=vim
+EDITOR=nvim
+VISUAL=nvim
+GIT_EDITOR=nvim
 
 # set window size
 shopt -s checkwinsize
@@ -47,9 +47,10 @@ HISTCONTROL="erasedups:ignoreboth"
 HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 
 # aliases
+alias bc="bc -ql"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
-alias bc="bc -ql"
+alias vim="nvim"
 
 # ignore case for autocomplete
 bind "set completion-ignore-case on"
@@ -65,9 +66,9 @@ bind "set mark-symlinked-directories on"
 
 # add bash-completion when available
 if [ -f /usr/share/bash-completion/bash_completion ]; then
-	. /usr/share/bash-completion/bash_completion
+	source /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
-	. /etc/bash_completion
+	source /etc/bash_completion
 fi
 
 # add git-prompt when available
@@ -78,9 +79,9 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 
 if [[ -a /usr/share/git/completion/git-prompt.sh ]]; then
-	. /usr/share/git/completion/git-prompt.sh
+	source /usr/share/git/completion/git-prompt.sh
 elif [[ -a /usr/lib/git-core/git-sh-prompt ]]; then
-	. /usr/lib/git-core/git-sh-prompt
+	source /usr/lib/git-core/git-sh-prompt
 fi
 
 # colors
@@ -151,6 +152,6 @@ trap preexec DEBUG
 
 # load local config
 if [[ -a ~/.bashrc.local ]]; then
-	. ~/.bashrc.local
+	source ~/.bashrc.local
 fi
 

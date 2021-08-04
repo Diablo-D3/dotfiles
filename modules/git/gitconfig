@@ -10,7 +10,7 @@
 	email = pmcfarland@adterrasperaspera.com
 [core]
 	compression = 9
-	editor = vim
+	editor = nvim
 [pull]
 	rebase = true
 [push]

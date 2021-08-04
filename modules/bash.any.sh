@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-xln "${MODULE_DIR}/bashrc" "$HOME/.bashrc"
-xln "${MODULE_DIR}/bashrc" "$HOME/.bash_profile"
+_ln "$MODULE_DIR/bashrc" "$HOME/.bashrc"
+_ln "$MODULE_DIR/bash_profile" "$HOME/.bash_profile"
 

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-xln "${MODULE_DIR}/" "$APPDATA/mpv"
+_ln "$MODULE_DIR/" "$APPDATA/mpv"
 

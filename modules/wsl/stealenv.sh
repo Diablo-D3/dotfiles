@@ -6,7 +6,7 @@ vars=(APPDATA LOCALAPPDATA USERPROFILE)
   printf "#!/usr/bin/env bash\n\n";
 
   for var in "${vars[@]}"; do
-    xwslenv "$var";
+    _wslenv "$var";
     printf "%s=%s\n" "$var" "${!var}";
   done
 } > ~/.bashrc.local
