@@ -24,9 +24,7 @@ I should write an actual script to standup my personal Debian VMs (or use one of
 
 Enable Developer Mode in Developer Settings, enable unsigned Powershell execution at the bottom, from an elevated Powershell run:
 
-`. \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\firewall.ps1` [&#10149;](./modules/wsl/firewall.ps1) to setup the firewall and port forward.
-
-`. \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\install-tasks.ps1` [&#10149;](./modules/wsl/install-tasks.ps1) to install the scheduled task (of `init.ps1` [&#10149;](./modules/wsl/init.ps1)) to start services inside of WSL2 upon Windows user login.
+`. \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\install-tasks.ps1` [&#10149;](./modules/wsl/install-tasks.ps1) to install the scheduled tasks (of `init.ps1` [&#10149;](./modules/wsl/init.ps1) and `firewall.ps1` [&#10149;](./modules/wsl/firewall.ps1), using `hidden_powershell`[&#10149;](./modules/wsl/hidden_powershell.js)  to start services inside of WSL2 upon Windows user login.
 
 ### Apple Multitouch
 
@@ -58,7 +56,7 @@ To add it: `git subrepo clone -b master https://github.com/foo/bar.vim ./modules
 
 To update it: `git subrepo pull ./modules/vim/site/pack/bar.vom`
 
-To update all: 'git subrepo pull --all`
+To update all: `git subrepo pull --all`
 
 Notice this is far easier to use, and works a lot like `git` already does.
 
