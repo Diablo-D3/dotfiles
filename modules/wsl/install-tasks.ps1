@@ -15,7 +15,7 @@ function Invoke-ScheduledTask {
   }
 
   $action = New-ScheduledTaskAction -Execute "$Command" -Argument "$Arguments"
-  $trigger = New-ScheduledTaskTrigger -AtLogon
+  $trigger = New-ScheduledTaskTrigger -AtLogon -User "${env:USERNAME}"
   $settings = New-ScheduledTaskSettingsSet -Compatibility Win8 -AllowStartIfOnBatteries
 
   if ($Admin -eq $true) {
@@ -39,7 +39,8 @@ function Invoke-ScheduledTask {
   }
 }
 
-$pwsh_args = "-WindowStyle Hidden -ExecutionPolicy Bypass"
+$path = "\\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl"
 
-Invoke-ScheduledTask -TaskName "WSL2 Init" -Admin $false -Command "powershell.exe" -Arguments "$pwsh_args \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\init.ps1"
+Invoke-ScheduledTask -TaskName "WSL2 init.d" -Admin $false -Command "wscript.exe" -Arguments "${path}\hidden_powershell.js ${path}\init.ps1"
+Invoke-ScheduledTask -Taskname "WSL2 Firewall" -Admin $true -Command "wscript.exe" -Arguments "${path}\hidden_powershell.js ${path}\firewall.ps1"
 
