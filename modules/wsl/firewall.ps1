@@ -7,6 +7,6 @@ New-NetFireWallRule -DisplayName "WSL2" -Direction Inbound -LocalPort $ports -Ac
 netsh interface portproxy reset
 
 ForEach( $port in $ports ) {
-  netsh interface portproxy add v4tov4 listenport=$port connectaddress=127.0.0.1
+  netsh interface portproxy add v4tov6 listenport=$port connectaddress=::1
 }
 
