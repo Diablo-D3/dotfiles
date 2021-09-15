@@ -46,12 +46,6 @@ HISTCONTROL="erasedups:ignoreboth"
 # don't record useless commands
 HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 
-# aliases
-alias bc="bc -ql"
-alias grep="grep --color=auto"
-alias ls="ls --color=auto"
-alias vim="nvim"
-
 # ignore case for autocomplete
 bind "set completion-ignore-case on"
 
@@ -153,5 +147,27 @@ trap preexec DEBUG
 # load local config
 if [[ -a ~/.bashrc.local ]]; then
 	source ~/.bashrc.local
+fi
+
+# aliases
+alias bc="bc -ql"
+alias grep="grep --color=auto"
+alias ls="ls --color=auto"
+
+if command -v nvim &> /dev/null; then
+	alias vim="nvim"
+fi
+
+if command -v zoxide &> /dev/null; then
+	eval "$(zoxide init bash --cmd cd)"
+
+	# zoxide's cd is incorrect, needs "builtin cd", last checked 20210811
+	_z_cd() {
+		builtin cd "$@" || return "$?"
+
+		if [ "$_ZO_ECHO" = "1" ]; then
+	        echo "$PWD"
+	fi
+}
 fi
 
