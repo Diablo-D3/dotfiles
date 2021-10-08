@@ -36,6 +36,9 @@ shopt -s histappend
 shopt -s cmdhist
 shopt -s lithist
 
+# force expand variable in tab complete to prevent escaping $
+shopt -s direxpand
+
 # unlimited power
 HISTSIZE=999999999
 HISTFILESIZE=999999999
@@ -57,6 +60,11 @@ bind "set show-all-if-ambiguous on"
 
 # treat symlinked dirs as dirs
 bind "set mark-symlinked-directories on"
+
+# colors and paren matching
+bind "set blink-matching-paren on"
+bind "set colored-completion-prefix on"
+bind "set colored-stats on"
 
 # add bash-completion when available
 if [ -f /usr/share/bash-completion/bash_completion ]; then
