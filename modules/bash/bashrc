@@ -12,6 +12,12 @@ shopt -oq posix && return
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
 PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
+shopt -s globstar
+for p in "$HOME"/bin/**/*; do
+	PATH="$p:$PATH";
+done
+shopt -u globstar
+
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
 
