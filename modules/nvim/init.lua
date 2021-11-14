@@ -1,7 +1,5 @@
 local g = vim.g
 local o = vim.o
-local bo = vim.bo
-local wo = vim.wo
 local cmd = vim.cmd
 
 -- generic
@@ -18,15 +16,15 @@ o.sidescrolloff = 10
 o.termguicolors = true
 
 -- number line
-wo.number = true
-wo.relativenumber = true
-wo.numberwidth = 1
+o.number = true
+o.relativenumber = true
+o.numberwidth = 1
 
 -- tabs
+o.autoindent = true
+o.expandtab = false
+o.shiftwidth = 4
 o.smarttab = true
-bo.expandtab = false
-bo.shiftwidth = 4
-bo.softtabstop = 4
-bo.tabstop = 8
-bo.autoindent = true
+o.softtabstop = 4
+o.tabstop = 8
 
