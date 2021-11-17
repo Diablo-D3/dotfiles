@@ -88,14 +88,14 @@
     {
         "defaults": 
         {
-            "antialiasingMode": "grayscale",
+            "antialiasingMode": "cleartype",
             "closeOnExit": "always",
             "colorScheme": "Material Ocean",
             "experimental.retroTerminalEffect": false,
             "font": 
             {
                 "face": "Iosevka Term",
-                "size": 12,
+                "size": 15,
                 "weight": "normal"
             },
             "padding": "1",
