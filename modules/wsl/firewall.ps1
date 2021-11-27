@@ -1,4 +1,4 @@
-$ports = @(22);
+$ports = @(222);
 
 Remove-NetFireWallRule -DisplayName "WSL2"
 
