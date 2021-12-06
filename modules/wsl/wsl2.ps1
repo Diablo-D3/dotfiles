@@ -1,3 +1,5 @@
+wsl -u root service ssh start
+
 $ports = @(222);
 
 Remove-NetFireWallRule -DisplayName "WSL2"
@@ -7,7 +9,6 @@ New-NetFirewallRule -DisplayName "WSL2" -Direction Outbound -LocalPort $ports -A
 
 $host_ip = (Get-NetIPAddress -addressFamily IPv4 | where {($_.InterfaceAlias -NotMatch 'Loopback' -and $_.InterfaceAlias -NotMatch 'vEthernet' )} | select -First 1).IPAddress
 $vm_ip = bash.exe -c "hostname -I"
-
 
 netsh interface portproxy reset
 

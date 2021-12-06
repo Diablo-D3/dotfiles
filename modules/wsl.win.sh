@@ -8,8 +8,9 @@ _ln "$USERPROFILE/workspace" "$HOME/workspace"
 _mkdir "$USERPROFILE/bin"
 _ln "$USERPROFILE/bin" "$HOME/bin/windows"
 
-_ln "$HOME/.cache" "$USERPROFILE/.cache"
-_ln "$HOME/.ssh" "$USERPROFILE/.ssh"
 _ln "$MODULE_DIR/windowsterminal.settings.json" "$LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
 _ln "$MODULE_DIR/windowsterminal.settings.json" "$LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json"
+
+cp "$MODULE_DIR/hidden_powershell.js" "$USERPROFILE"
+cp "$MODULE_DIR/wsl2.ps1" "$USERPROFILE"
 

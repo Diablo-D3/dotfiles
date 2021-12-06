@@ -39,8 +39,7 @@ function Invoke-ScheduledTask {
   }
 }
 
-$path = "\\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl"
+$path = "${env:USERPROFILE}"
 
-Invoke-ScheduledTask -TaskName "WSL2 init.d" -Admin $false -Command "wscript.exe" -Arguments "${path}\hidden_powershell.js ${path}\init.ps1"
-Invoke-ScheduledTask -Taskname "WSL2 Firewall" -Admin $true -Command "wscript.exe" -Arguments "${path}\hidden_powershell.js ${path}\firewall.ps1"
+Invoke-ScheduledTask -TaskName "WSL2" -Admin $true -Command "wscript.exe" -Arguments "${path}\hidden_powershell.js ${path}\wsl2.ps1"
 
