@@ -10,11 +10,11 @@ shopt -oq posix && return
 
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
-PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
+PATH=$HOME/bin:$HOME/.cargo/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
 shopt -s globstar
 for p in "$HOME"/bin/**/*; do
-	PATH="$p:$PATH";
+    PATH="$p:$PATH";
 done
 shopt -u globstar
 
@@ -74,9 +74,9 @@ bind "set colored-stats on"
 
 # add bash-completion when available
 if [ -f /usr/share/bash-completion/bash_completion ]; then
-	source /usr/share/bash-completion/bash_completion
+    source /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
-	source /etc/bash_completion
+    source /etc/bash_completion
 fi
 
 # add git-prompt when available
@@ -87,9 +87,9 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 
 if [[ -a /usr/share/git/completion/git-prompt.sh ]]; then
-	source /usr/share/git/completion/git-prompt.sh
+    source /usr/share/git/completion/git-prompt.sh
 elif [[ -a /usr/lib/git-core/git-sh-prompt ]]; then
-	source /usr/lib/git-core/git-sh-prompt
+    source /usr/lib/git-core/git-sh-prompt
 fi
 
 # colors
@@ -108,12 +108,12 @@ HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-
 HOSTCOLOR=$(( 16#"$HOSTCHECKSUM"%8 ))
 
 case $HOSTCOLOR in
-0)
-  PRO_FG=$(tput setaf "$HOSTCOLOR")$(tput setab "$WHITE")
-  ;;
-*)
-  PRO_FG=$(tput setaf "$HOSTCOLOR")
-  ;;
+    0)
+	PRO_FG=$(tput setaf "$HOSTCOLOR")$(tput setab "$WHITE")
+	;;
+    *)
+	PRO_FG=$(tput setaf "$HOSTCOLOR")
+	;;
 esac
 
 unset HOSTCHECKSUM
@@ -123,44 +123,44 @@ unset HOSTCOLOR
 PRO_START="[\\[$PRO_FG\\]\\h\\[$RESET\\] \\W"
 
 if [ "$(id -u)" -eq 0 ]; then
-  PRO_END="]\\[$RED\\]#\\[$RESET\\] "
+    PRO_END="]\\[$RED\\]#\\[$RESET\\] "
 else
-  PRO_END="]\$ "
+    PRO_END="]\$ "
 fi
 
 precmd() {
-	if [[ x$PWD != x$HOME ]] && [ x"$(type -t __git_ps1)" = x'function' ]; then
-		__git_ps1 "$PRO_START" "$PRO_END"
-	else
-		PS1=$PRO_START$PRO_END
-	fi
+    if [[ x$PWD != x$HOME ]] && [ x"$(type -t __git_ps1)" = x'function' ]; then
+	__git_ps1 "$PRO_START" "$PRO_END"
+    else
+	PS1=$PRO_START$PRO_END
+    fi
 
-	if [[ -n $TMUX ]]; then
-		eval "$(tmux show-environment -s)"
-	fi
+    if [[ -n $TMUX ]]; then
+	eval "$(tmux show-environment -s)"
+    fi
 
-	history -a
+    history -a
 }
 
 PROMPT_COMMAND=precmd
 
 # set xterm title
 preexec() {
-	if [[ $BASH_COMMAND == "precmd" ]]; then
-		COMMAND=${DIRSTACK[*]}
-	else
-		COMMAND=$BASH_COMMAND
-	fi
+    if [[ $BASH_COMMAND == "precmd" ]]; then
+	COMMAND=${DIRSTACK[*]}
+    else
+	COMMAND=$BASH_COMMAND
+    fi
 
-	PRO_TITLE="\\033]0;${HOSTNAME%%.*}: $COMMAND\\007"
-	echo -ne "$PRO_TITLE"
+    PRO_TITLE="\\033]0;${HOSTNAME%%.*}: $COMMAND\\007"
+    echo -ne "$PRO_TITLE"
 }
 
 trap preexec DEBUG
 
 # load local config
 if [[ -a ~/.bashrc.local ]]; then
-	source ~/.bashrc.local
+    source ~/.bashrc.local
 fi
 
 # aliases
@@ -169,19 +169,10 @@ alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
 if command -v nvim &> /dev/null; then
-	alias vim="nvim"
+    alias vim="nvim"
 fi
 
 if command -v zoxide &> /dev/null; then
-	eval "$(zoxide init bash --cmd cd)"
-
-	# zoxide's cd is incorrect, needs "builtin cd", last checked 20210811
-	_z_cd() {
-		builtin cd "$@" || return "$?"
-
-		if [ "$_ZO_ECHO" = "1" ]; then
-	        echo "$PWD"
-	fi
-}
+    eval "$(zoxide init bash --cmd cd)" &> /dev/null
 fi
 
