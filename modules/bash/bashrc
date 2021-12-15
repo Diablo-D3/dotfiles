@@ -21,6 +21,11 @@ shopt -u globstar
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
 
+# override $TERM
+if [ "$TERM" == "xterm-256color" ]; then
+    TERM=xterm-24bits
+fi
+
 # set editor
 EDITOR=nvim
 VISUAL=nvim
