@@ -14,7 +14,9 @@ PATH=$HOME/bin:$HOME/.cargo/bin:$HOME/.emacs.d/bin:$PATH:/usr/local/sbin:/usr/sb
 
 shopt -s globstar
 for p in "$HOME"/bin/**/*; do
-    PATH="$p:$PATH";
+    if [ -d "$p" ]; then
+	PATH="$p:$PATH";
+    fi
 done
 shopt -u globstar
 
