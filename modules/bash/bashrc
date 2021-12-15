@@ -10,7 +10,7 @@ shopt -oq posix && return
 
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
-PATH=$HOME/bin:$HOME/.cargo/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
+PATH=$HOME/bin:$HOME/.cargo/bin:$HOME/.emacs.d/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
 shopt -s globstar
 for p in "$HOME"/bin/**/*; do
