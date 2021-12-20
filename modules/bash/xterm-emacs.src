@@ -1,4 +1,6 @@
-xterm-24bits|xterm with truecolor,
+# compile with tic -x -o ~/.terminfo xterm-emacs.src
+
+xterm-emacs|xterm with truecolor,
   use=xterm-256color,
   setb24=\E[48;2;%p1%{65536}%/%d;%p1%{256}%/%{255}%&%d;%p1%{255}%&%dm,
   setf24=\E[38;2;%p1%{65536}%/%d;%p1%{256}%/%{255}%&%d;%p1%{255}%&%dm,

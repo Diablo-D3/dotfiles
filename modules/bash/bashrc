@@ -23,10 +23,8 @@ shopt -u globstar
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
 
-# override $TERM
-if [ "$TERM" == "xterm-256color" ]; then
-    TERM=xterm-24bits
-elif [ "$TERM" == "tmux-256color" ]; then
+# override tmux $TERM
+if [ "$TERM" == "tmux-256color" ]; then
     TERM=tmux-direct
 fi
 
@@ -174,6 +172,7 @@ fi
 
 # aliases
 alias bc="bc -ql"
+alias emacs="TERM=xterm-emacs emacs"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
