@@ -29,9 +29,9 @@ if [ "$TERM" == "tmux-256color" ]; then
 fi
 
 # set editor
-EDITOR=nvim
-VISUAL=nvim
-GIT_EDITOR=nvim
+EDITOR=emacs
+VISUAL=emacs
+GIT_EDITOR=emacs
 
 # set window size
 shopt -s checkwinsize
@@ -176,11 +176,6 @@ alias emacs="TERM=xterm-emacs emacs"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
-if command -v nvim &> /dev/null; then
-    alias vim="nvim"
-fi
-
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init bash --cmd cd)" &> /dev/null
 fi
-
