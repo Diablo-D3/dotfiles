@@ -23,11 +23,6 @@ shopt -u globstar
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
 
-# override tmux $TERM
-if [ "$TERM" == "tmux-256color" ]; then
-    TERM=tmux-direct
-fi
-
 # set editor
 EDITOR=emacs
 VISUAL=emacs
@@ -109,10 +104,18 @@ BLUE=$(tput setaf 4)
 MAGENTA=$(tput setaf 5)
 CYAN=$(tput setaf 6)
 WHITE=$(tput setaf 7)
+HIBLACK=$(tput setaf 8)
+HIRED=$(tput setaf 9)
+HIGREEN=$(tput setaf 10)
+HIYELLOW=$(tput setaf 11)
+HIBLUE=$(tput setaf 12)
+HIMAGENTA=$(tput setaf 12)
+HICYAN=$(tput setaf 14)
+HIWHITE=$(tput setaf 15)
 
 # hostname color
 HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)
-HOSTCOLOR=$(( 16#"$HOSTCHECKSUM"%8 ))
+HOSTCOLOR=$(( 16#"$HOSTCHECKSUM"%16 ))
 
 case $HOSTCOLOR in
     0)
