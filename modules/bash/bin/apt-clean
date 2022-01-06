@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+RESET=$(tput sgr0)
+GREEN=$(tput setaf 2)
+
+echo "${GREEN}apt autoremove --purge${RESET}"
+sudo apt autoremove --purge
+echo
+
+echo "${GREEN}dpkg -l | grep '^rc '${RESET}"
+LIST=$(dpkg -l | grep '^rc ' | awk -F ' ' '{ print $2 }')
+if [ -n "$LIST" ]; then
+    xargs -0 echo <<<"$LIST"
+    read -n 1 -r -s -p "Press any key to continue..."
+    sudo xargs dpkg --purge <<<"$LIST"
+else
+    echo -e "Nothing found\n"
+fi
+
+echo "${GREEN}deborphan --guess-all${RESET}"
+LIST=$(deborphan --guess-all)
+if [ -n "$LIST" ]; then
+    xargs -0 echo <<<"$LIST"
+    read -n 1 -r -s -p "Press any key to continue..."
+    sudo xargs dpkg --purge <<<"$LIST"
+else
+    echo -e "Nothing found\n"
+fi
