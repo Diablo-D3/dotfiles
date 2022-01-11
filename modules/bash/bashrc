@@ -179,10 +179,23 @@ alias emacs="TERM=xterm-emacs emacs"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
-if [ -f /usr/share/doc/fzf/examples/completion.bash ]; then
-     source /usr/share/doc/fzf/examples/completion.bash
+# fzf
+FZF_DEFAULT_OPTS="--height 50%"
+FZF_COMPLETION_TRIGGER=""
+
+if [ -f /usr/bin/fdfind ]; then
+    alias fd="fdfind"
 fi
 
-if command -v zoxide &> /dev/null; then
-    eval "$(zoxide init bash --cmd cd)" &> /dev/null
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+if [ -f /usr/share/doc/fzf/examples/completion.bash ]; then
+    source /usr/share/doc/fzf/examples/completion.bash
+    source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
