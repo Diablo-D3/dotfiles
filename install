@@ -40,17 +40,10 @@ _end
 _start "Update git repos"
 
 CHECKSUM_ORIG=$(git -C "$BASE_DIR" hash-object install)
-
-git -C "$BASE_DIR" stash
-git -C "$BASE_DIR" pull --force
-
-if [ "$(git stash list | wc -l)" -gt 0 ]; then
-  git -C "$BASE_DIR" stash pop
-fi
+git -C "$BASE_DIR" pull --force --autostash
+CHECKSUM_NEW=$(git -C "$BASE_DIR" hash-object install)
 
 _end
-
-CHECKSUM_NEW=$(git -C "$BASE_DIR" hash-object install)
 
 if [ x"$CHECKSUM_ORIG" != x"$CHECKSUM_NEW" ]; then
   "$BASE_DIR/install"
