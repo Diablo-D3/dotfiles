@@ -7,8 +7,8 @@ OFFSET=0
 function _start()
 {
     if [ $OFFSET -ne 0 ]; then
-	OFFSET=0
-	echo -e ""
+    OFFSET=0
+    echo -e ""
     fi
 
     echo -e "$GREEN==> $1$RESET"
@@ -31,44 +31,15 @@ function _mkdir {
 }
 
 function _ln {
-    mkdir -vp $(dirname "$2")
-
+    _mkdir $(dirname "$2")
     rm -f "$2"
-
-    if [[ "$2" != "/mnt/c"* ]]; then
-	ln -sTv "$1" "$2"
-    else
-	# hack: wslpath can't generate paths for non-existant files
-	WIN_ROOT=$(wslpath -a -w "/" | sed "s/.$//")
-
-	OLD_PATH=$PWD
-	cd "/mnt/c" || return
-
-	W2=$(sed 's/\/mnt\/c/c:/; s/\//\\/g' <<< "$2")
-	W1=$WIN_ROOT$(sed 's/\//\\/g' <<< "$1")
-
-	if [ -L "$1" ]; then
-	    1>&2 echo "Does not support targets being symlinks: $1"
-	    exit 1
-	elif [ -d "$1" ]; then
-	    cmd.exe /c mklink /d "$W2" "$W1"
-	else
-	    cmd.exe /c mklink "$W2" "$W1"
-	fi
-    fi
-
-    cd "$OLD_PATH" || return
+    ln -sTv "$1" "$2"
 }
 
 function _sudo() {
     if [[ $(groups "$USER") == *"sudo"* ]]; then
-	sudo -E bash -c "source $BASE_DIR/install-lib; $*"
+        sudo -E bash -c "source $BASE_DIR/install-lib; $*"
     else
-	_status "Cannot become root: $*"
+        _status "Cannot become root: $*"
     fi
 }
-
-function _wslenv() {
-    export "${1}"="$(wslpath "$(powershell.exe -Command "\$env:${1}")" | sed 's/\r//')"
-}
-
