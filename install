@@ -47,7 +47,7 @@ fi
 
 _start "Remove stale symlinks"
 
-paths=( "$HOME" "$HOME/.config" )
+paths=( "$HOME" "$HOME/.config" "$HOME/.local" )
 
 if [ -v $WSL ]; then
   paths+=( "$USERPROFILE" "$APPDATA" "$LOCALAPPDATA" )
