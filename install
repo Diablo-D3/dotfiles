@@ -15,9 +15,8 @@ source "$BASE_DIR/install-lib"
 ### Stage 1
 ###
 
-if [ x"$INSTALLING" == x ]; then
+if [ -v "$RESTART" ]; then
   _start "Installing"
-  INSTALLING=1
 else
   _start "Install script changed, restarting"
 fi
@@ -42,7 +41,7 @@ CHECKSUM_NEW=$(git -C "$BASE_DIR" hash-object install)
 _end
 
 if [ x"$CHECKSUM_ORIG" != x"$CHECKSUM_NEW" ]; then
-  "$BASE_DIR/install"
+  RESTART="true" "$BASE_DIR/install"
   exit $?
 fi
 
