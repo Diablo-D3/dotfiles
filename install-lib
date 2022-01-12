@@ -36,6 +36,22 @@ function _ln {
     ln -sTv "$1" "$2"
 }
 
+function _ln_descent {
+    SRC_DIR="$1"
+    DST_DIR="$2"
+
+    for SRC in "$SRC_DIR"/**; do
+      if [ -f $SRC ]; then
+        DST="${SRC#$SRC_DIR/}"
+        _ln "$SRC" "${DST_DIR}${DST}"
+      elif [ -d $SRC ]; then
+        _mkdir "$SRC"
+      else
+        _status "Can't handle $SRC"
+      fi
+    done
+}
+
 function _sudo() {
     if [[ $(groups "$USER") == *"sudo"* ]]; then
         sudo -E bash -c "source $BASE_DIR/install-lib; $*"
