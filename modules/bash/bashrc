@@ -10,7 +10,7 @@ shopt -oq posix && return
 
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
-PATH=$HOME/bin:$HOME/.cargo/bin:$HOME/.emacs.d/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
+PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
 shopt -s globstar
 for p in "$HOME"/bin/**/*; do
@@ -175,11 +175,24 @@ fi
 
 # aliases
 alias bc="bc -ql"
-alias emacs="TERM=xterm-emacs emacs"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
-# fzf
+# rust/cargo
+PATH="$HOME/.cargo/bin:$PATH"
+
+# nodejs/npm
+NODE_PATH="$HOME/.npm/lib/node_modules"
+
+PATH="$HOME/.npm/bin:$PATH"
+MANPATH="$NPM_PACKAGES/share/man"
+
+# emacs
+PATH="$HOME/.emacs.d/bin:$PATH"
+
+alias emacs="TERM=xterm-emacs emacs"
+
+# fzf and fd
 FZF_DEFAULT_OPTS="--height 50%"
 FZF_COMPLETION_TRIGGER=""
 
