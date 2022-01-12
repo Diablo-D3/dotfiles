@@ -24,16 +24,12 @@ fi
 
 case "$(uname -a)" in
   *WSL*)
-    export OS="win"
+    export WSL="true"
     source "$MODULES_DIR/wsl/stealenv.sh"
     ;;
   *)
   ;;
 esac
-
-if [ x"$OS" != x ]; then
-  _status "Discovered platform $OS"
-fi
 
 _end
 
@@ -63,7 +59,7 @@ _start "Remove stale symlinks"
 
 paths=( "$HOME" "$HOME/.config" )
 
-if [ x"$OS" == x"WSL" ]; then
+if [ -v $WSL ]; then
   paths+=( "$USERPROFILE" "$APPDATA" "$LOCALAPPDATA" )
 fi
 
@@ -80,28 +76,21 @@ _end
 ###
 
 for MODULE_DIR in "$MODULES_DIR"/*/; do
+  # remove ending /
   MODULE_DIR="${MODULE_DIR%/}"
+
+  # name of module
   MODULE="${MODULE_DIR#$MODULES_DIR/}"
 
+  # path of config script
+  MODULE_SH="${MODULE_DIR/$MODULE.sh}"
+
   if ( command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1 ); then
-    MODULE_ANY="$MODULE.any"
-    MODULE_OS="$MODULE.$OS"
-
-    MODULE_ANY_CONF="$MODULES_DIR/$MODULE_ANY.sh"
-    MODULE_OS_CONF="$MODULES_DIR/$MODULE_OS.sh"
-
-    if [ -f "$MODULE_ANY_CONF" ]; then
-      _start "Running $MODULE_ANY"
-      $MODULE_ANY_CONF
+    if [ -f "$MODULE_CONF" ]; then
+      _start "Running $MODULE"
+      $MODULE_SH
       _end
     fi
-
-    if [ -f "$MODULE_OS_CONF" ]; then
-      _start "Installing $MODULE_OS"
-      $MODULE_OS_CONF
-      _end
-    fi
-
   else
     _status "$MODULE not installed, skipping"
     continue
