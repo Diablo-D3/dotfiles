@@ -45,15 +45,6 @@ if [ x"$CHECKSUM_ORIG" != x"$CHECKSUM_NEW" ]; then
   exit $?
 fi
 
-_start "Make required skeleton directories"
-
-mkdir -vp "$HOME/.cache"
-mkdir -vp "$HOME/.ssh"
-
-mkdir -vp "$HOME/bin"
-
-_end
-
 _start "Remove stale symlinks"
 
 paths=( "$HOME" "$HOME/.config" )
