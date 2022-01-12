@@ -31,7 +31,7 @@ function _mkdir {
 }
 
 function _ln {
-    _mkdir $(dirname "$2")
+    _mkdir "$(dirname "$2")"
     rm -f "$2"
     ln -sTv "$1" "$2"
 }
@@ -41,10 +41,10 @@ function _ln_descent {
     DST_DIR="$2"
 
     for SRC in "$SRC_DIR"/**; do
-      if [ -f $SRC ]; then
+      if [ -f "$SRC" ]; then
         DST="${SRC#$SRC_DIR/}"
         _ln "$SRC" "${DST_DIR}${DST}"
-      elif [ -d $SRC ]; then
+      elif [ -d "$SRC" ]; then
         _mkdir "$SRC"
       else
         _status "Can't handle $SRC"

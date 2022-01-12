@@ -4,7 +4,7 @@
 
 set -a
 set -e
-shopt -s nullglob
+shopt -s nullglob globstar
 
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MODULES_DIR="$BASE_DIR/modules"
@@ -15,7 +15,7 @@ source "$BASE_DIR/install-lib"
 ### Stage 1
 ###
 
-if [ -v "$RESTART" ]; then
+if [ -v RESTART ]; then
   _start "Installing"
 else
   _start "Install script changed, restarting"
@@ -47,14 +47,15 @@ fi
 
 _start "Remove stale symlinks"
 
-paths=( "$HOME" "$HOME/.config" "$HOME/.local" )
+paths=( "$HOME/bin" )
 
-if [ -v $WSL ]; then
-  paths+=( "$USERPROFILE" "$APPDATA" "$LOCALAPPDATA" )
+if [ -v WSL ]; then
+  paths+=( "$USERPROFILE" )
 fi
+find "$HOME" -name ".*" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 
 for path in "${paths[@]}"; do
-  find "$path" -mindepth 1 -maxdepth 2 -xtype l -print0 | xargs -0 -r -t -n 1 unlink
+  find "$path" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 done
 
 unset paths
@@ -73,27 +74,20 @@ for MODULE_DIR in "$MODULES_DIR"/*/; do
   MODULE="${MODULE_DIR#$MODULES_DIR/}"
 
   # path of config script
-  MODULE_SH="${MODULE_DIR/$MODULE.sh}"
+  MODULE_SH="$MODULES_DIR/$MODULE.sh"
 
-  # paths of directories to auto syymlink
-  MODULE_HOME="${MODULE_DIR/HOME}"
-  MODULE_BIN="${MODULE_DIR/BIN}"
+  # paths of directories to auto symlink
+  MODULE_HOME="$MODULE_DIR/HOME"
+  MODULE_BIN="$MODULE_DIR/BIN"
 
   if ( command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1 ); then
     _start "Installing for $MODULE"
 
-    for HOME_SRC in "$MODULE_HOME"/*; do
-      HOME_DEST="${HOME_SRC#$MODULE_HOME/}"
-      _ln "$HOME_SRC" "$HOME/.$HOME_DEST"
-    done
-
-    for BIN_SRC in "$MODULE_BIN"/*; do
-      BIN_DEST="${BIN_SRC#$MODULE_HOME/}"
-      _ln "$BIN_SRC" "$HOME/bin/$BIN_DEST"
-    done
+    _ln_descent "$MODULE_HOME" "$HOME/."
+    _ln_descent "$MODULE_BIN" "$HOME/bin/"
 
     if [ -f "$MODULE_SH" ]; then
-      $MODULE_SH
+      "$MODULE_SH"
     fi
 
     _end
