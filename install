@@ -75,12 +75,28 @@ for MODULE_DIR in "$MODULES_DIR"/*/; do
   # path of config script
   MODULE_SH="${MODULE_DIR/$MODULE.sh}"
 
+  # paths of directories to auto syymlink
+  MODULE_HOME="${MODULE_DIR/HOME}"
+  MODULE_BIN="${MODULE_DIR/BIN}"
+
   if ( command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1 ); then
-    if [ -f "$MODULE_CONF" ]; then
-      _start "Running $MODULE"
+    _start "Installing for $MODULE"
+
+    for HOME_SRC in "$MODULE_HOME"/*; do
+      HOME_DEST="${HOME_SRC#$MODULE_HOME/}"
+      _ln "$HOME_SRC" "$HOME/.$HOME_DEST"
+    done
+
+    for BIN_SRC in "$MODULE_BIN"/*; do
+      BIN_DEST="${BIN_SRC#$MODULE_HOME/}"
+      _ln "$BIN_SRC" "$HOME/bin/$BIN_DEST"
+    done
+
+    if [ -f "$MODULE_SH" ]; then
       $MODULE_SH
-      _end
     fi
+
+    _end
   else
     _status "$MODULE not installed, skipping"
     continue
