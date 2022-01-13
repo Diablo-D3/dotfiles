@@ -33,7 +33,11 @@ function _mkdir {
 function _ln {
     _mkdir "$(dirname "$2")"
     rm -f "$2"
-    ln -sTv "$1" "$2"
+    if [[ "$2" != "/mnt/c"* ]] ; then
+	ln -sTv "$1" "$2"
+    else
+	cp -Tv "$1" "$2"
+    fi
 }
 
 function _ln_descent {

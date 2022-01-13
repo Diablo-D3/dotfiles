@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 
 # shellcheck disable=SC1090
@@ -47,16 +48,9 @@ fi
 
 _start "Remove stale symlinks"
 
-paths=( "$HOME/bin" )
+find "$HOME" -mindepth 1 -name ".*" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
+find "$HOME/bin" -mindepth 1 -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 
-if [ -v WSL ]; then
-  paths+=( "$USERPROFILE" )
-fi
-find "$HOME" -name ".*" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
-
-for path in "${paths[@]}"; do
-  find "$path" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
-done
 
 unset paths
 
