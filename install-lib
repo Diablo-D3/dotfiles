@@ -59,3 +59,7 @@ function _sudo() {
         _status "Cannot become root: $*"
     fi
 }
+
+function _wslenv() {
+    export "${1}"="$(wslpath "$(powershell.exe -Command "\$env:${1}")" | sed 's/\r//')"
+}
