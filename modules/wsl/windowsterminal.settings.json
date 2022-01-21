@@ -5,73 +5,74 @@
     "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
     "disabledProfileSources": 
     [
-	    "Windows.Terminal.Azure",
-	    "Windows.Terminal.PowershellCore"
+        "Windows.Terminal.Azure",
+        "Windows.Terminal.PowershellCore"
     ],
     "initialCols": 132,
     "initialRows": 24,
-    "useAcrylicInTabRow": true,
     "profiles": 
     {
-	    "defaults":
-	    {
-	        "antialiasingMode": "cleartype",
-	        "closeOnExit": "always",
-	        "colorScheme": "Dark+",
-	        "experimental.retroTerminalEffect": false,
-	        "font":
-	        {
-		        "face": "Iosevka Term",
-		        "size": 15,
-		        "weight": "light"
-	        },
-	        "padding": "1",
-	        "scrollbarState": "hidden"
-	    },
-	    "list":
-	    [
-	        {
-		        "commandline": "cmd.exe",
-		        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-		        "name": "Command Prompt"
-	        },
-	        {
-		        "commandline": "powershell.exe",
-		        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-		        "name": "Windows PowerShell"
-	        },
-	        {
-		        "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-		        "hidden": false,
-		        "name": "Debian",
-		        "source": "Windows.Terminal.Wsl",
-		        "startingDirectory": "\\\\wsl$\\Debian\\home\\diablo"
-	        }
-	    ]
+        "defaults": 
+        {
+            "antialiasingMode": "cleartype",
+            "closeOnExit": "always",
+            "colorScheme": "Tomorrow Night",
+            "experimental.retroTerminalEffect": false,
+            "font": 
+            {
+                "face": "Iosevka Term",
+                "size": 15,
+                "weight": "light"
+            },
+            "padding": "1",
+            "scrollbarState": "hidden"
+        },
+        "list": 
+        [
+            {
+                "commandline": "cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "name": "Command Prompt"
+            },
+            {
+                "commandline": "powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+                "hidden": false,
+                "name": "Debian",
+                "source": "Windows.Terminal.Wsl",
+                "startingDirectory": "\\\\wsl$\\Debian\\home\\diablo"
+            }
+        ]
     },
     "schemes": 
     [
-	    {
-	        "name": "Dark+",
-	        "background" : "#232323",
-	        "black" : "#000000",
-	        "blue" : "#579BD5",
-	        "brightBlack" : "#797979",
-	        "brightBlue" : "#9BDBFE",
-	        "brightCyan" : "#2BC4E2",
-	        "brightGreen" : "#1AD69C",
-	        "brightPurple" : "#DF89DD",
-	        "brightRed" : "#F6645D",
-	        "brightWhite" : "#EAEAEA",
-	        "brightYellow" : "#F6F353",
-	        "cyan" : "#00B6D6",
-	        "foreground" : "#D3D3D3",
-	        "green" : "#3FC48A",
-	        "purple" : "#CA5BC8",
-	        "red" : "#D8473F",
-	        "white" : "#EAEAEA",
-	        "yellow" : "#D7BA7D"
-	    }
-    ]
+        {
+            "background": "#1D1F21",
+            "black": "#000000",
+            "blue": "#81A2BE",
+            "brightBlack": "#808080",
+            "brightBlue": "#81A2BE",
+            "brightCyan": "#8ABEB7",
+            "brightGreen": "#B5BD68",
+            "brightPurple": "#B294BB",
+            "brightRed": "#CC6666",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#F0C674",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#8ABEB7",
+            "foreground": "#C5C8C6",
+            "green": "#B5BD68",
+            "name": "Tomorrow Night",
+            "purple": "#B294BB",
+            "red": "#CC6666",
+            "selectionBackground": "#C5C8C6",
+            "white": "#FFFFFF",
+            "yellow": "#F0C674"
+        }
+    ],
+    "useAcrylicInTabRow": true
 }
-
