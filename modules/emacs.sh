@@ -3,10 +3,10 @@
 DOOM="$HOME/.emacs.d/bin/doom"
 
 declare -a DOOMDIRS
-DOOMDIRS=("$HOME/.emacs.d/")
+DOOMDIRS=("$HOME/.doom.d/")
 
-if [ ! -z ${WSL} ]; then
-    DOOMDIRS+=("$APPDATA/.emacs.d/")
+if [ -n "$WSL" ]; then
+    DOOMDIRS+=("$APPDATA/.doom.d/")
 fi
 
 for DOOMDIR in "${DOOMDIRS[@]}"; do
