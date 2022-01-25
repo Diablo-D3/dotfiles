@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 # shellcheck disable=SC1090
@@ -16,7 +15,7 @@ source "$BASE_DIR/install-lib"
 ### Stage 1
 ###
 
-if [ -v RESTART ]; then
+if [ -z ${RESTART} ]; then
   _start "Installing"
 else
   _start "Install script changed, restarting"
@@ -41,7 +40,7 @@ CHECKSUM_NEW=$(git -C "$BASE_DIR" hash-object install)
 
 _end
 
-if [ x"$CHECKSUM_ORIG" != x"$CHECKSUM_NEW" ]; then
+if [ "$CHECKSUM_ORIG" != "$CHECKSUM_NEW" ]; then
   RESTART="true" "$BASE_DIR/install"
   exit $?
 fi
