@@ -44,6 +44,10 @@ function _ln_descent {
     SRC_DIR="$1"
     DST_DIR="$2"
 
+    if [[ "$DST_DIR" != */ ]]; then
+        $DST_DIR="$DST_DIR/"
+    fi
+
     for SRC in "$SRC_DIR"/**; do
       if [ -f "$SRC" ]; then
         DST="${SRC#$SRC_DIR/}"
