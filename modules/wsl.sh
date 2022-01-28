@@ -14,4 +14,10 @@ if [ -v WSL ]; then
 
     _ln "$MODULE_DIR/hidden_powershell.js" "$USERPROFILE/hidden_powershell.js"
     _ln "$MODULE_DIR/wsl2.ps1" "$USERPROFILE/wsl2.ps1"
+
+    if [ ! -f "/mnt/c/Program Files/Git/bin/git.exe" ]; then
+	winget.exe install git.git
+    else
+	winget.exe upgrade git.git
+    fi
 fi
