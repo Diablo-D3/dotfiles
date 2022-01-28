@@ -45,7 +45,7 @@ function _ln_descent {
     DST_DIR="$2"
 
     if [[ "$DST_DIR" != */ ]]; then
-        $DST_DIR="$DST_DIR/"
+        DST_DIR="$DST_DIR/"
     fi
 
     for SRC in "$SRC_DIR"/**; do
@@ -66,8 +66,4 @@ function _sudo() {
     else
         _status "Cannot become root: $*"
     fi
-}
-
-function _wslenv() {
-    export "${1}"="$(wslpath "$(powershell.exe -Command "\$env:${1}")" | sed 's/\r//')"
 }
