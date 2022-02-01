@@ -94,8 +94,13 @@ elif [[ -a /usr/lib/git-core/git-sh-prompt ]]; then
     source /usr/lib/git-core/git-sh-prompt
 fi
 
-# colors
+# styles
 RESET=$(tput sgr0)
+BOLD=$(tput bold)
+ITAL=$(tput sitm)
+REV=$(tput smso)
+
+# colors
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
