@@ -23,10 +23,12 @@ for ((i = 0; i < j; i++)); do
 
     if [ ! -d "${DIR[$i]}${EMACSD}" ]; then
         "${GIT[$i]}" clone --depth 1 "https://github.com/hlissner/doom-emacs" "${EMACSDIR}"
-        "${DOOM[@]}" -y install
+        "${DOOM[@]}" -y install --no-fonts
         "${DOOM[@]}" sync
     else
         "${DOOM[@]}" upgrade
     fi
 
 done
+
+exit 0
