@@ -1,0 +1,25 @@
+font:
+    normal:
+        family: Iosevka Term
+        style: Extended
+    bold:
+        family: Iosevka Term
+        style: Bold Extended
+    italic:
+        family: Iosevka Term
+        style: Italic Extended
+    bold_italic:
+        family: Iosevka Term
+        style: Bold Extended Italic
+    size: 15
+
+shell:
+    program: wsl.exe
+    args:
+        - ~ -d Debian
+
+dimensions:
+    columns: 80
+    lines: 25
+
+dynamic_title: true
