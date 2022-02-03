@@ -11,7 +11,7 @@ font:
     bold_italic:
         family: Iosevka Term
         style: Bold Extended Italic
-    size: 15
+    size: 15.75
 
 shell:
     program: wsl.exe
