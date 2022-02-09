@@ -11,15 +11,22 @@ font:
     bold_italic:
         family: Iosevka Term
         style: Bold Extended Italic
-    size: 15.75
+    size: 14.25
 
 shell:
     program: wsl.exe
     args:
         - ~ -d Debian
 
-dimensions:
-    columns: 80
-    lines: 25
+window:
+    dimensions:
+        columns: 80
+        lines: 25
 
-dynamic_title: true
+    dynamic_title: true
+
+selection:
+    save_to_clipboard: true
+
+key_bindings:
+    - { key: F11, action: ToggleFullscreen }
