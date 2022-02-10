@@ -198,7 +198,7 @@ PATH="$HOME/.emacs.d/bin:$PATH"
 alias emacs="TERM=xterm-emacs emacs"
 
 # fzf and fd
-FZF_DEFAULT_OPTS="--height 50%"
+FZF_DEFAULT_OPTS="--height 50% +m -1 -0 --bind tab:down,btab:up"
 FZF_COMPLETION_TRIGGER=""
 
 if [ -f /usr/bin/fdfind ]; then
