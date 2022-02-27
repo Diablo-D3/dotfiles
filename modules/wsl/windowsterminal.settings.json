@@ -1,6 +1,7 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": [],
+    "alwaysShowTabs": false,
     "copyOnSelect": true,
     "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
     "disabledProfileSources": 
@@ -18,11 +19,12 @@
             "closeOnExit": "always",
             "colorScheme": "Tomorrow Night",
             "experimental.retroTerminalEffect": false,
+            "experimental.useAtlasEngine": true,
             "font": 
             {
                 "face": "Iosevka Term",
                 "size": 15,
-                "weight": "light"
+                "weight": "normal"
             },
             "padding": "1",
             "scrollbarState": "hidden"
@@ -74,5 +76,7 @@
             "yellow": "#F0C674"
         }
     ],
-    "useAcrylicInTabRow": true
+    "useAcrylicInTabRow": false,
+    "theme": "dark",
+    "showTabsInTitlebar": false
 }
