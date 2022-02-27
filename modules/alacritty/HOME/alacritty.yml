@@ -1,17 +1,17 @@
 font:
     normal:
         family: Iosevka Term
-        style: Extended
+        style: Regular
     bold:
         family: Iosevka Term
-        style: Bold Extended
+        style: Bold
     italic:
         family: Iosevka Term
-        style: Italic Extended
+        style: Italic
     bold_italic:
         family: Iosevka Term
-        style: Bold Extended Italic
-    size: 14.25
+        style: Bold Italic
+    size: 15
 
 shell:
     program: wsl.exe

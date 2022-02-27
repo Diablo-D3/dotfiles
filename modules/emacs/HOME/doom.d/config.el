@@ -6,8 +6,8 @@
 (setq user-full-name "Patrick McFarland"
       user-mail-address "pmcfarland@adterrasperaspera.com")
 
-(setq doom-font (font-spec :family "Iosevka Extended" :size 19)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 19))
+(setq doom-font (font-spec :family "Iosevka" :size 20)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 20))
 
 (setq doom-theme 'doom-tomorrow-night)
 
