@@ -11,7 +11,8 @@ font:
     bold_italic:
         family: Iosevka Term
         style: Bold Italic
-    size: 15
+    # Alacritty font sizing is slightly too small, this should be 16
+    size: 16
 
 shell:
     program: wsl.exe
@@ -20,7 +21,7 @@ shell:
 
 window:
     dimensions:
-        columns: 80
+        columns: 132
         lines: 25
 
     dynamic_title: true
