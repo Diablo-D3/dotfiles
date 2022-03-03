@@ -1,34 +1,17 @@
 #!/usr/bin/env bash
 
-EMACSD=".emacs.d"
-DOOMD=".doom.d"
+EMACSD="$HOME/.emacs.d"
+DOOMD="$HOME/.doom.d"
+DOOM="$EMACSD/bin/doom"
 
-declare -a GIT=("git" "/mnt/c/Program Files/Git/bin/git.exe")
-declare -a EMACS=("emacs" "/mnt/c/Program Files/Emacs/x86_64/bin/emacs.exe")
-declare -a DIR=("$HOME/" "$APPDATA/")   # home dir as unix path
-declare -a ARG=("$HOME/" "$APPDATAW\\") # home dir as native path
-declare -a BIN=("/bin/doom" "\\bin\\doom")
-
-if [ -z "$WSL" ]; then
-    j=1
+if [ ! -d "$HOME/${EMACSD}" ]; then
+    git clone --depth 1 "https://github.com/hlissner/doom-emacs" "${EMACSD}"
+    "$DOOM" -y install --no-fonts
+    "$DOOM" sync
 else
-    j=2
-    _ln_descent "$MODULE_HOME/doom.d" "$APPDATA/${DOOMD}/"
+    git -c "$EMACSD" pull --rebase
+    "$DOOM" clean
+    "$DOOM" sync -u -p
 fi
-
-for ((i = 0; i < j; i++)); do
-    EMACSDIR="${ARG[$i]}${EMACSD}"
-    DOOMBIN="${EMACSDIR}${BIN[$i]}"
-    DOOM=("${EMACS[$i]}" --no-site-file --script "$DOOMBIN" --)
-
-    if [ ! -d "${DIR[$i]}${EMACSD}" ]; then
-        "${GIT[$i]}" clone --depth 1 "https://github.com/hlissner/doom-emacs" "${EMACSDIR}"
-        "${DOOM[@]}" -y install --no-fonts
-        "${DOOM[@]}" sync
-    else
-        "${DOOM[@]}" upgrade
-    fi
-
-done
 
 exit 0
