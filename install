@@ -2,12 +2,8 @@
 
 # shellcheck disable=SC1090
 
-set -a
-set -e
-shopt -s nullglob globstar
-
-BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MODULES_DIR="$BASE_DIR/modules"
+export BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export MODULES_DIR="$BASE_DIR/modules"
 
 source "$BASE_DIR/install-lib"
 
@@ -15,8 +11,9 @@ source "$BASE_DIR/install-lib"
 ### Stage 1
 ###
 
-if [ -z ${RESTART} ]; then
+if [ -z ${RESTART+x} ]; then
   _start "Installing"
+  export RESTART=yes
 else
   _start "Install script changed, restarting"
 fi
@@ -41,7 +38,7 @@ CHECKSUM_NEW=$(git -C "$BASE_DIR" hash-object install)
 _end
 
 if [ "$CHECKSUM_ORIG" != "$CHECKSUM_NEW" ]; then
-  RESTART="true" "$BASE_DIR/install"
+  "$BASE_DIR/install"
   exit $?
 fi
 
@@ -49,7 +46,6 @@ _start "Remove stale symlinks"
 
 find "$HOME" -mindepth 1 -name ".*" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 find "$HOME/bin" -mindepth 1 -xtype l -print0 | xargs -0 -r -t -n 1 unlink
-
 
 unset paths
 
@@ -95,4 +91,4 @@ done
 ###
 
 _start "Finished installing"
-
+_end

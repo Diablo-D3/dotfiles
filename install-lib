@@ -1,8 +1,44 @@
 #!/usr/bin/env bash
 
+###
+### Boilerplate
+###
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# If set, the ERR trap is inherited by shell functions
+set -E
+
+# Treat unset variables as an error when substituting
+set -u
+
+# Return value of a pipeline is the last command to exit with a non-zero status
+set -o pipefail
+
+# Mark variables which are modified or created for export
+set -a
+
+# Allows patterns which match no files to expand to a null string
+shopt -s nullglob
+
+# Allow ** pattern
+shopt -s globstar
+
+# Allow extended regular expressions
+shopt -s extglob
+
+# Allow spaces in filenames and not explode
+# https://dwheeler.com/essays/fixing-unix-linux-filenames.html
+IFS="`printf '\n\t'`"
+
 GREEN="$(tput setaf 2)"
 RESET="$(tput sgr0)"
 OFFSET=0
+
+###
+### Job blocks
+###
 
 function _start()
 {
@@ -25,6 +61,10 @@ function _status()
     OFFSET=1
     echo -e "$1"
 }
+
+###
+### Wrappers
+###
 
 function _mkdir {
     mkdir -vp "$1"
