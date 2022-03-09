@@ -1,19 +1,20 @@
 #profile=low-latency
 
 term-status-msg="${time-pos:?}s ${video-frame-info/picture-type:?} | ${video-bitrate:? kbps}/${audio-bitrate:? kbps} ${demuxer-cache-duration:?}s | ${video-params/w:?}x${video-params/h:?}@${estimated-vf-fps:?} (${video-params/pixelformat:?} ${video-params/colorlevels:?})"
+no-taskbar-progress
 
 cache=yes
+
 fs=yes
 screen=1
 fs-screen=1
 embeddedfonts
 volume-max=200
-no-taskbar-progress
-ytdl-raw-options=cookies=~/.cookies.txt
+cursor-autohide=1000
 
 vo=gpu
-gpu-context=win
 hwdec=auto
+gpu-api=opengl
 scaler-resizes-only
 
 target-prim=bt.709
@@ -21,26 +22,31 @@ target-trc=bt.1886
 #icc-profile-auto
 
 [interpolation]
-profile-cond=container_fps > 23 and container_fps < 26
+profile-cond=(container_fps >23 and container_fps <26)
 video-sync=display-resample
 interpolation=yes
-tscale=catmull_rom
+tscale=oversample
 
 [hq]
-profile-restore=copy
+profile-restore=copy-equal
 
+# https://github.com/igv/fsrcnn-tensorflow/releases
+# April 16 2021
 profile=gpu-hq
-
-# https://github.com/igv/FSRCNN-TensorFlow/releases
 glsl-shaders-append="~~/FSRCNNX_x2_16-0-4-1.glsl"
+scale=ewa_lanczos
 
-# https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637
-glsl-shaders-append="~~/KrigBilateral.glsl"
-
-#https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
+# https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
+# Nov 19, 2021
 glsl-shaders-append="~~/SSimDownscaler.glsl"
 dscale=mitchell
 linear-downscaling=no
+
+# https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637
+# Oct 12, 2021
+glsl-shaders-append="~~/KrigBilateral.glsl"
+cscale=mitchell
+sigmoid-upscaling=yes
 
 dither=fruit
 temporal-dither=yes
