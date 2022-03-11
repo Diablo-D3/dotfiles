@@ -4,7 +4,6 @@ if [ -v WSL ]; then
     _ln "$USERPROFILE/Desktop" "$HOME/Desktop"
     _ln "$USERPROFILE/Documents" "$HOME/Documents"
     _ln "$USERPROFILE/Downloads" "$HOME/Downloads"
-    _ln "$USERPROFILE/workspace" "$HOME/workspace"
 
     _mkdir "$USERPROFILE/bin"
     _ln "$USERPROFILE/bin" "$HOME/bin/windows"
