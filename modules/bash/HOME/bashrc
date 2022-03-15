@@ -96,9 +96,16 @@ fi
 
 # styles
 RESET=$(tput sgr0)
-BOLD=$(tput bold)
 ITAL=$(tput sitm)
+ITALOFF=$(tput ritm)
 REV=$(tput smso)
+REVOFF=$(tput rmso)
+UL=$(tput smul)
+ULOFF=$(tput rmul)
+
+# brightness
+DIM=$(tput dim)
+BOLD=$(tput bold)
 
 # colors
 BLACK=$(tput setaf 0)
@@ -117,6 +124,14 @@ HIBLUE=$(tput setaf 12)
 HIMAGENTA=$(tput setaf 12)
 HICYAN=$(tput setaf 14)
 HIWHITE=$(tput setaf 15)
+DIMBLACK=$DIM$(tput setaf 0)
+DIMRED=$DIM$(tput setaf 1)
+DIMGREEN=$DIM$(tput setaf 2)
+DIMYELLOW=$DIM$(tput setaf 3)
+DIMBLUE=$DIM$(tput setaf 4)
+DIMMAGENTA=$DIM$(tput setaf 5)
+DIMCYAN=$DIM$(tput setaf 6)
+DIMWHITE=$DIM$(tput setaf 7)
 
 # hostname color
 HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)
