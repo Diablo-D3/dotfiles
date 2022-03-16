@@ -1,4 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-export TERM=xterm-emacs
-exec emacsclient -a '' -nw "$@"
+if [ $TERM = "tmux*" ]; then
+    export TERM=tmux-emacs
+else
+    export TERM=xterm-emacs
+fi
+
+if [[ ! "$@" == *"--no-site-file"* ]]; then
+    exec /usr/bin/emacsclient -a'' -nw -c "$@"
+else
+    exec /usr/bin/emacs -nw "$@"
+fi
