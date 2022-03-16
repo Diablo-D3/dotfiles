@@ -14,9 +14,9 @@ PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
 shopt -s globstar
 for p in "$HOME"/bin/**/*; do
-    if [ -d "$p" ]; then
-	PATH="$p:$PATH";
-    fi
+  if [ -d "$p" ]; then
+    PATH="$p:$PATH";
+  fi
 done
 shopt -u globstar
 
@@ -76,9 +76,9 @@ bind "set colored-stats on"
 
 # add bash-completion when available
 if [ -f /usr/share/bash-completion/bash_completion ]; then
-    source /usr/share/bash-completion/bash_completion
+  source /usr/share/bash-completion/bash_completion
 elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
+  source /etc/bash_completion
 fi
 
 # add git-prompt when available
@@ -89,9 +89,9 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 
 if [[ -a /usr/share/git/completion/git-prompt.sh ]]; then
-    source /usr/share/git/completion/git-prompt.sh
+  source /usr/share/git/completion/git-prompt.sh
 elif [[ -a /usr/lib/git-core/git-sh-prompt ]]; then
-    source /usr/lib/git-core/git-sh-prompt
+  source /usr/lib/git-core/git-sh-prompt
 fi
 
 # styles
@@ -138,12 +138,12 @@ HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-
 HOSTCOLOR=$(( 16#"$HOSTCHECKSUM"%16 ))
 
 case $HOSTCOLOR in
-    0)
-	PRO_FG=$(tput setaf "$HOSTCOLOR")$(tput setab "$WHITE")
-	;;
-    *)
-	PRO_FG=$(tput setaf "$HOSTCOLOR")
-	;;
+  0)
+    PRO_FG=$(tput setaf "$HOSTCOLOR")$(tput setab "$WHITE")
+    ;;
+  *)
+    PRO_FG=$(tput setaf "$HOSTCOLOR")
+    ;;
 esac
 
 unset HOSTCHECKSUM
@@ -153,44 +153,44 @@ unset HOSTCOLOR
 PRO_START="[\\[$PRO_FG\\]\\h\\[$RESET\\] \\W"
 
 if [ "$(id -u)" -eq 0 ]; then
-    PRO_END="]\\[$RED\\]#\\[$RESET\\] "
+  PRO_END="]\\[$RED\\]#\\[$RESET\\] "
 else
-    PRO_END="]\$ "
+  PRO_END="]\$ "
 fi
 
 precmd() {
-    if [[ x$PWD != x$HOME ]] && [ x"$(type -t __git_ps1)" = x'function' ]; then
-	__git_ps1 "$PRO_START" "$PRO_END"
-    else
-	PS1=$PRO_START$PRO_END
-    fi
+  if [[ x$PWD != x$HOME ]] && [ x"$(type -t __git_ps1)" = x'function' ]; then
+    __git_ps1 "$PRO_START" "$PRO_END"
+  else
+    PS1=$PRO_START$PRO_END
+  fi
 
-    if [[ -n $TMUX ]]; then
-	eval "$(tmux show-environment -s)"
-    fi
+  if [[ -n $TMUX ]]; then
+    eval "$(tmux show-environment -s)"
+  fi
 
-    history -a
+  history -a
 }
 
 PROMPT_COMMAND=precmd
 
 # set xterm title
 preexec() {
-    if [[ $BASH_COMMAND == "precmd" ]]; then
-	COMMAND=${DIRSTACK[*]}
-    else
-	COMMAND=$BASH_COMMAND
-    fi
+  if [[ $BASH_COMMAND == "precmd" ]]; then
+    COMMAND=${DIRSTACK[*]}
+  else
+    COMMAND=$BASH_COMMAND
+  fi
 
-    PRO_TITLE="\\033]0;${HOSTNAME%%.*}: $COMMAND\\007"
-    echo -ne "$PRO_TITLE"
+  PRO_TITLE="\\033]0;${HOSTNAME%%.*}: $COMMAND\\007"
+  echo -ne "$PRO_TITLE"
 }
 
 trap preexec DEBUG
 
 # load local config
 if [[ -a ~/.bashrc.local ]]; then
-    source ~/.bashrc.local
+  source ~/.bashrc.local
 fi
 
 # aliases
@@ -217,18 +217,20 @@ FZF_DEFAULT_OPTS="--height 50% +m -1 -0 --bind tab:down,btab:up"
 FZF_COMPLETION_TRIGGER=""
 
 if [ -f /usr/bin/fdfind ]; then
-    alias fd="fdfind"
+  alias fd="fdfind"
 fi
 
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
+if $(command -v fd >/dev/null 2>&1); then
+  _fzf_compgen_path() {
+    fd --hidden --follow --exclude ".git" . "$1"
+  }
 
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
+  _fzf_compgen_dir() {
+    fd --type d --hidden --follow --exclude ".git" . "$1"
+  }
+fi
 
 if [ -f /usr/share/doc/fzf/examples/completion.bash ]; then
-    source /usr/share/doc/fzf/examples/completion.bash
-    source /usr/share/doc/fzf/examples/key-bindings.bash
+  source /usr/share/doc/fzf/examples/completion.bash
+  source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
