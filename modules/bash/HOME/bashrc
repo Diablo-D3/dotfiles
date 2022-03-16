@@ -15,18 +15,13 @@ PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 shopt -s globstar
 for p in "$HOME"/bin/**/*; do
   if [ -d "$p" ]; then
-    PATH="$p:$PATH";
+    PATH="$p:$PATH"
   fi
 done
 shopt -u globstar
 
 # noramlize locale
 LC_CTYPE=en_US.UTF-8
-
-# set editor
-EDITOR=emacs
-VISUAL=emacs
-GIT_EDITOR=emacs
 
 # set window size
 shopt -s checkwinsize
@@ -208,9 +203,19 @@ PATH="$HOME/.npm/bin:$PATH"
 MANPATH="$NPM_PACKAGES/share/man"
 
 # emacs
-PATH="$HOME/.emacs.d/bin:$PATH"
+if [ -f /usr/bin/emacs ]; then
+  PATH="$HOME/.emacs.d/bin:$PATH"
 
-alias emacs="TERM=xterm-emacs emacs"
+  EDITOR=emacs
+  VISUAL=emacs
+  GIT_EDITOR=emacs
+else
+  EDITOR=vim
+  VISUAL=vim
+  GIT_EDITOR=vim
+fi
+
+alias e='$EDITOR'
 
 # fzf and fd
 FZF_DEFAULT_OPTS="--height 50% +m -1 -0 --bind tab:down,btab:up"
@@ -220,7 +225,7 @@ if [ -f /usr/bin/fdfind ]; then
   alias fd="fdfind"
 fi
 
-if $(command -v fd >/dev/null 2>&1); then
+if command -v fd >/dev/null 2>&1; then
   _fzf_compgen_path() {
     fd --hidden --follow --exclude ".git" . "$1"
   }

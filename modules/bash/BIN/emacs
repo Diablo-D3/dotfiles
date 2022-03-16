@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+export TERM=xterm-emacs
+exec emacsclient -a '' -nw "$@"
