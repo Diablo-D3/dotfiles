@@ -16,8 +16,15 @@
 (setq org-directory "~/org/")
 (setq display-line-numbers-type 'relative)
 
-;; remove bar, screwing up height
+;; remove bar, screwing up line height
+;; https://github.com/seagle0128/doom-modeline/blob/master/doom-modeline.el#L90
 (after! doom-modeline
   (doom-modeline-def-modeline 'main
     '(workspace-name window-number modals matches follow buffer-info remote-host buffer-position word-count parrot selection-info)
     '(objed-state misc-info persp-name battery grip irc mu4e gnus github debug repl lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker)))
+
+;; make vterm open on right
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/term/vterm/config.el#L18
+;; https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/popup/config.el#L143
+;; (after! vterm
+;;  (set-popup-rule! "*doom:vterm-popup:main" :size 0.5 :side 'right))
