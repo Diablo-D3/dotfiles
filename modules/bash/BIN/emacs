@@ -7,7 +7,7 @@ else
 fi
 
 if [[ ! "$@" == *"--no-site-file"* ]]; then
-    exec /usr/bin/emacsclient -a'' -nw -c "$@"
+    exec /usr/bin/emacsclient -a '/usr/bin/emacs --daemon' -nw -c "$@"
 else
     exec /usr/bin/emacs -nw "$@"
 fi
