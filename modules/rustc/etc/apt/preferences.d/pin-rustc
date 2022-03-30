@@ -1,0 +1,3 @@
+Package: src:rustc src:llvm-toolchain-13 src:gcc-11 src:z3 src:cargo
+Pin: release a=unstable
+Pin-Priority: 1001
