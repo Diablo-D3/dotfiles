@@ -29,7 +29,7 @@ LC_CTYPE=$LANG
 shopt -s checkwinsize
 
 # recursive glob
-shopt -s globstar 2> /dev/null
+shopt -s globstar 2>/dev/null
 
 # case-insensitive glob
 shopt -s nocaseglob
@@ -85,9 +85,9 @@ GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 
-if [[ -a /usr/share/git/completion/git-prompt.sh ]]; then
+if [[ -e /usr/share/git/completion/git-prompt.sh ]]; then
   source /usr/share/git/completion/git-prompt.sh
-elif [[ -a /usr/lib/git-core/git-sh-prompt ]]; then
+elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
   source /usr/lib/git-core/git-sh-prompt
 fi
 
@@ -132,7 +132,7 @@ DIMWHITE=$DIM$(tput setaf 7)
 
 # hostname color
 HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)
-HOSTCOLOR=$(( 16#"$HOSTCHECKSUM"%16 ))
+HOSTCOLOR=$((16#"$HOSTCHECKSUM" % 16))
 
 case $HOSTCOLOR in
   0)
@@ -186,7 +186,7 @@ preexec() {
 trap preexec DEBUG
 
 # load local config
-if [[ -a ~/.bashrc.local ]]; then
+if [[ -e ~/.bashrc.local ]]; then
   source ~/.bashrc.local
 fi
 
