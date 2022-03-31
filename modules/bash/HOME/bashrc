@@ -91,44 +91,45 @@ elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
   source /usr/lib/git-core/git-sh-prompt
 fi
 
-# styles
-RESET=$(tput sgr0)
-ITAL=$(tput sitm)
-ITALOFF=$(tput ritm)
-REV=$(tput smso)
-REVOFF=$(tput rmso)
-UL=$(tput smul)
-ULOFF=$(tput rmul)
+function sgr {
+  echo -e "\e[$1m"
+}
 
-# brightness
-DIM=$(tput dim)
-BOLD=$(tput bold)
+function col {
+  sgr "38;5;$1"
+}
+
+# styles
+RESET=$(sgr 0)
+
+BOLD=$(sgr 1)
+DIM=$(sgr 2)
+NORM=$(sgr 22)
+
+SITA=$(sgr 3)
+RITA=$(sgr 23)
+SUL=$(sgr 4)
+RUL=$(sgr 24)
+SREV=$(sgr 7)
+RREV=$(sgr 27)
 
 # colors
-BLACK=$(tput setaf 0)
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-BLUE=$(tput setaf 4)
-MAGENTA=$(tput setaf 5)
-CYAN=$(tput setaf 6)
-WHITE=$(tput setaf 7)
-HIBLACK=$(tput setaf 8)
-HIRED=$(tput setaf 9)
-HIGREEN=$(tput setaf 10)
-HIYELLOW=$(tput setaf 11)
-HIBLUE=$(tput setaf 12)
-HIMAGENTA=$(tput setaf 12)
-HICYAN=$(tput setaf 14)
-HIWHITE=$(tput setaf 15)
-DIMBLACK=$DIM$(tput setaf 0)
-DIMRED=$DIM$(tput setaf 1)
-DIMGREEN=$DIM$(tput setaf 2)
-DIMYELLOW=$DIM$(tput setaf 3)
-DIMBLUE=$DIM$(tput setaf 4)
-DIMMAGENTA=$DIM$(tput setaf 5)
-DIMCYAN=$DIM$(tput setaf 6)
-DIMWHITE=$DIM$(tput setaf 7)
+BLACK=$(col 0)
+RED=$(col 1)
+GREEN=$(col 2)
+YELLOW=$(col 3)
+BLUE=$(col 4)
+MAGENTA=$(col 5)
+CYAN=$(col 6)
+WHITE=$(col 7)
+HIBLACK=$(col 8)
+HIRED=$(col 9)
+HIGREEN=$(col 10)
+HIYELLOW=$(col 11)
+HIBLUE=$(col 12)
+HIMAGENTA=$(col 13)
+HICYAN=$(col 14)
+HIWHITE=$(col 15)
 
 # hostname color
 HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)
@@ -136,10 +137,10 @@ HOSTCOLOR=$((16#"$HOSTCHECKSUM" % 16))
 
 case $HOSTCOLOR in
   0)
-    PRO_FG=$(tput setaf "$HOSTCOLOR")$(tput setab "$WHITE")
+    PRO_FG=$REV$(col $HOSTCOLOR)
     ;;
   *)
-    PRO_FG=$(tput setaf "$HOSTCOLOR")
+    PRO_FG=$(col $HOSTCOLOR)
     ;;
 esac
 
