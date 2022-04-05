@@ -16,7 +16,7 @@ Run `~/.dotfiles/install` again.
 
 I should write an actual script to standup my personal Debian VMs (or use one of the thousands of tools for this). Until then...
 
-`sudo apt install sysvinit-core openssh-server libpam-elogin bash-completion bc deborphan file git wget neovim shellcheck` (remove systemd, install sshd without systemd dep, install basic tools)
+`sudo apt install sysvinit-core openssh-server libpam-elogin bash-completion bc deborphan file git wget neovim emacs shellcheck rsync` (remove systemd, install sshd without systemd dep, install basic tools)
 
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
 
@@ -24,7 +24,7 @@ I should write an actual script to standup my personal Debian VMs (or use one of
 
 Enable Developer Mode in Developer Settings, enable unsigned Powershell execution at the bottom, from an elevated Powershell run:
 
-`. \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\install-task.ps1` [&#10149;](./modules/wsl/install-task.ps1) to install the scheduled task (of `wsl.ps1` [&#10149;](./modules/wsl/wsl2.ps1), using `hidden_powershell`[&#10149;](./modules/wsl/hidden_powershell.js) to start services inside of WSL2 and properly setup the Windows firewall and port forwarding upon Windows user login.
+`. \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\install-task.ps1` [&#10149;](./modules/wsl/install-task.ps1) to install the scheduled task of `wsl.ps1` [&#10149;](./modules/wsl/wsl2.ps1), using `hidden_powershell`[&#10149;](./modules/wsl/hidden_powershell.js) to start services inside of WSL2 and properly setup the Windows firewall and port forwarding upon Windows user login.
 
 ### Apple Multitouch
 
