@@ -1,0 +1,3 @@
+Package: src:fzf
+Pin: release a=unstable
+Pin-Priority: 1001
