@@ -6,8 +6,9 @@
 (setq user-full-name "Patrick McFarland"
       user-mail-address "pmcfarland@adterrasperaspera.com")
 
-(setq doom-font (font-spec :family "Iosevka" :size 20)
-      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 20))
+;; Must be decimal, because integer breaks DPI scaling
+(setq doom-font (font-spec :family "Iosevka" :size 15.0)
+      doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15.0))
 
 (setq doom-theme 'doom-tomorrow-night)
 
