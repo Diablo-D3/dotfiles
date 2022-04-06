@@ -30,34 +30,31 @@ shopt -s extglob
 
 # Allow spaces in filenames and not explode
 # https://dwheeler.com/essays/fixing-unix-linux-filenames.html
-IFS="`printf '\n\t'`"
+IFS="$(printf '\n\t')"
 
 GREEN="$(tput setaf 2)"
 RESET="$(tput sgr0)"
 OFFSET=0
 
 ###
-### Job blocks
+### Job Blocks
 ###
 
-function _start()
-{
+function _start() {
     if [ $OFFSET -ne 0 ]; then
-    OFFSET=0
-    echo -e ""
+        OFFSET=0
+        echo -e ""
     fi
 
     echo -e "$GREEN==> $1$RESET"
 }
 
-function _end()
-{
+function _end() {
     OFFSET=0
     echo -e ""
 }
 
-function _status()
-{
+function _status() {
     OFFSET=1
     echo -e "$1"
 }
@@ -73,10 +70,10 @@ function _mkdir {
 function _ln {
     _mkdir "$(dirname "$2")"
     rm -f "$2"
-    if [[ "$2" != "/mnt/c"* ]] ; then
-	ln -sTv "$1" "$2"
+    if [[ "$2" != "/mnt/c"* ]]; then
+        ln -sTv "$1" "$2"
     else
-	cp -Tv "$1" "$2"
+        cp -Tv "$1" "$2"
     fi
 }
 
@@ -89,14 +86,14 @@ function _ln_descent {
     fi
 
     for SRC in "$SRC_DIR"/**; do
-      if [ -f "$SRC" ]; then
-        DST="${SRC#$SRC_DIR/}"
-        _ln "$SRC" "${DST_DIR}${DST}"
-      elif [ -d "$SRC" ]; then
-        _mkdir "${DST_DIR}/${SRC#$SRC_DIR/}"
-      else
-        _status "Can't handle $SRC"
-      fi
+        if [ -f "$SRC" ]; then
+            DST="${SRC#$SRC_DIR/}"
+            _ln "$SRC" "${DST_DIR}${DST}"
+        elif [ -d "$SRC" ]; then
+            _mkdir "${DST_DIR}/${SRC#$SRC_DIR/}"
+        else
+            _status "Can't handle $SRC"
+        fi
     done
 }
 
@@ -105,5 +102,23 @@ function _sudo() {
         sudo -E bash -c "source $BASE_DIR/install-lib; $*"
     else
         _status "Cannot become root: $*"
+    fi
+}
+
+###
+### OS Wrappers
+###
+
+export SCOOP="$USERPROFILE/scoop/shims/"
+export SCOOPW="$USERPROFILEW\\scoop\\shims\\"
+
+function _scoop_install_or_update() {
+    COMMAND="$1" # expects prefixed with $SCOOP
+    PACKAGE="$2"
+
+    if [ ! -x "$COMMAND" ]; then
+        scoop install "$PACKAGE"
+    else
+        scoop update "$PACKAGE"
     fi
 }
