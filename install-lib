@@ -109,16 +109,18 @@ function _sudo() {
 ### OS Wrappers
 ###
 
-export SCOOP="$USERPROFILE/scoop/shims/"
-export SCOOPW="$USERPROFILEW\\scoop\\shims\\"
+if [ -v WSL ]; then
+    export SCOOP="$USERPROFILE/scoop/shims/"
+    export SCOOPW="$USERPROFILEW\\scoop\\shims\\"
 
-function _scoop_install_or_update() {
-    COMMAND="$1" # expects prefixed with $SCOOP
-    PACKAGE="$2"
+    function _scoop_install_or_update() {
+        COMMAND="$1" # expects prefixed with $SCOOP
+        PACKAGE="$2"
 
-    if [ ! -x "$COMMAND" ]; then
-        scoop install "$PACKAGE"
-    else
-        scoop update "$PACKAGE"
-    fi
-}
+        if [ ! -x "$COMMAND" ]; then
+            scoop install "$PACKAGE"
+        else
+            scoop update "$PACKAGE"
+        fi
+    }
+fi
