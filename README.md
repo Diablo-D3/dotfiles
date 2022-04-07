@@ -18,7 +18,7 @@ I should write an actual script to standup my personal Debian VMs (or use one of
 
 `sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file fzf fd-find git wget rsync` (remove systemd, install sshd without systemd dep, install basic tools)
 
-`sudo apt install emacs fd-find ripgrep shellcheck shfmt` (everything required for emacs)
+`sudo apt install emacs-nox fd-find ripgrep shellcheck shfmt` (everything required for emacs)
 
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
 
