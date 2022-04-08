@@ -24,10 +24,11 @@ if [ -v WSL ]; then
     DOOMBIN="${EMACSD}\\bin\\doom"
     DOOM=("$EMACS" --no-site-file --script "$DOOMBIN" --)
 
-    _scoop_install_or_update "$GIT" "git"
-    _scoop_install_or_update "$EMACS" "extras/emacs"
-    _scoop_install_or_update "${SCOOP}fd.exe" "fd"
-    _scoop_install_or_update "${SCOOP}rg.exe" "ripgrep"
+    if [ ! -x "$GIT" ] || [ ! -x "$EMACS" ] || [ ! -x "${SCOOP}fd.exe" ] || [ ! -x "${SCOOP}rg.exe" ]; then
+        _scoop install "git" "extras/emacs" "fd" "ripgrep"
+    else
+        _scoop update "git" "extras/emacs" "fd" "ripgrep"
+    fi
 
     _ln_descent "$MODULE_DIR/HOME/doom.d" "$APPDATA/.doom.d"
 

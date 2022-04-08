@@ -113,14 +113,20 @@ if [ -v WSL ]; then
     export SCOOP="$USERPROFILE/scoop/shims/"
     export SCOOPW="$USERPROFILEW\\scoop\\shims\\"
 
-    function _scoop_install_or_update() {
-        COMMAND="$1" # expects prefixed with $SCOOP
-        PACKAGE="$2"
+    function _scoop() {
+        SCOOP_BIN="${SCOOP}scoop"
 
-        if [ ! -x "$COMMAND" ]; then
-            scoop install "$PACKAGE"
-        else
-            scoop update "$PACKAGE"
+        # Scoop uses a batch file somewhere, pwd cant be a UNC path
+        OLDPWD="$(pwd)"
+        cd "/mnt/c"
+
+        if [ ! -x "$SCOOP_BIN" ]; then
+            powershell.exe -Command "Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')"
+            "$SCOOP_BIN" bucket add extras
         fi
+
+        "$SCOOP_BIN" "$*"
+
+        cd "$OLDPWD"
     }
 fi
