@@ -253,3 +253,8 @@ fi
 if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
   source /usr/share/doc/fzf/examples/key-bindings.bash
 fi
+
+# scoop
+if [ -v USERPROFILE ] && [ -d "${USERPROFILE}/scoop/shims" ] && [[ $PATH != *"scoop"* ]]; then
+  PATH="$PATH:${USERPROFILE}/scoop/shims"
+fi

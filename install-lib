@@ -120,8 +120,13 @@ if [ -v WSL ]; then
         OLDPWD="$(pwd)"
         cd "/mnt/c"
 
+        if [[ "$PATH" != *"scoop"* ]]; then
+            PATH="$PATH:$SCOOP"
+        fi
+
         if [ ! -x "$SCOOP_BIN" ]; then
             powershell.exe -Command "Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')"
+            "$SCOOP_BIN" install git
             "$SCOOP_BIN" bucket add extras
         fi
 
