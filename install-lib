@@ -90,7 +90,7 @@ function _ln_descent {
             DST="${SRC#$SRC_DIR/}"
             _ln "$SRC" "${DST_DIR}${DST}"
         elif [ -d "$SRC" ]; then
-            _mkdir "${DST_DIR}/${SRC#$SRC_DIR/}"
+            _mkdir "${DST_DIR}${SRC#$SRC_DIR/}"
         else
             _status "Can't handle $SRC"
         fi
