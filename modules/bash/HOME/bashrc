@@ -187,8 +187,16 @@ preexec() {
 trap preexec DEBUG
 
 # load local config
-if [[ -e ~/.bashrc.local ]]; then
-  source ~/.bashrc.local
+if [[ -e ~/.bashrc.win ]]; then
+  OLDPATH="$PATH"
+
+  source ~/.bashrc.win
+
+  if [[ $OLDPATH == *"/mnt/c"* ]]; then
+    PATH="$OLDPATH"
+  else
+    PATH="$OLDPATH:$PATH"
+  fi
 fi
 
 # aliases

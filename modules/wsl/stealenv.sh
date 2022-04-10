@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 
-vars=(APPDATA LOCALAPPDATA USERPROFILE)
+_chmod="$(which chmod)"
+
+vars=(APPDATA LOCALAPPDATA USERPROFILE PATH)
 
 {
-  printf "#!/usr/bin/env bash\n\n";
+  printf "#!/usr/bin/env bash\n"
 
   for var in "${vars[@]}"; do
-    varw=$(powershell.exe -Command "\$env:$var" | sed 's/\r//')
+    varw=$(/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "\$env:$var" | sed 's,\r,,')
     export "${var}W=$varw"
-    printf "%s=%s\n" "${var}W" "$varw"
+    printf "\n%s=\"%s\"\n" "${var}W" "$varw"
 
-    varu=$(wslpath "$varw")
+    varu=$(sed 's,\;,:,g;s,C:\\,/mnt/c/,g;s,\\,/,g' <<<"$varw")
     export "${var}=$varu"
-    printf "%s=%s\n" "$var" "$varu";
+    printf "%s=\"%s\"\n" "$var" "$varu"
   done
-} > ~/.bashrc.local
+} >~/.bashrc.win
 
-chmod +x ~/.bashrc.local
+${_chmod} +x ~/.bashrc.win
