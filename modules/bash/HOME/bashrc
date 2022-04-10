@@ -246,8 +246,8 @@ if command -v fd >/dev/null 2>&1; then
   }
 fi
 
-if [ -f /usr/share/doc/fzf/examples/completion.bash ]; then
-  source /usr/share/doc/fzf/examples/completion.bash
+if [ -f /usr/share/bash-completion/completions/fzf ]; then
+  source /usr/share/bash-completion/completions/fzf
 fi
 
 if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
