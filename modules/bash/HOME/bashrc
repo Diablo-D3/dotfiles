@@ -192,7 +192,7 @@ if [[ -e ~/.bashrc.win ]]; then
 
   source ~/.bashrc.win
 
-  if [[ $OLDPATH == *"/mnt/c"* ]]; then
+  if [[ "$OLDPATH" == *"/mnt/c"* ]]; then
     PATH="$OLDPATH"
   else
     PATH="$OLDPATH:$PATH"
