@@ -40,7 +40,7 @@ _end
 _start "Update git repos"
 
 CHECKSUM_ORIG=$(git -C "$BASE_DIR" hash-object install)
-git -C "$BASE_DIR" pull --force --autostash
+git -C "$BASE_DIR" pull --force --autostash --rebase
 CHECKSUM_NEW=$(git -C "$BASE_DIR" hash-object install)
 
 _end
