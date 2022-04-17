@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -v WSL ]; then
+if [ -n "${WSL+set}" ]; then
     _ln "$USERPROFILE/Desktop" "$HOME/Desktop"
     _ln "$USERPROFILE/Documents" "$HOME/Documents"
     _ln "$USERPROFILE/Downloads" "$HOME/Downloads"

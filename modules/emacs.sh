@@ -16,7 +16,7 @@ else
     "${DOOM[@]}" sync -u -p
 fi
 
-if [ -v WSL ]; then
+if [ -n "${WSL+set}" ]; then
     GIT="${SCOOP}git.exe"
     EMACS="${SCOOP}emacs.exe"
     EMACSD="$APPDATAW\\.emacs.d"
