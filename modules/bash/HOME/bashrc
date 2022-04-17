@@ -84,7 +84,7 @@ elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
 fi
 
 function sgr {
-  echo -e "\e[$1m"
+  echo -e "\\[\e[$1m\\]"
 }
 
 function col {
@@ -141,22 +141,22 @@ unset HOSTCOLOR
 
 if [ "$TERM" != "dumb" ]; then
   # set prompt
-  PRO_START="[\\[$PRO_FG\\]\\h\\[$RESET\\] \\W"
+  PRO_START="${RESET}[${PRO_FG}\\h${RESET} \\W"
 
   if [ "$(id -u)" -eq 0 ]; then
-    PRO_END="]\\[$RED\\]#\\[$RESET\\] "
+    PRO_END="]${RED}#${RESET} "
   else
     PRO_END="]\$ "
   fi
 
   precmd() {
-    if [[ x$PWD != x$HOME ]] && [ x"$(type -t __git_ps1)" = x'function' ]; then
+    if [ "$PWD" != "$HOME" ] && [ "$(type -t __git_ps1)" = "function" ]; then
       __git_ps1 "$PRO_START" "$PRO_END"
     else
-      PS1=$PRO_START$PRO_END
+      PS1="${PRO_START}${PRO_END}"
     fi
 
-    if [[ -n $TMUX ]]; then
+    if [ -n "$TMUX" ]; then
       eval "$(tmux show-environment -s)"
     fi
 
@@ -167,19 +167,19 @@ if [ "$TERM" != "dumb" ]; then
 
   # set xterm title
   preexec() {
-    if [[ $BASH_COMMAND == "precmd" ]]; then
-      COMMAND=${DIRSTACK[*]}
+    if [ "$BASH_COMMAND" == "precmd" ]; then
+      COMMAND="${DIRSTACK[*]}"
     else
-      COMMAND=$BASH_COMMAND
+      COMMAND="$BASH_COMMAND"
     fi
 
-    PRO_TITLE="\\033]0;${HOSTNAME%%.*}: $COMMAND\\007"
+    PRO_TITLE="\e]0;${HOSTNAME%%.*}: $COMMAND\a"
     echo -ne "$PRO_TITLE"
   }
 
   trap preexec DEBUG
 else
-  PS1='$ '
+  PS1="$ "
 fi
 
 # load local config
