@@ -37,8 +37,8 @@ shopt -s lithist
 shopt -s direxpand
 
 # unlimited power
-HISTSIZE=999999999
-HISTFILESIZE=999999999
+HISTSIZE=9001
+HISTFILESIZE=9001
 
 # ignore deps
 HISTCONTROL="erasedups:ignoreboth"
