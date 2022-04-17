@@ -5,8 +5,9 @@
 # shellcheck disable=SC2034  # unused variables
 
 # if not interactive, exit early
-[ -z "$PS1" ] && return
+[ -z "${PS1+unset}" ] && return
 shopt -oq posix && return
+[ "$TERM" = "dumb" ] && return
 
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
@@ -139,50 +140,46 @@ esac
 unset HOSTCHECKSUM
 unset HOSTCOLOR
 
-if [ "$TERM" != "dumb" ]; then
-  # set prompt
-  PRO_START="${RESET}[${PRO_FG}\\h${RESET} \\W"
+# set prompt
+PRO_START="${RESET}[${PRO_FG}\\h${RESET} \\W"
 
-  if [ "$(id -u)" -eq 0 ]; then
-    PRO_END="]${RED}#${RESET} "
-  else
-    PRO_END="]\$ "
-  fi
-
-  precmd() {
-    if [ "$PWD" != "$HOME" ] && [ "$(type -t __git_ps1)" = "function" ]; then
-      __git_ps1 "$PRO_START" "$PRO_END"
-    else
-      PS1="${PRO_START}${PRO_END}"
-    fi
-
-    if [ -n "$TMUX" ]; then
-      eval "$(tmux show-environment -s)"
-    fi
-
-    history -a
-  }
-
-  PROMPT_COMMAND=precmd
-
-  # set xterm title
-  preexec() {
-    if [ "$BASH_COMMAND" == "precmd" ]; then
-      COMMAND="${DIRSTACK[*]}"
-    else
-      COMMAND="$BASH_COMMAND"
-    fi
-
-    PRO_TITLE="\e]0;${HOSTNAME%%.*}: $COMMAND\a"
-    echo -ne "$PRO_TITLE"
-  }
-
-  trap preexec DEBUG
+if [ "$(id -u)" -eq 0 ]; then
+  PRO_END="]${RED}#${RESET} "
 else
-  PS1="$ "
+  PRO_END="]\$ "
 fi
 
-# load local config
+precmd() {
+  if [ "$PWD" != "$HOME" ] && [ "$(type -t __git_ps1)" = "function" ]; then
+    __git_ps1 "$PRO_START" "$PRO_END"
+  else
+    PS1="${PRO_START}${PRO_END}"
+  fi
+
+  if [ -n "$TMUX" ]; then
+    eval "$(tmux show-environment -s)"
+  fi
+
+  history -a
+}
+
+PROMPT_COMMAND=precmd
+
+# set xterm title
+preexec() {
+  if [ "$BASH_COMMAND" == "precmd" ]; then
+    COMMAND="${DIRSTACK[*]}"
+  else
+    COMMAND="$BASH_COMMAND"
+  fi
+
+  PRO_TITLE="\e]0;${HOSTNAME%%.*}: $COMMAND\a"
+  echo -ne "$PRO_TITLE"
+}
+
+trap preexec DEBUG
+
+# load local Win config, don't overwrite PATH unless Win paths are missing
 if [[ -e ~/.bashrc.win ]]; then
   OLDPATH="$PATH"
 
