@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-_chmod="$(which chmod)"
-
 vars=(APPDATA LOCALAPPDATA USERPROFILE PATH)
 
 {
@@ -18,4 +16,6 @@ vars=(APPDATA LOCALAPPDATA USERPROFILE PATH)
   done
 } >~/.bashrc.win
 
-${_chmod} +x ~/.bashrc.win
+chmod +x ~/.bashrc.win
+
+unset vars
