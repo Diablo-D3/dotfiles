@@ -210,14 +210,16 @@ MANPATH="$NPM_PACKAGES/share/man"
 if [ -f /usr/bin/emacs ]; then
   PATH="$HOME/.emacs.d/bin:$PATH"
 
-  EDITOR=emacs
-  VISUAL=emacs
-  GIT_EDITOR=emacs
+  export ALTERNATE_EDITOR=""
+  export EDITOR=emacswrapper
+
+  alias emacs="emacswrapper"
 else
-  EDITOR=vim
-  VISUAL=vim
-  GIT_EDITOR=vim
+  export EDITOR=vim
 fi
+
+export VISUAL="$EDITOR"
+export GIT_EDITOR="$EDITOR"
 
 alias e='$EDITOR'
 

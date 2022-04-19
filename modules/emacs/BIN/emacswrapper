@@ -6,8 +6,8 @@ else
     export TERM=xterm-emacs
 fi
 
-if [[ ! "$@" == *"--no-site-file"* ]]; then
-    exec /usr/bin/emacsclient -a '/usr/bin/emacs --daemon' -nw -c "$@"
+if [[ ! "$*" == *"--no-site-file"* ]]; then
+    exec /usr/bin/emacsclient -nw -c "$@"
 else
     exec /usr/bin/emacs -nw "$@"
 fi
