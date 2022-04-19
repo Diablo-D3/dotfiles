@@ -18,6 +18,9 @@ fi
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
 PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
 
+# WSL: inherit path in win32 processes
+export WSLENV="PATH/l"
+
 # noramlize locale
 LANG=en_US.UTF-8
 LC_ALL=$LANG
