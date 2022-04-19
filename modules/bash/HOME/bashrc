@@ -9,6 +9,11 @@
 shopt -oq posix && return
 [ "$TERM" = "dumb" ] && return
 
+# if xterm or tmux, assume 24 bit support
+if [[ "$TERM" = "xterm"* || "$TERM" = "tmux"* ]]; then
+  export COLORTERM="truecolor"
+fi
+
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
 PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin

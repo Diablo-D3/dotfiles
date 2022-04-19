@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-if [ $TERM = "tmux*" ]; then
-    export TERM=tmux-emacs
-else
-    export TERM=xterm-emacs
-fi
-
 if [[ ! "$*" == *"--no-site-file"* ]]; then
     exec /usr/bin/emacsclient -nw -c "$@"
 else
