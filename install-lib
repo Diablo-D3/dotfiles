@@ -121,7 +121,7 @@ if [ -v WSL ]; then
         cd "/mnt/c"
 
         if [[ "$PATH" != *"scoop"* ]]; then
-            PATH="$PATH:$SCOOP"
+            export PATH="$PATH:$SCOOP"
         fi
 
         if [ ! -x "$SCOOP_BIN" ]; then
@@ -133,5 +133,6 @@ if [ -v WSL ]; then
         "$SCOOP_BIN" "$*"
 
         cd "$OLDPWD"
+        unset OLDPWD
     }
 fi
