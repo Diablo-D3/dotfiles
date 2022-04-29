@@ -77,12 +77,14 @@ for MODULE_DIR in "$MODULES_DIR"/*/; do
   # paths of directories to auto symlink
   MODULE_HOME="$MODULE_DIR/HOME"
   MODULE_BIN="$MODULE_DIR/BIN"
+  MODULE_ETC="$MODULE_DIR/ETC"
 
   if (command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1); then
     _start "Installing for $MODULE"
 
     _ln_descent "$MODULE_HOME" "$HOME/."
     _ln_descent "$MODULE_BIN" "$HOME/bin/"
+    _sudo _ln_descent "$MODULE_ETC" "/etc/"
 
     if [ -f "$MODULE_SH" ]; then
       "$MODULE_SH"

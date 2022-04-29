@@ -108,6 +108,7 @@ function _ln_descent {
 
 function _sudo() {
     if [[ $(groups "$USER") == *"sudo"* ]]; then
+        local IFS=" "
         sudo -E bash -c "source $BASE_DIR/install-lib; $*"
     else
         _status "Cannot become root: " "$@"
@@ -143,7 +144,7 @@ if [ "${WSL+set}" ]; then
         cd "$OLDPWD"
         unset OLDPWD
 
-        PATH="$OLDPATH"
+        export PATH="$OLDPATH"
         unset OLDPATH
     }
 fi
