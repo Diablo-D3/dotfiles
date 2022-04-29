@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+NOW=$(date "+%s")
+
 GIT="/usr/bin/git"
 EMACS="/usr/bin/emacs"
 EMACSD="$HOME/.emacs.d"
+EMACSD_VER="$EMACSD.ver"
 DOOMBIN="${EMACSD}/bin/doom"
 DOOM=("$EMACS" --no-site-file --script "$DOOMBIN" --)
 
@@ -10,10 +13,16 @@ if [ ! -d "$EMACSD" ]; then
     "$GIT" clone --depth 1 "https://github.com/hlissner/doom-emacs" "$EMACSD"
     "${DOOM[@]}" -y install --no-fonts
     "${DOOM[@]}" sync
+    echo "$NOW" >"$EMACSD_VER"
 else
-    "$GIT" -C "$EMACSD" pull --rebase
-    "${DOOM[@]}" clean
-    "${DOOM[@]}" sync -u -p
+    if [ ! -f "$EMACSD_VER" ] || [ "$(<"$EMACSD_VER")" -gt $(("$NOW" + 86400)) ]; then
+        "$GIT" -C "$EMACSD" pull --rebase
+        "${DOOM[@]}" clean
+        "${DOOM[@]}" sync -u -p
+        echo "$NOW" >"$EMACSD_VER"
+    else
+        _status "Doom sync ran recently, skipping"
+    fi
 fi
 
 if [ -n "${WSL+set}" ]; then
@@ -21,6 +30,7 @@ if [ -n "${WSL+set}" ]; then
     EMACS="${SCOOP}emacs.exe"
     EMACSD="$APPDATAW\\.emacs.d"
     EMACSDL="$APPDATA/.emacs.d"
+    EMACSD_VER="$EMACSDL.ver"
     DOOMBIN="${EMACSD}\\bin\\doom"
     DOOM=("$EMACS" --no-site-file --script "$DOOMBIN" --)
 
@@ -36,10 +46,14 @@ if [ -n "${WSL+set}" ]; then
         "$GIT" clone --depth 1 "https://github.com/hlissner/doom-emacs" "$EMACSD"
         "${DOOM[@]}" -y install --no-fonts
         "${DOOM[@]}" sync
+        echo "$NOW" >"$EMACSD_VER"
     else
-        "$GIT" -C "$EMACSD" pull --rebase
-        "${DOOM[@]}" clean
-        "${DOOM[@]}" sync -u -p
+        if [ ! -f "$EMACSD_VER" ] || [ "$(<"$EMACSD_VER")" -gt $(("$NOW" + 86400)) ]; then
+            "$GIT" -C "$EMACSD" pull --rebase
+            "${DOOM[@]}" clean
+            "${DOOM[@]}" sync -u -p
+            echo "$NOW" >"$EMACSD_VER"
+        fi
     fi
 fi
 
@@ -70,7 +84,7 @@ if [ ! -f "$I_VER_FILE" ] || [ "$I_VER" != "$(<"$I_VER_FILE")" ]; then
 
     echo "$I_VER" >"$I_VER_FILE"
 else
-    _status "\nIosevka $I_VER already installed, skipping"
+    _status "Iosevka $I_VER already installed, skipping"
 fi
 
 exit 0
