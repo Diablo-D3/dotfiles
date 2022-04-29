@@ -33,6 +33,7 @@ shopt -s extglob
 IFS="$(printf '\n\t')"
 
 GREEN="$(tput setaf 2)"
+BLUE="$(tput setaf 4)"
 RESET="$(tput sgr0)"
 OFFSET=0
 
@@ -57,6 +58,14 @@ function _end() {
 function _status() {
     OFFSET=1
     echo -e "$1"
+}
+
+function _verbose() {
+    if [ "${VERBOSE+set}" ]; then
+        echo -e "$BLUE=>" "$*" "$RESET"
+    fi
+
+    eval "$@"
 }
 
 ###
@@ -92,7 +101,7 @@ function _ln_descent {
         elif [ -d "$SRC" ]; then
             _mkdir "${DST_DIR}${SRC#$SRC_DIR/}"
         else
-            _status "Can't handle $SRC"
+            _status "Cannot handle $SRC"
         fi
     done
 }
@@ -101,7 +110,7 @@ function _sudo() {
     if [[ $(groups "$USER") == *"sudo"* ]]; then
         sudo -E bash -c "source $BASE_DIR/install-lib; $*"
     else
-        _status "Cannot become root: $*"
+        _status "Cannot become root: " "$@"
     fi
 }
 
@@ -125,12 +134,12 @@ if [ -v WSL ]; then
         fi
 
         if [ ! -x "$SCOOP_BIN" ]; then
-            powershell.exe -Command "Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')"
-            "$SCOOP_BIN" install git
-            "$SCOOP_BIN" bucket add extras
+            _verbose powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
+            _verbose "$SCOOP_BIN" install git
+            _verbose "$SCOOP_BIN" bucket add extras
         fi
 
-        "$SCOOP_BIN" "$*"
+        _verbose "$SCOOP_BIN" "$@"
 
         cd "$OLDPWD"
         unset OLDPWD
