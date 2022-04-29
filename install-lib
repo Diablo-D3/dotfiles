@@ -118,7 +118,7 @@ function _sudo() {
 ### OS Wrappers
 ###
 
-if [ -v WSL ]; then
+if [ "${WSL+set}" ]; then
     export SCOOP="$USERPROFILE/scoop/shims/"
     export SCOOPW="$USERPROFILEW\\scoop\\shims\\"
 
@@ -129,9 +129,8 @@ if [ -v WSL ]; then
         OLDPWD="$(pwd)"
         cd "/mnt/c"
 
-        if [[ "$PATH" != *"scoop"* ]]; then
-            export PATH="$PATH:$SCOOP"
-        fi
+        OLDPATH="$PATH"
+        export PATH="$SCOOP:$PATH"
 
         if [ ! -x "$SCOOP_BIN" ]; then
             _verbose powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
@@ -143,5 +142,8 @@ if [ -v WSL ]; then
 
         cd "$OLDPWD"
         unset OLDPWD
+
+        PATH="$OLDPATH"
+        unset OLDPATH
     }
 fi
