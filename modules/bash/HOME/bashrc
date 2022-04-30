@@ -188,12 +188,12 @@ preexec() {
 trap preexec DEBUG
 
 # load local Win config, don't overwrite PATH unless Win paths are missing
-if [ -e ~/.bashrc.win ]; then
+if [ -x ~/.bashrc.win ]; then
   source ~/.bashrc.win
 fi
 
 # load local config
-if [ -e ~/.bashrc ]; then
+if [ -x ~/.bashrc.local ]; then
   source ~/.bashrc.local
 fi
 
