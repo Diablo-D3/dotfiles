@@ -7,19 +7,13 @@
 # still have access to important Windows environment variables. This outputs
 # into ~/.bashrc.win, and this file should be sourced from your ~/.bashrc; it
 # will only substitute variables if they are not already part of your
-# environment.
-
-# The generated script also checks if the existing PATH already contains
-# "/mnt/c", and only integrates the native PATH if the native paths are missing.
+# environment (by checking if PATH contains "/mnt/c").
 
 # Purposely ignore WSLENV
 OLD_WSLENV="$WSLENV"
 export WSLENV=""
 
-# PATH is altered, and it forgets where chmod is
-_chmod="$(which chmod)"
-
-# Variables to borrow
+# Variables to borrow, should always contain PATH
 vars=(APPDATA LOCALAPPDATA USERPROFILE PATH)
 
 # Check if variables are set; if they aren't, don't record any of them, as we
@@ -37,28 +31,24 @@ done
 {
   printf '#!/usr/bin/env bash\n'
   printf '\nOLD_PATH="$PATH"\n'
+  printf 'PATH=""\n'
+
+  printf '\nif [[ "$OLD_PATH" != *"/mnt/c"* ]]; then\n'
 
   for var in "${vars[@]}"; do
     varw=$(/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "\$env:$var" | sed 's,\r,,')
-
-    printf '\nif [ -z "${%s+unset}" ]; then\n' "${var}W"
     printf '  export %s="%s"\n' "${var}W" "$varw"
-    printf 'fi\n'
 
     varu=$(sed 's,\;,:,g;s,C:\\,/mnt/c/,g;s,\\,/,g' <<<"$varw")
-
-    printf '\nif [ -z "${%s+unset}" ]; then\n' "$var"
     printf '  export %s="%s"\n' "$var" "$varu"
-    printf 'fi\n'
   done
 
-  printf '\nif [[ "$PATH" != *"/mnt/c/"* ]]; then\n'
-  printf '  export PATH="$OLD_PATH:$PATH"\n'
+  printf '\n  export PATH="$OLD_PATH:$PATH"\n'
   printf 'else\n'
   printf '  export PATH="$OLD_PATH"\n'
   printf 'fi\n'
 } >~/.bashrc.win
 
-"${_chmod}" +x ~/.bashrc.win
+chmod +x ~/.bashrc.win
 
 export WSLENV="$OLD_WSLENV"
