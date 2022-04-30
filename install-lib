@@ -119,7 +119,7 @@ function _sudo() {
 ### OS Wrappers
 ###
 
-if [ "${WSL+set}" ]; then
+if [ -n "${WSL+set}" ]; then
     export SCOOP="$USERPROFILE/scoop/shims/"
 
     function _scoop() {

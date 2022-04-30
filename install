@@ -52,6 +52,8 @@ case "$(uname -a)" in
     _start "Installing for wsl"
 
     export WSL="true"
+    export MODULE_DIR="$MODULES_DIR/wsl"
+
     "$MODULES_DIR/wsl/stealenv.sh"
     source "$HOME/.bashrc.win"
 
