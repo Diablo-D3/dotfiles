@@ -121,15 +121,16 @@ function _sudo() {
 
 if [ "${WSL+set}" ]; then
     export SCOOP="$USERPROFILE/scoop/shims/"
-    export SCOOPW="$USERPROFILEW\\scoop\\shims\\"
 
     function _scoop() {
         SCOOP_BIN="${SCOOP}scoop"
 
-        # Scoop uses a batch file somewhere, pwd cant be a UNC path
+        # Scoop uses a batch file somewhere, cwd cannot be a UNC path
         OLDPWD="$(pwd)"
         cd "/mnt/c"
 
+        # Always put Scoop first in path while running Scoop
+        # Scoop will not be in path when first installed
         OLDPATH="$PATH"
         export PATH="$SCOOP:$PATH"
 
