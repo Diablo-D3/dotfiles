@@ -119,33 +119,30 @@ function _sudo() {
 ### OS Wrappers
 ###
 
-if [ -n "${WSL+set}" ]; then
-    export SCOOP="$USERPROFILE/scoop/shims/"
+function _scoop() {
+    SCOOP="$USERPROFILE/scoop/shims/"
+    SCOOP_BIN="${SCOOP}scoop"
 
-    function _scoop() {
-        SCOOP_BIN="${SCOOP}scoop"
+    # Scoop uses a batch file somewhere, cwd cannot be a UNC path
+    OLDPWD="$(pwd)"
+    cd "/mnt/c"
 
-        # Scoop uses a batch file somewhere, cwd cannot be a UNC path
-        OLDPWD="$(pwd)"
-        cd "/mnt/c"
+    # Always put Scoop first in path while running Scoop
+    # Scoop will not be in path when first installed
+    OLDPATH="$PATH"
+    export PATH="$SCOOP:$PATH"
 
-        # Always put Scoop first in path while running Scoop
-        # Scoop will not be in path when first installed
-        OLDPATH="$PATH"
-        export PATH="$SCOOP:$PATH"
+    if [ ! -x "$SCOOP_BIN" ]; then
+        _verbose powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
+        _verbose "$SCOOP_BIN" install git
+        _verbose "$SCOOP_BIN" bucket add extras
+    fi
 
-        if [ ! -x "$SCOOP_BIN" ]; then
-            _verbose powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
-            _verbose "$SCOOP_BIN" install git
-            _verbose "$SCOOP_BIN" bucket add extras
-        fi
+    _verbose "$SCOOP_BIN" "$@"
 
-        _verbose "$SCOOP_BIN" "$@"
+    cd "$OLDPWD"
+    unset OLDPWD
 
-        cd "$OLDPWD"
-        unset OLDPWD
-
-        export PATH="$OLDPATH"
-        unset OLDPATH
-    }
-fi
+    export PATH="$OLDPATH"
+    unset OLDPATH
+}
