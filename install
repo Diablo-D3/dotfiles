@@ -52,18 +52,10 @@ case "$(uname -a)" in
     _start "Installing for wsl"
 
     export WSL="true"
-    source "$MODULES_DIR/wsl.sh"
+    "$MODULES_DIR/wsl/stealenv.sh"
+    source "$HOME/.bashrc.win"
 
-    # Add env from Windows, only add path if missing
-    OLDPATH="$PATH"
-
-    source "$MODULES_DIR/wsl/stealenv.sh"
-
-    if [[ $OLDPATH == *"/mnt/c"* ]]; then
-      PATH="$OLDPATH"
-    else
-      PATH="$OLDPATH:$PATH"
-    fi
+    "$MODULES_DIR/wsl.sh"
 
     _end
     ;;
@@ -90,6 +82,7 @@ for MODULE_DIR in "$MODULES_DIR"/*/; do
   MODULE_BIN="$MODULE_DIR/BIN"
   MODULE_ETC="$MODULE_DIR/ETC"
 
+  # already processed it earlier
   [[ "$MODULE" = "wsl" ]] && continue
 
   if (command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1); then
