@@ -188,18 +188,13 @@ preexec() {
 trap preexec DEBUG
 
 # load local Win config, don't overwrite PATH unless Win paths are missing
-if [[ -e ~/.bashrc.win ]]; then
-  OLDPATH="$PATH"
-
+if [ -e ~/.bashrc.win ]; then
   source ~/.bashrc.win
+fi
 
-  if [[ "$OLDPATH" == *"/mnt/c"* ]]; then
-    PATH="$OLDPATH"
-  else
-    PATH="$OLDPATH:$PATH"
-  fi
-
-  unset OLDPATH
+# load local config
+if [ -e ~/.bashrc ]; then
+  source ~/.bashrc.local
 fi
 
 # aliases
