@@ -14,11 +14,13 @@ Run `~/.dotfiles/install` again.
 
 ### Debian
 
-I should write an actual script to standup my personal Debian VMs (or use one of the thousands of tools for this). Until then...
+I should write an actual script to stand-up my personal Debian VMs (or use one of the thousands of tools for this). Until then...
 
-`sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file fzf fd-find git neovim rsync wget` (remove systemd, install sshd without systemd dep, install basic tools)
+`sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file git vim rsync wget` (remove systemd, install sshd without systemd dep, install basic tools)
 
-`sudo apt install emacs-nox fd-find ripgrep shellcheck shfmt` (everything required for emacs)
+`sudo apt install fd-find fzf` (currently separated out because they pull in sid/experimental versions, don't do this on low disk space VMs)
+
+`sudo apt install emacs-nox fd-find ripgrep shellcheck shfmt unzip` (everything required for emacs)
 
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
 
