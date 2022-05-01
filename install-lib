@@ -61,11 +61,19 @@ function _status() {
 }
 
 function _verbose() {
-    if [ "${VERBOSE+set}" ]; then
-        echo -e "$BLUE=>" "$*" "$RESET"
+    if [ -n "${VERBOSE+set}" ]; then
+        local IFS=' '
+        echo -e "${BLUE}=> ${*}${RESET}"
     fi
 
     eval "$@"
+}
+
+function _verbose_status() {
+    if [ -n "${VERBOSE+set}" ]; then
+        local IFS=' '
+        echo -e "${BLUE}${*}${RESET}"
+    fi
 }
 
 ###
