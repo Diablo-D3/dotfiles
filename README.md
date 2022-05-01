@@ -16,11 +16,11 @@ Run `~/.dotfiles/install` again.
 
 I should write an actual script to stand-up my personal Debian VMs (or use one of the thousands of tools for this). Until then...
 
-`sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file git vim rsync wget` (remove systemd, install sshd without systemd dep, install basic tools)
+`sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file git lsb-release vim rsync wget` (remove systemd, install sshd without systemd dep, install basic tools)
 
-`sudo apt install fd-find fzf` (currently separated out because they pull in sid/experimental versions, don't do this on low disk space VMs)
+`sudo apt install fd-find fzf tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
 
-`sudo apt install emacs-nox fd-find ripgrep shellcheck shfmt unzip` (everything required for emacs)
+`sudo apt install emacs-lucid fd-find ripgrep shellcheck shfmt unzip` (everything required for emacs)
 
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
 
@@ -28,7 +28,7 @@ I should write an actual script to stand-up my personal Debian VMs (or use one o
 
 Enable Developer Mode in Developer Settings, enable unsigned Powershell execution at the bottom, from an elevated Powershell run:
 
-`. \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\install-task.ps1` [&#10149;](./modules/wsl/install-task.ps1) to install the scheduled task of `wsl.ps1` [&#10149;](./modules/wsl/wsl2.ps1), using `hidden_powershell`[&#10149;](./modules/wsl/hidden_powershell.js) to start services inside of WSL2 and properly setup the Windows firewall and port forwarding upon Windows user login.
+`. \\wsl$\Debian\home\${env:USERNAME}\.dotfiles\modules\wsl\install-task.ps1` [&#10149;](./modules/os-wsl/install-task.ps1) to install the scheduled task of `wsl.ps1` [&#10149;](./modules/os-wsl/wsl2.ps1), using `hidden_powershell`[&#10149;](./modules/os-wsl/hidden_powershell.js) to start services inside of WSL2 and properly setup the Windows firewall and port forwarding upon Windows user login.
 
 ### Apple Multitouch
 
@@ -42,7 +42,7 @@ The DEC VT100 (from 1978) is what most people consider the grandfather of all mo
 
 [The specs](https://archive.org/details/bitsavers_decterminaT100TechnicalManualJul82_24218672/page/n19/mode/2up?view=theater) lists a 12" CRT, but an "active display size" of 8" x 5" (or 9.43" diagonally); photographs of the VT100 prove this to be correct. [According to this guy](https://www.pcjs.org/machines/dec/vt100/rom/), it's a 7x9 font that is rendered with "dot stretching" to produce an 8x9 font that is rendered into 10x10 cells onto a 800x240 screen, then line doubled to 800x480, making the final character size 10x20.
 
-Fastforward to the modern day: the most common desktop monitor size is a 24" 1080p (or 20.9" wide and 11.8" tall); keeping approximate apparent size the same...
+Fast-forward to the modern day: the most common desktop monitor size is a 24" 1080p (or 20.9" wide and 11.8" tall); keeping approximate apparent size the same...
 
 ```
 80 / 8 * 20.9 = 209 cols
@@ -51,7 +51,7 @@ Fastforward to the modern day: the most common desktop monitor size is a 24" 108
 1080 / 56.64 = 19.06 pixels high
 ```
 
-.. rounding up the character size a little to get integers everywhere, gives us a 10x20 font and a 192x54 terminal. The DPI of the VT100 and my monitor are almost identical, thus leading to the same font size.
+... rounding up the character size a little to get integers everywhere, gives us a 10x20 font and a 192x54 terminal. The DPI of the VT100 and my monitor are almost identical, thus leading to the same font size.
 
 MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex: 9x14 character size at 720x350, producing a 80x25 terminal), and using the same approximate math, it would have an apparent size of closer to 12x30 on 160x36 terminal.
 
@@ -76,7 +76,7 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 
 ## On repository management
 
-I do not use `git submodule', 'subtree', or ['subrepo'](https://github.com/ingydotnet/git-subrepo). All have their uses, none of them align with dotfile repos.
+I do not use `git submodule`, `subtree`, or [`subrepo`](https://github.com/ingydotnet/git-subrepo). All have their uses, none of them align with dotfile repos.
 
 ### `git submodule` vs `git subtree` vs `git subrepo`
 

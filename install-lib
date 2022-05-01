@@ -33,7 +33,6 @@ shopt -s extglob
 IFS="$(printf '\n\t')"
 
 GREEN="$(tput setaf 2)"
-BLUE="$(tput setaf 4)"
 RESET="$(tput sgr0)"
 OFFSET=0
 
@@ -57,23 +56,7 @@ function _end() {
 
 function _status() {
     OFFSET=1
-    echo -e "$1"
-}
-
-function _verbose() {
-    if [ -n "${VERBOSE+set}" ]; then
-        local IFS=' '
-        echo -e "${BLUE}=> ${*}${RESET}"
-    fi
-
-    eval "$@"
-}
-
-function _verbose_status() {
-    if [ -n "${VERBOSE+set}" ]; then
-        local IFS=' '
-        echo -e "${BLUE}${*}${RESET}"
-    fi
+    echo -e "$*"
 }
 
 ###
@@ -128,8 +111,7 @@ function _sudo() {
 ###
 
 function _scoop() {
-    SCOOP="$USERPROFILE/scoop/shims/"
-    SCOOP_BIN="${SCOOP}scoop"
+    SCOOP="${SCOOP_DIR}/scoop"
 
     # Scoop uses a batch file somewhere, cwd cannot be a UNC path
     OLDPWD="$(pwd)"
@@ -138,15 +120,15 @@ function _scoop() {
     # Always put Scoop first in path while running Scoop
     # Scoop will not be in path when first installed
     OLDPATH="$PATH"
-    export PATH="$SCOOP:$PATH"
+    export PATH="$SCOOP_DIR:$PATH"
 
-    if [ ! -x "$SCOOP_BIN" ]; then
-        _verbose powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
-        _verbose "$SCOOP_BIN" install git
-        _verbose "$SCOOP_BIN" bucket add extras
+    if [ ! -x "$SCOOP" ]; then
+        powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
+        "$SCOOP" install git
+        "$SCOOP" bucket add extras
     fi
 
-    _verbose "$SCOOP_BIN" "$@"
+    "$SCOOP" "$@"
 
     cd "$OLDPWD"
     unset OLDPWD
