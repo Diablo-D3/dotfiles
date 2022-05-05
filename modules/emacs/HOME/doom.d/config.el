@@ -29,3 +29,7 @@
 ;; https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/popup/config.el#L143
 ;; (after! vterm
 ;;  (set-popup-rule! "*doom:vterm-popup:main" :size 0.5 :side 'right))
+
+;; re-enable which-key keys when vertico is enabled
+(after! vertico
+	(setq which-key-use-C-h-commands t))
