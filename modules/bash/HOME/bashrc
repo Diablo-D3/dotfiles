@@ -7,7 +7,6 @@
 # if not interactive, exit early
 [ -z "${PS1+unset}" ] && return
 shopt -oq posix && return
-[ "$TERM" = "dumb" ] && return
 
 # if xterm or tmux, assume 24 bit support
 if [[ "$TERM" = "xterm"* || "$TERM" = "tmux"* ]]; then
@@ -168,8 +167,6 @@ precmd() {
   history -a
 }
 
-PROMPT_COMMAND=precmd
-
 # set xterm title
 preexec() {
   if [ "$BASH_COMMAND" == "precmd" ]; then
@@ -182,7 +179,13 @@ preexec() {
   echo -ne "$PRO_TITLE"
 }
 
-trap preexec DEBUG
+# don't setup fancy stuff on dumb terminals
+if [ "$TERM" != "dumb" ]; then
+  PROMPT_COMMAND=precmd
+  trap preexec DEBUG
+else
+  PS1="$ "
+fi
 
 # load local Win config
 if [ -x "$HOME/.bashrc.win" ]; then
