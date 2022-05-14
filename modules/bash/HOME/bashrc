@@ -226,27 +226,60 @@ export GIT_EDITOR="$EDITOR"
 alias e='$EDITOR'
 
 # fzf and fd
-FZF_DEFAULT_OPTS="--height 50% +m -1 -0 --bind tab:down,btab:up"
+# Some is from https://github.com/junegunn/fzf#settings
 FZF_COMPLETION_TRIGGER=""
+FZF_DEFAULT_OPTS="+m -0 -1
+                  --bind 'tab:down,btab:up'
+                  --info='hidden'
+                  --no-bold
+                  --color='16,fg+:15,prompt:-1,hl:2,hl+:10,query:2'
+                  --height='25%'
+                  --layout='reverse-list'"
 
-if [ -f /usr/bin/fdfind ]; then
+if command -v fdfind >/dev/null 2>&1; then
   alias fd="fdfind"
 fi
 
-if command -v fd >/dev/null 2>&1; then
-  _fzf_compgen_path() {
-    fd --hidden --follow --exclude ".git" . "$1"
-  }
+if command -v fzf >/dev/null 2>&1; then
+  if command -v fd >/dev/null 2>&1; then
+    # generate files by path length, dotfiles last
+    _fzf_compgen_path() {
+      local output
+      local -i depth=1
+      while
+        output=$(fd -H -L -E ".git" --exact-depth "$depth" . "$1")
 
-  _fzf_compgen_dir() {
-    fd --type d --hidden --follow --exclude ".git" . "$1"
-  }
-fi
+        rg -v "^\.|/\." <<<"$output"
+        rg "^\.|/\." <<<"$output"
 
-if [ -f /usr/share/bash-completion/completions/fzf ]; then
-  source /usr/share/bash-completion/completions/fzf
-fi
+        depth+=1
 
-if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-  source /usr/share/doc/fzf/examples/key-bindings.bash
+        [ "$output" ]
+      do true; done
+    }
+
+    # generate directories by path length, dotdirs last
+    _fzf_compgen_dir() {
+      local output
+      local -i depth=1
+      while
+        output=$(fd -H -L -E ".git" --exact-depth "$depth" -t d . "$1")
+
+        rg -v "^\.|/\." <<<"$output"
+        rg "^\.|/\." <<<"$output"
+
+        depth+=1
+
+        [ "$output" ]
+      do true; done
+    }
+  fi
+
+  if [ -f /usr/share/bash-completion/completions/fzf ]; then
+    source /usr/share/bash-completion/completions/fzf
+  fi
+
+  if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.bash
+  fi
 fi
