@@ -7,7 +7,7 @@
       user-mail-address "pmcfarland@adterrasperaspera.com")
 
 ;; Must be decimal, because integer breaks DPI scaling
-(setq doom-font (font-spec :family "Iosevka" :size 15.0)
+(setq doom-font (font-spec :family "Iosevka Term" :size 15.0)
       doom-variable-pitch-font (font-spec :family "Iosevka Aile" :size 15.0))
 
 (setq doom-theme 'doom-tomorrow-night)
@@ -30,6 +30,30 @@
 ;; (after! vterm
 ;;  (set-popup-rule! "*doom:vterm-popup:main" :size 0.5 :side 'right))
 
-;; re-enable which-key keys when vertico is enabled
+;; tramp: force always sshx using bash
+(after! tramp
+  (setenv "SHELL" "/bin/bash")
+  (customize-set-variable 'tramp-default-method "sshx"))
+
+;; vertico: re-enable which-key keys
 (after! vertico
-	(setq which-key-use-C-h-commands t))
+  (setq which-key-use-C-h-commands t))
+
+;; which-key
+;; launch help faster
+(setq which-key-idle-delay 0.5)
+
+;; launch in side window
+(which-key-setup-side-window-right-bottom)
+(setq which-key-side-window-max-width 80)
+
+;; remove evil and evil-motion from names
+(setq which-key-allow-multiple-replacements t)
+
+(after! which-key
+  (pushnew!
+   which-key-replacement-alist
+   '(("" . "\\`+?evil[-:]?\\(?:a-\\)?\\(.*\\)") . (nil . "\\1"))
+   '(("\\`g s" . "\\`evilem--?motion-\\(.*\\)") . (nil . "\\1"))))
+
+;;
