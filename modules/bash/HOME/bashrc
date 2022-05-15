@@ -235,7 +235,7 @@ FZF_DEFAULT_OPTS="+m -0 -1
                   --bind 'tab:down,btab:up'
                   --info='hidden'
                   --no-bold
-                  --color='16,fg+:15,prompt:-1,hl:2,hl+:10,query:2'
+                  --color='16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2'
                   --height='25%'
                   --layout='reverse-list'"
 
