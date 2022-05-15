@@ -70,7 +70,7 @@ function _mkdir {
 function _ln {
     _mkdir "$(dirname "$2")"
     rm -f "$2"
-    if [[ "$2" != "/mnt/c"* ]]; then
+    if [[ "$2" != "/mnt/c"* ]] && [[ "$2" != "/etc"* ]]; then
         ln -sTv "$1" "$2"
     else
         cp -Tv "$1" "$2"
