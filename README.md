@@ -18,7 +18,7 @@ I should write an actual script to stand-up my personal Debian VMs (or use one o
 
 `sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file git lsb-release vim rsync wget` (remove systemd, install sshd without systemd dep, install basic tools)
 
-`sudo apt install fd-find fzf tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
+`sudo apt install fzf fd-find ripgrep tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
 
 `sudo apt install emacs-lucid fd-find ripgrep shellcheck shfmt unzip` (everything required for emacs)
 
