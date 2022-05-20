@@ -37,7 +37,7 @@ glsl-shaders-append="~~/FSRCNNX_x2_16-0-4-1.glsl"
 scale=ewa_lanczos
 
 # https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
-# Nov 19, 2021
+# May 15, 2022
 glsl-shaders-append="~~/SSimDownscaler.glsl"
 dscale=mitchell
 linear-downscaling=no
