@@ -77,6 +77,8 @@ function _ln {
     fi
 }
 
+# ln every file and mkdir every dir recursively, and retain . for hidden
+# destinations
 function _ln_descent {
     SRC_DIR="$1"
     DST_DIR="$2"
@@ -110,9 +112,8 @@ function _sudo() {
 ### OS Wrappers
 ###
 
+# run scoop, even when path is screwy
 function _scoop() {
-    SCOOP="${SCOOP_DIR}/scoop"
-
     # Scoop uses a batch file somewhere, cwd cannot be a UNC path
     OLDPWD="$(pwd)"
     cd "/mnt/c"
@@ -122,14 +123,9 @@ function _scoop() {
     OLDPATH="$PATH"
     export PATH="$SCOOP_DIR:$PATH"
 
-    if [ ! -x "$SCOOP" ]; then
-        powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
-        "$SCOOP" install git
-        "$SCOOP" bucket add extras
-    fi
-
     "$SCOOP" "$@"
 
+    # Reset cwd and path
     cd "$OLDPWD"
     unset OLDPWD
 

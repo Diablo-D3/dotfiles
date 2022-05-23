@@ -71,7 +71,9 @@ if [[ "$UNAME" == *"WSL"* ]]; then
   "$MODULES_DIR/os-wsl/stealenv.sh"
   source "$HOME/.bashrc.win"
 
-  export SCOOP_DIR="$USERPROFILE/scoop/shims"
+  # No good place to actually define these
+  SCOOP_DIR="$USERPROFILE/scoop/shims"
+  SCOOP="${SCOOP_DIR}/scoop"
 fi
 
 # Add non-OS modules

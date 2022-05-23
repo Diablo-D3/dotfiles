@@ -13,5 +13,12 @@ if [ -n "${WSL+set}" ]; then
 
     _ln_descent "$HOME/.ssh" "$USERPROFILE/.ssh/"
 
-    _scoop update
+    # Ensure Scoop is installed and is setup correctly
+    if [ ! -x "$SCOOP" ]; then
+        powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
+        _scoop install git
+        _scoop bucket add extras
+    else
+        _scoop update
+    fi
 fi
