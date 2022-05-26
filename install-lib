@@ -63,6 +63,87 @@ function _status() {
 }
 
 ###
+### Status checks
+###
+
+# performs a status check, should be used by one of its wrappers
+function _check_status() {
+    local target="$1"
+    local new="$2"
+    local ext="$3"
+    local func="$4"
+
+    local changed=false
+    local old state dirname basename
+
+    dirname="$(dirname "$target")"
+    basename="$(basename "$target")"
+
+    if [[ "$basename" != "."* ]]; then
+        state="$dirname/.$basename.$ext"
+    else
+        state="$dirname/$basename.$ext"
+    fi
+
+    if [ ! -e "$state" ]; then
+        changed=true
+    else
+        # shellcheck disable=SC2034
+        old=$(< "$state")
+
+        eval "$func" && changed=true
+    fi
+
+    if "$changed"; then
+        cat <<<"$new" > "$state"
+    fi
+
+    echo "$changed"
+}
+
+# check if one or more files were modified by tracking checksum
+function _check_file() {
+    local changed=false
+
+    for file in "$@"; do
+        local new
+        new=$(git hash-object "$file")
+
+        if (_check_status "$file" "$new" "sum" "[ \$new != \$old ]"); then
+            changed=true
+        fi
+    done
+
+    echo "$changed"
+}
+
+# check if one or more git repos were modified by tracking revision
+function _check_repo() {
+    local changed=false
+
+    for repo in "$@"; do
+        local new
+        new=$(git -C "$repo" rev-parse HEAD)
+
+        if (_check_status "$repo" "$new" "rev" "[ \$new != \$old ]"); then
+            changed=true
+        fi
+    done
+
+    echo "$changed"
+}
+
+# check if we've recently interacted with a file by timer
+function _check_time() {
+    _check_status "$1" "$(date +%s)" "time" "[ \$new -gt \$((\$old + $2)) ]"
+}
+
+# check if the supplied version has recently changed
+function _check_ver() {
+    _check_status "$1" "$2" "ver" "[ \$new != \$old ]"
+}
+
+###
 ### Wrappers
 ###
 
