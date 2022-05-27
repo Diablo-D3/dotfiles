@@ -1,88 +1,91 @@
 #!/usr/bin/env bash
 
-NOW=$(date "+%s")
-
-GIT="/usr/bin/git"
-EMACS="/usr/bin/emacs"
-EMACSD="$HOME/.emacs.d"
-EMACSD_VER="$EMACSD.ver"
-DOOMBIN="${EMACSD}/bin/doom"
-DOOM=("$EMACS" --no-site-file --script "$DOOMBIN" --)
-
-if [ ! -d "$EMACSD" ]; then
-    "$GIT" clone --depth 1 "https://github.com/hlissner/doom-emacs" "$EMACSD"
-    "${DOOM[@]}" -y install --no-fonts
-    "${DOOM[@]}" sync
-    echo "$NOW" >"$EMACSD_VER"
-else
-    if [ ! -f "$EMACSD_VER" ] || [ "$(<"$EMACSD_VER")" -gt $(("$NOW" + 86400)) ]; then
-        "$GIT" -C "$EMACSD" pull --rebase
-        "${DOOM[@]}" clean
-        "${DOOM[@]}" sync -u -p
-        echo "$NOW" >"$EMACSD_VER"
+# this function is evil and uses global variables externally
+function _doom_setup {
+    if [ ! -d "$emacsdu" ]; then
+        _status "Installing Doom for the first time"
+        "$git" clone --depth 1 "https://github.com/hlissner/doom-emacs" "$emacsdn"
+        "${doom[@]}" -y install --no-fonts
+        "${doom[@]}" sync
+        _check_time "$emacsdu" "0"
     else
-        _status "Doom sync ran recently, skipping"
+        if $(_check_time "$emacsdu" "86400"); then
+            _status "Updating Doom repo"
+            "$git" -C "$emacsdn" pull --rebase
+        fi
+
+        if $(_check_repo "$emacsdu"); then
+            _status "Running Doom package update and sync"
+            "${doom[@]}" clean
+            "${doom[@]}" sync -u -p
+        elif $(_check_file "$doomd/packages.el" "$doomd/init.el"); then
+            _status "Running Doom sync"
+            "${doom[@]}" sync
+        else
+            _status "Recently ran Doom sync, skipping"
+        fi
     fi
-fi
+}
+
+git="/usr/bin/git"
+emacs="/usr/bin/emacs"
+emacsdu="$HOME/.emacs.d" # unix path
+emacsdn="$HOME/.emacs.d" # native path
+doom=("$emacs" --no-site-file --script "$emacsdn/bin/doom" --)
+doomd="$HOME/.doom.d"
+
+_doom_setup
 
 if [ -n "${WSL+set}" ]; then
-    GIT="${SCOOP_DIR}/git.exe"
-    EMACS="${SCOOP_DIR}/emacs.exe"
-    EMACSD="$APPDATAW\\.emacs.d"
-    EMACSDL="$APPDATA/.emacs.d"
-    EMACSD_VER="$EMACSDL.ver"
-    DOOMBIN="${EMACSD}\\bin\\doom"
-    DOOM=("$EMACS" --no-site-file --script "$DOOMBIN" --)
+    git="${SCOOP_DIR}/git.exe"
+    emacs="${SCOOP_DIR}/emacs.exe"
+    emacsdu="$APPDATA/.emacs.d"
+    emacsdn="$APPDATAW\\.emacs.d"
+    doom=("$emacs" --no-site-file --script "$emacsdn\\bin\doom" --)
+    doomd="$APPDATA/.doom.d"
 
-    if [ ! -x "$GIT" ] || [ ! -x "$EMACS" ] || [ ! -x "${SCOOP_DIR}/fd.exe" ] || [ ! -x "${SCOOP_DIR}/rg.exe" ]; then
+    if [ ! -x "$git" ] ||
+           [ ! -x "$emacs" ] ||
+           [ ! -x "${SCOOP_DIR}/fd.exe" ] ||
+           [ ! -x "${SCOOP_DIR}/rg.exe" ]; then
         _scoop install "git" "extras/emacs" "fd" "ripgrep"
     fi
 
-    _ln_descent "$MODULE_DIR/HOME/doom.d" "$APPDATA/.doom.d"
+    _ln_descent "$MODULE_DIR/HOME/doom.d" "$doomd"
 
-    if [ ! -d "$EMACSDL" ]; then
-        "$GIT" clone --depth 1 "https://github.com/hlissner/doom-emacs" "$EMACSD"
-        "${DOOM[@]}" -y install --no-fonts
-        "${DOOM[@]}" sync
-        echo "$NOW" >"$EMACSD_VER"
-    else
-        if [ ! -f "$EMACSD_VER" ] || [ "$(<"$EMACSD_VER")" -gt $(("$NOW" + 86400)) ]; then
-            "$GIT" -C "$EMACSD" pull --rebase
-            "${DOOM[@]}" clean
-            "${DOOM[@]}" sync -u -p
-            echo "$NOW" >"$EMACSD_VER"
-        fi
-    fi
+    _doom_setup
 fi
 
 # Install Iosevka
-wget -q "https://raw.githubusercontent.com/be5invis/iosevka/master/package.json" -O "/tmp/package.json"
+if $(_check_time "$HOME/.fonts/iosevka.ttc" "86400"); then
+    _status "Checking Iosevka"
 
-# Match '"version":', one or more whitespace, a double quote, one or more
-# whitespace, then flush the match; match one or more non-whitespace until you
-# reach one or more whitespace, a double quote, one or more whitespaces, and
-# then a comma.
-REGEX='"version":\s*"\s*\K\S+(?=\s*"\s*,)'
+    wget -q "https://raw.githubusercontent.com/be5invis/iosevka/master/package.json" -O "/tmp/package.json"
 
-I_VER="$(grep -oP "$REGEX" "/tmp/package.json")"
-I_URL="https://github.com/be5invis/Iosevka/releases/download/v$I_VER"
+    # Match '"version":', one or more whitespace, a double quote, one or more
+    # whitespace, then flush the match; match one or more non-whitespace until you
+    # reach one or more whitespace, a double quote, one or more whitespaces, and
+    # then a comma.
+    regex='"version":\s*"\s*\K\S+(?=\s*"\s*,)'
 
-I_VER_FILE="$HOME/.fonts/.iosevka.ver"
+    ver="$(grep -oP "$regex" "/tmp/package.json")"
+    url="https://github.com/be5invis/Iosevka/releases/download/v$ver"
 
-_mkdir "$HOME/.fonts"
+    _mkdir "$HOME/.fonts"
 
-if [ ! -f "$I_VER_FILE" ] || [ "$I_VER" != "$(<"$I_VER_FILE")" ]; then
-    _status "\nInstalling Iosevka $I_VER"
+    if $(_check_ver "$HOME/.fonts/iosevka.ttc" "$ver"); then
+        _status "Installing Iosevka $ver"
 
-    wget -q "$I_URL/super-ttc-iosevka-$I_VER.zip" -O "/tmp/iosevka.zip"
-    unzip -jo "/tmp/iosevka.zip" "iosevka.ttc" -d "$HOME/.fonts/"
+        wget -q "$url/super-ttc-iosevka-$ver.zip" -O "/tmp/iosevka.zip"
+        unzip -jo "/tmp/iosevka.zip" "iosevka.ttc" -d "$HOME/.fonts/"
 
-    wget -q "$I_URL/super-ttc-iosevka-aile-$I_VER.zip" -O "/tmp/iosevka-aile.zip"
-    unzip -jo "/tmp/iosevka-aile.zip" "iosevka-aile.ttc" -d "$HOME/.fonts/"
-
-    echo "$I_VER" >"$I_VER_FILE"
+        wget -q "$url/super-ttc-iosevka-aile-$ver.zip" -O "/tmp/iosevka-aile.zip"
+        unzip -jo "/tmp/iosevka-aile.zip" "iosevka-aile.ttc" -d "$HOME/.fonts/"
+    else
+        _status "Iosevka $ver already installed, skipping"
+    fi
 else
-    _status "Iosevka $I_VER already installed, skipping"
+    _status "Recently checked Iosevka, skipping"
 fi
 
 exit 0
