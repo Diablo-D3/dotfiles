@@ -70,19 +70,26 @@ if $(_check_time "$HOME/.fonts/iosevka.ttc" "86400"); then
 
     ver="$(grep -oP "$regex" "/tmp/package.json")"
     url="https://github.com/be5invis/Iosevka/releases/download/v$ver"
+    fonts="$HOME/.fonts"
 
-    _mkdir "$HOME/.fonts"
+    _mkdir "$fonts"
 
     if $(_check_ver "$HOME/.fonts/iosevka.ttc" "$ver"); then
         _status "Installing Iosevka $ver"
 
         wget -q "$url/super-ttc-iosevka-$ver.zip" -O "/tmp/iosevka.zip"
-        unzip -jo "/tmp/iosevka.zip" "iosevka.ttc" -d "$HOME/.fonts/"
+        unzip -jo "/tmp/iosevka.zip" "iosevka.ttc" -d "$fonts"
 
         wget -q "$url/super-ttc-iosevka-aile-$ver.zip" -O "/tmp/iosevka-aile.zip"
-        unzip -jo "/tmp/iosevka-aile.zip" "iosevka-aile.ttc" -d "$HOME/.fonts/"
+        unzip -jo "/tmp/iosevka-aile.zip" "iosevka-aile.ttc" -d "$fonts"
     else
         _status "Iosevka $ver already installed, skipping"
+    fi
+
+    if [ -n "${WSL+set}" ]; then
+        winfont="$LOCALAPPDATA/Microsoft/Windows/Fonts"
+        _ln "$fonts/iosevka.ttc" "$winfont/iosevka.ttc"
+        _ln "$fonts/iosevka-aile.ttc" "$winfont/iosevka-aile.ttc"
     fi
 else
     _status "Recently checked Iosevka, skipping"
