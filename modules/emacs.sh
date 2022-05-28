@@ -7,18 +7,17 @@ function _doom_setup {
         "$git" clone --depth 1 "https://github.com/hlissner/doom-emacs" "$emacsdn"
         "${doom[@]}" -y install --no-fonts
         "${doom[@]}" sync
-        _check_time "$emacsdu" "0"
     else
-        if $(_check_time "$emacsdu" "86400"); then
+        if eval "$(_check_time "$emacsdu" "86400")"; then
             _status "Updating Doom repo"
             "$git" -C "$emacsdn" pull --rebase
         fi
 
-        if $(_check_repo "$emacsdu"); then
+        if eval "$(_check_repo "$emacsdu")"; then
             _status "Running Doom package update and sync"
             "${doom[@]}" clean
             "${doom[@]}" sync -u -p
-        elif $(_check_file "$doomd/packages.el" "$doomd/init.el"); then
+        elif eval "$(_check_file "$doomd/packages.el" "$doomd/init.el")"; then
             _status "Running Doom sync"
             "${doom[@]}" sync
         else
@@ -45,10 +44,11 @@ if [ -n "${WSL+set}" ]; then
     doomd="$APPDATA/.doom.d"
 
     if [ ! -x "$git" ] ||
-           [ ! -x "$emacs" ] ||
-           [ ! -x "${SCOOP_DIR}/fd.exe" ] ||
-           [ ! -x "${SCOOP_DIR}/rg.exe" ]; then
-        _scoop install "git" "extras/emacs" "fd" "ripgrep"
+        [ ! -x "$emacs" ] ||
+        [ ! -x "${SCOOP_DIR}/fd.exe" ] ||
+        [ ! -x "${SCOOP_DIR}/rg.exe" ] ||
+        [ ! -x "${SCOOP_DIR}/fontreg.exe" ]; then
+        _scoop install "git" "extras/emacs" "fd" "ripgrep" "fontreg"
     fi
 
     _ln_descent "$MODULE_DIR/HOME/doom.d" "$doomd"
@@ -57,7 +57,7 @@ if [ -n "${WSL+set}" ]; then
 fi
 
 # Install Iosevka
-if $(_check_time "$HOME/.fonts/iosevka.ttc" "86400"); then
+if eval "$(_check_time "$HOME/.fonts/iosevka.ttc" "86400")"; then
     _status "Checking Iosevka"
 
     wget -q "https://raw.githubusercontent.com/be5invis/iosevka/master/package.json" -O "/tmp/package.json"
@@ -74,7 +74,7 @@ if $(_check_time "$HOME/.fonts/iosevka.ttc" "86400"); then
 
     _mkdir "$fonts"
 
-    if $(_check_ver "$HOME/.fonts/iosevka.ttc" "$ver"); then
+    if eval "$(_check_ver "$HOME/.fonts/iosevka.ttc" "$ver")"; then
         _status "Installing Iosevka $ver"
 
         wget -q "$url/super-ttc-iosevka-$ver.zip" -O "/tmp/iosevka.zip"
@@ -87,9 +87,10 @@ if $(_check_time "$HOME/.fonts/iosevka.ttc" "86400"); then
     fi
 
     if [ -n "${WSL+set}" ]; then
-        winfont="$LOCALAPPDATA/Microsoft/Windows/Fonts"
-        _ln "$fonts/iosevka.ttc" "$winfont/iosevka.ttc"
-        _ln "$fonts/iosevka-aile.ttc" "$winfont/iosevka-aile.ttc"
+        oldpwd="$PWD"
+        cd "$fonts" || exit
+        fontreg.exe "/copy"
+        cd "$oldpwd" || exit
     fi
 else
     _status "Recently checked Iosevka, skipping"
