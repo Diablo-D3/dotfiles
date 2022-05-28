@@ -89,13 +89,13 @@ function _check_status() {
         changed=true
     else
         # shellcheck disable=SC2034
-        old=$(< "$state")
+        old=$(<"$state")
 
         eval "$func" && changed=true
     fi
 
     if "$changed"; then
-        cat <<<"$new" > "$state"
+        cat <<<"$new" >"$state"
     fi
 
     echo "$changed"
@@ -109,7 +109,7 @@ function _check_file() {
         local new
         new=$(git hash-object "$file")
 
-        if (_check_status "$file" "$new" "sum" "[ \$new != \$old ]"); then
+        if eval "$(_check_status "$file" "$new" "sum" "[ \$new != \$old ]")"; then
             changed=true
         fi
     done
@@ -125,7 +125,7 @@ function _check_repo() {
         local new
         new=$(git -C "$repo" rev-parse HEAD)
 
-        if (_check_status "$repo" "$new" "rev" "[ \$new != \$old ]"); then
+        if eval "$(_check_status "$repo" "$new" "rev" "[ \$new != \$old ]")"; then
             changed=true
         fi
     done
