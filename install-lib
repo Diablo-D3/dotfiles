@@ -32,9 +32,9 @@ shopt -s extglob
 # https://dwheeler.com/essays/fixing-unix-linux-filenames.html
 IFS="$(printf '\n\t')"
 
-GREEN="$(tput setaf 2)"
-RESET="$(tput sgr0)"
-OFFSET=0
+green="$(tput setaf 2)"
+reset="$(tput sgr0)"
+offset=0
 
 ###
 ### Job Block Markers
@@ -42,23 +42,23 @@ OFFSET=0
 
 # Start of a block of jobs
 function _start() {
-    if [ $OFFSET -ne 0 ]; then
-        OFFSET=0
+    if [ $offset -ne 0 ]; then
+        offset=0
         echo -e ""
     fi
 
-    echo -e "$GREEN==> $1$RESET"
+    echo -e "$green==> $1$reset"
 }
 
 # End of a block of jobs
 function _end() {
-    OFFSET=0
+    offset=0
     echo -e ""
 }
 
 # Status of the job
 function _status() {
-    OFFSET=1
+    offset=1
     echo -e "$*"
 }
 
@@ -167,21 +167,21 @@ function _ln {
 # ln every file and mkdir every dir recursively, and retain . for hidden
 # destinations
 function _ln_descent {
-    SRC_DIR="$1"
-    DST_DIR="$2"
+    local src_dir="$1"
+    local dst_dir="$2"
 
-    if [[ "$DST_DIR" != */ ]] && [[ "$DST_DIR" != *. ]]; then
-        DST_DIR="$DST_DIR/"
+    if [[ "$dst_dir" != */ ]] && [[ "$dst_dir" != *. ]]; then
+        dst_dir="$dst_dir/"
     fi
 
-    for SRC in "$SRC_DIR"/**; do
-        if [ -f "$SRC" ]; then
-            DST="${SRC#$SRC_DIR/}"
-            _ln "$SRC" "${DST_DIR}${DST}"
-        elif [ -d "$SRC" ]; then
-            _mkdir "${DST_DIR}${SRC#$SRC_DIR/}"
+    for src in "$src_dir"/**; do
+        if [ -f "$src" ]; then
+            local dst="${src#$src_dir/}"
+            _ln "$src" "${dst_dir}${dst}"
+        elif [ -d "$src" ]; then
+            _mkdir "${dst_dir}${src#$src_dir/}"
         else
-            _status "Cannot handle $SRC"
+            _status "Cannot handle $src"
         fi
     done
 }
@@ -190,7 +190,7 @@ function _ln_descent {
 function _sudo() {
     if [[ $(groups "$USER") == *"sudo"* ]]; then
         local IFS=" "
-        sudo -E bash -c "source $BASE_DIR/install-lib; $*"
+        sudo -E bash -c "source $base_dir/install-lib; $*"
     else
         _status "Cannot become root: " "$@"
     fi
@@ -203,20 +203,16 @@ function _sudo() {
 # run scoop, even when path is screwy
 function _scoop() {
     # Scoop uses a batch file somewhere, cwd cannot be a UNC path
-    OLDPWD="$(pwd)"
+    local oldpwd="$(pwd)"
     cd "/mnt/c"
 
     # Always put Scoop first in path while running Scoop
     # Scoop will not be in path when first installed
-    OLDPATH="$PATH"
-    export PATH="$SCOOP_DIR:$PATH"
+    local oldpath="$PATH"
+    export PATH="$scoop_dir:$PATH"
 
-    "$SCOOP" "$@"
+    "${scoop_dir}/scoop" "$@"
 
     # Reset cwd and path
-    cd "$OLDPWD"
-    unset OLDPWD
-
-    export PATH="$OLDPATH"
-    unset OLDPATH
+    cd "$oldpwd"
 }

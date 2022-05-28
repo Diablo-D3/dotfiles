@@ -3,12 +3,12 @@
 # shellcheck disable=SC1090
 
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit
-BASE_DIR="$(pwd)"
-export BASE_DIR
+base_dir="$(pwd)"
+export base_dir
 
-export MODULES_DIR="$BASE_DIR/modules"
+export modules_dir="$base_dir/modules"
 
-source "$BASE_DIR/install-lib"
+source "$base_dir/install-lib"
 
 ###
 ### Stage 1: Do housekeeping
@@ -22,8 +22,6 @@ _start "Remove stale symlinks"
 find "$HOME" -mindepth 1 -name ".*" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 find "$HOME/bin" -mindepth 1 -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 
-unset paths
-
 _end
 
 ###
@@ -32,75 +30,74 @@ _end
 
 _start "Module detection"
 
-declare -a MODULES
+declare -a modules
 
-UNAME="$(uname -a)"
+uname="$(uname -a)"
 
 if (command -v "lsb_release" >/dev/null 2>&1); then
-  LINUX="$(lsb_release -i -s)"
+  linux="$(lsb_release -i -s)"
 else
-  LINUX=""
+  linux=""
 fi
 
 # Early OS pass
-if [[ "$UNAME" == *"WSL"* ]]; then
+if [[ "$uname" == *"WSL"* ]]; then
   _status "Discovered WSL"
 
-  MODULES+=("os-wsl")
+  modules+=("os-wsl")
 
-  export WSL="true"
-  "$MODULES_DIR/os-wsl/stealenv.sh"
+  export wsl="true"
+  "$modules_dir/os-wsl/stealenv.sh"
   source "$HOME/.bashrc.win"
 
   # No good place to actually define these
-  SCOOP_DIR="$USERPROFILE/scoop/shims"
-  SCOOP="${SCOOP_DIR}/scoop"
+  scoop_dir="$USERPROFILE/scoop/shims"
 fi
 
 # Add non-OS modules
-for MODULE in "$MODULES_DIR/"!(os)*/; do
+for module in "$modules_dir/"!(os)*/; do
   # remove "modules/" prefix and "/" suffix
-  MODULE="${MODULE#$MODULES_DIR/}"
-  MODULE="${MODULE%/}"
+  module="${module#$modules_dir/}"
+  module="${module%/}"
 
-  if (command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1); then
-    _status "Discovered $MODULE"
-    MODULES+=("$MODULE")
+  if (command -v "$module" >/dev/null 2>&1 || command -v "$module.exe" >/dev/null 2>&1); then
+    _status "Discovered $module"
+    modules+=("$module")
   fi
 done
 
 # Late OS pass
-if [ "$LINUX" != "" ]; then
-  _status "Discovered $LINUX"
+if [ "$linux" != "" ]; then
+  _status "Discovered $linux"
 
   # make lowercase
-  MODULES+=("os-${LINUX,,}")
+  modules+=("os-${linux,,}")
 fi
 
 ###
 ### Stage 3: Install modules
 ###
 
-for MODULE in "${MODULES[@]}"; do
+for module in "${modules[@]}"; do
   # reconstitute directory of module
-  MODULE_DIR="$MODULES_DIR/$MODULE"
+  module_dir="$modules_dir/$module"
 
   # path of config script
-  MODULE_SH="$MODULES_DIR/$MODULE.sh"
+  module_sh="$modules_dir/$module.sh"
 
   # paths of directories to auto symlink
-  MODULE_HOME="$MODULE_DIR/HOME"
-  MODULE_BIN="$MODULE_DIR/BIN"
-  MODULE_ETC="$MODULE_DIR/ETC"
+  module_home="$module_dir/HOME"
+  module_bin="$module_dir/BIN"
+  module_etc="$module_dir/ETC"
 
-  _start "Installing for $MODULE"
+  _start "Installing for $module"
 
-  _ln_descent "$MODULE_HOME" "$HOME/."
-  _ln_descent "$MODULE_BIN" "$HOME/bin/"
-  _sudo _ln_descent "$MODULE_ETC" "/etc/"
+  _ln_descent "$module_home" "$HOME/."
+  _ln_descent "$module_bin" "$HOME/bin/"
+  _sudo _ln_descent "$module_etc" "/etc/"
 
-  if [ -f "$MODULE_SH" ]; then
-    "$MODULE_SH"
+  if [ -f "$module_sh" ]; then
+    "$module_sh"
   fi
 
   _end

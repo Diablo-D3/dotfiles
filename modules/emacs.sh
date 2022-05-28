@@ -35,9 +35,9 @@ doomd="$HOME/.doom.d"
 
 _doom_setup
 
-if [ -n "${WSL+set}" ]; then
-    git="${SCOOP_DIR}/git.exe"
-    emacs="${SCOOP_DIR}/emacs.exe"
+if [ -n "${wsl+set}" ]; then
+    git="${scoop_dir}/git.exe"
+    emacs="${scoop_dir}/emacs.exe"
     emacsdu="$APPDATA/.emacs.d"
     emacsdn="$APPDATAW\\.emacs.d"
     doom=("$emacs" --no-site-file --script "$emacsdn\\bin\doom" --)
@@ -45,13 +45,13 @@ if [ -n "${WSL+set}" ]; then
 
     if [ ! -x "$git" ] ||
         [ ! -x "$emacs" ] ||
-        [ ! -x "${SCOOP_DIR}/fd.exe" ] ||
-        [ ! -x "${SCOOP_DIR}/rg.exe" ] ||
-        [ ! -x "${SCOOP_DIR}/fontreg.exe" ]; then
+        [ ! -x "${scoop_dir}/fd.exe" ] ||
+        [ ! -x "${scoop_dir}/rg.exe" ] ||
+        [ ! -x "${scoop_dir}/fontreg.exe" ]; then
         _scoop install "git" "extras/emacs" "fd" "ripgrep" "fontreg"
     fi
 
-    _ln_descent "$MODULE_DIR/HOME/doom.d" "$doomd"
+    _ln_descent "$module_dir/HOME/doom.d" "$doomd"
 
     _doom_setup
 fi
@@ -86,7 +86,7 @@ if eval "$(_check_time "$HOME/.fonts/iosevka.ttc" "86400")"; then
         _status "Iosevka $ver already installed, skipping"
     fi
 
-    if [ -n "${WSL+set}" ]; then
+    if [ -n "${wsl+set}" ]; then
         oldpwd="$PWD"
         cd "$fonts" || exit
         fontreg.exe "/copy"

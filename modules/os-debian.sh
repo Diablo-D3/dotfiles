@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 
-declare -a BRANCHES
-BRANCHES=("unstable" "experimental")
+declare -a branches
+branches=("unstable" "experimental")
 
-for BRANCH in "${BRANCHES[@]}"; do
-    BRANCH_LIST="/etc/apt/sources.list.d/$BRANCH.list"
+for branch in "${branches[@]}"; do
+    branch_list="/etc/apt/sources.list.d/$branch.list"
 
-    if (grep -q "$BRANCH" "/etc/apt/preferences.d/pin-"*); then
-        if [ ! -f "$BRANCH_LIST" ]; then
-            RUN_APT_UPDATE=1
-            _sudo _ln "$MODULE_DIR/$BRANCH.list" "$BRANCH_LIST"
+    if (grep -q "$branch" "/etc/apt/preferences.d/pin-"*); then
+        if [ ! -f "$branch_list" ]; then
+            run_apt_update=1
+            _sudo _ln "$module_dir/$branch.list" "$branch_list"
         fi
     else
-        if [ -f "$BRANCH_LIST" ]; then
-            RUN_APT_UPDATE=1
-            _sudo rm "$BRANCH_LIST"
+        if [ -f "$branch_list" ]; then
+            run_apt_update=1
+            _sudo rm "$branch_list"
         fi
     fi
 done
 
-if [ -n "${RUN_APT_UPDATE+set}" ]; then
+if [ -n "${run_apt_update+set}" ]; then
     _sudo apt update
 fi
