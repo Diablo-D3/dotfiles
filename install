@@ -11,30 +11,11 @@ export MODULES_DIR="$BASE_DIR/modules"
 source "$BASE_DIR/install-lib"
 
 ###
-### Stage 1: Update self, do housekeeping
+### Stage 1: Do housekeeping
 ###
 
-if [ -z "${RESTART+unset}" ]; then
-  _start "Installing"
-  export RESTART=yes
-else
-  _start "Install script changed, restarting"
-fi
-
+_start "Installing"
 _end
-
-_start "Update git repos"
-
-CHECKSUM_ORIG=$(git -C "$BASE_DIR" hash-object install)
-git -C "$BASE_DIR" pull --force --autostash --rebase
-CHECKSUM_NEW=$(git -C "$BASE_DIR" hash-object install)
-
-_end
-
-if [ "$CHECKSUM_ORIG" != "$CHECKSUM_NEW" ]; then
-  "$BASE_DIR/install"
-  exit $?
-fi
 
 _start "Remove stale symlinks"
 
