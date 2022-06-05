@@ -30,23 +30,28 @@ tscale=oversample
 [hq]
 profile-restore=copy-equal
 
+profile=gpu-hq
+dither=fruit
+temporal-dither=yes
+deband=no
+
+# https://artoriuz.github.io/blog/mpv_upscaling.html
+# Current recommendation is lanczos, not ewa_lanczos, wins for scale and cscale
+
 # https://github.com/igv/fsrcnn-tensorflow/releases
 # April 16 2021
-profile=gpu-hq
 glsl-shaders-append="~~/FSRCNNX_x2_16-0-4-1.glsl"
-scale=ewa_lanczos
+scale=lanczos
 
+# https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637
+# May 30, 2022
+glsl-shaders-append="~~/KrigBilateral.glsl"
+cscale=lanczos
+sigmoid-upscaling=yes
+
+[downscale]
 # https://gist.github.com/igv/36508af3ffc84410fe39761d6969be10
 # May 15, 2022
 glsl-shaders-append="~~/SSimDownscaler.glsl"
 dscale=mitchell
 linear-downscaling=no
-
-# https://gist.github.com/igv/a015fc885d5c22e6891820ad89555637
-# Oct 12, 2021
-glsl-shaders-append="~~/KrigBilateral.glsl"
-cscale=mitchell
-sigmoid-upscaling=yes
-
-dither=fruit
-temporal-dither=yes
