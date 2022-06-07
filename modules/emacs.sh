@@ -8,16 +8,16 @@ function _doom_setup {
         "${doom[@]}" -y install --no-fonts
         "${doom[@]}" sync
     else
-        if eval "$(_check_time "$emacsdu" "86400")"; then
+        if _check_time "$emacsdu" "86400"; then
             _status "Updating Doom repo"
             "$git" -C "$emacsdn" pull --rebase
         fi
 
-        if eval "$(_check_repo "$emacsdu")"; then
+        if _check_repo "$emacsdu"; then
             _status "Running Doom package update and sync"
             "${doom[@]}" clean
             "${doom[@]}" sync -u -p
-        elif eval "$(_check_file "$doomd/packages.el" "$doomd/init.el")"; then
+        elif _check_file "$doomd/packages.el" "$doomd/init.el"; then
             _status "Running Doom sync"
             "${doom[@]}" sync
         else
@@ -57,7 +57,7 @@ if [ -n "${wsl+set}" ]; then
 fi
 
 # Install Iosevka
-if eval "$(_check_time "$HOME/.fonts/iosevka.ttc" "86400")"; then
+if _check_time "$HOME/.fonts/iosevka.ttc" "86400"; then
     _status "Checking Iosevka"
 
     wget -q "https://raw.githubusercontent.com/be5invis/iosevka/master/package.json" -O "/tmp/package.json"
@@ -74,7 +74,7 @@ if eval "$(_check_time "$HOME/.fonts/iosevka.ttc" "86400")"; then
 
     _mkdir "$fonts"
 
-    if eval "$(_check_ver "$HOME/.fonts/iosevka.ttc" "$ver")"; then
+    if _check_ver "$HOME/.fonts/iosevka.ttc" "$ver"; then
         _status "Installing Iosevka $ver"
 
         wget -q "$url/super-ttc-iosevka-$ver.zip" -O "/tmp/iosevka.zip"

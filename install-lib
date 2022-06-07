@@ -73,7 +73,7 @@ function _check_status() {
     local ext="$3"
     local func="$4"
 
-    local changed=false
+    local changed=1
     local old state dirname basename
 
     dirname="$(dirname "$target")"
@@ -86,61 +86,63 @@ function _check_status() {
     fi
 
     if [ ! -e "$state" ]; then
-        changed=true
+        changed=0
     else
         # shellcheck disable=SC2034
         old=$(<"$state")
 
-        eval "$func" && changed=true
+        eval "$func" && changed=0
     fi
 
-    if "$changed"; then
+    if [ "$changed" ]; then
         cat <<<"$new" >"$state"
     fi
 
-    echo "$changed"
+    return "$changed"
 }
 
 # check if one or more files were modified by tracking checksum
 function _check_file() {
-    local changed=false
+    local changed=1
 
     for file in "$@"; do
         local new
         new=$(git hash-object "$file")
 
-        if eval "$(_check_status "$file" "$new" "sum" "[ \$new != \$old ]")"; then
-            changed=true
+        if _check_status "$file" "$new" "sum" "[ \$new != \$old ]"; then
+            changed=0
         fi
     done
 
-    echo "$changed"
+    return "$changed"
 }
 
 # check if one or more git repos were modified by tracking revision
 function _check_repo() {
-    local changed=false
+    local changed=1
 
     for repo in "$@"; do
         local new
         new=$(git -C "$repo" rev-parse HEAD)
 
-        if eval "$(_check_status "$repo" "$new" "rev" "[ \$new != \$old ]")"; then
-            changed=true
+        if _check_status "$repo" "$new" "rev" "[ \$new != \$old ]"; then
+            changed=0
         fi
     done
 
-    echo "$changed"
+    return "$changed"
 }
 
 # check if we've recently interacted with a file by timer
 function _check_time() {
     _check_status "$1" "$(date +%s)" "time" "[ \$new -gt \$((\$old + $2)) ]"
+    return "$?"
 }
 
 # check if the supplied version has recently changed
 function _check_ver() {
     _check_status "$1" "$2" "ver" "[ \$new != \$old ]"
+    return "$?"
 }
 
 ###
@@ -209,7 +211,7 @@ function _scoop() {
     # Always put Scoop first in path while running Scoop
     # Scoop will not be in path when first installed
     local oldpath="$PATH"
-    export PATH="$scoop_dir:$PATH"
+    local PATH="$scoop_dir:$PATH"
 
     "${scoop_dir}/scoop" "$@"
 
