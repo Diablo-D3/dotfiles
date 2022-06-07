@@ -22,10 +22,10 @@ netsh interface portproxy reset
 # Connecting to VM's IP instead of WSL2's localhost proxy is more reliable
 ForEach( $port in $ports ) {
   netsh interface portproxy add v4tov4 listenport=$port connectaddress=$vm_ip
+  netsh interface portproxy add v6tov4 listenport=$port connectaddress=$vm_ip
 }
 
 netsh interface portproxy show all
 
 # Sometimes portproxy fails to work after reboot, this is not related to the WSL fast startup issue
 Restart-Service iphlpsvc
-
