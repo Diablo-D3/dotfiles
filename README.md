@@ -61,9 +61,10 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 |---------------------|------:|--------|------:|--------|
 | Lucida Console      |    12 | 192x60 |    15 | 160x51 |
 | Anonymous Pro       |    14 | 192x56 |    16 | 160x47 |
-| Fira Mono           |    12 | 192x54 |    15 | 160x45 |
 | Input               |    12 | 192x54 |    14 | 160x45 |
+| JuliaMono           |    12 | 192x54 |    14 | 160x45 |
 | Bitstream Vera Mono |    12 | 192x54 |    15 | 160x45 |
+| Fira Mono           |    12 | 192x54 |    15 | 160x45 |
 | Cascadia            |    13 | 192x54 |    15 | 160x45 |
 | Courier New         |    13 | 192x54 |    15 | 160x45 |
 | Iosevka Extended    |    13 | 192x54 |    15 | 160x45 |
