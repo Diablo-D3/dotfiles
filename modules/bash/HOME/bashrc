@@ -245,36 +245,12 @@ fi
 
 if command -v fzf >/dev/null 2>&1; then
   if command -v fd >/dev/null 2>&1; then
-    # generate files by path length, dotfiles last
     _fzf_compgen_path() {
-      local output
-      local -i depth=1
-      while
-        output=$(fd -H -L -E ".git" --exact-depth "$depth" . "$1")
-
-        rg -v "^\.|/\." <<<"$output"
-        rg "^\.|/\." <<<"$output"
-
-        depth+=1
-
-        [ "$output" ]
-      do true; done
+      fd --hidden --follow --exclude ".git" . "$1"
     }
 
-    # generate directories by path length, dotdirs last
     _fzf_compgen_dir() {
-      local output
-      local -i depth=1
-      while
-        output=$(fd -H -L -E ".git" --exact-depth "$depth" -t d . "$1")
-
-        rg -v "^\.|/\." <<<"$output"
-        rg "^\.|/\." <<<"$output"
-
-        depth+=1
-
-        [ "$output" ]
-      do true; done
+      fd --type d --hidden --follow --exclude ".git" . "$1"
     }
   fi
 
