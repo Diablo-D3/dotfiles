@@ -1,18 +1,17 @@
 font:
     normal:
         family: Iosevka Term
-        style: Regular
+        style: Medium
     bold:
         family: Iosevka Term
-        style: Bold
+        style: Extrabold
     italic:
         family: Iosevka Term
         style: Italic
     bold_italic:
         family: Iosevka Term
-        style: Bold Italic
-    # Alacritty font sizing is slightly too small, this should be 16
-    size: 16
+        style: Extrabold Italic
+    size: 18
 
 shell:
     program: wsl.exe
