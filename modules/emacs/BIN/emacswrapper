@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ ! "$*" == *"--no-site-file"* ]]; then
-    exec /usr/bin/emacsclient -c "$@"
-else
-    exec /usr/bin/emacs -nw "$@"
-fi

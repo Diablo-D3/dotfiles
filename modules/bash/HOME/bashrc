@@ -211,23 +211,6 @@ NODE_PATH="$HOME/.npm/lib/node_modules"
 PATH="$HOME/.npm/bin:$PATH"
 MANPATH="$NPM_PACKAGES/share/man"
 
-# emacs
-if [ -x "/usr/bin/emacs" ]; then
-  PATH="$HOME/.emacs.d/bin:$PATH"
-
-  export ALTERNATE_EDITOR=""
-  export EDITOR=emacswrapper
-
-  alias emacs="emacswrapper"
-else
-  export EDITOR=vim
-fi
-
-export VISUAL="$EDITOR"
-export GIT_EDITOR="$EDITOR"
-
-alias e='$EDITOR'
-
 # fzf and fd
 # Some is from https://github.com/junegunn/fzf#settings
 FZF_COMPLETION_TRIGGER=""
