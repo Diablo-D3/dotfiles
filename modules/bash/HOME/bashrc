@@ -89,7 +89,7 @@ elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
 fi
 
 function sgr {
-  echo -e "\\[\e[$1m\\]"
+  echo -e "\e[$1m"
 }
 
 function col {
