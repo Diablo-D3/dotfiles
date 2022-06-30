@@ -1,3 +1,6 @@
+import:
+    - ~\AppData\Roaming\alacritty\keys.yml
+
 font:
     normal:
         family: Iosevka Term
@@ -12,6 +15,9 @@ font:
         family: Iosevka Term
         style: Extrabold Italic
     size: 18
+    offset:
+      x: 0
+      y: 0
 
 shell:
     program: wsl.exe
@@ -20,7 +26,7 @@ shell:
 
 window:
     dimensions:
-        columns: 132
+        columns: 80
         lines: 25
 
     dynamic_title: true
@@ -28,6 +34,9 @@ window:
 selection:
     save_to_clipboard: true
 
+mouse:
+    hide_when_typing: true
+
 key_bindings:
     - { key: F11, action: ToggleFullscreen }
-    - { key: Space, mods: Control, chars: "\x00" }
+    - { key: LWin,  mods: Control|Alt|Shift|Super, chars: "\x01" }
