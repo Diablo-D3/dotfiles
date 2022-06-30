@@ -1,0 +1,3 @@
+Package: src:nodejs src:npm src:libuv1 src:c-ares src:node-cli-table src:node-formidable src:node-string-width src:node-https-proxy-agent src:node-read-package-json
+Pin: release a=unstable
+Pin-Priority: 1001
