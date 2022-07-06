@@ -10,7 +10,6 @@
 	email = pmcfarland@adterrasperaspera.com
 [core]
 	compression = 9
-	editor = emacs
 [pull]
 	rebase = true
 [push]

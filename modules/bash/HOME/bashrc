@@ -245,3 +245,13 @@ if command -v fzf >/dev/null 2>&1; then
     source /usr/share/doc/fzf/examples/key-bindings.bash
   fi
 fi
+
+# vim
+
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+else 
+  export EDITOR=vim
+fi
+
+export GIT_EDITOR=$EDITOR
