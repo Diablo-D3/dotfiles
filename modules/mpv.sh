@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -n "${wsl+set}" ]; then
-   _ln_descent "$module_home/config/mpv" "$APPDATA/mpv/"
+   _stow "$module_home/config/mpv" "$APPDATA/mpv/"
 fi
 
 if [ ! -f "/etc/apt/trusted.gpg.d/deb-multimedia-keyring.gpg" ]; then

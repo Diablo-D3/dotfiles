@@ -92,9 +92,9 @@ for module in "${modules[@]}"; do
 
   _start "Installing for $module"
 
-  _ln_descent "$module_home" "$HOME/."
-  _ln_descent "$module_bin" "$HOME/bin/"
-  _sudo _ln_descent "$module_etc" "/etc/"
+  _stow "$module_home" "$HOME/."
+  _stow "$module_bin" "$HOME/bin/"
+  _sudo _stow "$module_etc" "/etc"
 
   if [ -f "$module_sh" ]; then
     "$module_sh"

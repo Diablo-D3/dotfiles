@@ -166,24 +166,28 @@ function _ln {
     fi
 }
 
-# ln every file and mkdir every dir recursively, and retain . for hidden
-# destinations
-function _ln_descent {
-    local src_dir="$1"
-    local dst_dir="$2"
+# ln/cp files and mkdir parents recursively, dst is a directory
+function _stow {
+    local src="$1"
+    local dst="$2"
 
-    if [[ "$dst_dir" != */ ]] && [[ "$dst_dir" != *. ]]; then
-        dst_dir="$dst_dir/"
+    # normalize src to end in / if a dir
+    if [[ -d "$src" ]] && [[ "src" != */ ]]; then
+        src="$src/"
     fi
 
-    for src in "$src_dir"/**; do
-        if [ -f "$src" ]; then
-            local dst="${src#$src_dir/}"
-            _ln "$src" "${dst_dir}${dst}"
-        elif [ -d "$src" ]; then
-            _mkdir "${dst_dir}${src#$src_dir/}"
-        else
-            _status "Cannot handle $src"
+    # normalize dst to end in / or .
+    if [[ "$dst" != */ ]] && [[ "$dst" != *. ]]; then
+        dst="$dst/"
+    fi
+
+    for child in "$src"**; do
+        local target="$dst${child#$src}"
+
+        if [ -f "$child" ]; then
+            _ln "$child" "$target"
+        elif [ -d "$child" ]; then
+            _mkdir "$child" "$target"
         fi
     done
 }

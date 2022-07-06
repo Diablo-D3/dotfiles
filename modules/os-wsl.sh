@@ -11,7 +11,7 @@ if [ -n "${wsl+set}" ]; then
     _ln "$module_dir/hidden_powershell.js" "$USERPROFILE/hidden_powershell.js"
     _ln "$module_dir/wsl2.ps1" "$USERPROFILE/wsl2.ps1"
 
-    _ln_descent "$HOME/.ssh" "$USERPROFILE/.ssh/"
+    _stow "$HOME/.ssh" "$USERPROFILE/.ssh/"
 
     # Ensure Scoop is installed and is setup correctly
     if [ ! -x "${scoop_dir}/scoop" ]; then
