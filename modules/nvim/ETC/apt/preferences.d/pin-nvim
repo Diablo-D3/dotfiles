@@ -1,0 +1,3 @@
+Package: src:neovim src:neovim-runtime src:python-pynvim src:luajit src:lua-luv src:libuv1 src:glibc
+Pin: release a=unstable
+Pin-Priority: 1001
