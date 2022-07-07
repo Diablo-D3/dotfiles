@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -n "${wsl+set}" ]; then
-    _ln "$module_home/alacritty.yml" "$APPDATA/alacritty/alacritty.yml"
+    _stow "$module_home/config/alacritty" "$APPDATA/alacritty/"
 fi
 
 if _check_time "$HOME/.fonts/iosevka.ttc" "86400"; then

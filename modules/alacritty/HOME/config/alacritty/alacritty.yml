@@ -1,4 +1,5 @@
 import:
+    - ~/.config/alacritty/keys.yml
     - ~\AppData\Roaming\alacritty\keys.yml
 
 font:
