@@ -1,0 +1,6 @@
+# Ctrl-Left and Ctrl-Right
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+# Shift-Space
+"\e[32;2u": " "
