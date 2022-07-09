@@ -15,9 +15,9 @@ font:
     bold_italic:
         family: Iosevka Term
         style: Extrabold Italic
-    size: 18
+    size: 15
     offset:
-      x: 0
+      x: 1
       y: 0
 
 shell:
@@ -27,7 +27,7 @@ shell:
 
 window:
     dimensions:
-        columns: 80
+        columns: 132
         lines: 25
 
     dynamic_title: true
