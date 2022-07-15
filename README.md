@@ -20,7 +20,7 @@ I should write an actual script to stand-up my personal Debian VMs (or use one o
 
 `sudo apt install fzf fd-find ripgrep tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
 
-`sudo apt install emacs-lucid fd-find ripgrep shellcheck shfmt unzip` (everything required for emacs)
+`sudo apt install neovim shellcheck shfmt unzip` (everything required for neovim)
 
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
 
@@ -133,9 +133,3 @@ To update it: `git subrepo pull ./modules/vim/site/pack/bar.vom`
 To update all: `git subrepo pull --all`
 
 Notice this is far easier to use, and works a lot like `git` already does.
-
-<style type="text/css">
-td.ok { background: #009400 }
-td.meh { background: #c9ab00 }
-td.bad { background: #ff0000 }
-</style>
