@@ -172,7 +172,7 @@ function _stow {
     local dst="$2"
 
     # normalize src to end in / if a dir
-    if [[ -d "$src" ]] && [[ "src" != */ ]]; then
+    if [[ -d "$src" ]] && [[ "$src" != *"/" ]]; then
         src="$src/"
     fi
 
@@ -205,7 +205,7 @@ function _sudo() {
 }
 
 ###
-### OS Wrappers
+### OS/Package Manager Wrappers
 ###
 
 # run scoop, even when path is screwy
