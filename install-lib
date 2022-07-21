@@ -94,7 +94,7 @@ function _check_status() {
         eval "$func" && changed=0
     fi
 
-    if [ "$changed" ]; then
+    if [ "$changed" -eq 0 ]; then
         cat <<<"$new" >"$state"
     fi
 
