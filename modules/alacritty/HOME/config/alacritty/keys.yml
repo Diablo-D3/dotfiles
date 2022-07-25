@@ -17,11 +17,12 @@ key_bindings:
 # Support for CSI u mode:
   
 # Shift
-  - { key: Space,  mods: Shift, chars: "\x1b[32;2u" }
-  - { key: Return, mods: Shift, chars: "\x1b[13;2u" }
-  - { key: Escape, mods: Shift, chars: "\x1b[27;2u" }
-  - { key: Back,   mods: Shift, chars: "\x1b[127;2u" }
-  - { key: Tab,    mods: Shift, chars: "\x1b[Z" }
+# It's too easy to accidentally hit these
+# - { key: Space,  mods: Shift, chars: "\x1b[32;2u" }
+# - { key: Return, mods: Shift, chars: "\x1b[13;2u" }
+# - { key: Escape, mods: Shift, chars: "\x1b[27;2u" }
+# - { key: Back,   mods: Shift, chars: "\x1b[127;2u" }
+# - { key: Tab,    mods: Shift, chars: "\x1b[Z" }
 
 # Control
   - { key: Space,  mods: Control, chars: "\x00" }
