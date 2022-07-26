@@ -85,16 +85,21 @@ for module in "${modules[@]}"; do
   # path of config script
   module_sh="$modules_dir/$module.sh"
 
-  # paths of directories to auto symlink
+  # paths for autorules
   module_home="$module_dir/HOME"
   module_bin="$module_dir/BIN"
   module_etc="$module_dir/ETC"
+  module_list="$module_dir/GIT"
 
   _start "Installing for $module"
 
   _stow "$module_home" "$HOME/."
   _stow "$module_bin" "$HOME/bin/"
   _sudo _stow "$module_etc" "/etc"
+
+  if [ -f "$module_list" ]; then
+    _git_list "$module_list"
+  fi
 
   if [ -f "$module_sh" ]; then
     "$module_sh"

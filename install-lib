@@ -62,6 +62,12 @@ function _status() {
     echo -e "$*"
 }
 
+# Status of the job, no newline
+function _status_stub() {
+    offset=1
+    echo -n "$*"
+}
+
 ###
 ### Status checks
 ###
@@ -148,6 +154,68 @@ function _check_ver() {
 ###
 ### Wrappers
 ###
+
+# clone/pull a list of git repos
+function _git_list {
+    local file="$1"
+
+    local base
+    read -r base<"$file"
+    eval "base=$base"
+
+    if [[ "$base" != */ ]]; then
+        base="$base/"
+    fi
+
+    # Read in list
+    readarray -t repos < <(tail -n +2 "$file")
+
+    # Clone or update repos
+    for repo in "${repos[@]}"
+    do
+        IFS="," read -r url branch <<< "$repo"
+
+        if [ "$url" != "" ] || [ "$branch" != "" ]; then
+            local name dir
+            name="${url##*/}"
+            target="$base$name"
+
+            if [ ! -d "$target" ]; then
+                _status "Cloning $name: "
+                git clone --depth 1 --recurse-submodules --shallow-submodules "$url" "$target"
+            else
+                _status_stub "Updating $name: "
+                git -C "$target" pull --force --recurse-submodules 
+            fi
+        fi
+    done
+
+    # Trim removed repos
+    dirs=("$base"*)
+
+    for dir in "${dirs[@]}"
+    do
+        local found=0
+
+        for repo in "${repos[@]}"
+        do
+            IFS="," read -r url branch <<< "$repo"
+            local name
+            name="${url##*/}"
+            target="$base$name"
+
+            if [ "$dir" == "$target" ]; then
+                found=1
+                break
+            fi
+        done
+
+        if [ "$found" -eq 0 ]; then
+            _status "Removing $dir"
+            rm -rf "$dir"
+        fi
+    done
+}
 
 # mkdir with create parents
 function _mkdir {
