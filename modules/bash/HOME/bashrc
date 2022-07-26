@@ -89,58 +89,58 @@ elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
 fi
 
 # styles
-RESET=$(tput sgr0)
+RESET="$(tput sgr0)"
 
-BOLD=$(tput bold)
-DIM=$(tput dim)
-REV=$(tput rev)
+BOLD="$(tput bold)"
+DIM="$(tput dim)"
+REV="$(tput rev)"
 
-SITM=$(tput sitm)
-RITM=$(tput ritm)
-SMUL=$(tput smul)
-RMUL=$(tput rmul)
+SITM="$(tput sitm)"
+RITM="$(tput ritm)"
+SMUL="$(tput smul)"
+RMUL="$(tput rmul)"
 
 # colors
-BLACK=$(tput setaf 0)
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-BLUE=$(tput setaf 4)
-MAGENTA=$(tput setaf 5)
-CYAN=$(tput setaf 6)
-WHITE=$(tput setaf 7)
-HIBLACK=$(tput setaf 8)
-HIRED=$(tput setaf 9)
-HIGREEN=$(tput setaf 10)
-HIYELLOW=$(tput setaf 11)
-HIBLUE=$(tput setaf 12)
-HIMAGENTA=$(tput setaf 13)
-HICYAN=$(tput setaf 14)
-HIWHITE=$(tput setaf 15)
+BLACK="$(tput setaf 0)"
+RED="$(tput setaf 1)"
+GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
+BLUE="$(tput setaf 4)"
+MAGENTA="$(tput setaf 5)"
+CYAN="$(tput setaf 6)"
+WHITE="$(tput setaf 7)"
+HIBLACK="$(tput setaf 8)"
+HIRED="$(tput setaf 9)"
+HIGREEN="$(tput setaf 10)"
+HIYELLOW="$(tput setaf 11)"
+HIBLUE="$(tput setaf 12)"
+HIMAGENTA="$(tput setaf 13)"
+HICYAN="$(tput setaf 14)"
+HIWHITE="$(tput setaf 15)"
 
 # test phrase
 SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
 
 # hostname color
-HOSTCHECKSUM=$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)
-HOSTCOLOR=$((16#"$HOSTCHECKSUM" % 16))
+HOSTCHECKSUM="$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)"
+HOSTCOLOR="$((16#"$HOSTCHECKSUM" % 16))"
 
 if [ "$HOSTCOLOR" -eq 0 ]; then
-  PRO_FG=$REV$(tput setaf $HOSTCOLOR)
+  PRO_FG="$REV$(tput setaf $HOSTCOLOR)"
 else
-  PRO_FG=$(tput setaf $HOSTCOLOR)
+  PRO_FG="$(tput setaf $HOSTCOLOR)"
 fi
 
 unset HOSTCHECKSUM
 unset HOSTCOLOR
 
 # set prompt
-PRO_START="${RESET}[${PRO_FG}\\h${RESET} \\W"
+PRO_START="[\[${RESET}${PRO_FG}\]\\h\[${RESET}\] \\W"
 
 if [ "$(id -u)" -eq 0 ]; then
-  PRO_END="]${RED}#${RESET} "
+  PRO_END="]\[${RED}\]#\[${RESET}\] "
 else
-  PRO_END="]\$${RESET} "
+  PRO_END="]\$\[${RESET}\] "
 fi
 
 precmd() {
