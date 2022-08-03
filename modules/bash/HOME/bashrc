@@ -22,6 +22,9 @@ LANG=en_US.UTF-8
 LC_ALL=$LANG
 LC_CTYPE=$LANG
 
+# test phrase
+SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
+
 # set window size
 shopt -s checkwinsize
 
@@ -118,9 +121,6 @@ HIMAGENTA="$(tput setaf 13)"
 HICYAN="$(tput setaf 14)"
 HIWHITE="$(tput setaf 15)"
 
-# test phrase
-SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
-
 # hostname color
 HOSTCHECKSUM="$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)"
 HOSTCOLOR="$((16#"$HOSTCHECKSUM" % 16))"
@@ -157,6 +157,8 @@ precmd() {
   history -a
 }
 
+PROMPT_COMMAND=precmd
+
 # set xterm title
 preexec() {
   if [ "$BASH_COMMAND" == "precmd" ]; then
@@ -169,13 +171,7 @@ preexec() {
   echo -ne "$PRO_TITLE"
 }
 
-# don't setup fancy stuff on dumb terminals
-if [ "$TERM" != "dumb" ]; then
-  PROMPT_COMMAND=precmd
-  trap preexec DEBUG
-else
-  PS1="$ "
-fi
+trap preexec DEBUG
 
 # load local Win config
 if [ -x "$HOME/.bashrc.win" ]; then
