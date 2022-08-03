@@ -12,13 +12,4 @@ if [ -n "${wsl+set}" ]; then
     _ln "$module_dir/wsl2.ps1" "$USERPROFILE/wsl2.ps1"
 
     _stow "$HOME/.ssh" "$USERPROFILE/.ssh/"
-
-    # Ensure Scoop is installed and is setup correctly
-    if [ ! -x "${scoop_dir}/scoop" ]; then
-        powershell.exe -Command "iwr -useb https://get.scoop.sh | iex"
-        _scoop install git
-        _scoop bucket add extras
-    else
-        _scoop update
-    fi
 fi

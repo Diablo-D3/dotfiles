@@ -49,9 +49,6 @@ if [[ "$uname" == *"WSL"* ]]; then
   export wsl="true"
   "$modules_dir/os-wsl/stealenv.sh"
   source "$HOME/.bashrc.win"
-
-  # No good place to actually define these
-  scoop_dir="$USERPROFILE/scoop/shims"
 fi
 
 # Add non-OS modules

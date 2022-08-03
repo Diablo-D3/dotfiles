@@ -271,26 +271,3 @@ function _sudo() {
         _status "Cannot become root: " "$@"
     fi
 }
-
-###
-### OS/Package Manager Wrappers
-###
-
-# run scoop, even when path is screwy
-function _scoop() {
-    # Scoop uses a batch file somewhere, cwd cannot be a UNC path
-    local oldpwd
-    oldpwd="$(pwd)"
-    cd "/mnt/c"
-
-    # Always put Scoop first in path while running Scoop
-    # Scoop will not be in path when first installed
-
-    # shellcheck disable=SC2154 # assigned elsewhere
-    local PATH="$scoop_dir:$PATH"
-
-    "${scoop_dir}/scoop" "$@"
-
-    # Reset cwd and path
-    cd "$oldpwd"
-}
