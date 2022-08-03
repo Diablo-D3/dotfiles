@@ -255,7 +255,7 @@ function _stow {
         if [ -f "$child" ]; then
             _ln "$child" "$target"
         elif [ -d "$child" ]; then
-            _mkdir "$child" "$target"
+            _mkdir "$target"
         fi
     done
 }
