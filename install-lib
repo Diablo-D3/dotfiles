@@ -200,7 +200,7 @@ function _git_list {
     do
         IFS="," read -r url branch <<< "$repo"
 
-        if [ "$url" != "" ] || [ "$branch" != "" ]; then
+        if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
             local name dir
             name="${url##*/}"
             target="$base$name"
