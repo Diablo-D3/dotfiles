@@ -32,7 +32,14 @@ shopt -s extglob
 # https://dwheeler.com/essays/fixing-unix-linux-filenames.html
 IFS="$(printf '\n\t')"
 
+red="$(tput setaf 1)"
+hired="$(tput setaf 9)"
 green="$(tput setaf 2)"
+higreen="$(tput setaf 10)"
+yellow="$(tput setaf 3)"
+hiyellow="$(tput setaf 11)"
+blue="$(tput setaf 4)"
+hiblue="$(tput setaf 12)"
 reset="$(tput sgr0)"
 offset=0
 
@@ -47,7 +54,7 @@ function _start() {
         echo -e ""
     fi
 
-    echo -e "$green==> $1$reset"
+    echo -e "$higreen>>>$reset $green$1$reset"
 }
 
 # End of a block of jobs
@@ -59,13 +66,31 @@ function _end() {
 # Status of the job
 function _status() {
     offset=1
-    echo -e "$*"
+    echo -e "$hiblue>$reset $blue$*$reset"
 }
 
 # Status of the job, no newline
 function _status_stub() {
     offset=1
-    echo -n "$*"
+    echo -n "$hiblue>$reset $blue$*$reset"
+}
+
+# Ok
+function _ok() {
+    offset=1
+    echo -n "$higreen>$reset $green$*$reset"
+}
+
+# Warn
+function _warn() {
+    offset=1
+    echo -n "$hiyellow>$reset $yellow$*$reset"
+}
+
+# Error
+function _error() {
+    offset=1
+    echo -n "$hired>$reset $red$*$reset"
 }
 
 ###
@@ -181,7 +206,7 @@ function _git_list {
             target="$base$name"
 
             if [ ! -d "$target" ]; then
-                _status "Cloning $name: "
+                _status_stub "Cloning $name: "
                 git clone --depth 1 --recurse-submodules --shallow-submodules "$url" "$target"
             else
                 _status_stub "Updating $name: "
@@ -211,7 +236,7 @@ function _git_list {
         done
 
         if [ "$found" -eq 0 ]; then
-            _status "Removing $dir"
+            _warn "Removing $dir"
             rm -rf "$dir"
         fi
     done
