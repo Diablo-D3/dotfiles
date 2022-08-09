@@ -14,22 +14,23 @@
 # showkey --ascii
 # alacritty --print-events
 key_bindings:
-# Support for CSI u mode:
-  
-# Shift
-# It's too easy to accidentally hit these
-# - { key: Space,  mods: Shift, chars: "\x1b[32;2u" }
-# - { key: Return, mods: Shift, chars: "\x1b[13;2u" }
-# - { key: Escape, mods: Shift, chars: "\x1b[27;2u" }
-# - { key: Back,   mods: Shift, chars: "\x1b[127;2u" }
-# - { key: Tab,    mods: Shift, chars: "\x1b[Z" }
+  # Support for CSI u mode:
 
-# Control
-  - { key: Space,  mods: Control, chars: "\x00" }
+  # Shift
+  # It's too easy to accidentally hit these
+  # - { key: Space,  mods: Shift, chars: "\x1b[32;2u" }
+  # - { key: Return, mods: Shift, chars: "\x1b[13;2u" }
+  # - { key: Escape, mods: Shift, chars: "\x1b[27;2u" }
+  # - { key: Back,   mods: Shift, chars: "\x1b[127;2u" }
+  # - { key: Tab,    mods: Shift, chars: "\x1b[Z" }
+
+  # Control
+  - { key: Space, mods: Control, chars: "\x00" }
   - { key: Return, mods: Control, chars: "\x1b[13;5u" }
   - { key: Escape, mods: Control, chars: "\x1b[27;5u" }
-  - { key: Back,   mods: Control, chars: "\x1b[127;5u" }
-  - { key: Tab,    mods: Control, chars: "\x1b[9;5u" }
+  - { key: Back, mods: Control, chars: "\x1b[127;5u" }
+  - { key: Tab, mods: Control, chars: "\x1b[9;5u" }
+  - { key: Grave, mods: Control, chars: "\x1b[96;5u" }
 
   - { key: H, mods: Control, chars: "\x1b[104;5u" }
   - { key: I, mods: Control, chars: "\x1b[105;5u" }
@@ -46,12 +47,13 @@ key_bindings:
   - { key: Key7, mods: Control, chars: "\x1b[55;5u" }
   - { key: Key8, mods: Control, chars: "\x1b[56;5u" }
 
-# Control + Shift
-  - { key: Space,  mods: Control|Shift, chars: "\x1b[32;6u" }
+  # Control + Shift
+  - { key: Space, mods: Control|Shift, chars: "\x1b[32;6u" }
   - { key: Return, mods: Control|Shift, chars: "\x1b[13;6u" }
   - { key: Escape, mods: Control|Shift, chars: "\x1b[27;6u" }
-  - { key: Back,   mods: Control|Shift, chars: "\x1b[127;6u" }
-  - { key: Tab,    mods: Control|Shift, chars: "\x1b[1;5Z" }
+  - { key: Back, mods: Control|Shift, chars: "\x1b[127;6u" }
+  - { key: Tab, mods: Control|Shift, chars: "\x1b[1;5Z" }
+  - { key: Grave, mods: Control|Shift, chars: "\x1b[126;5u" }
 
   - { key: A, mods: Control|Shift, chars: "\x1b[65;5u" }
   # Control + B ⇒ SearchBackward
@@ -91,7 +93,7 @@ key_bindings:
   - { key: Key8, mods: Control|Shift, chars: "\x1b[42;5u" }
   - { key: Key9, mods: Control|Shift, chars: "\x1b[40;5u" }
 
-# Alt
+  # Alt
   - { key: A, mods: Alt, chars: "\x1ba" }
   - { key: B, mods: Alt, chars: "\x1bb" }
   - { key: C, mods: Alt, chars: "\x1bc" }
@@ -129,24 +131,24 @@ key_bindings:
   - { key: Key7, mods: Alt, chars: "\x1b7" }
   - { key: Key8, mods: Alt, chars: "\x1b8" }
 
-  - { key: Grave,      mods: Alt, chars: "\x1b`" }
-  - { key: Minus,      mods: Alt, chars: "\x1b-" }
-  - { key: Equals,     mods: Alt, chars: "\x1b=" }
-  - { key: LBracket,   mods: Alt, chars: "\x1b[" }
-  - { key: RBracket,   mods: Alt, chars: "\x1b]" }
-  - { key: Backslash,  mods: Alt, chars: "\x1b\\" }
-  - { key: Semicolon,  mods: Alt, chars: "\x1b;" }
+  - { key: Grave, mods: Alt, chars: "\x1b`" }
+  - { key: Minus, mods: Alt, chars: "\x1b-" }
+  - { key: Equals, mods: Alt, chars: "\x1b=" }
+  - { key: LBracket, mods: Alt, chars: "\x1b[" }
+  - { key: RBracket, mods: Alt, chars: "\x1b]" }
+  - { key: Backslash, mods: Alt, chars: "\x1b\\" }
+  - { key: Semicolon, mods: Alt, chars: "\x1b;" }
   - { key: Apostrophe, mods: Alt, chars: "\x1b'" }
-  - { key: Comma,      mods: Alt, chars: "\x1b," }
-  - { key: Period,     mods: Alt, chars: "\x1b." }
-  - { key: Slash,      mods: Alt, chars: "\x1b/" }
+  - { key: Comma, mods: Alt, chars: "\x1b," }
+  - { key: Period, mods: Alt, chars: "\x1b." }
+  - { key: Slash, mods: Alt, chars: "\x1b/" }
 
-# Alt + Shift
-  - { key: Space,  mods: Alt|Shift, chars: "\x1b[32;4u" }
+  # Alt + Shift
+  - { key: Space, mods: Alt|Shift, chars: "\x1b[32;4u" }
   - { key: Return, mods: Alt|Shift, chars: "\x1b[13;4u" }
   - { key: Escape, mods: Alt|Shift, chars: "\x1b[27;4u" }
-  - { key: Back,   mods: Alt|Shift, chars: "\x1b[127;4u" }
-  - { key: Tab,    mods: Alt|Shift, chars: "\x1b[1;3Z" }
+  - { key: Back, mods: Alt|Shift, chars: "\x1b[127;4u" }
+  - { key: Tab, mods: Alt|Shift, chars: "\x1b[1;3Z" }
 
   - { key: A, mods: Alt|Shift, chars: "\x1bA" }
   - { key: B, mods: Alt|Shift, chars: "\x1bB" }
@@ -198,14 +200,14 @@ key_bindings:
   - { key: Period, mods: Alt|Shift, chars: "\x1b>" }
   - { key: Slash, mods: Alt|Shift, chars: "\x1b?" }
 
-# Alt + Control
-  - { key: Space,  mods: Alt|Control, chars: "\x1b[32;7u" }
+  # Alt + Control
+  - { key: Space, mods: Alt|Control, chars: "\x1b[32;7u" }
   - { key: Return, mods: Alt|Control, chars: "\x1b[13;7u" }
   - { key: Escape, mods: Alt|Control, chars: "\x1b[27;7u" }
-  - { key: Back,   mods: Alt|Control, chars: "\x1b[127;7u" }
-  - { key: Tab,    mods: Alt|Control, chars: "\x1b[9;7u" }
-  
-  - { key: A, mods: Alt|Control, chars: "\x1b[97;7u" } 
+  - { key: Back, mods: Alt|Control, chars: "\x1b[127;7u" }
+  - { key: Tab, mods: Alt|Control, chars: "\x1b[9;7u" }
+
+  - { key: A, mods: Alt|Control, chars: "\x1b[97;7u" }
   - { key: B, mods: Alt|Control, chars: "\x1b[98;7u" }
   - { key: C, mods: Alt|Control, chars: "\x1b[99;7u" }
   - { key: D, mods: Alt|Control, chars: "\x1b[100;7u" }
@@ -241,14 +243,14 @@ key_bindings:
   - { key: Key6, mods: Alt|Control, chars: "\x1b[54;7u" }
   - { key: Key7, mods: Alt|Control, chars: "\x1b[55;7u" }
   - { key: Key8, mods: Alt|Control, chars: "\x1b[56;7u" }
-  
-# Alt + Control + Shift
-  - { key: Space,  mods: Alt|Control|Shift, chars: "\x1b[32;8u" }
+
+  # Alt + Control + Shift
+  - { key: Space, mods: Alt|Control|Shift, chars: "\x1b[32;8u" }
   - { key: Return, mods: Alt|Control|Shift, chars: "\x1b[13;8u" }
   - { key: Escape, mods: Alt|Control|Shift, chars: "\x1b[27;8u" }
-  - { key: Back,   mods: Alt|Control|Shift, chars: "\x1b[127;8u" }
-  - { key: Tab,    mods: Alt|Control|Shift, chars: "\x1b[1;7u" }
-  
+  - { key: Back, mods: Alt|Control|Shift, chars: "\x1b[127;8u" }
+  - { key: Tab, mods: Alt|Control|Shift, chars: "\x1b[1;7u" }
+
   - { key: A, mods: Alt|Control|Shift, chars: "\x1b[65;7u" }
   - { key: B, mods: Alt|Control|Shift, chars: "\x1b[66;7u" }
   - { key: C, mods: Alt|Control|Shift, chars: "\x1b[67;7u" }
@@ -274,7 +276,7 @@ key_bindings:
   - { key: X, mods: Alt|Control|Shift, chars: "\x1b[88;7u" }
   - { key: Y, mods: Alt|Control|Shift, chars: "\x1b[89;7u" }
   - { key: Z, mods: Alt|Control|Shift, chars: "\x1b[90;7u" }
-  
+
   - { key: Key0, mods: Alt|Control|Shift, chars: "\x1b[41;7u" }
   - { key: Key1, mods: Alt|Control|Shift, chars: "\x1b[33;7u" }
   - { key: Key2, mods: Alt|Control|Shift, chars: "\x1b[64;7u" }
@@ -285,4 +287,3 @@ key_bindings:
   - { key: Key7, mods: Alt|Control|Shift, chars: "\x1b[38;7u" }
   - { key: Key8, mods: Alt|Control|Shift, chars: "\x1b[42;7u" }
   - { key: Key9, mods: Alt|Control|Shift, chars: "\x1b[40;7u" }
-
