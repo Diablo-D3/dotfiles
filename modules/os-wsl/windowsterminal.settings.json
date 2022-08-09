@@ -59,6 +59,10 @@
       "keys": "ctrl+alt+shift+win+r"
     },
     {
+      "command": { "action": "sendInput", "input": "\u0001z" },
+      "keys": "ctrl+alt+shift+win+z"
+    },
+    {
       "command": { "action": "sendInput", "input": "\u0001v" },
       "keys": "ctrl+alt+shift+win+v"
     },
