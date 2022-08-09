@@ -1,98 +1,156 @@
 {
-    "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [
-	{ "command": { "action": "sendInput", "input": "\u0001d" }, "keys": "ctrl+alt+shift+win+d" },
-	{ "command": { "action": "sendInput", "input": "\u0001e" }, "keys": "ctrl+alt+shift+win+e" },
-	{ "command": { "action": "sendInput", "input": "\u0001v" }, "keys": "ctrl+alt+shift+win+v" },
-	{ "command": { "action": "sendInput", "input": "\u0001h" }, "keys": "ctrl+alt+shift+win+h" },
-	{ "command": { "action": "sendInput", "input": "\u0001;" }, "keys": "ctrl+alt+shift+win+;" },
-	{ "command": { "action": "sendInput", "input": "\u0001:" }, "keys": "ctrl+alt+shift+win+:" },
-	{ "command": { "action": "sendInput", "input": "\u00011" }, "keys": "ctrl+alt+shift+win+1" },
-	{ "command": { "action": "sendInput", "input": "\u00012" }, "keys": "ctrl+alt+shift+win+2" },
-	{ "command": { "action": "sendInput", "input": "\u00013" }, "keys": "ctrl+alt+shift+win+3" },
-	{ "command": { "action": "sendInput", "input": "\u00014" }, "keys": "ctrl+alt+shift+win+4" },
-	{ "command": { "action": "sendInput", "input": "\u00015" }, "keys": "ctrl+alt+shift+win+5" },
-	{ "command": { "action": "sendInput", "input": "\u00016" }, "keys": "ctrl+alt+shift+win+6" },
-	{ "command": { "action": "sendInput", "input": "\u00017" }, "keys": "ctrl+alt+shift+win+7" },
-	{ "command": { "action": "sendInput", "input": "\u00018" }, "keys": "ctrl+alt+shift+win+8" },
-	{ "command": { "action": "sendInput", "input": "\u00019" }, "keys": "ctrl+alt+shift+win+9" },
-	{ "command": { "action": "sendInput", "input": "\u00010" }, "keys": "ctrl+alt+shift+win+0" }
-    ],
-    "alwaysShowTabs": false,
-    "copyOnSelect": true,
-    "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-    "disabledProfileSources": 
-    [
-        "Windows.Terminal.Azure",
-        "Windows.Terminal.PowershellCore"
-    ],
-    "initialCols": 132,
-    "initialRows": 25,
-    "profiles": 
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
     {
-        "defaults": 
-        {
-            "antialiasingMode": "cleartype",
-            "closeOnExit": "always",
-            "colorScheme": "Tomorrow Night",
-            "experimental.retroTerminalEffect": false,
-            "experimental.useAtlasEngine": true,
-            "font": 
-            {
-                "face": "Iosevka Term",
-                "size": 12,
-                "weight": "medium"
-            },
-            "padding": "0",
-            "scrollbarState": "hidden"
-        },
-        "list": 
-        [
-            {
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "name": "Command Prompt"
-            },
-            {
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "name": "Windows PowerShell"
-            },
-            {
-                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-                "hidden": false,
-                "name": "Debian",
-                "source": "Windows.Terminal.Wsl",
-                "startingDirectory": "\\\\wsl$\\Debian\\home\\diablo"
-            }
-        ]
+      "command": { "action": "sendInput", "input": "\u001b[96;5u" },
+      "keys": "ctrl+`"
     },
-    "schemes": 
-    [
-        {
-            "background": "#1D1F21",
-            "black": "#000000",
-            "blue": "#81A2BE",
-            "brightBlack": "#808080",
-            "brightBlue": "#81A2BE",
-            "brightCyan": "#8ABEB7",
-            "brightGreen": "#B5BD68",
-            "brightPurple": "#B294BB",
-            "brightRed": "#CC6666",
-            "brightWhite": "#FFFFFF",
-            "brightYellow": "#F0C674",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#8ABEB7",
-            "foreground": "#C5C8C6",
-            "green": "#B5BD68",
-            "name": "Tomorrow Night",
-            "purple": "#B294BB",
-            "red": "#CC6666",
-            "selectionBackground": "#C5C8C6",
-            "white": "#FFFFFF",
-            "yellow": "#F0C674"
-        }
-    ],
-    "showTabsInTitlebar": false,
-    "theme": "dark",
-    "useAcrylicInTabRow": false
+    {
+      "command": { "action": "sendInput", "input": "\u001b[126;5u" },
+      "keys": "ctrl+shift+`"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001d" },
+      "keys": "ctrl+alt+shift+win+d"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001e" },
+      "keys": "ctrl+alt+shift+win+e"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001r" },
+      "keys": "ctrl+alt+shift+win+r"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001v" },
+      "keys": "ctrl+alt+shift+win+v"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001h" },
+      "keys": "ctrl+alt+shift+win+h"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001;" },
+      "keys": "ctrl+alt+shift+win+;"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001:" },
+      "keys": "ctrl+alt+shift+win+:"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u0001`" },
+      "keys": "ctrl+alt+shift+win+`"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00011" },
+      "keys": "ctrl+alt+shift+win+1"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00012" },
+      "keys": "ctrl+alt+shift+win+2"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00013" },
+      "keys": "ctrl+alt+shift+win+3"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00014" },
+      "keys": "ctrl+alt+shift+win+4"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00015" },
+      "keys": "ctrl+alt+shift+win+5"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00016" },
+      "keys": "ctrl+alt+shift+win+6"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00017" },
+      "keys": "ctrl+alt+shift+win+7"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00018" },
+      "keys": "ctrl+alt+shift+win+8"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00019" },
+      "keys": "ctrl+alt+shift+win+9"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u00010" },
+      "keys": "ctrl+alt+shift+win+0"
+    }
+  ],
+  "alwaysShowTabs": false,
+  "copyOnSelect": true,
+  "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+  "disabledProfileSources": [
+    "Windows.Terminal.Azure",
+    "Windows.Terminal.PowershellCore"
+  ],
+  "initialCols": 132,
+  "initialRows": 25,
+  "profiles": {
+    "defaults": {
+      "antialiasingMode": "cleartype",
+      "closeOnExit": "always",
+      "colorScheme": "Tomorrow Night",
+      "experimental.retroTerminalEffect": false,
+      "experimental.useAtlasEngine": true,
+      "font": {
+        "face": "Iosevka Term",
+        "size": 12,
+        "weight": "medium"
+      },
+      "padding": "0",
+      "scrollbarState": "hidden"
+    },
+    "list": [
+      {
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "name": "Command Prompt"
+      },
+      {
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "name": "Windows PowerShell"
+      },
+      {
+        "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+        "hidden": false,
+        "name": "Debian",
+        "source": "Windows.Terminal.Wsl",
+        "startingDirectory": "\\\\wsl$\\Debian\\home\\diablo"
+      }
+    ]
+  },
+  "schemes": [
+    {
+      "background": "#1D1F21",
+      "black": "#000000",
+      "blue": "#81A2BE",
+      "brightBlack": "#808080",
+      "brightBlue": "#81A2BE",
+      "brightCyan": "#8ABEB7",
+      "brightGreen": "#B5BD68",
+      "brightPurple": "#B294BB",
+      "brightRed": "#CC6666",
+      "brightWhite": "#FFFFFF",
+      "brightYellow": "#F0C674",
+      "cursorColor": "#FFFFFF",
+      "cyan": "#8ABEB7",
+      "foreground": "#C5C8C6",
+      "green": "#B5BD68",
+      "name": "Tomorrow Night",
+      "purple": "#B294BB",
+      "red": "#CC6666",
+      "selectionBackground": "#C5C8C6",
+      "white": "#FFFFFF",
+      "yellow": "#F0C674"
+    }
+  ],
+  "showTabsInTitlebar": false,
+  "theme": "dark",
+  "useAcrylicInTabRow": false
 }
