@@ -13,6 +13,7 @@
 #
 # showkey --ascii
 # alacritty --print-events
+
 key_bindings:
   # Support for CSI u mode:
 
@@ -46,6 +47,7 @@ key_bindings:
   - { key: Key6, mods: Control, chars: "\x1b[54;5u" }
   - { key: Key7, mods: Control, chars: "\x1b[55;5u" }
   - { key: Key8, mods: Control, chars: "\x1b[56;5u" }
+  - { key: Key9, mods: Control, chars: "\x1b[57;5u" }
 
   # Control + Shift
   - { key: Space, mods: Control|Shift, chars: "\x1b[32;6u" }
@@ -130,6 +132,7 @@ key_bindings:
   - { key: Key6, mods: Alt, chars: "\x1b6" }
   - { key: Key7, mods: Alt, chars: "\x1b7" }
   - { key: Key8, mods: Alt, chars: "\x1b8" }
+  - { key: Key9, mods: Alt, chars: "\x1b9" }
 
   - { key: Grave, mods: Alt, chars: "\x1b`" }
   - { key: Minus, mods: Alt, chars: "\x1b-" }
@@ -243,6 +246,7 @@ key_bindings:
   - { key: Key6, mods: Alt|Control, chars: "\x1b[54;7u" }
   - { key: Key7, mods: Alt|Control, chars: "\x1b[55;7u" }
   - { key: Key8, mods: Alt|Control, chars: "\x1b[56;7u" }
+  - { key: Key9, mods: Alt|Control, chars: "\x1b[57;7u" }
 
   # Alt + Control + Shift
   - { key: Space, mods: Alt|Control|Shift, chars: "\x1b[32;8u" }
