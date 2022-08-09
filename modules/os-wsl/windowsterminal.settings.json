@@ -1,7 +1,24 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [],
+    "actions": [
+	{ "command": { "action": "sendInput", "input": "\u0001d" }, "keys": "ctrl+alt+shift+win+d" },
+	{ "command": { "action": "sendInput", "input": "\u0001e" }, "keys": "ctrl+alt+shift+win+e" },
+	{ "command": { "action": "sendInput", "input": "\u0001v" }, "keys": "ctrl+alt+shift+win+v" },
+	{ "command": { "action": "sendInput", "input": "\u0001h" }, "keys": "ctrl+alt+shift+win+h" },
+	{ "command": { "action": "sendInput", "input": "\u0001;" }, "keys": "ctrl+alt+shift+win+;" },
+	{ "command": { "action": "sendInput", "input": "\u0001:" }, "keys": "ctrl+alt+shift+win+:" },
+	{ "command": { "action": "sendInput", "input": "\u00011" }, "keys": "ctrl+alt+shift+win+1" },
+	{ "command": { "action": "sendInput", "input": "\u00012" }, "keys": "ctrl+alt+shift+win+2" },
+	{ "command": { "action": "sendInput", "input": "\u00013" }, "keys": "ctrl+alt+shift+win+3" },
+	{ "command": { "action": "sendInput", "input": "\u00014" }, "keys": "ctrl+alt+shift+win+4" },
+	{ "command": { "action": "sendInput", "input": "\u00015" }, "keys": "ctrl+alt+shift+win+5" },
+	{ "command": { "action": "sendInput", "input": "\u00016" }, "keys": "ctrl+alt+shift+win+6" },
+	{ "command": { "action": "sendInput", "input": "\u00017" }, "keys": "ctrl+alt+shift+win+7" },
+	{ "command": { "action": "sendInput", "input": "\u00018" }, "keys": "ctrl+alt+shift+win+8" },
+	{ "command": { "action": "sendInput", "input": "\u00019" }, "keys": "ctrl+alt+shift+win+9" },
+	{ "command": { "action": "sendInput", "input": "\u00010" }, "keys": "ctrl+alt+shift+win+0" }
+    ],
     "alwaysShowTabs": false,
     "copyOnSelect": true,
     "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
@@ -24,7 +41,7 @@
             "font": 
             {
                 "face": "Iosevka Term",
-                "size": 15,
+                "size": 12,
                 "weight": "medium"
             },
             "padding": "0",
