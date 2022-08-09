@@ -3,6 +3,42 @@
   "$schema": "https://aka.ms/terminal-profiles-schema",
   "actions": [
     {
+      "command": { "action": "sendInput", "input": "\u001b[49;5u" },
+      "keys": "ctrl+1"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[50;5u" },
+      "keys": "ctrl+2"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[51;5u" },
+      "keys": "ctrl+3"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[52;5u" },
+      "keys": "ctrl+4"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[53;5u" },
+      "keys": "ctrl+5"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[54;5u" },
+      "keys": "ctrl+6"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[55;5u" },
+      "keys": "ctrl+7"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[56;5u" },
+      "keys": "ctrl+8"
+    },
+    {
+      "command": { "action": "sendInput", "input": "\u001b[57;5u" },
+      "keys": "ctrl+9"
+    },
+    {
       "command": { "action": "sendInput", "input": "\u001b[96;5u" },
       "keys": "ctrl+`"
     },
