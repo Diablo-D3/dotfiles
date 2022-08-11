@@ -137,6 +137,7 @@
       "antialiasingMode": "cleartype",
       "closeOnExit": "always",
       "colorScheme": "Tomorrow Night",
+      "cursorShape": "filledBox",
       "experimental.retroTerminalEffect": false,
       "experimental.useAtlasEngine": true,
       "font": {
@@ -144,6 +145,7 @@
         "size": 12,
         "weight": "medium"
       },
+      "intenseTextStyle": "bold",
       "padding": "0",
       "scrollbarState": "hidden"
     },
@@ -167,30 +169,29 @@
   },
   "schemes": [
     {
-      "background": "#1D1F21",
-      "black": "#000000",
-      "blue": "#81A2BE",
-      "brightBlack": "#808080",
-      "brightBlue": "#81A2BE",
-      "brightCyan": "#8ABEB7",
-      "brightGreen": "#B5BD68",
-      "brightPurple": "#B294BB",
-      "brightRed": "#CC6666",
-      "brightWhite": "#FFFFFF",
-      "brightYellow": "#F0C674",
-      "cursorColor": "#FFFFFF",
-      "cyan": "#8ABEB7",
-      "foreground": "#C5C8C6",
-      "green": "#B5BD68",
+      "cursorColor": "#aeafad",
       "name": "Tomorrow Night",
-      "purple": "#B294BB",
-      "red": "#CC6666",
-      "selectionBackground": "#C5C8C6",
-      "white": "#FFFFFF",
-      "yellow": "#F0C674"
+      "selectionBackground": "#373b41",
+      "background": "#1d1f21",
+      "foreground": "#c5c8c6",
+      "black": "#000000",
+      "red": "#cc6666",
+      "green": "#b5bd68",
+      "yellow": "#f0c674",
+      "blue": "#81a2be",
+      "purple": "#b294bb",
+      "cyan": "#8abeb7",
+      "white": "#c5c8c6",
+      "brightBlack": "#666666",
+      "brightRed": "#d54e52",
+      "brightGreen": "#b9ca4a",
+      "brightYellow": "#e7c547",
+      "brightBlue": "#7aa6da",
+      "brightPurple": "#c397d8",
+      "brightCyan": "#70c0b1",
+      "brightWhite": "#eaeaea"
     }
   ],
   "showTabsInTitlebar": false,
-  "theme": "dark",
   "useAcrylicInTabRow": false
 }
