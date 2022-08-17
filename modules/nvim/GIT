@@ -1,0 +1,46 @@
+$HOME/.local/share/nvim/site/pack/bundle/start/
+
+# base functionality
+https://github.com/tpope/vim-unimpaired.git,master
+https://github.com/tpope/vim-commentary,git,master
+https://github.com/tpope/vim-sleuth.git,master
+https://github.com/nvim-lua/plenary.nvim.git,master
+
+# themes and highlighting
+https://github.com/EdenEast/nightfox.nvim.git,main
+https://github.com/nvim-lualine/lualine.nvim.git,main
+https://github.com/norcalli/nvim-colorizer.lua.git,master
+https://github.com/folke/todo-comments.nvim.git,main
+
+# navigation
+https://github.com/nvim-telescope/telescope.nvim.git,master
+https://github.com/folke/trouble.nvim.git,main
+
+# snippet and complete
+https://github.com/L3MON4D3/LuaSnip.git,master
+https://github.com/rafamadriz/friendly-snippets.git,main
+https://github.com/saadparwaiz1/cmp_luasnip.git,master
+https://github.com/hrsh7th/cmp-nvim-lsp.git,main
+https://github.com/hrsh7th/cmp-buffer.git,main
+https://github.com/hrsh7th/nvim-cmp.git,main
+
+# treesitter
+https://github.com/nvim-treesitter/nvim-treesitter.git,master
+https://github.com/p00f/nvim-ts-rainbow.git,master
+
+# lsp
+https://github.com/neovim/nvim-lspconfig.git,master
+https://github.com/RRethy/vim-illuminate.git,master
+https://git.sr.ht/~whynothugo/lsp_lines.nvim,master
+https://github.com/jose-elias-alvarez/null-ls.nvim.git,main
+https://github.com/simrat39/rust-tools.nvim.git,master
+
+# other language-specific support
+https://github.com/Saecki/crates.nvim.git,main
+https://github.com/aliva/vim-fish.git,main
+
+# external tooling integration
+https://github.com/tpope/vim-fugitive.git,master
+https://github.com/lewis6991/gitsigns.nvim.git,main
+https://github.com/ojroques/vim-oscyank.git,main
+https://github.com/christoomey/vim-tmux-navigator,master
