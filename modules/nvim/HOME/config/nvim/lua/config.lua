@@ -1,3 +1,8 @@
+------------
+-- global --
+------------
+
+local keyopts = { noremap=true, silent=true }
 -----------------------------
 -- themes and highlighting --
 -----------------------------
@@ -35,24 +40,18 @@ require('todo-comments').setup()
 -- navigation --
 ----------------
 
--- telescope.nvim
--- https://github.com/nvim-telescope/telescope.nvim.git
-local telescope = require('telescope');
-
-telescope.setup()
-
-vim.cmd [[
-    nnoremap / <cmd>Telescope current_buffer_fuzzy_find<cr>
-    nnoremap <C-`> <cmd>Telescope buffers<cr>
-    nnoremap <leader>f <cmd>Telescope find_files<cr>
-    nnoremap <leader>/ <cmd>Telescope live_grep<cr>
-]]
-
 -- trouble.nvim
 -- https://github.com/folke/trouble.nvim
-require("trouble").setup {
+local trouble = require('trouble');
+
+trouble.setup {
     auto_open = true,
     auto_close = true,
+    action_keys = {
+        hover = "K"
+    },
+
+    -- remove icons
     icons = false,
     fold_open = "v",
     fold_closed = ">",
@@ -72,6 +71,30 @@ vim.cmd [[
     nnoremap <leader>q <cmd>TroubleToggle quickfix<cr>
     nnoremap <leader>l <cmd>TroubleToggle loclist<cr>
     nnoremap gr        <cmd>TroubleToggle lsp_references<cr>
+]]
+
+local troubleopts = { skip_group=true, jump=true }
+vim.keymap.set('n', '[q', function() trouble.next(troubleopts) end, keyopts)
+vim.keymap.set('n', ']q', function() trouble.previous(troubleopts) end, keyopts)
+
+-- telescope.nvim
+-- https://github.com/nvim-telescope/telescope.nvim.git
+local telescope = require('telescope');
+
+telescope.setup({
+    defaults = {
+        mappings = {
+            i = { ["<c-t>"] = trouble.open_with_trouble },
+            n = { ["<c-t>"] = trouble.open_with_trouble },
+        }
+    }
+})
+
+vim.cmd [[
+    nnoremap / <cmd>Telescope current_buffer_fuzzy_find<cr>
+    nnoremap <C-`> <cmd>Telescope buffers<cr>
+    nnoremap <leader>f <cmd>Telescope find_files find_command=fd<cr>
+    nnoremap <leader>/ <cmd>Telescope live_grep<cr>
 ]]
 
 --------------------------
@@ -192,17 +215,9 @@ vim.cmd [[
 
 -- nvim-lspconfig
 -- https://github.com/neovim/nvim-lspconfig.git,master
-local opts = { noremap=true, silent=true }
 local lspfmt = vim.api.nvim_create_augroup('LspFormatting', {})
 
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-
 local on_attach = function(client, bufnr)
-    -- vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-    -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    -- vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
