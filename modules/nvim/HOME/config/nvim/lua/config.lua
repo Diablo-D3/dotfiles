@@ -246,8 +246,6 @@ local on_attach = function(client, bufnr)
             end,
         })
     end
-
-    require('illuminate').on_attach(client)
 end
 
 vim.cmd [[
@@ -257,6 +255,10 @@ vim.cmd [[
     sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineVirtualTextInfo
     sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticVirtualTextHint
 ]]
+
+-- vim-illuminate
+-- https://github.com/RRethy/vim-illuminate
+require('illuminate').configure()
 
 -- lsp_lines
 -- https://git.sr.ht/~whynothugo/lsp_lines.nvim
