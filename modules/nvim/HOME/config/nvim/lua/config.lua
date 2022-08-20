@@ -3,6 +3,7 @@
 ------------
 
 local keyopts = { noremap=true, silent=true }
+
 -----------------------------
 -- themes and highlighting --
 -----------------------------
@@ -47,9 +48,6 @@ local trouble = require('trouble');
 trouble.setup {
     auto_open = true,
     auto_close = true,
-    action_keys = {
-        hover = "K"
-    },
 
     -- remove icons
     icons = false,
@@ -324,10 +322,9 @@ null_ls.setup({
 
 -- rust-tools.nvim
 -- https://github.com/simrat39/rust-tools.nvim
+local rust_tools = require("rust-tools")
 
-local rt = require("rust-tools")
-
-rt.setup({
+rust_tools.setup({
     server = {
         capabilities = capabilities,
         on_attach = on_attach
@@ -419,7 +416,6 @@ let g:clipboard = {
 
 -- vim-tmux-navigation
 -- https://github.com/christoomey/vim-tmux-navigator
-
 vim.cmd [[
     let g:tmux_navigator_preserve_zoom = 1
     nnoremap <silent> <C-Space> :TmuxNavigatePrevious<cr>

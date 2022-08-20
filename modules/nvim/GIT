@@ -13,8 +13,8 @@ https://github.com/norcalli/nvim-colorizer.lua.git,master
 https://github.com/folke/todo-comments.nvim.git,main
 
 # navigation
-https://github.com/nvim-telescope/telescope.nvim.git,master
 https://github.com/folke/trouble.nvim.git,main
+https://github.com/nvim-telescope/telescope.nvim.git,master
 
 # snippet and complete
 https://github.com/L3MON4D3/LuaSnip.git,master
