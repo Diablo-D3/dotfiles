@@ -16,14 +16,6 @@ https://github.com/folke/todo-comments.nvim.git,main
 https://github.com/folke/trouble.nvim.git,main
 https://github.com/nvim-telescope/telescope.nvim.git,master
 
-# snippet and complete
-https://github.com/L3MON4D3/LuaSnip.git,master
-https://github.com/rafamadriz/friendly-snippets.git,main
-https://github.com/saadparwaiz1/cmp_luasnip.git,master
-https://github.com/hrsh7th/cmp-nvim-lsp.git,main
-https://github.com/hrsh7th/cmp-buffer.git,main
-https://github.com/hrsh7th/nvim-cmp.git,main
-
 # treesitter
 https://github.com/nvim-treesitter/nvim-treesitter.git,master
 https://github.com/p00f/nvim-ts-rainbow.git,master
