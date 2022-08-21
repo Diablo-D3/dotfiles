@@ -183,6 +183,10 @@ require('illuminate').configure()
 -- https://git.sr.ht/~whynothugo/lsp_lines.nvim
 require('lsp_lines').setup()
 
+-- lsp_signature
+-- https://github.com/ray-x/lsp_signature.nvim
+require('lsp_signature').setup()
+
 vim.diagnostic.config({
     virtual_text = false,
 })

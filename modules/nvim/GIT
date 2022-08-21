@@ -24,6 +24,7 @@ https://github.com/p00f/nvim-ts-rainbow.git,master
 https://github.com/neovim/nvim-lspconfig.git,master
 https://github.com/RRethy/vim-illuminate.git,master
 https://git.sr.ht/~whynothugo/lsp_lines.nvim,master
+https://github.com/ray-x/lsp_signature.nvim.git,master
 https://github.com/jose-elias-alvarez/null-ls.nvim.git,main
 https://github.com/simrat39/rust-tools.nvim.git,master
 
