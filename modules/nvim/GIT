@@ -4,6 +4,7 @@ $HOME/.local/share/nvim/site/pack/bundle/start/
 https://github.com/tpope/vim-unimpaired.git,master
 https://github.com/tpope/vim-commentary,git,master
 https://github.com/tpope/vim-sleuth.git,master
+https://github.com/Diablo-D3/vim-yabs.git,master
 https://github.com/nvim-lua/plenary.nvim.git,master
 
 # themes and highlighting
