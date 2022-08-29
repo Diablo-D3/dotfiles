@@ -5,6 +5,9 @@ https://github.com/tpope/vim-unimpaired.git,master
 https://github.com/tpope/vim-commentary,git,master
 https://github.com/tpope/vim-sleuth.git,master
 https://github.com/Diablo-D3/vim-yabs.git,master
+https://github.com/ii14/autosplit.nvim.git,master
+https://github.com/lewis6991/spaceless.nvim.git,main
+https://github.com/luukvbaal/stabilize.nvim.git,master
 https://github.com/nvim-lua/plenary.nvim.git,master
 
 # themes and highlighting

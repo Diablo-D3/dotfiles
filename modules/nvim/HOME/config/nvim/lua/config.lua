@@ -4,6 +4,27 @@
 
 local keyopts = { noremap=true, silent=true }
 
+------------------------
+-- base functionality --
+------------------------
+
+-- autosplit.nvim
+-- https://github.com/ii14/autosplit.nvim
+vim.cmd [[
+    set splitright
+
+    let g:autosplit_loaded = 1
+    au WinNew * lua require('autosplit')()
+]]
+
+-- spaceless.nvim
+-- https://github.com/lewis6991/spaceless.nvim
+require('spaceless').setup()
+
+-- stabilize.nvim
+-- https://github.com/luukvbaal/stabilize.nvim
+require('stabilize').setup()
+
 -----------------------------
 -- themes and highlighting --
 -----------------------------
@@ -199,17 +220,10 @@ local code_actions = null_ls.builtins.code_actions
 local diagnostics = null_ls.builtins.diagnostics
 local formatting = null_ls.builtins.formatting
 
-local disabled = { "rust" }
-
 null_ls.setup({
     sources = {
         -- generic
         code_actions.gitsigns,
-        diagnostics.trail_space,
-
-        -- generic, excluded from lsp formatting overlap
-        formatting.trim_newlines.with({ disabled_filetypes = disabled }),
-        formatting.trim_whitespace.with({ disabled_filetypes = disabled }),
 
         -- js/ts et al, css et al, html, json, yaml, md, etc
         formatting.prettier,
