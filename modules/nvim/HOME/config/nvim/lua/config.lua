@@ -327,6 +327,10 @@ require('crates').setup({
 -- external tooling integration --
 ----------------------------------
 
+-- fugitive --
+-- https://github.com/tpope/vim-fugitive
+vim.keymap.set('n', '<leader>g', "<Cmd>Git ++curwin<CR>", keyopts)
+
 -- vim-oscyank
 -- https://github.com/ojroques/vim-oscyank
 vim.cmd [[
