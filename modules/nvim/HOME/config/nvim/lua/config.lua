@@ -327,12 +327,6 @@ require('crates').setup({
 -- external tooling integration --
 ----------------------------------
 
--- gitsigns.nvim
--- https://github.com/lewis6991/gitsigns.nvim
-require('gitsigns').setup({
-    signcolumn = false
-})
-
 -- vim-oscyank
 -- https://github.com/ojroques/vim-oscyank
 vim.cmd [[
