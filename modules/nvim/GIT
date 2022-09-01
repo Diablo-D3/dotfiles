@@ -20,16 +20,27 @@ https://github.com/folke/todo-comments.nvim.git,main
 https://github.com/folke/trouble.nvim.git,main
 https://github.com/nvim-telescope/telescope.nvim.git,master
 
+# completion
+https://github.com/lifepillar/vim-mucomplete.git,master
+
 # treesitter
 https://github.com/nvim-treesitter/nvim-treesitter.git,master
+https://github.com/nvim-treesitter/nvim-treesitter-textobjects,master
 https://github.com/p00f/nvim-ts-rainbow.git,master
+
+# mason
+https://github.com/williamboman/mason.nvim.git,main
+https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim.git,main
+
+# stand alone formatting and linting
+https://github.com/mhartington/formatter.nvim.git,master
+https://github.com/mfussenegger/nvim-lint.git,master
 
 # lsp
 https://github.com/neovim/nvim-lspconfig.git,master
 https://github.com/RRethy/vim-illuminate.git,master
 https://git.sr.ht/~whynothugo/lsp_lines.nvim,master
 https://github.com/ray-x/lsp_signature.nvim.git,master
-https://github.com/jose-elias-alvarez/null-ls.nvim.git,main
 https://github.com/simrat39/rust-tools.nvim.git,master
 
 # other language-specific support

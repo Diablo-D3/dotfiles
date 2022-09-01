@@ -10,7 +10,7 @@ set hidden
 set noswapfile
 set undofile
 
-set completeopt=menu,menuone,noselect,preview
+set completeopt=menu,menuone,noselect,noinsert
 
 let mapleader = "\<Space>"
 

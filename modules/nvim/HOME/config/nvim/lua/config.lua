@@ -149,6 +149,105 @@ vim.cmd [[
     set foldexpr=nvim_treesitter#foldexpr()
 ]]
 
+-----------
+-- mason --
+-----------
+
+-- mason.nvim and mason-lspconfig.nvim
+-- https://github.com/williamboman/mason.nvim
+-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+
+require("mason").setup()
+require("mason-tool-installer").setup({
+    ensure_installed = {
+        -- css et al, md, yaml, js/ts et al, json, html, etc
+        'prettier',
+
+        -- markdown
+        'markdownlint',
+
+        -- yaml
+        -- deb: 'yamllint',
+
+        -- html, xml, xhtml
+        -- deb: 'tidy',
+
+        -- toml
+        -- unused: 'taplo',
+
+        -- sh
+        -- deb: 'shellcheck',
+        -- deb: 'shfmt',
+
+        -- vim
+        'vim-language-server',
+        'vint',
+
+        -- lua
+        'lua-language-server',
+
+
+        -- rust
+        'rust-analyzer',
+    },
+
+    auto_update = true,
+})
+
+----------------------------------------
+-- stand alone formatting and linting --
+----------------------------------------
+
+-- formatter.nvim
+-- https://github.com/mhartington/formatter.nvim
+
+local function f_ft(ft, method)
+    return require("formatter.filetypes." .. ft)[method]
+end
+
+require("formatter").setup {
+    filetype = {
+        -- prettier
+        css = { f_ft("css", "prettier") },
+        markdown = { f_ft("markdown", "prettier") },
+        yaml = { f_ft("yaml", "prettier") },
+        json = { f_ft("json", "prettier") },
+
+        -- tidy
+        html = { f_ft("html", "tidy") } ,
+
+        -- taplo
+        toml = { f_ft("toml", "taplo") },
+
+        -- shfmt
+        sh = { f_ft("sh", "shfmt") },
+
+        -- fish
+        fish = { f_ft("fish", "fishindent") }
+
+        -- lsp: lua, rust
+    }
+}
+
+-- nvim-lint
+-- https://github.com/mfussenegger/nvim-lint
+
+require('lint').linters_by_ft = {
+  css = { 'stylelint' },
+  markdown = { 'markdownlint' },
+  yaml = { 'yamllint' },
+  -- no json linter
+  html = { 'tidy' },
+  -- no toml linter
+  sh = { 'shellcheck' },
+  vim = { 'vint' },
+  -- lsp: lua, rust
+}
+
+local yamlint = require('lint.linters.yamllint').args;
+table.insert(yamllint, "-d")
+table.insert(yamllint, "{ extends: default, rules: { braces: { max-spaces-inside: 999 }, document-start: { present: false }, line-length: { max: 120 } } }")
+
 ---------
 -- lsp --
 ---------
@@ -210,53 +309,6 @@ require('lsp_signature').setup()
 
 vim.diagnostic.config({
     virtual_text = false,
-})
-
--- null-ls.nvim
--- https://github.com/jose-elias-alvarez/null-ls.nvim
-local null_ls = require('null-ls')
-
-local code_actions = null_ls.builtins.code_actions
-local diagnostics = null_ls.builtins.diagnostics
-local formatting = null_ls.builtins.formatting
-
-null_ls.setup({
-    sources = {
-        -- generic
-        code_actions.gitsigns,
-
-        -- js/ts et al, css et al, html, json, yaml, md, etc
-        formatting.prettier,
-
-        -- c, c++, c#, java, etc
-        formatting.uncrustify,
-
-        -- fish
-        diagnostics.fish,
-        formatting.fish_indent,
-
-        -- html, xml
-        formatting.tidy,
-
-        -- xml
-        formatting.xmllint,
-
-        -- lua
-        diagnostics.luacheck,
-
-        -- sh
-        code_actions.shellcheck,
-        formatting.shfmt,
-
-        -- yaml
-        diagnostics.yamllint.with({
-            extra_args = { "-d", "{ extends: default, rules: { braces: { max-spaces-inside: 999 }, document-start: { present: false }, line-length: { max: 120 } } }" },
-        }),
-    },
-
-    on_attach = on_attach,
-    diagnostics_format = "[#{m} (#{s})", -- msg (src)
-    log_level = "trace"
 })
 
 -- rust-tools.nvim
