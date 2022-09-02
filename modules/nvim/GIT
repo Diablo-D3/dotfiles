@@ -25,7 +25,8 @@ https://github.com/lifepillar/vim-mucomplete.git,master
 
 # treesitter
 https://github.com/nvim-treesitter/nvim-treesitter.git,master
-https://github.com/nvim-treesitter/nvim-treesitter-textobjects,master
+https://github.com/nvim-treesitter/nvim-treesitter-textobjects.git,master
+https://github.com/nvim-treesitter/nvim-treesitter-refactor.git,master
 https://github.com/p00f/nvim-ts-rainbow.git,master
 
 # mason

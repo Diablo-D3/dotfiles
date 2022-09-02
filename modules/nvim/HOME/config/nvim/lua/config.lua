@@ -122,6 +122,9 @@ vim.cmd [[
 
 -- nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+-- https://github.com/nvim-treesitter/nvim-treesitter-refactor
+
 require('nvim-treesitter.install').update({
     with_sync = true
 })
@@ -135,6 +138,50 @@ require('nvim-treesitter.configs').setup({
 
     indent = {
         enable = true
+    },
+
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ['ac'] = '@class.outer',
+                ['oc'] = '@class.outer',
+                ['ic'] = '@class.inner',
+                ['af'] = '@function.outer',
+                ['of'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['aa'] = '@parameter.outer',
+                ['oa'] = '@parameter.outer',
+                ['ia'] = '@parameter.inner',
+            },
+            selection_modes = {
+                ['@parameter.outer'] = 'v',
+                ['@parameter.inner'] = 'v',
+                ['@function.outer'] = 'V',
+                ['@function.inner'] = 'V',
+                ['@class.outer'] = '<c-v>',
+                ['@class.inner'] = '<c-v>',
+            }
+        }
+    },
+
+    refactor = {
+        highlight_definitions = { enable = true },
+
+        smart_rename = {
+            enable = true,
+            keymaps = {
+                smart_rename = "<leader>r"
+            }
+        },
+
+        navigation = {
+            enable = true,
+            keymaps = {
+                goto_definition = "gd"
+            }
+        }
     },
 
     rainbow = {
@@ -186,7 +233,6 @@ require("mason-tool-installer").setup({
         -- lua
         'lua-language-server',
 
-
         -- rust
         'rust-analyzer',
     },
@@ -229,6 +275,15 @@ require("formatter").setup {
     }
 }
 
+vim.cmd [[
+    nnoremap <silent> gq <Cmd>Format<CR>
+
+    augroup FormatAutogroup
+    autocmd!
+    autocmd BufWritePost * FormatWrite
+augroup END
+]]
+
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint
 
@@ -244,9 +299,9 @@ require('lint').linters_by_ft = {
   -- lsp: lua, rust
 }
 
-local yamlint = require('lint.linters.yamllint').args;
-table.insert(yamllint, "-d")
-table.insert(yamllint, "{ extends: default, rules: { braces: { max-spaces-inside: 999 }, document-start: { present: false }, line-length: { max: 120 } } }")
+local yamllint = require('lint.linters.yamllint')
+table.insert(yamllint.args, "-d")
+table.insert(yamllint.args, "{ extends: default, rules: { braces: { max-spaces-inside: 999 }, document-start: { present: false }, line-length: { max: 120 } } }")
 
 ---------
 -- lsp --
@@ -267,11 +322,6 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
     vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>c', vim.lsp.buf.code_action, bufopts)
