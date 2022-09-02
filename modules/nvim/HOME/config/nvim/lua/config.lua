@@ -350,9 +350,24 @@ vim.cmd [[
     sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticVirtualTextHint
 ]]
 
--- vim-illuminate
--- https://github.com/RRethy/vim-illuminate
-require('illuminate').configure()
+require('lspconfig').sumneko_lua.setup {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = {'vim'},
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
 
 -- lsp_lines
 -- https://git.sr.ht/~whynothugo/lsp_lines.nvim
