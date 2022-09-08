@@ -185,7 +185,7 @@ function _git_list {
     local file="$1"
 
     local base
-    read -r base<"$file"
+    read -r base <"$file"
     eval "base=$base"
 
     if [[ "$base" != */ ]]; then
@@ -196,13 +196,13 @@ function _git_list {
     readarray -t repos < <(tail -n +2 "$file")
 
     # Clone or update repos
-    for repo in "${repos[@]}"
-    do
-        IFS="," read -r url branch <<< "$repo"
+    for repo in "${repos[@]}"; do
+        IFS="," read -r url branch <<<"$repo"
 
         if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
             local name dir
             name="${url##*/}"
+            name="${name%%.git}"
             target="$base$name"
 
             if [ ! -d "$target" ]; then
@@ -210,7 +210,7 @@ function _git_list {
                 git clone --depth 1 --recurse-submodules --shallow-submodules "$url" "$target"
             else
                 _status_stub "Updating $name: "
-                git -C "$target" pull --force --recurse-submodules 
+                git -C "$target" pull --force --recurse-submodules
             fi
         fi
     done
@@ -218,20 +218,22 @@ function _git_list {
     # Trim removed repos
     dirs=("$base"*)
 
-    for dir in "${dirs[@]}"
-    do
+    for dir in "${dirs[@]}"; do
         local found=0
 
-        for repo in "${repos[@]}"
-        do
-            IFS="," read -r url branch <<< "$repo"
-            local name
-            name="${url##*/}"
-            target="$base$name"
+        for repo in "${repos[@]}"; do
+            IFS="," read -r url branch <<<"$repo"
 
-            if [ "$dir" == "$target" ]; then
-                found=1
-                break
+            if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
+                local name
+                name="${url##*/}"
+                name="${name%%.git}"
+                target="$base$name"
+
+                if [ "$dir" == "$target" ]; then
+                    found=1
+                    break
+                fi
             fi
         done
 
