@@ -20,7 +20,7 @@ I should write an actual script to stand-up my personal Debian VMs (or use one o
 
 `sudo apt install fzf fd-find ripgrep tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
 
-`sudo apt install neovim shellcheck shfmt tidy yamllint` (everything required for neovim)
+`sudo apt install neovim shellcheck shfmt tidy yamllint python3-venv` (everything required for neovim)
 
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
 
@@ -60,7 +60,7 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 #### Sizes tested in Windows Terminal
 
 | Name                |  Size | Layout |  Size | Layout |
-|---------------------|------:|--------|------:|--------|
+| ------------------- | ----: | ------ | ----: | ------ |
 | Lucida Console      |    12 | 192x60 |    15 | 160x51 |
 | Anonymous Pro       |    14 | 192x56 |    16 | 160x47 |
 | Input               |    12 | 192x54 |    14 | 160x45 |
@@ -70,11 +70,11 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 | Cascadia            |    13 | 192x54 |    15 | 160x45 |
 | Courier New         |    13 | 192x54 |    15 | 160x45 |
 | Iosevka Extended    |    13 | 192x54 |    15 | 160x45 |
-| *24" Faux VT100*    | 10x20 | 192x54 |       |        |
+| _24" Faux VT100_    | 10x20 | 192x54 |       |        |
 | Consolas            |    13 | 192x49 |    16 | 160x40 |
 | Source Code Pro     |    13 | 192x49 |    15 | 160x41 |
 | Terminus TTF        |    15 | 192x47 |    18 | 160x39 |
-| *24" Faux CGA*      |       |        | 12x30 | 160x36 |
+| _24" Faux CGA_      |       |        | 12x30 | 160x36 |
 | Iosevka             |    15 | 192x41 |    18 | 160x34 |
 
 #### Iosevka optimal sizing
@@ -83,26 +83,25 @@ The author of Iosevka does not list optimal rendering sizes for the font; arguab
 
 **How to read**: In the following chart, optimal font size shall be defined as: does not have extreme color fringing in sub-pixel renderers and does not look lumpy or misshappen with any renderer. Sizes are listed in points for standard DPI, `/ 72 * 96` to get height in pixels. Sizes that do not have an integer number of pixels in height produce sub-optimal rendering, and are omitted from the chart.
 
-**What about hi-dpi/Retina**: Hi-dpi basically solves the issue with font rendering by throwing more pixels at it. Iosevka seems to do well with point sizes that become integer pixel heights (`/ 72 * DPI` to get pixel height). For reasons outside of font rendering and vector graphics, it is *highly recommended* to use integer multiples (ie, 200%, 300%, etc), as to make scaling of raster assets *far* less problematic.
+**What about hi-dpi/Retina**: Hi-dpi basically solves the issue with font rendering by throwing more pixels at it. Iosevka seems to do well with point sizes that become integer pixel heights (`/ 72 * DPI` to get pixel height). For reasons outside of font rendering and vector graphics, it is _highly recommended_ to use integer multiples (ie, 200%, 300%, etc), as to make scaling of raster assets _far_ less problematic.
 
-| Weight          |   # | 9 | 12 | 15 | 18 | 21 | 24 | 27 | 30 | 33 | 36 | 39 | 42 | 45 | 48 |
-|-----------------|----:|--:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Thin            | 100 | x |  x |  x |  x |  x |  x |  x |  x |  x |  w |  w |  w |  w |  o |
-| Extralight      | 200 | x |  x |  x |  x |  x |  w |  w |  w |  w |  o |  o |  o |  o |  o |
-| Light           | 300 | x |  x |  x |  w |  w |  o |  o |  o |  o |  o |  o |  o |  o |  o |
-| Regular/Normal  | 400 | x |  x |  w |  w |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o | 
-| Medium          | 500 | x |  w |  w |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |
-| Semibold        | 600 | w |  w |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |
-| Bold            | 700 | w |  w |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |
-| Extrabold       | 800 | w |  w |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |
-| Heavy/Black     | 900 | w |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  o |  
+| Weight         |   # |   9 |  12 |  15 |  18 |  21 |  24 |  27 |  30 |  33 |  36 |  39 |  42 |  45 |  48 |
+| -------------- | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: |
+| Thin           | 100 |   x |   x |   x |   x |   x |   x |   x |   x |   x |   w |   w |   w |   w |   o |
+| Extralight     | 200 |   x |   x |   x |   x |   x |   w |   w |   w |   w |   o |   o |   o |   o |   o |
+| Light          | 300 |   x |   x |   x |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |
+| Regular/Normal | 400 |   x |   x |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
+| Medium         | 500 |   x |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
+| Semibold       | 600 |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
+| Bold           | 700 |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
+| Extrabold      | 800 |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
+| Heavy/Black    | 900 |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
 
-|   | Legend:                                                          |
-|---|------------------------------------------------------------------|
-| o | **Good**: Exhibits no meaningful color fringing                  |
-| w | **Meh**: Slightly blurry, mild fringing, use with greyscale only | 
-| x | **Bad**: Do not use, unreadable in most situations               |
-
+|     | Legend:                                                          |
+| --- | ---------------------------------------------------------------- |
+| o   | **Good**: Exhibits no meaningful color fringing                  |
+| w   | **Meh**: Slightly blurry, mild fringing, use with greyscale only |
+| x   | **Bad**: Do not use, unreadable in most situations               |
 
 ## On repository management
 
