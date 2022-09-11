@@ -220,7 +220,7 @@ require("mason-tool-installer").setup({
         -- deb: 'tidy',
 
         -- toml
-        -- unused: 'taplo',
+        'taplo',
 
         -- sh
         -- deb: 'shellcheck',
@@ -262,9 +262,6 @@ require("formatter").setup {
         -- tidy
         html = { f_ft("html", "tidy") } ,
 
-        -- taplo
-        toml = { f_ft("toml", "taplo") },
-
         -- shfmt
         sh = { f_ft("sh", "shfmt") },
 
@@ -293,10 +290,9 @@ require('lint').linters_by_ft = {
   yaml = { 'yamllint' },
   -- no json linter
   html = { 'tidy' },
-  -- no toml linter
   sh = { 'shellcheck' },
   vim = { 'vint' },
-  -- lsp: lua, rust
+  -- lsp: lua, rust, toml
 }
 
 local yamllint = require('lint.linters.yamllint')
@@ -368,6 +364,8 @@ require('lspconfig').sumneko_lua.setup {
     },
   },
 }
+
+require('lspconfig').taplo.setup {}
 
 -- lsp_lines
 -- https://git.sr.ht/~whynothugo/lsp_lines.nvim
