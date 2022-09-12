@@ -210,6 +210,9 @@ require("mason-tool-installer").setup({
         -- css et al, md, yaml, js/ts et al, json, html, etc
         'prettier',
 
+        -- css
+        -- missing: 'stylelint',
+
         -- markdown
         'markdownlint',
 
@@ -285,7 +288,7 @@ augroup END
 -- https://github.com/mfussenegger/nvim-lint
 
 require('lint').linters_by_ft = {
-  css = { 'stylelint' },
+  -- css = { 'stylelint' },
   markdown = { 'markdownlint' },
   yaml = { 'yamllint' },
   -- no json linter
