@@ -275,7 +275,7 @@ require("formatter").setup {
 vim.cmd [[
     nnoremap <silent> gq <Cmd>Format<CR>
 
-    augroup FormatAutogroup
+    augroup FormatterFormatting
     autocmd!
     autocmd BufWritePost * FormatWrite
 augroup END
