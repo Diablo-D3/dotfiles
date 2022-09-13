@@ -276,26 +276,27 @@ require("formatter").setup {
 }
 
 vim.cmd [[
+    " Remapped later in LSP buffers
     nnoremap <silent> gq <Cmd>Format<CR>
 
     augroup FormatterFormatting
     autocmd!
     autocmd BufWritePost * FormatWrite
-augroup END
+    augroup END
 ]]
 
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint
 
 require('lint').linters_by_ft = {
-  -- css = { 'stylelint' },
-  markdown = { 'markdownlint' },
-  yaml = { 'yamllint' },
-  -- no json linter
-  html = { 'tidy' },
-  sh = { 'shellcheck' },
-  vim = { 'vint' },
-  -- lsp: lua, rust, toml
+    -- css = { 'stylelint' },
+    markdown = { 'markdownlint' },
+    yaml = { 'yamllint' },
+    -- no json linter
+    html = { 'tidy' },
+    sh = { 'shellcheck' },
+    vim = { 'vint' },
+    -- lsp: lua, rust, toml
 }
 
 local yamllint = require('lint.linters.yamllint')
@@ -350,22 +351,22 @@ vim.cmd [[
 ]]
 
 require('lspconfig').sumneko_lua.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        globals = {'vim'},
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                globals = {'vim'},
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
     },
-  },
 }
 
 require('lspconfig').taplo.setup {}
@@ -376,7 +377,9 @@ require('lsp_lines').setup()
 
 -- lsp_signature
 -- https://github.com/ray-x/lsp_signature.nvim
-require('lsp_signature').setup()
+require('lsp_signature').setup({
+    hint_enable = false,
+})
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -456,17 +459,17 @@ vim.cmd [[
     let g:oscyank_term = 'default'
 
     autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
-let g:clipboard = {
-        \   'name': 'osc52',
-        \   'copy': {
-        \     '+': {lines, regtype -> OSCYankString(join(lines, "\n"))},
-        \     '*': {lines, regtype -> OSCYankString(join(lines, "\n"))},
-        \   },
-        \   'paste': {
-        \     '+': {-> [split(getreg(''), '\n'), getregtype('')]},
-        \     '*': {-> [split(getreg(''), '\n'), getregtype('')]},
-        \   },
-        \ }
+    let g:clipboard = {
+    \   'name': 'osc52',
+    \   'copy': {
+    \     '+': {lines, regtype -> OSCYankString(join(lines, "\n"))},
+    \     '*': {lines, regtype -> OSCYankString(join(lines, "\n"))},
+    \   },
+    \   'paste': {
+    \     '+': {-> [split(getreg(''), '\n'), getregtype('')]},
+    \     '*': {-> [split(getreg(''), '\n'), getregtype('')]},
+    \   },
+    \ }
 ]]
 
 -- vim-tmux-navigation
