@@ -96,25 +96,29 @@ local troubleopts = { skip_group=true, jump=true }
 vim.keymap.set('n', '[q', function() trouble.next(troubleopts) end, keyopts)
 vim.keymap.set('n', ']q', function() trouble.previous(troubleopts) end, keyopts)
 
--- telescope.nvim
--- https://github.com/nvim-telescope/telescope.nvim.git
-local telescope = require('telescope');
+-- fzf-lua
+-- https://github.com/ibhagwan/fzf-lua
+local fzf = require('fzf-lua')
 
-telescope.setup({
-    defaults = {
-        mappings = {
-            i = { ["<c-t>"] = trouble.open_with_trouble },
-            n = { ["<c-t>"] = trouble.open_with_trouble },
-        }
+fzf.setup({
+    fzf_opts = { ['--info'] = 'hidden', ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2' },
+    buffers = {
+        prompt = "> ",
+    },
+    grep = {
+        prompt = "> ",
+        no_header_i = true,
+    },
+    files = {
+        prompt = "> ",
+        fzf_opts = { ['--scheme'] = "path" },
     }
 })
 
-vim.cmd [[
-    nnoremap / <cmd>Telescope current_buffer_fuzzy_find<cr>
-    nnoremap <C-`> <cmd>Telescope buffers<cr>
-    nnoremap <leader>f <cmd>Telescope find_files find_command=fd<cr>
-    nnoremap <leader>/ <cmd>Telescope live_grep<cr>
-]]
+vim.keymap.set('n', '/', function() fzf.lgrep_curbuf({ fzf_cli_args = '--with-nth 4..', exec_empty_query = false }) end, keyopts)
+vim.keymap.set('n', '<leader>/', function() fzf.live_grep_native({ fzf_cli_args = '--with-nth 4..' }) end, keyopts)
+vim.keymap.set('n', '<C-`>', function() fzf.buffers() end, keyopts)
+vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 
 ----------------
 -- treesitter --
