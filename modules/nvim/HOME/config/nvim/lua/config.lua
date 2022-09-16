@@ -176,6 +176,7 @@ require('nvim-treesitter.configs').setup({
         smart_rename = {
             enable = true,
             keymaps = {
+                -- Remapped later in LSP buffers
                 smart_rename = "<leader>r"
             }
         },
@@ -183,6 +184,7 @@ require('nvim-treesitter.configs').setup({
         navigation = {
             enable = true,
             keymaps = {
+                -- Remapped later in LSP buffers
                 goto_definition = "gd"
             }
         }
@@ -275,7 +277,7 @@ require("formatter").setup {
         -- fish
         fish = { f_ft("fish", "fishindent") }
 
-        -- lsp: lua, rust
+        -- lsp: lua, rust, toml
     }
 }
 
@@ -374,6 +376,7 @@ require('lspconfig').sumneko_lua.setup {
 }
 
 require('lspconfig').taplo.setup {}
+require('lspconfig').vimls.setup {}
 
 -- lsp_lines
 -- https://git.sr.ht/~whynothugo/lsp_lines.nvim
