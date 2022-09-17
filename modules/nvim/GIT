@@ -49,5 +49,5 @@ https://github.com/aliva/vim-fish.git,main
 
 # external tooling integration
 https://github.com/tpope/vim-fugitive.git,master
-https://github.com/ojroques/vim-oscyank.git,main
+https://github.com/ojroques/nvim-osc52.git,main
 https://github.com/christoomey/vim-tmux-navigator,master

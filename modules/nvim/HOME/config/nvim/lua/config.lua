@@ -456,28 +456,27 @@ require('crates').setup({
 -- external tooling integration --
 ----------------------------------
 
--- fugitive --
+-- fugitive
 -- https://github.com/tpope/vim-fugitive
 vim.keymap.set('n', '<leader>g', "<Cmd>Git ++curwin<CR>", keyopts)
 
--- vim-oscyank
--- https://github.com/ojroques/vim-oscyank
-vim.cmd [[
-    let g:oscyank_term = 'default'
+-- vim-osc52
+-- https://github.com/ojroques/nvim-osc52
+require('osc52').setup{}
 
-    autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | execute 'OSCYankReg "' | endif
-    let g:clipboard = {
-    \   'name': 'osc52',
-    \   'copy': {
-    \     '+': {lines, regtype -> OSCYankString(join(lines, "\n"))},
-    \     '*': {lines, regtype -> OSCYankString(join(lines, "\n"))},
-    \   },
-    \   'paste': {
-    \     '+': {-> [split(getreg(''), '\n'), getregtype('')]},
-    \     '*': {-> [split(getreg(''), '\n'), getregtype('')]},
-    \   },
-    \ }
-]]
+local function copy(lines, _)
+  require('osc52').copy(table.concat(lines, '\n'))
+end
+
+local function paste()
+    return { vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('') }
+end
+
+vim.g.clipboard = {
+  name = 'osc52',
+  copy = {['+'] = copy, ['*'] = copy},
+  paste = {['+'] = paste, ['*'] = paste},
+}
 
 -- vim-tmux-navigation
 -- https://github.com/christoomey/vim-tmux-navigator
