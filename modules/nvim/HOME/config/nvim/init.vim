@@ -1,4 +1,5 @@
 set number relativenumber
+set laststatus=3
 set clipboard+=unnamedplus
 set mouse=a
 set termguicolors
