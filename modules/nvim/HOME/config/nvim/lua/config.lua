@@ -378,18 +378,10 @@ require('lspconfig').sumneko_lua.setup {
 require('lspconfig').taplo.setup {}
 require('lspconfig').vimls.setup {}
 
--- lsp_lines
--- https://git.sr.ht/~whynothugo/lsp_lines.nvim
-require('lsp_lines').setup()
-
 -- lsp_signature
 -- https://github.com/ray-x/lsp_signature.nvim
 require('lsp_signature').setup({
     hint_enable = false,
-})
-
-vim.diagnostic.config({
-    virtual_text = false,
 })
 
 -- rust-tools.nvim

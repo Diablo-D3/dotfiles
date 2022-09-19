@@ -39,7 +39,6 @@ https://github.com/mfussenegger/nvim-lint.git,master
 
 # lsp
 https://github.com/neovim/nvim-lspconfig.git,master
-https://git.sr.ht/~whynothugo/lsp_lines.nvim,master
 https://github.com/ray-x/lsp_signature.nvim.git,master
 https://github.com/simrat39/rust-tools.nvim.git,master
 
