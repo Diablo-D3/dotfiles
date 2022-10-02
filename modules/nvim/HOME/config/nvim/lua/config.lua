@@ -2,7 +2,7 @@
 -- global --
 ------------
 
-local keyopts = { noremap=true, silent=true }
+local keyopts = { noremap = true, silent = true }
 
 ------------------------
 -- base functionality --
@@ -44,7 +44,7 @@ require('lualine').setup({
                 symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
             }
         },
-        lualine_x = { },
+        lualine_x = {},
         lualine_y = { 'filetype' },
         lualine_z = { 'location' }
     }
@@ -92,7 +92,7 @@ vim.cmd [[
     nnoremap gr        <cmd>TroubleToggle lsp_references<cr>
 ]]
 
-local troubleopts = { skip_group=true, jump=true }
+local troubleopts = { skip_group = true, jump = true }
 vim.keymap.set('n', '[q', function() trouble.next(troubleopts) end, keyopts)
 vim.keymap.set('n', ']q', function() trouble.previous(troubleopts) end, keyopts)
 
@@ -115,7 +115,11 @@ fzf.setup({
     }
 })
 
-vim.keymap.set('n', '/', function() fzf.lgrep_curbuf({ fzf_cli_args = '--with-nth 4..', exec_empty_query = false }) end, keyopts)
+vim.keymap.set('n', '/', function() fzf.lgrep_curbuf({
+        fzf_cli_args = '--with-nth 4..',
+        exec_empty_query = false
+    })
+end, keyopts)
 vim.keymap.set('n', '<leader>/', function() fzf.live_grep_native({ fzf_cli_args = '--with-nth 4..' }) end, keyopts)
 vim.keymap.set('n', '<C-`>', function() fzf.buffers() end, keyopts)
 vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
@@ -213,37 +217,62 @@ vim.cmd [[
 require("mason").setup()
 require("mason-tool-installer").setup({
     ensure_installed = {
-        -- css et al, md, yaml, js/ts et al, json, html, etc
+        ----------------
+        -- formatters --
+        ----------------
+
+        -- markdown
         'prettier',
 
-        -- css
-        -- missing: 'stylelint',
+        -------------
+        -- linters --
+        -------------
 
         -- markdown
         'markdownlint',
 
-        -- yaml
-        -- deb: 'yamllint',
-
-        -- html, xml, xhtml
-        -- deb: 'tidy',
-
-        -- toml
-        'taplo',
-
         -- sh
         -- deb: 'shellcheck',
-        -- deb: 'shfmt',
 
         -- vim
-        'vim-language-server',
         'vint',
+
+        ----------
+        -- lsps --
+        ----------
+
+        -- bash
+        'bash-language-server',
+
+        -- css, less, scss
+        'css-lsp',
+
+        -- html,
+        'html-lsp',
+
+        -- js, ts, vue, svelte
+        'eslint-lsp',
+
+        -- json
+        'json-lsp',
 
         -- lua
         'lua-language-server',
 
         -- rust
         'rust-analyzer',
+
+        -- toml
+        'taplo',
+
+        -- vim
+        'vim-language-server',
+
+        -- yaml
+        'yaml-language-server',
+
+        -- xml, xsd, xsl, xslt, svg
+        'lemminx',
     },
 
     auto_update = true,
@@ -263,21 +292,10 @@ end
 require("formatter").setup {
     filetype = {
         -- prettier
-        css = { f_ft("css", "prettier") },
         markdown = { f_ft("markdown", "prettier") },
-        yaml = { f_ft("yaml", "prettier") },
-        json = { f_ft("json", "prettier") },
-
-        -- tidy
-        html = { f_ft("html", "tidy") } ,
-
-        -- shfmt
-        sh = { f_ft("sh", "shfmt") },
 
         -- fish
         fish = { f_ft("fish", "fishindent") }
-
-        -- lsp: lua, rust, toml
     }
 }
 
@@ -293,21 +311,15 @@ vim.cmd [[
 
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint
-
 require('lint').linters_by_ft = {
-    -- css = { 'stylelint' },
     markdown = { 'markdownlint' },
-    yaml = { 'yamllint' },
-    -- no json linter
-    html = { 'tidy' },
-    sh = { 'shellcheck' },
     vim = { 'vint' },
-    -- lsp: lua, rust, toml
 }
 
 local yamllint = require('lint.linters.yamllint')
 table.insert(yamllint.args, "-d")
-table.insert(yamllint.args, "{ extends: default, rules: { braces: { max-spaces-inside: 999 }, document-start: { present: false }, line-length: { max: 120 } } }")
+table.insert(yamllint.args,
+    "{ extends: default, rules: { braces: { max-spaces-inside: 999 }, document-start: { present: false }, line-length: { max: 120 } } }")
 
 ---------
 -- lsp --
@@ -318,7 +330,7 @@ table.insert(yamllint.args, "{ extends: default, rules: { braces: { max-spaces-i
 local lspfmt = vim.api.nvim_create_augroup('LspFormatting', {})
 
 local on_attach = function(client, bufnr)
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
@@ -356,14 +368,45 @@ vim.cmd [[
     sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticVirtualTextHint
 ]]
 
+local cap_snippets = vim.lsp.protocol.make_client_capabilities()
+cap_snippets.textDocument.completion.completionItem.snippetSupport = true
+
+require('lspconfig').bashls.setup {
+    on_attach = on_attach
+}
+
+require('lspconfig').cssls.setup {
+    on_attach = on_attach,
+    capabilities = cap_snippets
+}
+
+require('lspconfig').html.setup {
+    on_attach = on_attach,
+    capabilities = cap_snippets
+}
+
+require('lspconfig').jsonls.setup {
+    on_attach = on_attach,
+    capabilities = cap_snippets,
+}
+
+require('lspconfig').eslint.setup {
+    on_attach = on_attach,
+}
+
+require('lspconfig').taplo.setup {
+    on_attach = on_attach,
+}
+
 require('lspconfig').sumneko_lua.setup {
+    on_attach = on_attach,
     settings = {
         Lua = {
             runtime = {
                 version = 'LuaJIT',
             },
             diagnostics = {
-                globals = {'vim'},
+                globals = { 'vim' },
             },
             workspace = {
                 library = vim.api.nvim_get_runtime_file("", true),
@@ -375,8 +418,17 @@ require('lspconfig').sumneko_lua.setup {
     },
 }
 
-require('lspconfig').taplo.setup {}
-require('lspconfig').vimls.setup {}
+require('lspconfig').vimls.setup {
+    on_attach = on_attach
+}
+
+require('lspconfig').yamlls.setup {
+    on_attach = on_attach
+}
+
+require('lspconfig').lemminx.setup {
+    on_attach = on_attach
+}
 
 -- lsp_signature
 -- https://github.com/ray-x/lsp_signature.nvim
@@ -454,10 +506,10 @@ vim.keymap.set('n', '<leader>g', "<Cmd>Git ++curwin<CR>", keyopts)
 
 -- vim-osc52
 -- https://github.com/ojroques/nvim-osc52
-require('osc52').setup{}
+require('osc52').setup {}
 
 local function copy(lines, _)
-  require('osc52').copy(table.concat(lines, '\n'))
+    require('osc52').copy(table.concat(lines, '\n'))
 end
 
 local function paste()
@@ -465,9 +517,9 @@ local function paste()
 end
 
 vim.g.clipboard = {
-  name = 'osc52',
-  copy = {['+'] = copy, ['*'] = copy},
-  paste = {['+'] = paste, ['*'] = paste},
+    name = 'osc52',
+    copy = { ['+'] = copy, ['*'] = copy },
+    paste = { ['+'] = paste, ['*'] = paste },
 }
 
 -- vim-tmux-navigation

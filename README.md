@@ -20,7 +20,7 @@ I should write an actual script to stand-up my personal Debian VMs (or use one o
 
 `sudo apt install fzf fd-find ripgrep tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
 
-`sudo apt install neovim shellcheck shfmt tidy yamllint python3-venv` (everything required for neovim)
+`sudo apt install neovim shellcheck python3-venv` (everything required for neovim)
 
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
 
