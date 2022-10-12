@@ -5,19 +5,19 @@ import:
 font:
   normal:
     family: Iosevka Term
-    style: Medium
+    style: Regular
   bold:
     family: Iosevka Term
     style: Bold
   italic:
     family: Iosevka Term
-    style: Medium Italic
+    style: Regular Italic
   bold_italic:
     family: Iosevka Term
     style: Bold Italic
-  size: 18
+  size: 15
   offset:
-    x: 0
+    x: 1
     y: 0
 
 shell:

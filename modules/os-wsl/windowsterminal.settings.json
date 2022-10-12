@@ -3,123 +3,213 @@
   "$schema": "https://aka.ms/terminal-profiles-schema",
   "actions": [
     {
-      "command": { "action": "sendInput", "input": "\u001b[49;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[49;5u"
+      },
       "keys": "ctrl+1"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[50;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[50;5u"
+      },
       "keys": "ctrl+2"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[51;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[51;5u"
+      },
       "keys": "ctrl+3"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[52;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[52;5u"
+      },
       "keys": "ctrl+4"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[53;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[53;5u"
+      },
       "keys": "ctrl+5"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[54;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[54;5u"
+      },
       "keys": "ctrl+6"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[55;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[55;5u"
+      },
       "keys": "ctrl+7"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[56;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[56;5u"
+      },
       "keys": "ctrl+8"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[57;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[57;5u"
+      },
       "keys": "ctrl+9"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[96;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[96;5u"
+      },
       "keys": "ctrl+`"
     },
     {
-      "command": { "action": "sendInput", "input": "\u001b[126;5u" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u001b[126;5u"
+      },
       "keys": "ctrl+shift+`"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001d" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001d"
+      },
       "keys": "ctrl+alt+shift+win+d"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001e" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001e"
+      },
       "keys": "ctrl+alt+shift+win+e"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001r" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001r"
+      },
       "keys": "ctrl+alt+shift+win+r"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001z" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001z"
+      },
       "keys": "ctrl+alt+shift+win+z"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001v" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001v"
+      },
       "keys": "ctrl+alt+shift+win+v"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001h" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001h"
+      },
       "keys": "ctrl+alt+shift+win+h"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001;" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001;"
+      },
       "keys": "ctrl+alt+shift+win+;"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001:" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001:"
+      },
       "keys": "ctrl+alt+shift+win+:"
     },
     {
-      "command": { "action": "sendInput", "input": "\u0001`" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u0001`"
+      },
       "keys": "ctrl+alt+shift+win+`"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00011" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00011"
+      },
       "keys": "ctrl+alt+shift+win+1"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00012" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00012"
+      },
       "keys": "ctrl+alt+shift+win+2"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00013" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00013"
+      },
       "keys": "ctrl+alt+shift+win+3"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00014" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00014"
+      },
       "keys": "ctrl+alt+shift+win+4"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00015" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00015"
+      },
       "keys": "ctrl+alt+shift+win+5"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00016" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00016"
+      },
       "keys": "ctrl+alt+shift+win+6"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00017" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00017"
+      },
       "keys": "ctrl+alt+shift+win+7"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00018" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00018"
+      },
       "keys": "ctrl+alt+shift+win+8"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00019" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00019"
+      },
       "keys": "ctrl+alt+shift+win+9"
     },
     {
-      "command": { "action": "sendInput", "input": "\u00010" },
+      "command": {
+        "action": "sendInput",
+        "input": "\u00010"
+      },
       "keys": "ctrl+alt+shift+win+0"
     }
   ],
@@ -142,8 +232,8 @@
       "experimental.useAtlasEngine": true,
       "font": {
         "face": "Iosevka Term",
-        "size": 12,
-        "weight": "medium"
+        "size": 15,
+        "weight": "normal"
       },
       "intenseTextStyle": "bold",
       "padding": "0",
