@@ -41,5 +41,4 @@ function Invoke-ScheduledTask {
 
 $path = "${env:USERPROFILE}"
 
-Invoke-ScheduledTask -TaskName "WSL2" -Admin $true -Command "wscript.exe" -Arguments "${path}\hidden_powershell.js ${path}\wsl2.ps1"
-
+Invoke-ScheduledTask -TaskName "$args[0]" -Admin $true -Command "wscript.exe" -Arguments "${path}\hidden_powershell.js ${path}\$args[1]"
