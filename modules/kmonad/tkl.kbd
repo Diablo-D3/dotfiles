@@ -4,10 +4,6 @@ KMonad
 CapsLock tap to Esc
 CapsLock hold to Ctrl
 Right Win to Ctrl+Alt+Win+Shift (Hyper on Win/OSX)
-
-Left Option/Command (Alt/Meta) to Meta/Alt
-Right Command (Meta) to Hyper
-Right Option (Alt) to AltGr
 |#
 
 (defcfg
@@ -24,7 +20,7 @@ Right Option (Alt) to AltGr
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
 
   lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up
-  lctl lalt lmet           spc            rmet ralt                      left down rght
+  lctl lmet lalt           spc            ralt rmet cmp  rctl            left down rght
 )
 
 (deflayer default
@@ -33,7 +29,7 @@ Right Option (Alt) to AltGr
   _    _    _    _    _    _    _    _    _    _    _    _    _    _     _    _    _
   @cec _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _                    _
-  _    lmeta lalt          _              @hyp @agr                      _    _    _
+  _    _    _              _              @hyp @agr _    _               _    _    _
 )
 
 (defalias

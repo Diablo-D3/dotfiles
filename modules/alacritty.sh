@@ -24,4 +24,5 @@ if [ -f "/tmp/super-ttc-iosevka.zip" ]; then
         cd "$oldpwd" || exit
     fi
 fi
+
 exit 0
