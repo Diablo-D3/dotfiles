@@ -8,8 +8,8 @@ fonts="$HOME/.fonts"
 
 _mkdir "$fonts"
 
-_gh_dl "be5invis" "iosevka" "super-ttc-iosevka" "zip" "$fonts/iosevka.ttc"
-_gh_dl "be5invis" "iosevka" "super-ttc-iosevka-aile" "zip" "$fonts/iosevka-aile.ttc"
+_gh_dl "be5invis" "iosevka" "super-ttc-iosevka" "-VER" ".zip" "$fonts/iosevka.ttc"
+_gh_dl "be5invis" "iosevka" "super-ttc-iosevka-aile" "-VER" ".zip" "$fonts/iosevka-aile.ttc"
 
 if [ -f "/tmp/super-ttc-iosevka.zip" ]; then
     unzip -qqjo "/tmp/super-ttc-iosevka.zip" "iosevka.ttc" -d "$fonts"
