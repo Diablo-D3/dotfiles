@@ -14,14 +14,14 @@ _gh_dl "be5invis" "iosevka" "super-ttc-iosevka-aile" "-VER" ".zip" "$fonts/iosev
 if [ -f "/tmp/super-ttc-iosevka.zip" ]; then
     unzip -qqjo "/tmp/super-ttc-iosevka.zip" "iosevka.ttc" -d "$fonts"
     unzip -qqjo "/tmp/super-ttc-iosevka-aile.zip" "iosevka-aile.ttc" -d "$fonts"
-fi
+    rm -f "/tmp/super-ttc-iosevka.zip" "/tmp/super-ttc-iosevka-aile.zip"
 
-if [ -n "${wsl+set}" ]; then
-    oldpwd="$PWD"
-    cd "$fonts" || exit
-    _ln "$modules_dir/os-wsl/fontreg.exe" "$USERPROFILE/bin/fontreg.exe"
-    powershell.exe -Command "& \$env:USERPROFILE\bin\fontreg.exe" "/copy"
-    cd "$oldpwd" || exit
+    if [ -n "${wsl+set}" ]; then
+        oldpwd="$PWD"
+        cd "$fonts" || exit
+        _ln "$modules_dir/os-wsl/fontreg.exe" "$USERPROFILE/bin/fontreg.exe"
+        powershell.exe -Command "& \$env:USERPROFILE\bin\fontreg.exe" "/copy"
+        cd "$oldpwd" || exit
+    fi
 fi
-
 exit 0
