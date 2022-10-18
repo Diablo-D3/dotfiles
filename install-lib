@@ -256,7 +256,7 @@ function _gh_dl {
         _status "Checking $a_name"
 
         rm -f "/tmp/latest.json"
-        wget -q "https://api.github.com/repos/be5invis/iosevka/releases/latest" -O "/tmp/latest.json"
+        wget -q "https://api.github.com/repos/$user/$proj/releases/latest" -O "/tmp/latest.json"
 
         # Match '"tag_name":', one or more whitespace, a double quote, "v",
         # then flush the match; match one or more non-whitespace until you
