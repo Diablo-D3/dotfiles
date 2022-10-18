@@ -244,6 +244,41 @@ function _git_list {
     done
 }
 
+function _gh_dl {
+    local user="$1"
+    local proj="$2"
+    local asset="$3"
+    local ext="$4"
+    local target="$5"
+
+    if _check_time "$target" "86400"; then
+        _status "Checking $asset"
+
+        rm -f "/tmp/latest.json"
+        wget -q "https://api.github.com/repos/be5invis/iosevka/releases/latest" -O "/tmp/latest.json"
+
+        # Match '"tag_name":', one or more whitespace, a double quote, "v",
+        # then flush the match; match one or more non-whitespace until you
+        # reach one a double quote.
+        regex='"tag_name":\s*"v\K\S+(?=")'
+        ver="$(grep -oP "$regex" "/tmp/latest.json")"
+        url="https://github.com/$user/$proj/releases/download/v$ver"
+
+        asset_url="$url/$asset-$ver.$ext"
+
+        if _check_ver "$target" "$ver"; then
+            _status "Downloading $asset $ver"
+
+            rm -f "/tmp/$asset.$ext"
+            wget -q "$asset_url" -O "/tmp/$asset.$ext"
+        else
+            _status "$asset $ver already installed, skipping"
+        fi
+    else
+        _status "Recently checked $asset, skipping"
+    fi
+}
+
 # mkdir with create parents
 function _mkdir {
     mkdir -vp "$1"
