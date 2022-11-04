@@ -208,6 +208,8 @@ FZF_DEFAULT_OPTS="+m -0 -1
                   --height='25%'
                   --layout='reverse-list'"
 
+FZF_COMPLETION_OPTS="--scheme=path"
+
 if command -v fdfind >/dev/null 2>&1; then
   alias fd="fdfind"
 fi
