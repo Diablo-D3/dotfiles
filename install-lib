@@ -207,7 +207,7 @@ function _git_list {
 
             if [ ! -d "$target" ]; then
                 _status_stub "Cloning $name: "
-                git clone --depth 1 --recurse-submodules --shallow-submodules "$url" "$target"
+                git clone --depth 1 --recurse-submodules --shallow-submodules --branch "$branch" "$url" "$target"
             else
                 _status_stub "Updating $name: "
                 git -C "$target" pull --force --recurse-submodules
