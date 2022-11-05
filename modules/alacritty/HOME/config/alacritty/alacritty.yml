@@ -4,18 +4,18 @@ import:
 
 font:
   normal:
-    family: Iosevka Term
-    style: Semibold
+    family: Cascadia Code
+    style: Regular
   bold:
-    family: Iosevka Term
-    style: Heavy
+    family: Cascadia Code
+    style: Bold
   italic:
-    family: Iosevka Term
-    style: Semibold Italic
+    family: Cascadia Code
+    style: Normal Italic
   bold_italic:
-    family: Iosevka Term
-    style: Heavy Italic
-  size: 15
+    family: Cascadia Code
+    style: Bold Italic
+  size: 15.75
   offset:
     x: 1
     y: 0

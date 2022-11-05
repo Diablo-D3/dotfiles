@@ -230,9 +230,9 @@
       "cursorShape": "filledBox",
       "experimental.retroTerminalEffect": false,
       "font": {
-        "face": "Iosevka Term",
-        "size": 15,
-        "weight": "semi-bold"
+        "face": "Cascadia Code",
+        "size": 15.75,
+        "weight": "normal"
       },
       "intenseTextStyle": "bold",
       "padding": "0",
