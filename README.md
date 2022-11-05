@@ -59,7 +59,7 @@ Fast-forward to the modern day: the most common desktop monitor size is a 24" 10
 
 MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex: 9x14 character size at 720x350, producing a 80x25 terminal), and using the same approximate math, it would have an apparent size of closer to 12x30 on 160x36 terminal.
 
-[https://int10h.org/oldschool-pc-fonts/fontlist/](int10h.org) maintains a library of old fonts.
+[https://int10h.org/oldschool-pc-fonts/fontlist/](int10h.org) maintains a library of old bitmap fonts from old machines.
 
 #### Sizes tested in Windows Terminal
 
@@ -83,11 +83,15 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 
 #### Iosevka optimal sizing
 
-The author of Iosevka does not list optimal rendering sizes for the font; arguably, since it is an outline font that is hinted with `ttfautohint` and all sizes should be equally as bad. This is not the case.
+The author of Iosevka does not list optimal rendering sizes for the font; arguably, since it is an outline font that is hinted with `ttfautohint` and all sizes should be equally as bad. This is not the case. Testing was informally done with several common terminals and monospace font rendering implementations.
 
 **How to read**: In the following chart, optimal font size shall be defined as: does not have extreme color fringing in sub-pixel renderers and does not look lumpy or misshappen with any renderer. Sizes are listed in points for standard DPI, `/ 72 * 96` to get height in pixels. Sizes that do not have an integer number of pixels in height produce sub-optimal rendering, and are omitted from the chart.
 
-**What about hi-dpi/Retina**: Hi-dpi basically solves the issue with font rendering by throwing more pixels at it. Iosevka seems to do well with point sizes that become integer pixel heights (`/ 72 * DPI` to get pixel height). For reasons outside of font rendering and vector graphics, it is _highly recommended_ to use integer multiples (ie, 200%, 300%, etc), as to make scaling of raster assets _far_ less problematic.
+**What about hi-dpi/Retina**: Hi-dpi basically solves the issue with font rendering by throwing more pixels at it. Iosevka seems to do well with point sizes that become integer pixel heights (`/ 72 * DPI` to get pixel height). For reasons outside of font rendering and vector graphics, it is _highly recommended_ to use integer multiples (ie, 200%, 300%, etc), as to make scaling of raster assets _far_ less problematic. However, we still live in a world where the common monitor is 96 dpi/100%, so hi-dpi as a fix is limited to only those that want to spend that much cash on a hi-dpi monitor.
+
+**What about fractional point sizes**: In renders that can do this, choosing sizes that lead to integer pixel sizes lead to better font rendering, regardless of font, renderer, and conditions. Alternatively, in renderers that don't allow fractional point sizes, 9, 12 and 15 points often lead to almost perfect results, also regardless of font, renderer, and conditions.
+
+**How to choose a bold if I increase weight too much**: [CSS indicates a desired transformation](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#meaning_of_relative_weights). 100 through 300 has a bold value of 400, 400 and 500 becomes 700, 600 and up is 900.
 
 | Weight         |   # |   9 |  12 |  15 |  18 |  21 |  24 |  27 |  30 |  33 |  36 |  39 |  42 |  45 |  48 |
 | -------------- | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: |
