@@ -5,16 +5,16 @@ import:
 font:
   normal:
     family: Iosevka Term
-    style: Regular
+    style: Semibold
   bold:
     family: Iosevka Term
-    style: Bold
+    style: Heavy
   italic:
     family: Iosevka Term
-    style: Regular Italic
+    style: Semibold Italic
   bold_italic:
     family: Iosevka Term
-    style: Bold Italic
+    style: Heavy Italic
   size: 15
   offset:
     x: 1

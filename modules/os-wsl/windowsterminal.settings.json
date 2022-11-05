@@ -229,11 +229,10 @@
       "colorScheme": "Tomorrow Night",
       "cursorShape": "filledBox",
       "experimental.retroTerminalEffect": false,
-      "experimental.useAtlasEngine": true,
       "font": {
         "face": "Iosevka Term",
         "size": 15,
-        "weight": "normal"
+        "weight": "semi-bold"
       },
       "intenseTextStyle": "bold",
       "padding": "0",
