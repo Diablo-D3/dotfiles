@@ -316,11 +316,6 @@ require('lint').linters_by_ft = {
     vim = { 'vint' },
 }
 
-local yamllint = require('lint.linters.yamllint')
-table.insert(yamllint.args, "-d")
-table.insert(yamllint.args,
-    "{ extends: default, rules: { braces: { max-spaces-inside: 999 }, document-start: { present: false }, line-length: { max: 120 } } }")
-
 ---------
 -- lsp --
 ---------
