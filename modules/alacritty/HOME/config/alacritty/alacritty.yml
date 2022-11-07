@@ -5,19 +5,19 @@ import:
 font:
   normal:
     family: Input Mono
-    style: Compressed
+    style: Compressed Medium
   bold:
     family: Input Mono
-    style: Compressed Bold
+    style: Compressed Black
   italic:
     family: Input Mono
-    style: Compressed Italic
+    style: Compressed Medium Italic
   bold_italic:
     family: Input Mono
-    style: Compressed Bold Italic
-  size: 15
+    style: Compressed Black Italic
+  size: 15.75
   offset:
-    x: 0
+    x: 1
     y: 1
 
 shell:
