@@ -38,7 +38,7 @@ Enable Developer Mode in Developer Settings, enable unsigned Powershell executio
 
 Did you know Apple doesn't want you to use the hardware you paid for on the world's most popular desktop OS? Without [this driver](https://github.com/imbushuo/mac-precision-touchpad), your multitouch touchpad is just a plain boring touchpad that can only left and right click, scroll badly, and have annoyingly coarse cursor precision; with that driver, you now have all of your usual two, three, and four finger gestures, just like in OSX, using Windows 10's native precision touchpad support.
 
-## On font sizes
+## On fonts and font sizes
 
 Kids these days use font sizes that are too small, historically.
 
@@ -61,55 +61,105 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 
 [https://int10h.org/oldschool-pc-fonts/fontlist/](int10h.org) maintains a library of old bitmap fonts from old machines.
 
-#### Sizes tested in Windows Terminal
+#### Sizes tested in Windows Terminal and Alacritty
+
+Note: Windows Terminal and Alacritty do not agree on cell height; often, Alacritty needs `font.offset.x = 1` and/or `font.offset.y = 1` to match WT's spacing, WT currently has no method to adjust cell size, but there is an open issue for it.
+
+Sorted from widest to tallest
 
 | Name                |  Size | Layout |  Size | Layout |
 | ------------------- | ----: | ------ | ----: | ------ |
 | Lucida Console      |    12 | 192x60 |    15 | 160x51 |
 | Anonymous Pro       |    14 | 192x56 |    16 | 160x47 |
+| Hack                |    12 | 192x56 |    15 | 160x45 |
+| Monoid              |    11 | 192x54 |    13 | 160x47 |
 | Input               |    12 | 192x54 |    14 | 160x45 |
 | JuliaMono           |    12 | 192x54 |    14 | 160x45 |
 | Bitstream Vera Mono |    12 | 192x54 |    15 | 160x45 |
 | Fira Mono           |    12 | 192x54 |    15 | 160x45 |
+| Fira Code           |    12 | 192x54 |    15 | 160x45 |
 | Cascadia            |    13 | 192x54 |    15 | 160x45 |
 | Courier New         |    13 | 192x54 |    15 | 160x45 |
 | Iosevka Extended    |    13 | 192x54 |    15 | 160x45 |
 | _24" Faux VT100_    | 10x20 | 192x54 |       |        |
-| Consolas            |    13 | 192x49 |    16 | 160x40 |
+| IBM Plex Mono       |    12 | 192x54 |    15 | 160x40 |
+| Jetbrains Mono      |    12 | 192x54 |    16 | 160x41 |
+| Inconsolata         |    15 | 192x51 |    18 | 160x41 |
+| Hasklig             |    13 | 192x49 |    15 | 160x41 |
 | Source Code Pro     |    13 | 192x49 |    15 | 160x41 |
+| Sudo                |    17 | 192x49 |    19 | 160x40 |
+| Victor Mono         |    14 | 192x47 |    16 | 160x41 |
+| Consolas            |    13 | 192x49 |    16 | 160x40 |
 | Terminus TTF        |    15 | 192x47 |    18 | 160x39 |
 | _24" Faux CGA_      |       |        | 12x30 | 160x36 |
 | Iosevka             |    15 | 192x41 |    18 | 160x34 |
 
-#### Iosevka optimal sizing
+#### Optimal rendering of common fonts
 
-The author of Iosevka does not list optimal rendering sizes for the font; arguably, since it is an outline font that is hinted with `ttfautohint` and all sizes should be equally as bad. This is not the case. Testing was informally done with several common terminals and monospace font rendering implementations.
+I looked for the minimum size that glyphs are easily disernable and have no excessive fringing or misshapen glyph stems. Tested using both DirectWrite (via Windows Terminal) and Freetype (using Alacritty); also tested across aliased, greyscale, and subpixel in WT.
 
-**How to read**: In the following chart, optimal font size shall be defined as: does not have extreme color fringing in sub-pixel renderers and does not look lumpy or misshappen with any renderer. Sizes are listed in points for standard DPI, `/ 72 * 96` to get height in pixels. Sizes that do not have an integer number of pixels in height produce sub-optimal rendering, and are omitted from the chart.
+For sanity and reproducability reasons, I tested integer pixel values only. Point values are listed in 96/100% DPI points.
 
-**What about hi-dpi/Retina**: Hi-dpi basically solves the issue with font rendering by throwing more pixels at it. Iosevka seems to do well with point sizes that become integer pixel heights (`/ 72 * DPI` to get pixel height). For reasons outside of font rendering and vector graphics, it is _highly recommended_ to use integer multiples (ie, 200%, 300%, etc), as to make scaling of raster assets _far_ less problematic. However, we still live in a world where the common monitor is 96 dpi/100%, so hi-dpi as a fix is limited to only those that want to spend that much cash on a hi-dpi monitor.
+Sorted by smallest legitable size, and if multiple by best scoring width/weight (in italic).
 
-**What about fractional point sizes**: In renders that can do this, choosing sizes that lead to integer pixel sizes lead to better font rendering, regardless of font, renderer, and conditions. Alternatively, in renderers that don't allow fractional point sizes, 9, 12 and 15 points often lead to almost perfect results, also regardless of font, renderer, and conditions.
-
-**How to choose a bold if I increase weight too much**: [CSS indicates a desired transformation](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight#meaning_of_relative_weights). 100 through 300 has a bold value of 400, 400 and 500 becomes 700, 600 and up is 900.
-
-| Weight         |   # |   9 |  12 |  15 |  18 |  21 |  24 |  27 |  30 |  33 |  36 |  39 |  42 |  45 |  48 |
-| -------------- | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: | --: |
-| Thin           | 100 |   x |   x |   x |   x |   x |   x |   x |   x |   x |   w |   w |   w |   w |   o |
-| Extralight     | 200 |   x |   x |   x |   x |   x |   w |   w |   w |   w |   o |   o |   o |   o |   o |
-| Light          | 300 |   x |   x |   x |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |
-| Regular/Normal | 400 |   x |   x |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
-| Medium         | 500 |   x |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
-| Semibold       | 600 |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
-| Bold           | 700 |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
-| Extrabold      | 800 |   w |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
-| Heavy/Black    | 900 |   w |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |   o |
-
-|     | Legend:                                                          |
-| --- | ---------------------------------------------------------------- |
-| o   | **Good**: Exhibits no meaningful color fringing                  |
-| w   | **Meh**: Slightly blurry, mild fringing, use with greyscale only |
-| x   | **Bad**: Do not use, unreadable in most situations               |
+| Name            | Width           |   Weight | Points  | Pixels |   Layout |
+| --------------- | --------------- | -------: | ------- | -----: | -------: |
+| Terminus TTF    |                 |  Regular | 9       |     12 |   240x67 |
+| Sudo            |                 |   Normal | 17.25   |     23 |   192x47 |
+|                 |                 | _Medium_ | _13.5_  |   _18_ | _240x60_ |
+| IBM Plex        |                 |   Normal | 14.25   |     19 |   174x35 |
+|                 |                 | _Medium_ | _10.5_  |   _14_ | _240x60_ |
+| Input           | Normal          |  Regular | 16.5    |     22 |   137x41 |
+|                 | Normal          |   Medium | 11.25   |     15 |   192x60 |
+|                 | Narrow          |  Regular | 17.25   |     23 |   137x40 |
+|                 | Narrow          |   Medium | 12      |     18 |   192x56 |
+|                 | Condensed       |  Regular | 18      |     24 |   137x37 |
+|                 | Condensed       | _Medium_ | _11.25_ |   _15_ | _213x60_ |
+|                 | Compressed      |  Regular | 19.5    |     26 |   137x34 |
+|                 | Compressed      |   Medium | 12.75   |     17 |   213x51 |
+| Fira Mono       |                 |   Normal | 13.5    |     18 |   174x49 |
+|                 |                 | _Medium_ | _11.25_ |   _15_ | _213x60_ |
+| Cascadia        |                 |  Regular | 15      |     20 |   160x45 |
+|                 |                 | _Medium_ | _12_    |   _16_ | _213x56_ |
+| Fira Code       |                 |  Regular | 15.75   |     21 |   147x43 |
+|                 |                 | _Medium_ | _13.5_  |   _18_ | _192x54_ |
+| Source Code Pro |                 |  Regular | 13.5    |     18 |   174x47 |
+|                 |                 | _Medium_ | _12_    |   _16_ | _192x54_ |
+| Hasklig         |                 |  Regular | 13.5    |     18 |   174x47 |
+|                 |                 | _Medium_ | _12_    |   _16_ | _192x54_ |
+| Hack            |                 |  Regular | 15.75   |     21 | _192x54_ |
+| Consolas        |                 |  Regular | 13.5    |     16 |   192x49 |
+| Lucida Console  |                 |  Regular | 13.5    |     18 |   174x60 |
+| Iosevka         |                 |  Regular | 18.75   |     25 |   147x34 |
+|                 |                 | _Medium_ | _15_    |   _20_ | _192x43_ |
+| Anonymous Pro   |                 |  Regular | 20.25   |     27 |   128x40 |
+| Courier New     |                 |  Regular | 27.75   |     37 |    87x25 |
+| JuliaMono       |                 |  Regular | 17.25   |     23 |   137x38 |
+|                 |                 | _Medium_ | _15_    |   _20_ | _160x45_ |
+| Monoid          |                 |  Regular | 18      |     20 |   120x33 |
+| Jetbrains Mono  |                 |  Regular | 15.75   |     20 |   147x40 |
+|                 |                 | _Medium_ | _14.25_ |   _19_ | _174x43_ |
+| Victor Mono     |                 |  Regular | 18      |     24 |   147x37 |
+|                 |                 | _Medium_ | _15_    |   _20_ | _174x43_ |
+| Inconsolata     | Normal          |  Regular | 20.25   |     27 |   137x38 |
+|                 | _Normal_        | _Medium_ | _18_    |     24 | _160x41_ |
+|                 | Ultra Expanded  |  Regular | 16.5    |     22 |    87x47 |
+|                 | Ultra Expanded  |   Medium | 16.5    |     22 |    87x47 |
+|                 | Extra Expanded  |  Regular | 18      |     24 |   106x41 |
+|                 | Extra Expanded  |   Medium | 18      |     24 |   106x41 |
+|                 | Expanded        |  Regular | 20.25   |     27 |   120x38 |
+|                 | Expanded        |   Medium | 18      |     24 |   137x41 |
+|                 | Semi Expanded   |  Regular | 18      |     24 |   147x41 |
+|                 | Semi Expanded   |   Medium | 18      |     24 |   147x41 |
+|                 | Semi Condensed  |  Regular | 24      |     32 |   137x32 |
+|                 | Semi Condensed  |   Medium | 21.75   |     29 |   147x34 |
+|                 | Condensed       |  Regular | 23.25   |     31 |   160x32 |
+|                 | Condensed       |   Medium | 22.5    |     30 |   160x33 |
+|                 | Extra Condensed |  Regular | 24      |     32 |   174x32 |
+|                 | Extra Condensed |   Medium | 22.5    |     30 |   174x33 |
+|                 | Ultra Condensed |  Regular | 28.5    |     38 |   192x27 |
+|                 | Ultra Condensed |   Medium | 27.75   |     37 |   213x27 |
+| Cousine         |                 |   Normal | 16.5    |     22 |   147x43 |
 
 ## On repository management
 
