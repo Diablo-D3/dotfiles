@@ -230,8 +230,8 @@
       "cursorShape": "filledBox",
       "experimental.retroTerminalEffect": false,
       "font": {
-        "face": "Cascadia Code",
-        "size": 15.75,
+        "face": "Input Mono",
+        "size": 15,
         "weight": "normal"
       },
       "intenseTextStyle": "bold",
