@@ -343,8 +343,9 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<leader>c', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gq', vim.lsp.buf.formatting, bufopts)
+    vim.keymap.set('n', '<leader>c', function() fzf.lsp_code_actions() end, bufopts)
+    -- gr / lsp.buf.references handled by trouble
+    vim.keymap.set('n', 'gq', function() vim.lsp.buf.format { async = true } end, bufopts)
 
     -- format on save
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
