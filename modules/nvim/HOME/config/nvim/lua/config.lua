@@ -96,7 +96,7 @@ vim.cmd [[
     nnoremap <leader>d <cmd>TroubleToggle workspace_diagnostics<cr>
     nnoremap <leader>q <cmd>TroubleToggle quickfix<cr>
     nnoremap <leader>l <cmd>TroubleToggle loclist<cr>
-    nnoremap <leader>t <cmd>TodoTrouble<cr>
+    nnoremap <leader>t <cmd>TroubleToggle todo<cr>
     nnoremap gr        <cmd>TroubleToggle lsp_references<cr>
 ]]
 
@@ -543,4 +543,5 @@ vim.g.clipboard = {
 vim.cmd [[
     let g:tmux_navigator_preserve_zoom = 1
     nnoremap <silent> <C-Space> :TmuxNavigatePrevious<cr>
+    tnoremap <silent> <C-Space> :TmuxNavigatePrevious<cr>
 ]]
