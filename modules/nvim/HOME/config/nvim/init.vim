@@ -21,9 +21,11 @@ if &shell =~# 'fish$'
 endif
 
 " Terminal
-au TermOpen * setlocal listchars= nonumber norelativenumber
-au TermOpen * startinsert
-au BufEnter,BufWinEnter,WinEnter term://* startinsert
-au BufLeave term://* stopinsert
+augroup term
+    au TermOpen * setlocal listchars= nonumber norelativenumber
+    au TermOpen * startinsert
+    au BufEnter,BufWinEnter,WinEnter term://* startinsert
+    au BufLeave term://* stopinsert
+augroup END
 
 lua require('config')
