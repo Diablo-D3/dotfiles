@@ -452,7 +452,13 @@ local rust_tools = require("rust-tools")
 
 rust_tools.setup({
     server = {
-        on_attach = on_attach
+        on_attach = on_attach,
+
+        settings = {
+            checkonsave = {
+                command = "clippy"
+            }
+        }
     }
 })
 
