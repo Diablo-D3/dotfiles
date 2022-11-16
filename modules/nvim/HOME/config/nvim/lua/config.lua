@@ -17,6 +17,13 @@ vim.cmd [[
     au WinNew * lua require('autosplit')()
 ]]
 
+local View = require('trouble.view')
+local setup = View.setup
+View.setup = function(...)
+    setup(...)
+    require('autosplit')()
+end
+
 -- spaceless.nvim
 -- https://github.com/lewis6991/spaceless.nvim
 require('spaceless').setup()
@@ -68,7 +75,7 @@ local trouble = require('trouble');
 
 trouble.setup {
     auto_open = false,
-    auto_close = true,
+    auto_close = false,
 
     -- remove icons
     icons = false,
@@ -89,6 +96,7 @@ vim.cmd [[
     nnoremap <leader>d <cmd>TroubleToggle workspace_diagnostics<cr>
     nnoremap <leader>q <cmd>TroubleToggle quickfix<cr>
     nnoremap <leader>l <cmd>TroubleToggle loclist<cr>
+    nnoremap <leader>t <cmd>TodoTrouble<cr>
     nnoremap gr        <cmd>TroubleToggle lsp_references<cr>
 ]]
 
