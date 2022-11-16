@@ -23,7 +23,7 @@ Navigation in Vim is done through several major methods; through the traditional
 
 I have never really found a way to effortlessly navigate through buffers that isn't more directed (`g` goto operators, project-wide fuzzy finders, etc), due to Vim never reusing buffer numbers. I wrote a plugin to map buffers to `CTRL-#` keys, [vim-yabs](https://github.com/Diablo-D3/vim-yabs).
 
-I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [Telescope](https://github.com/nvim-telescope/telescope.nvim) to manage fuzzy finding.
+I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [Fzf-Lua](https://github.com/ibhagwan/fzf-lua) to manage fuzzy finding.
 
 | Map                 | Action                           |
 | ------------------- | -------------------------------- |
@@ -36,6 +36,8 @@ I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [
 | `<leader>d`         | Diagnostics list                 |
 | `<leader>q`         | Quickfix list                    |
 | `<leader>l`         | Location list                    |
+| `<leader>t`         | Todo list                        |
+| `<leader>c`         | LSP Code Action list             |
 
 ### LSP and the `g` operator gotos
 
