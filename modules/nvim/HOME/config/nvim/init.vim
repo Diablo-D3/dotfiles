@@ -28,4 +28,7 @@ augroup term
     au BufLeave term://* stopinsert
 augroup END
 
+" Override ftplugin/rust.vim textwidth
+let g:rust_recommended_style=0
+
 lua require('config')
