@@ -43,7 +43,6 @@ https://github.com/ray-x/lsp_signature.nvim.git,master
 https://github.com/simrat39/rust-tools.nvim.git,master
 
 # other language-specific support
-https://github.com/Saecki/crates.nvim.git,main
 https://github.com/aliva/vim-fish.git,main
 
 # external tooling integration
