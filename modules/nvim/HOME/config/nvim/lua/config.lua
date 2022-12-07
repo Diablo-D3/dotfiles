@@ -36,9 +36,9 @@ require('stabilize').setup()
 -- themes and highlighting --
 -----------------------------
 
--- nightfox.nvim
--- https://github.com/EdenEast/nightfox.nvim
-vim.cmd("colorscheme nightfox")
+-- tokyonight.nvim
+-- https://github.com/folke/tokyonight.nvim
+vim.cmd("colorscheme tokyonight")
 
 -- lualine.nvim
 -- https://github.com/nvim-lualine/lualine.nvin

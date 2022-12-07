@@ -11,7 +11,7 @@ https://github.com/luukvbaal/stabilize.nvim.git,master
 https://github.com/nvim-lua/plenary.nvim.git,master
 
 # themes and highlighting
-https://github.com/EdenEast/nightfox.nvim.git,main
+https://github.com/folke/tokyonight.nvim.git,main
 https://github.com/nvim-lualine/lualine.nvim.git,main
 https://github.com/norcalli/nvim-colorizer.lua.git,master
 https://github.com/folke/todo-comments.nvim.git,neovim-pre-0.8.0
