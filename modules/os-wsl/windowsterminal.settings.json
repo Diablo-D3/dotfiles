@@ -231,7 +231,7 @@
       "experimental.retroTerminalEffect": false,
       "font": {
         "face": "Input Mono",
-        "size": 15.75,
+        "size": 15,
         "weight": "medium"
       },
       "intenseTextStyle": "bold",
