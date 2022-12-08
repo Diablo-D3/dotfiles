@@ -69,6 +69,7 @@ Sorted from widest to tallest
 
 | Name                |  Size | Layout |  Size | Layout |
 | ------------------- | ----: | ------ | ----: | ------ |
+| MonoLisa            |    11 | 192x61 |    13 | 160x52 |
 | Lucida Console      |    12 | 192x60 |    15 | 160x51 |
 | Anonymous Pro       |    14 | 192x56 |    16 | 160x47 |
 | Hack                |    12 | 192x56 |    15 | 160x45 |
@@ -100,7 +101,7 @@ I looked for the minimum size that glyphs are easily disernable and have no exce
 
 For sanity and reproducability reasons, I tested integer pixel values only. Point values are listed in 96/100% DPI points.
 
-Sorted by smallest legitable size, and if multiple by best scoring width/weight (in italic).
+Sorted by smallest legitable size, and if multiple styles, by best scoring width/weight (in italic).
 
 | Name            | Width           |   Weight | Points  | Pixels |   Layout |
 | --------------- | --------------- | -------: | ------- | -----: | -------: |
@@ -159,6 +160,8 @@ Sorted by smallest legitable size, and if multiple by best scoring width/weight 
 |                 | Extra Condensed |   Medium | 22.5    |     30 |   174x33 |
 |                 | Ultra Condensed |  Regular | 28.5    |     38 |   192x27 |
 |                 | Ultra Condensed |   Medium | 27.75   |     37 |   213x27 |
+| MonoLisa        |                 |  Regular | 15      |     20 |   147x54 |
+|                 |                 |   Medium | 15      |     20 |   147x54 |
 | Cousine         |                 |   Normal | 16.5    |     22 |   147x43 |
 
 ## On repository management
