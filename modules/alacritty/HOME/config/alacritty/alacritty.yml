@@ -5,20 +5,20 @@ import:
 font:
   normal:
     family: Input Mono
-    style: Compressed Medium
+    style: Regular
   bold:
     family: Input Mono
-    style: Compressed Black
+    style: Bold
   italic:
     family: Input Mono
-    style: Compressed Medium Italic
+    style: Italic
   bold_italic:
     family: Input Mono
-    style: Compressed Black Italic
-  size: 15
+    style: Bold Italic
+  size: 12
   offset:
-    x: 1
-    y: 1
+    x: 0
+    y: 0
 
 shell:
   program: wsl.exe
