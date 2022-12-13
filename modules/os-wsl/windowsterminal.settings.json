@@ -235,7 +235,7 @@
         "weight": "normal"
       },
       "intenseTextStyle": "bold",
-      "padding": "0",
+      "padding": 0,
       "scrollbarState": "hidden"
     },
     "list": [
