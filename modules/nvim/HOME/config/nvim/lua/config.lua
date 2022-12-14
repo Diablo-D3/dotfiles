@@ -38,7 +38,7 @@ require('stabilize').setup()
 
 -- tokyonight.nvim
 -- https://github.com/folke/tokyonight.nvim
-vim.cmd("colorscheme tokyonight")
+vim.cmd("colorscheme tokyonight-night")
 
 -- lualine.nvim
 -- https://github.com/nvim-lualine/lualine.nvin
