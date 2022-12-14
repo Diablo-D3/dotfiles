@@ -15,8 +15,11 @@ font:
   bold_italic:
     family: Input Mono
     style: Bold Italic
-  size: 12 # 16px, gives 174x54 on 1080p
+  size: 12 # 16px, gives 192x54 on 1080p
   offset:
+    x: 0
+    y: 1
+  glyph_offset:
     x: 0
     y: 1
 

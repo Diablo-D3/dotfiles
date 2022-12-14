@@ -236,7 +236,8 @@
       },
       "intenseTextStyle": "bold",
       "padding": 0,
-      "scrollbarState": "hidden"
+      "scrollbarState": "hidden",
+      "useAtlasEngine": false
     },
     "list": [
       {
