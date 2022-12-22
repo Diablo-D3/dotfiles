@@ -2,7 +2,7 @@ $HOME/.local/share/nvim/site/pack/bundle/start/
 
 # base functionality
 https://github.com/tpope/vim-unimpaired.git,master
-https://github.com/tpope/vim-commentary,git,master
+https://github.com/tpope/vim-commentary.git,master
 https://github.com/tpope/vim-sleuth.git,master
 https://github.com/Diablo-D3/vim-yabs.git,master
 https://github.com/ii14/autosplit.nvim.git,master
@@ -12,7 +12,7 @@ https://github.com/nvim-lua/plenary.nvim.git,master
 
 # themes and highlighting
 https://github.com/folke/tokyonight.nvim.git,main
-https://github.com/nvim-lualine/lualine.nvim.git,main
+https://github.com/nvim-lualine/lualine.nvim.git,master
 https://github.com/norcalli/nvim-colorizer.lua.git,master
 https://github.com/folke/todo-comments.nvim.git,neovim-pre-0.8.0
 
@@ -44,7 +44,7 @@ https://github.com/ray-x/lsp_signature.nvim.git,master
 https://github.com/simrat39/rust-tools.nvim.git,master
 
 # other language-specific support
-https://github.com/aliva/vim-fish.git,main
+https://github.com/aliva/vim-fish.git,master
 
 # external tooling integration
 https://github.com/tpope/vim-fugitive.git,master
