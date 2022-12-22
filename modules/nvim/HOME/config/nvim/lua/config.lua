@@ -140,6 +140,7 @@ vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 -- https://github.com/nvim-treesitter/nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 -- https://github.com/nvim-treesitter/nvim-treesitter-refactor
+-- https://github.com/nvim-treesitter/nvim-treesitter-context
 
 require('nvim-treesitter.install').update({
     with_sync = true
