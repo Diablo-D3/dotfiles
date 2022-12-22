@@ -1,3 +1,3 @@
-Package: src:rustc src:llvm-toolchain-15 src:gcc-12 src:binutils src:build-essential src:z3 src:cargo
+Package: src:rustc src:cargo src:z3 src:llvm-toolchain-15 src:build-essential src:gcc-12 src:binutils src:jansson
 Pin: release a=unstable
 Pin-Priority: 1001
