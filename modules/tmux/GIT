@@ -1,0 +1,5 @@
+$HOME/.tmux/plugins
+
+https://github.com/tmux-plugins/tmux-resurrect.git,master
+https://github.com/tmux-plugins/tmux-continuum.git,master
+
