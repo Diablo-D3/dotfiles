@@ -15,14 +15,9 @@ vim.cmd [[
 
     let g:autosplit_loaded = 1
     au WinNew * lua require('autosplit')()
-]]
 
-local View = require('trouble.view')
-local setup = View.setup
-View.setup = function(...)
-    setup(...)
-    require('autosplit')()
-end
+    au FileType Trouble lua require('autosplit')()
+]]
 
 -- spaceless.nvim
 -- https://github.com/lewis6991/spaceless.nvim
