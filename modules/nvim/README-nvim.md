@@ -34,8 +34,6 @@ I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [
 | `` C-` ``           | Fuzzy search buffers             |
 | `<leader>f`         | Fuzzy find files                 |
 | `<leader>d`         | Diagnostics list                 |
-| `<leader>q`         | Quickfix list                    |
-| `<leader>l`         | Location list                    |
 | `<leader>t`         | Todo list                        |
 | `<leader>c`         | LSP Code Action list             |
 
@@ -47,28 +45,27 @@ I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [
 | `gD`        | Goto global declaration       | lsp.buf.declaration     |
 | `gi`        | Unrelated (insert at '^ mark) | lsp.buf.implementation  |
 | `gt`        | Unrelated (goto next tab)     | lsp.buf.type_definition |
-| `gq`        | Format                        | lsp.buf.buf.formatting  |
+| `gq`        | Format                        | lsp.buf.formatting      |
 | `gr`        | Unrelated (replace chars)     | lsp.buf.references      |
 | `K`         | Run keywordprog               | lsp.vim.lsp.hover       |
-| `<leader>r` | Rename                        | lsp.buf.rename          |
-
-`gr` will open in Trouble. Treesitter will implement `gd` and `<leader>r` when LSP isn't enabled.
+| `<leader>r` | Unrelated (unmapped)          | lsp.buf.rename          |
 
 ### `[`/`]` operator pairs
 
-Many of these take capitals to do first/last instead of next/prev, many of these take a count; the heavy lifting is provided by [vim-unimpaired](https://github.com/tpope/vim-unimpaired).
+Many of these take capitals to do first/last instead of next/prev, many of these take a count; the heavy lifting is provided by [vim-unimpaired](https://github.com/tpope/vim-unimpaired), but also some by [mini.nvim](https://github.com/echasnovski/mini.nvim).
 
-| Map      | Action              |
-| -------- | ------------------- |
-| `]a`     | Files in arg list   |
-| `]b`     | Buffers             |
-| `]l`     | Location list       |
-| `]q`     | Quickfix list       |
-| `]<SPC>` | Add _n_ blank lines |
-| `]e`     | Move line by _n_    |
-| `]p`     | Paste               |
-
-`]q` is overridden by Trouble to do the same thing.
+| Map      | Action                            | Source           |
+| -------- | --------------------------------- | ---------------- |
+| `]a`     | Files in arg list                 | Unimpaired       |
+| `]b`     | Buffers                           | Unimpaired       |
+| `]l`     | Location list                     | Unimpaired       |
+| `]<SPC>` | Add _n_ blank lines               | Unimpaired       |
+| `]e`     | Move line by _n_                  | Unimpaired       |
+| `]p`     | Paste                             | Unimpaired       |
+| `]q`     | Quickfix list                     | Trouble          |
+| `g]`     | Goto specified text object        | Mini-ai          |
+| `]f`     | Functions (Treesitter)            | Mini-ai          |
+| `]i`     | Jump to start/end of indent scope | Mini-indentscope |
 
 ### Fugitive
 
@@ -85,25 +82,30 @@ Many of these take capitals to do first/last instead of next/prev, many of these
 | `cc`        | Commit                     |
 | `ca`        | Amend commit               |
 
-### Motions and Commentary
+### Textobjects
 
-Vim motions often come with `a`, `i`, and `o` prefixes, for any, inner, and outer; inner only selects whats inside the block, any selects whats inside and the block, and outer selects the entire block that contains the selector.
+Vim textobjects often come with `a`, `i`, and `o` prefixes, for around, inner, and outer; inner only selects whats inside the block, around selects whats inside and the block itself, and outer selects the entire block that contains the selector. Outer and around are usually the same thing.
 
-[vim-commentary](https://github.com/tpope/vim-commentary) allows you to comment code using the `gc` operator, and it takes motions.
+[Mini-ai](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md) allows rapid construction of textobjects and operators on them. Formerly, I used [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) directly for Treesitter textobjects, instead of through Mini-ai.
 
-| Motion    | Action               | Source     |
-| --------- | -------------------- | ---------- |
-| `w`       | Word                 | Vim        |
-| `s`       | Sentence             | Vim        |
-| `p`       | Paragraph            | Vim        |
-| `[`       | `[]` block           | Vim        |
-| `(` / `b` | `()` block           | Vim        |
-| `{` / `B` | `{}` block           | Vim        |
-| `<`       | `<>` block           | Vim        |
-| `t`       | XML/SGML tag         | Vim        |
-| `` ` ``   | Backtick quote       | Vim        |
-| `'`       | Single quote         | Vim        |
-| `"`       | Double quote         | Vim        |
-| `c`       | Class                | Treesitter |
-| `f`       | Function             | Treesitter |
-| `a`       | Argument (Paramater) | Treesitter |
+[Mini-comment](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-comment.md) allows you to comment code using the `gc` operator. Formerly, I used [vim-commentary](https://github.com/tpope/vim-commentary).
+
+| Textobject | Action               | Source       |
+| ---------- | -------------------- | ------------ |
+| `w`        | Word                 | Vim          |
+| `s`        | Sentence             | Vim          |
+| `p`        | Paragraph            | Vim          |
+| `[`        | `[]` block           | Vim          |
+| `(` / `b`  | `()` block           | Vim          |
+| `{` / `B`  | `{}` block           | Vim          |
+| `<`        | `<>` block           | Vim          |
+| `t`        | XML/SGML tag         | Vim          |
+| `` ` ``    | Backtick quote       | Vim          |
+| `'`        | Single quote         | Vim          |
+| `"`        | Double quote         | Vim          |
+| `n`        | Next of same kind    | Mini-ai      |
+| `l`        | Last of same kind    | Mini-ai      |
+| `c`        | Class                | Mini-ai + TS |
+| `f`        | Function             | Mini-ai + TS |
+| `a`        | Argument (Paramater) | Mini-ai + TS |
+| 'gc'       | Comment              | Mini-comment |

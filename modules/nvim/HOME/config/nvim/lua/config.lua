@@ -15,17 +15,165 @@ vim.cmd [[
 
     let g:autosplit_loaded = 1
     au WinNew * lua require('autosplit')()
-
-    au FileType Trouble lua require('autosplit')()
 ]]
 
--- spaceless.nvim
--- https://github.com/lewis6991/spaceless.nvim
-require('spaceless').setup()
+-- mini.nvim
+-- https://github.com/echasnovski/mini.nvim
 
--- stabilize.nvim
--- https://github.com/luukvbaal/stabilize.nvim
-require('stabilize').setup()
+-- mini.ai
+local mini_ai = require('mini.ai')
+local treesitter = mini_ai.gen_spec.treesitter
+mini_ai.setup({
+    n_lines = 9001,
+    custom_textobjects = {
+        o = treesitter({
+            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+        }, {}),
+        a = treesitter({ a = "@parameter.outer", i = "@parameter.inner" }, {}),
+        f = treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
+        c = treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+    },
+    search_method = 'cover'
+})
+
+vim.keymap.set('n', "]f", function() mini_ai.move_cursor("left", "a", "f", { search_method = "next" }) end, keyopts)
+vim.keymap.set('n', "[f", function() mini_ai.move_cursor("left", "a", "f", { search_method = "prev" }) end, keyopts)
+
+-- mini.animate
+local mini_animate = require('mini.animate')
+local quartic = mini_animate.gen_timing.quartic
+mini_animate.setup({
+    cursor = {
+        timing = quartic({ duration = 33.3, unit = 'total' }),
+    },
+    scroll = {
+        timing = quartic({ duration = 33.3, unit = 'total' }),
+    },
+    resize = {
+        enable = false
+    },
+    open = {
+        enable = false
+    },
+    close = {
+        enable = false
+    }
+
+})
+
+-- mini.bufremove
+local mini_bufremove = require('mini.bufremove')
+mini_bufremove.setup({})
+vim.keymap.set('n', '<leader>w', function() mini_bufremove.wipeout(0, false) end, keyopts)
+
+-- mini.comment
+require('mini.comment').setup({})
+
+-- mini.completion
+require('mini.completion').setup({})
+--https://github.com/echasnovski/mini.nvim/blob/main/doc/mini-completion.txt#L92
+vim.api.nvim_set_keymap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
+vim.api.nvim_set_keymap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+
+local keys = {
+    ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
+    ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
+    ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
+}
+
+_G.cr_action = function()
+    if vim.fn.pumvisible() ~= 0 then
+        local item_selected = vim.fn.complete_info()['selected'] ~= -1
+        return item_selected and keys['ctrl-y'] or keys['ctrl-y_cr']
+    else
+        return require('mini.pairs').cr()
+    end
+end
+
+vim.api.nvim_set_keymap('i', '<CR>', 'v:lua._G.cr_action()', { noremap = true, expr = true })
+
+-- mini.indentscope
+require('mini.indentscope').setup({
+    draw = {
+        delay = 0,
+        animation = require('mini.indentscope').gen_animation.none()
+    },
+    symbol = "│"
+})
+
+--mini.pairs
+require('mini.pairs').setup({})
+
+-- mini.sessions
+require('mini.sessions').setup({})
+
+-- mini.statusline
+require('mini.statusline').setup({
+    content = {
+        active = function()
+            local diagnostics_f = function()
+                local hasnt_attached_client = next(vim.lsp.buf_get_clients()) == nil
+                if (vim.bo.buftype ~= '' or hasnt_attached_client) then return '' end
+
+                local diagnostics = vim.diagnostic.get(0)
+                local count = { 0, 0, 0, 0 }
+                for _, diagnostic in ipairs(diagnostics) do
+                    if vim.startswith(vim.diagnostic.get_namespace(diagnostic.namespace).name, 'vim.lsp') then
+                        count[diagnostic.severity] = count[diagnostic.severity] + 1
+                    end
+                end
+
+                local ce = count[vim.diagnostic.severity.ERROR]
+                local cw = count[vim.diagnostic.severity.WARN]
+                local ci = count[vim.diagnostic.severity.INFO]
+                local ch = count[vim.diagnostic.severity.HINT]
+
+                local e = (ce > 0) and "E" .. ce .. " " or ""
+                local w = (cw > 0) and "W" .. cw .. " " or ""
+                local i = (ci > 0) and "i" .. ci .. " " or ""
+                local h = (ch > 0) and "h" .. ch .. " " or ""
+
+                return vim.trim(e .. w .. i .. h)
+            end
+
+            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 1 })
+            local diagnostics   = diagnostics_f()
+            local filename      = '%t'
+            local fileinfo      = vim.bo.filetype
+            local location      = '%l:%v'
+
+            return MiniStatusline.combine_groups({
+                { hl = mode_hl, strings = { mode } },
+                { hl = 'MiniStatuslineFilename', strings = { diagnostics } },
+                '%<', -- Mark general truncate point
+                { hl = 'MiniStatuslineDevinfo', strings = { filename } },
+                '%=', -- End left alignment
+                { hl = 'MiniStatusLineFilename', strings = { fileinfo } },
+                { hl = mode_hl, strings = { location } },
+            })
+        end
+    },
+    use_icons = false,
+    set_vim_settings = true,
+})
+
+vim.opt.laststatus = 3
+
+-- mini.surround
+require('mini.surround').setup({})
+
+-- mini.trailspace
+require('mini.trailspace').setup({})
+
+local trailspace = vim.api.nvim_create_augroup('mini.trailspace', {})
+vim.api.nvim_create_autocmd("bufwritepre", {
+    group = trailspace,
+    callback = function()
+        MiniTrailspace.trim()
+        MiniTrailspace.trim_last_lines()
+    end,
+})
 
 -----------------------------
 -- themes and highlighting --
@@ -34,23 +182,6 @@ require('stabilize').setup()
 -- tokyonight.nvim
 -- https://github.com/folke/tokyonight.nvim
 vim.cmd("colorscheme tokyonight-night")
-
--- lualine.nvim
--- https://github.com/nvim-lualine/lualine.nvin
-require('lualine').setup({
-    sections = {
-        lualine_b = {
-            'branch', 'diff',
-            {
-                'diagnostics',
-                symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
-            }
-        },
-        lualine_x = {},
-        lualine_y = { 'filetype' },
-        lualine_z = { 'location' }
-    }
-})
 
 -- nvim-colorizer
 -- https://github.com/norcalli/nvim-colorizer.lua
@@ -71,6 +202,10 @@ local trouble = require('trouble');
 trouble.setup {
     auto_open = false,
     auto_close = false,
+    action_keys = {
+        jump = {},
+        jump_close = "<cr>"
+    },
 
     -- remove icons
     icons = false,
@@ -86,18 +221,36 @@ trouble.setup {
     use_diagnostic_signs = false
 }
 
-vim.cmd [[
-    nnoremap <leader>x <cmd>TroubleToggle<cr>
-    nnoremap <leader>d <cmd>TroubleToggle workspace_diagnostics<cr>
-    nnoremap <leader>q <cmd>TroubleToggle quickfix<cr>
-    nnoremap <leader>l <cmd>TroubleToggle loclist<cr>
-    nnoremap <leader>t <cmd>TroubleToggle todo<cr>
-    nnoremap gr        <cmd>TroubleToggle lsp_references<cr>
-]]
+vim.keymap.set('n', '<leader>d', function() trouble.toggle('workspace_diagnostics') end, keyopts)
+vim.keymap.set('n', '<leader>t', function() trouble.toggle('todo') end, keyopts)
+vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
+vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
+vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
+vim.keymap.set('n', 'gr', function() trouble.toggle('lsp_references') end, keyopts)
+vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
 
 local troubleopts = { skip_group = true, jump = true }
 vim.keymap.set('n', '[q', function() trouble.next(troubleopts) end, keyopts)
 vim.keymap.set('n', ']q', function() trouble.previous(troubleopts) end, keyopts)
+
+-- Popupify Trouble
+local troublepopup = vim.api.nvim_create_augroup('TroublePopup', {})
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = "Trouble",
+    group = troublepopup,
+    callback = function()
+        local cols = vim.o.columns
+        local rows = vim.o.lines
+
+        vim.api.nvim_win_set_config(0, {
+            relative = 'editor',
+            col = cols / 2,
+            row = 0,
+            width = cols / 2,
+            height = rows - 2,
+        })
+    end
+})
 
 -- fzf-lua
 -- https://github.com/ibhagwan/fzf-lua
@@ -154,27 +307,13 @@ require('nvim-treesitter.configs').setup({
 
     textobjects = {
         select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-                ['ac'] = '@class.outer',
-                ['oc'] = '@class.outer',
-                ['ic'] = '@class.inner',
-                ['af'] = '@function.outer',
-                ['of'] = '@function.outer',
-                ['if'] = '@function.inner',
-                ['aa'] = '@parameter.outer',
-                ['oa'] = '@parameter.outer',
-                ['ia'] = '@parameter.inner',
-            },
-            selection_modes = {
-                ['@parameter.outer'] = 'v',
-                ['@parameter.inner'] = 'v',
-                ['@function.outer'] = 'V',
-                ['@function.inner'] = 'V',
-                ['@class.outer'] = '<c-v>',
-                ['@class.inner'] = '<c-v>',
-            }
+            enable = false,
+        },
+        move = {
+            enable = false,
+        },
+        lsp_interop = {
+            enable = false,
         }
     },
 
@@ -188,14 +327,6 @@ require('nvim-treesitter.configs').setup({
                 smart_rename = "<leader>r"
             }
         },
-
-        navigation = {
-            enable = true,
-            keymaps = {
-                -- Remapped later in LSP buffers
-                goto_definition = "gd"
-            }
-        }
     },
 
     rainbow = {
@@ -221,6 +352,13 @@ vim.cmd [[
 require("mason").setup()
 require("mason-tool-installer").setup({
     ensure_installed = {
+        -----------
+        -- tools --
+        -- --------
+
+        -- markdown
+        'glow',
+
         ----------------
         -- formatters --
         ----------------
@@ -331,7 +469,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 ---------
 
 -- nvim-lspconfig
--- https://github.com/neovim/nvim-lspconfig.git,master
+-- https://github.com/neovim/nvim-lspconfig
 local lspfmt = vim.api.nvim_create_augroup('LspFormatting', {})
 
 local on_attach = function(client, bufnr)
@@ -342,25 +480,26 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr')
 
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>c', function() fzf.lsp_code_actions() end, bufopts)
-    -- gr / lsp.buf.references handled by trouble
     vim.keymap.set('n', 'gq', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+    -- handled by Trouble:
+    -- gd / lsp.buf.definition
+    -- gi / lsp.buf.implementation
+    -- gt / lsp.buf.type_definition
+    -- gr / lsp.buf.references
 
     -- format on save
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
     if client.supports_method("textDocument/formatting") then
         vim.api.nvim_clear_autocmds({ group = lspfmt, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
+        vim.api.nvim_create_autocmd("bufwritepre", {
             group = lspfmt,
             buffer = bufnr,
             callback = function()
-                -- 0.8: vim.lsp.buf.format({ bufnr = bufnr })
-                vim.lsp.buf.formatting_sync()
+                vim.lsp.buf.format({ bufnr = bufnr })
             end,
         })
     end
@@ -438,9 +577,11 @@ require('lspconfig').lemminx.setup {
 
 -- lsp_signature
 -- https://github.com/ray-x/lsp_signature.nvim
+--[[
 require('lsp_signature').setup({
     hint_enable = false,
 })
+]]
 
 -- rust-tools.nvim
 -- https://github.com/simrat39/rust-tools.nvim

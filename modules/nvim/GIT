@@ -2,26 +2,20 @@ $HOME/.local/share/nvim/site/pack/bundle/start/
 
 # base functionality
 https://github.com/tpope/vim-unimpaired.git,master
-https://github.com/tpope/vim-commentary.git,master
 https://github.com/tpope/vim-sleuth.git,master
 https://github.com/Diablo-D3/vim-yabs.git,master
 https://github.com/ii14/autosplit.nvim.git,master
-https://github.com/lewis6991/spaceless.nvim.git,main
-https://github.com/luukvbaal/stabilize.nvim.git,master
 https://github.com/nvim-lua/plenary.nvim.git,master
+https://github.com/echasnovski/mini.nvim,main
 
 # themes and highlighting
 https://github.com/folke/tokyonight.nvim.git,main
-https://github.com/nvim-lualine/lualine.nvim.git,master
 https://github.com/norcalli/nvim-colorizer.lua.git,master
-https://github.com/folke/todo-comments.nvim.git,neovim-pre-0.8.0
+https://github.com/folke/todo-comments.nvim.git,main
 
 # navigation
 https://github.com/folke/trouble.nvim.git,main
 https://github.com/ibhagwan/fzf-lua.git,main
-
-# completion
-https://github.com/lifepillar/vim-mucomplete.git,master
 
 # treesitter
 https://github.com/nvim-treesitter/nvim-treesitter.git,master
@@ -40,7 +34,6 @@ https://github.com/mfussenegger/nvim-lint.git,master
 
 # lsp
 https://github.com/neovim/nvim-lspconfig.git,master
-https://github.com/ray-x/lsp_signature.nvim.git,master
 https://github.com/simrat39/rust-tools.nvim.git,master
 
 # other language-specific support
