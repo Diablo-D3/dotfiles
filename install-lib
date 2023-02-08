@@ -78,19 +78,19 @@ function _status_stub() {
 # Ok
 function _ok() {
     offset=1
-    echo -n "$higreen>$reset $green$*$reset"
+    echo "$higreen>$reset $green$*$reset"
 }
 
 # Warn
 function _warn() {
     offset=1
-    echo -n "$hiyellow>$reset $yellow$*$reset"
+    echo "$hiyellow>$reset $yellow$*$reset"
 }
 
 # Error
 function _error() {
     offset=1
-    echo -n "$hired>$reset $red$*$reset"
+    echo "$hired>$reset $red$*$reset"
 }
 
 ###
