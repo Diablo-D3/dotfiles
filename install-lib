@@ -51,22 +51,22 @@ offset=0
 function _start() {
     if [ $offset -ne 0 ]; then
         offset=0
-        echo -e ""
+        echo ""
     fi
 
-    echo -e "$higreen>>>$reset $green$1$reset"
+    echo "$higreen>>>$reset $green$1$reset"
 }
 
 # End of a block of jobs
 function _end() {
     offset=0
-    echo -e ""
+    echo ""
 }
 
 # Status of the job
 function _status() {
     offset=1
-    echo -e "$hiblue>$reset $blue$*$reset"
+    echo "$hiblue>$reset $blue$*$reset"
 }
 
 # Status of the job, no newline
@@ -184,6 +184,11 @@ function _check_ver() {
 function _git_list {
     local file="$1"
 
+    # Setup changelog
+    local log="/tmp/install-git-log"
+    rm -f "$log"
+
+    # Read in base directory from top of list
     local base
     read -r base <"$file"
     eval "base=$base"
@@ -192,13 +197,12 @@ function _git_list {
         base="$base/"
     fi
 
-    # Read in list
+    # Read in repos from list, skipping base directory
     readarray -t repos < <(tail -n +2 "$file")
 
     # Clone or update repos
     for repo in "${repos[@]}"; do
         IFS="," read -r url branch <<<"$repo"
-
         if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
             local name dir
             name="${url##*/}"
@@ -210,13 +214,34 @@ function _git_list {
                 git clone --depth 1 --recurse-submodules --shallow-submodules --branch "$branch" "$url" "$target"
             else
                 _status_stub "Updating $name: "
-                git -C "$target" pull --force --recurse-submodules
+                orig_head="$(git -C "$target" show-ref --hash "refs/heads/$branch")"
+                git -C "$target" pull --force --recurse-submodules=on-demand
+                new_head="$(git -C "$target" show-ref --hash "refs/heads/$branch")"
+
+                # Change branch if mismatch
+                if [ "$(git -C "$target" branch --show current)" != "$branch" ]; then
+                    git -C "$target" switch "$branch"
+                fi
+
+                # Output changelog
+                if [ "$orig_head" != "$new_head" ]; then
+                    {
+                        local short="${target##*/}"
+                        echo -e "$hiblue>$reset $blue$short$reset"
+                        git -C "$target" log --color "$orig_head".."$new_head"
+                    } >> "$log"
+                fi
             fi
         fi
     done
 
+    # Display changelog
+    if [ -f "$log" ]; then
+        less -rf "$log"
+    fi
+
     # Trim removed repos
-    dirs=("$base"*)
+    local dirs=("$base"*)
 
     for dir in "${dirs[@]}"; do
         local found=0
