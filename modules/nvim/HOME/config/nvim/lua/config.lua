@@ -59,7 +59,6 @@ mini_animate.setup({
     close = {
         enable = false
     }
-
 })
 
 -- mini.bufremove
@@ -144,13 +143,13 @@ require('mini.statusline').setup({
             local location      = '%l:%v'
 
             return MiniStatusline.combine_groups({
-                { hl = mode_hl, strings = { mode } },
+                { hl = mode_hl,                  strings = { mode } },
                 { hl = 'MiniStatuslineFilename', strings = { diagnostics } },
                 '%<', -- Mark general truncate point
-                { hl = 'MiniStatuslineDevinfo', strings = { filename } },
+                { hl = 'MiniStatuslineDevinfo',  strings = { filename } },
                 '%=', -- End left alignment
                 { hl = 'MiniStatusLineFilename', strings = { fileinfo } },
-                { hl = mode_hl, strings = { location } },
+                { hl = mode_hl,                  strings = { location } },
             })
         end
     },
@@ -257,7 +256,10 @@ vim.api.nvim_create_autocmd('FileType', {
 local fzf = require('fzf-lua')
 
 fzf.setup({
-    fzf_opts = { ['--info'] = 'hidden', ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2' },
+    fzf_opts = {
+        ['--info'] = 'hidden',
+        ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2'
+    },
     buffers = {
         prompt = "> ",
     },
@@ -271,7 +273,8 @@ fzf.setup({
     }
 })
 
-vim.keymap.set('n', '/', function() fzf.lgrep_curbuf({
+vim.keymap.set('n', '/', function()
+    fzf.lgrep_curbuf({
         fzf_cli_args = '--with-nth 4..',
         exec_empty_query = false
     })
@@ -296,15 +299,12 @@ require('nvim-treesitter.install').update({
 
 require('nvim-treesitter.configs').setup({
     auto_install = true,
-
     highlight = {
         enable = true
     },
-
     indent = {
         enable = true
     },
-
     textobjects = {
         select = {
             enable = false,
@@ -316,7 +316,6 @@ require('nvim-treesitter.configs').setup({
             enable = false,
         }
     },
-
     refactor = {
         highlight_definitions = { enable = true },
 
@@ -328,7 +327,6 @@ require('nvim-treesitter.configs').setup({
             }
         },
     },
-
     rainbow = {
         enable = true,
         extended_mode = true
@@ -416,7 +414,6 @@ require("mason-tool-installer").setup({
         -- xml, xsd, xsl, xslt, svg
         'lemminx',
     },
-
     auto_update = true,
 })
 
@@ -517,7 +514,12 @@ local cap_snippets = vim.lsp.protocol.make_client_capabilities()
 cap_snippets.textDocument.completion.completionItem.snippetSupport = true
 
 require('lspconfig').bashls.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    settings = {
+        bashIde = {
+            includeAllWorkspaceSymbols = true
+        }
+    }
 }
 
 require('lspconfig').cssls.setup {
@@ -543,7 +545,7 @@ require('lspconfig').taplo.setup {
     on_attach = on_attach,
 }
 
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
     on_attach = on_attach,
     settings = {
         Lua = {
@@ -582,7 +584,6 @@ require('lsp_signature').setup({
     hint_enable = false,
 })
 ]]
-
 -- rust-tools.nvim
 -- https://github.com/simrat39/rust-tools.nvim
 local rust_tools = require("rust-tools")
@@ -625,8 +626,14 @@ end
 
 vim.g.clipboard = {
     name = 'osc52',
-    copy = { ['+'] = copy, ['*'] = copy },
-    paste = { ['+'] = paste, ['*'] = paste },
+    copy = {
+        ['+'] = copy,
+        ['*'] = copy
+    },
+    paste = {
+        ['+'] = paste,
+        ['*'] = paste
+    },
 }
 
 -- vim-tmux-navigation
