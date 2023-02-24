@@ -68,7 +68,7 @@ Note: Windows Terminal and Alacritty do not agree on cell height; often, Alacrit
 Sorted from widest to tallest
 
 | Name                |  Size | Layout |  Size | Layout |
-| ------------------- | ----: | ------ | ----: | ------ |
+| ------------------- | ----: | ------ | ----: | ------ | --- |
 | MonoLisa            |    11 | 192x61 |    13 | 160x52 |
 | Lucida Console      |    12 | 192x60 |    15 | 160x51 |
 | Anonymous Pro       |    14 | 192x56 |    16 | 160x47 |
@@ -85,15 +85,20 @@ Sorted from widest to tallest
 | _24" Faux VT100_    | 10x20 | 192x54 |       |        |
 | IBM Plex Mono       |    12 | 192x54 |    15 | 160x40 |
 | Jetbrains Mono      |    12 | 192x54 |    16 | 160x41 |
+| Berkeley Mono       |    12 | 192x54 |    15 | 160x43 |     |
 | Inconsolata         |    15 | 192x51 |    18 | 160x41 |
+| Mplus Code Latin 60 |    12 | 192x51 |    15 | 160x43 |
 | Hasklig             |    13 | 192x49 |    15 | 160x41 |
 | Source Code Pro     |    13 | 192x49 |    15 | 160x41 |
 | Sudo                |    17 | 192x49 |    19 | 160x40 |
-| Victor Mono         |    14 | 192x47 |    16 | 160x41 |
 | Consolas            |    13 | 192x49 |    16 | 160x40 |
+| Victor Mono         |    14 | 192x47 |    16 | 160x41 |
 | Terminus TTF        |    15 | 192x47 |    18 | 160x39 |
 | _24" Faux CGA_      |       |        | 12x30 | 160x36 |
+| Mplus Code 60       |    13 | 192x43 |    15 | 160x36 |
+| Mplus Code Latin 50 |    15 | 192x43 |    18 | 160x36 |
 | Iosevka             |    15 | 192x41 |    18 | 160x34 |
+| Mplus Code 50       |    15 | 192x36 |    18 | 160x30 |
 
 #### Optimal rendering of common fonts
 
@@ -103,9 +108,10 @@ For sanity and reproducability reasons, I tested integer pixel values only. Poin
 
 Sorted by smallest legitable size, and if multiple styles, by best scoring width/weight (in italic).
 
-| Name            | Width           |   Weight | Points  | Pixels |   Layout |
+| Name            | Width/Variant   |   Weight | Points  | Pixels |   Layout |
 | --------------- | --------------- | -------: | ------- | -----: | -------: |
 | Terminus TTF    |                 |  Regular | 9       |     12 |   240x67 |
+| Berkeley Mono   |                 |  Regular | 9.75    |     13 |   240x63 |
 | Sudo            |                 |   Normal | 17.25   |     23 |   192x47 |
 |                 |                 | _Medium_ | _13.5_  |   _18_ | _240x60_ |
 | IBM Plex        |                 |   Normal | 14.25   |     19 |   174x35 |
@@ -122,6 +128,16 @@ Sorted by smallest legitable size, and if multiple styles, by best scoring width
 |                 |                 | _Medium_ | _11.25_ |   _15_ | _213x60_ |
 | Cascadia        |                 |  Regular | 15      |     20 |   160x45 |
 |                 |                 | _Medium_ | _12_    |   _16_ | _213x56_ |
+| Mplus           | 1 Code          |   Normal | 15.75   |     20 |   174x38 |
+|                 | _1 Code_        | _Medium_ | _12.75_ |   _17_ | _213x47_ |
+|                 | Code 50         |   Normal | 15.75   |     20 |   174x32 |
+|                 | Code 50         |   Medium | 12.75   |     17 |   213x40 |
+|                 | Code Latin 50   |   Normal | 15.75   |     21 |   174x38 |
+|                 | _Code Latin 50_ | _Medium_ | _12.75_ |   _17_ | _213x47_ |
+|                 | Code 60         |   Normal | 15.75   |     21 |   147x32 |
+|                 | Code 60         |   Medium | 12      |     16 |   192x43 |
+|                 | Code Latin 60   |   Normal | 15.75   |     21 |   147x38 |
+|                 | Code Latin 60   |   Medium | 12      |     16 |   192x51 |
 | Fira Code       |                 |  Regular | 15.75   |     21 |   147x43 |
 |                 |                 | _Medium_ | _13.5_  |   _18_ | _192x54_ |
 | Source Code Pro |                 |  Regular | 13.5    |     18 |   174x47 |
