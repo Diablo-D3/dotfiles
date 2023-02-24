@@ -4,24 +4,24 @@ import:
 
 font:
   normal:
-    family: Input Mono
+    family: M PLUS Code Latin 60
     style: Regular
   bold:
-    family: Input Mono
+    family: M PLUS Code Latin 60
     style: Bold
   italic:
-    family: Input Mono
+    family: M PLUS Code Latin 60
     style: Italic
   bold_italic:
-    family: Input Mono
+    family: M PLUS Code Latin 60
     style: Bold Italic
-  size: 12 # 16px, gives 192x54 on 1080p
+  size: 10.5 # 13px, gives 240x63 on 1080p
   offset:
     x: 0
-    y: 1
+    y: 0
   glyph_offset:
     x: 0
-    y: 1
+    y: 0
 
 shell:
   program: wsl.exe

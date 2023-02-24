@@ -230,14 +230,14 @@
       "cursorShape": "filledBox",
       "experimental.retroTerminalEffect": false,
       "font": {
-        "face": "Input Mono",
-        "size": 12,
+        "face": "M PLUS Code Latin 60",
+        "size": 10.5,
         "weight": "normal"
       },
       "intenseTextStyle": "bold",
       "padding": 0,
       "scrollbarState": "hidden",
-      "useAtlasEngine": false
+      "useAtlasEngine": true
     },
     "list": [
       {
@@ -283,5 +283,23 @@
     }
   ],
   "showTabsInTitlebar": false,
+  "theme": "Default",
+  "themes": [
+    {
+      "name": "Default",
+      "tab": {
+        "background": "accent",
+        "unfocusedBackground": "terminalBackground"
+      },
+      "tabRow": {
+        "background": "terminalBackground",
+        "unfocusedBackground": "terminalBackground"
+      },
+      "window": {
+        "applicationTheme": "dark",
+        "useMica": false
+      }
+    }
+  ],
   "useAcrylicInTabRow": false
 }
