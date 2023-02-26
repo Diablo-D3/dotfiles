@@ -68,7 +68,7 @@ Note: Windows Terminal and Alacritty do not agree on cell height; often, Alacrit
 Sorted from widest to tallest
 
 | Name                |  Size | Layout |  Size | Layout |
-| ------------------- | ----: | ------ | ----: | ------ | --- |
+| ------------------- | ----: | ------ | ----: | ------ |
 | MonoLisa            |    11 | 192x61 |    13 | 160x52 |
 | Lucida Console      |    12 | 192x60 |    15 | 160x51 |
 | Anonymous Pro       |    14 | 192x56 |    16 | 160x47 |
@@ -85,7 +85,7 @@ Sorted from widest to tallest
 | _24" Faux VT100_    | 10x20 | 192x54 |       |        |
 | IBM Plex Mono       |    12 | 192x54 |    15 | 160x40 |
 | Jetbrains Mono      |    12 | 192x54 |    16 | 160x41 |
-| Berkeley Mono       |    12 | 192x54 |    15 | 160x43 |     |
+| Berkeley Mono       |    12 | 192x54 |    15 | 160x43 |
 | Inconsolata         |    15 | 192x51 |    18 | 160x41 |
 | Mplus Code Latin 60 |    12 | 192x51 |    15 | 160x43 |
 | Hasklig             |    13 | 192x49 |    15 | 160x41 |
