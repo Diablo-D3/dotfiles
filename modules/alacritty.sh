@@ -5,16 +5,18 @@ if [ -n "${wsl+set}" ]; then
 fi
 
 fonts="$HOME/.fonts"
+term="ttf-iosevka-term"
+aile="ttf-iosevka-aile"
 
 _mkdir "$fonts"
 
-_gh_dl "be5invis" "iosevka" "ttf-iosevka-term" "-VER" ".zip" "$fonts/iosevka-term-regular.ttf"
-_gh_dl "be5invis" "iosevka" "ttf-iosevka-aile" "-VER" ".zip" "$fonts/iosevka-aile-regular.ttf"
+_gh_dl "be5invis" "iosevka" "$term" "-VER" ".zip" "$fonts/$term-regular.ttf"
+_gh_dl "be5invis" "iosevka" "$aile" "-VER" ".zip" "$fonts/$aile-regular.ttf"
 
-if [ -f "/tmp/ttf-iosevka-term.zip" ]; then
-    unzip -qqjo "/tmp/ttf-iosevka-term.zip" "iosevka-term-extended*ttf" -d "$fonts"
-    unzip -qqjo "/tmp/ttf-iosevka-aile.zip" "iosevka*ttf" -d "$fonts"
-    rm -f "/tmp/ttf-iosevka-term.zip" "/tmp/ttf-iosevka-aile.zip"
+if [ -f "/tmp/$term.zip" ] || [ -f "/tmp/$aile" ]; then
+    unzip -qqjo "/tmp/ttf-iosevka-term.zip" "*extended*ttf" -d "$fonts"
+    unzip -qqjo "/tmp/ttf-iosevka-aile.zip" "*ttf" -d "$fonts"
+    rm -f "/tmp/$term.zip" "/tmp/$aile.zip"
 
     if [ -n "${wsl+set}" ]; then
         oldpwd="$PWD"
