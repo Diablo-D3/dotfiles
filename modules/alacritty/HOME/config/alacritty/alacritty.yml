@@ -4,23 +4,23 @@ import:
 
 font:
   normal:
-    family: M PLUS Code Latin 60
-    style: Regular
+    family: Iosevka Term
+    style: Extended
   bold:
-    family: M PLUS Code Latin 60
-    style: Bold
+    family: Iosevka Term
+    style: Bold Extended
   italic:
-    family: M PLUS Code Latin 60
-    style: Italic
+    family: Iosevka Term
+    style: Italic Extended
   bold_italic:
-    family: M PLUS Code Latin 60
-    style: Bold Italic
-  size: 10.5 # 13px, gives 240x63 on 1080p
+    family: Iosevka Term
+    style: Bold Italic Extended
+  size: 18.75 # 13px, gives 240x63 on 1080p
   offset:
-    x: 0
+    x: 1
     y: 0
   glyph_offset:
-    x: 0
+    x: 1
     y: 0
 
 shell:

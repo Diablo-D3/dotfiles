@@ -230,8 +230,8 @@
       "cursorShape": "filledBox",
       "experimental.retroTerminalEffect": false,
       "font": {
-        "face": "M PLUS Code Latin 60",
-        "size": 10.5,
+        "face": "Iosevka Term",
+        "size": 18.75,
         "weight": "normal"
       },
       "intenseTextStyle": "bold",
