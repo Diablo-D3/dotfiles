@@ -30,7 +30,7 @@ shell:
 
 window:
   dimensions:
-    columns: 132
+    columns: 80
     lines: 25
 
   dynamic_title: true

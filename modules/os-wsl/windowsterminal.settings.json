@@ -220,7 +220,7 @@
     "Windows.Terminal.Azure",
     "Windows.Terminal.PowershellCore"
   ],
-  "initialCols": 132,
+  "initialCols": 80,
   "initialRows": 25,
   "profiles": {
     "defaults": {
