@@ -2,6 +2,10 @@ import:
   - ~/.config/alacritty/keys.yml
   - ~\AppData\Roaming\alacritty\keys.yml
 
+env:
+  TERM: alacritty
+  WSLENV: TERM/u
+
 font:
   normal:
     family: Iosevka Term
