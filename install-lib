@@ -229,6 +229,7 @@ function _git_list {
                         local short="${target##*/}"
                         echo -e "$hiblue>$reset $blue$short$reset"
                         git -C "$target" log --color "$orig_head".."$new_head"
+                        echo ""
                     } >> "$log"
                 fi
             fi
