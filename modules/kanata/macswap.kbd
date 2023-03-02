@@ -1,0 +1,29 @@
+#|
+    Kanata
+
+    CapsLock tap to Esc
+    CapsLock hold to Ctrl
+    Right Command to Ctrl+Alt+Win+Shift (Hyper on Win/OSX)
+    Right Option to Menu
+
+    Swap Left Option/Command (Alt/Meta) to Meta/Alt
+|#
+
+(defcfg
+    process-unmapped-keys no
+)
+
+(defsrc
+    caps rmet ralt
+    lalt lmet
+)
+
+(deflayer default
+    @cac @hyp cmp
+    lmet lalt
+)
+
+(defalias
+    cac (tap-hold 200 200 esc lctrl)
+    hyp (multi lctrl lmet lalt lshft)
+)

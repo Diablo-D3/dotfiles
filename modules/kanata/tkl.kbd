@@ -1,0 +1,27 @@
+#|
+    Kanata
+
+    CapsLock tap to Esc
+    CapsLock hold to Ctrl
+    Right Alt to Ctrl+Alt+Win+Shift (Hyper on Win/OSX)
+    Right Win to Menu
+    Right Menu to Ctrl+Alt (AltGr emulation)
+|#
+
+(defcfg
+    process-unmapped-keys no
+)
+
+(defsrc
+    caps ralt rmet cmp
+)
+
+(deflayer default
+    @cac @hyp cmp @agr
+)
+
+(defalias
+    cac (tap-hold 200 200 esc lctrl)
+    hyp (multi lctrl lmet lalt lshft)
+    agr (multi lshft ralt)
+)

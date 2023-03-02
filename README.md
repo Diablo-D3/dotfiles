@@ -30,9 +30,9 @@ Enable Developer Mode in Developer Settings, enable unsigned Powershell executio
 
 `. ${env:USERPROFILE}\install-task.ps1 WSL2 wsl2.ps1` [&#10149;](./modules/os-wsl/install-task.ps1) to install the scheduled task of `wsl.ps1` [&#10149;](./modules/os-wsl/wsl2.ps1), using `hidden_powershell`[&#10149;](./modules/os-wsl/hidden_powershell.js) to start services inside of WSL2 and properly setup the Windows firewall and port forwarding upon Windows user login.
 
-### kmonad on Windows
+### Kanata on Windows
 
-`. ${env:USERPROFILE}\install-task.ps1 kmonad kmonad\kmonad.ps1 name.kbd` to install kmonad as a service [&#10149;](./modules/os-wsl/kmonad.ps1); includes copying `kmonad.exe.new` to `kmonad.exe` to facilitate seamless upgrades.
+`. ${env:USERPROFILE}\install-task.ps1 kanata kanata\kanata.ps1 name.kbd` to install kanata as a service [&#10149;](./modules/os-wsl/kanata.ps1); includes copying `kanata.exe.new` to `kanata.exe` to facilitate seamless upgrades.
 
 ### Apple Multitouch
 
