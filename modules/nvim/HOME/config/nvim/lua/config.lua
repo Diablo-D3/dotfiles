@@ -34,7 +34,7 @@ mini_ai.setup({
         f = treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
         c = treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
     },
-    search_method = 'cover'
+    search_method = 'cover_or_nearest'
 })
 
 vim.keymap.set('n', "]f", function() mini_ai.move_cursor("left", "a", "f", { search_method = "next" }) end, keyopts)
