@@ -1,4 +1,5 @@
 set number relativenumber
+set clipboard+=unnamedplus
 set autoindent expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set wrap
 
