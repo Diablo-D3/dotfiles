@@ -1,16 +1,8 @@
 set number relativenumber
-set laststatus=3
-set clipboard+=unnamedplus
-set mouse=a
-set termguicolors
-set splitkeep=screen
-
-set autoindent smartindent expandtab tabstop=4 softtabstop=4 shiftwidth=4
+set autoindent expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set wrap
 
-set hidden
 set noswapfile
-set undofile
 
 let mapleader = "\<Space>"
 

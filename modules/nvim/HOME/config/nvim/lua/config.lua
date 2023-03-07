@@ -58,6 +58,9 @@ mini_animate.setup({
     }
 })
 
+-- mini.basics
+require('mini.basics').setup({})
+
 -- mini.bracketed
 require('mini.bracketed').setup({})
 
