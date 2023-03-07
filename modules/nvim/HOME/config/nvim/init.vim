@@ -2,6 +2,7 @@ set number relativenumber
 set autoindent expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set wrap
 
+set hidden
 set noswapfile
 
 let mapleader = "\<Space>"
