@@ -293,6 +293,7 @@ vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 -- https://github.com/nvim-treesitter/nvim-treesitter-refactor
 -- https://github.com/nvim-treesitter/nvim-treesitter-context
 
+-- https://github.com/HiPhish/nvim-ts-rainbow2
 require('nvim-treesitter.install').update({
     with_sync = true
 })
@@ -329,8 +330,6 @@ require('nvim-treesitter.configs').setup({
     },
     rainbow = {
         enable = true,
-        extended_mode = true
-    }
 })
 
 vim.cmd [[
