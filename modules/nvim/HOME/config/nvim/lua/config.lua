@@ -37,9 +37,6 @@ mini_ai.setup({
     search_method = 'cover_or_nearest'
 })
 
-vim.keymap.set('n', "]f", function() mini_ai.move_cursor("left", "a", "f", { search_method = "next" }) end, keyopts)
-vim.keymap.set('n', "[f", function() mini_ai.move_cursor("left", "a", "f", { search_method = "prev" }) end, keyopts)
-
 -- mini.animate
 local mini_animate = require('mini.animate')
 local quartic = mini_animate.gen_timing.quartic
@@ -60,6 +57,9 @@ mini_animate.setup({
         enable = false
     }
 })
+
+-- mini.bracketed
+require('mini.bracketed').setup({})
 
 -- mini.bufremove
 local mini_bufremove = require('mini.bufremove')

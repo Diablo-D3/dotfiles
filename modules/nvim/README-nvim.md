@@ -52,20 +52,27 @@ I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [
 
 ### `[`/`]` operator pairs
 
-Many of these take capitals to do first/last instead of next/prev, many of these take a count; the heavy lifting is provided by [vim-unimpaired](https://github.com/tpope/vim-unimpaired), but also some by [mini.nvim](https://github.com/echasnovski/mini.nvim).
+Many of these take capitals to do first/last instead of next/prev, many of these take a count; the heavy lifting is handled by the various modules of [mini.nvim](https://github.com/echasnovski/mini.nvim). Formerly, I used [vim-unimpaired](https://github.com/tpope/vim-unimpaired).
 
-| Map      | Action                            | Source           |
-| -------- | --------------------------------- | ---------------- |
-| `]a`     | Files in arg list                 | Unimpaired       |
-| `]b`     | Buffers                           | Unimpaired       |
-| `]l`     | Location list                     | Unimpaired       |
-| `]<SPC>` | Add _n_ blank lines               | Unimpaired       |
-| `]e`     | Move line by _n_                  | Unimpaired       |
-| `]p`     | Paste                             | Unimpaired       |
-| `]q`     | Quickfix list                     | Trouble          |
-| `g]`     | Goto specified text object        | Mini-ai          |
-| `]f`     | Functions (Treesitter)            | Mini-ai          |
-| `]i`     | Jump to start/end of indent scope | Mini-indentscope |
+| Map  | Action                            | Source           |
+| ---- | --------------------------------- | ---------------- |
+| `]b` | Buffers                           | Mini-bracketed   |
+| `]c` | Comments                          | Mini-bracketed   |
+| `]x` | Conflict                          | Mini-bracketed   |
+| `]d` | Diagnostic                        | Mini-bracketed   |
+| `]f` | File                              | Mini-bracketed   |
+| `]i` | Indent                            | Mini-bracketed   |
+| `]j` | Jump                              | Mini-bracketed   |
+| `]l` | Location                          | Mini-bracketed   |
+| `]o` | Oldfile                           | Mini-bracketed   |
+| `]q` | Quickfix                          | Mini-bracketed   |
+| `]t` | Treesitter                        | Mini-bracketed   |
+| `]u` | Undo                              | Mini-bracketed   |
+| `]w` | Window                            | Mini-bracketed   |
+| `]y` | Yank                              | Mini-bracketed   |
+| `]q` | Quickfix list                     | Trouble          |
+| `g]` | Goto specified text object        | Mini-ai          |
+| `]i` | Jump to start/end of indent scope | Mini-indentscope |
 
 ### Fugitive
 
