@@ -218,11 +218,6 @@ trouble.setup {
 
 vim.keymap.set('n', '<leader>d', function() trouble.toggle('workspace_diagnostics') end, keyopts)
 vim.keymap.set('n', '<leader>t', function() trouble.toggle('todo') end, keyopts)
-vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
-vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
-vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
-vim.keymap.set('n', 'gr', function() trouble.toggle('lsp_references') end, keyopts)
-vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
 
 local troubleopts = { skip_group = true, jump = true }
 vim.keymap.set('n', '[q', function() trouble.next(troubleopts) end, keyopts)
@@ -473,11 +468,11 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>c', function() fzf.lsp_code_actions() end, bufopts)
     vim.keymap.set('n', 'gq', function() vim.lsp.buf.format { async = true } end, bufopts)
 
-    -- handled by Trouble:
-    -- gd / lsp.buf.definition
-    -- gi / lsp.buf.implementation
-    -- gt / lsp.buf.type_definition
-    -- gr / lsp.buf.references
+    vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
+    vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
+    vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
+    vim.keymap.set('n', 'gr', function() trouble.toggle('lsp_references') end, keyopts)
+    vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
 
     -- format on save
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
