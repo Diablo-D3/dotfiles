@@ -130,8 +130,8 @@ require('mini.statusline').setup({
 
                 local e = (ce > 0) and "E" .. ce .. " " or ""
                 local w = (cw > 0) and "W" .. cw .. " " or ""
-                local i = (ci > 0) and "i" .. ci .. " " or ""
-                local h = (ch > 0) and "h" .. ch .. " " or ""
+                local i = (ci > 0) and "I" .. ci .. " " or ""
+                local h = (ch > 0) and "H" .. ch .. " " or ""
 
                 return vim.trim(e .. w .. i .. h)
             end
