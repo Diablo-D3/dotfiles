@@ -22,18 +22,8 @@ vim.cmd [[
 
 -- mini.ai
 local mini_ai = require('mini.ai')
-local treesitter = mini_ai.gen_spec.treesitter
 mini_ai.setup({
     n_lines = 9001,
-    custom_textobjects = {
-        o = treesitter({
-            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-        }, {}),
-        a = treesitter({ a = "@parameter.outer", i = "@parameter.inner" }, {}),
-        f = treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
-        c = treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
-    },
     search_method = 'cover_or_nearest'
 })
 
@@ -295,11 +285,10 @@ vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 
 -- nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter
--- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 -- https://github.com/nvim-treesitter/nvim-treesitter-refactor
 -- https://github.com/nvim-treesitter/nvim-treesitter-context
-
 -- https://github.com/HiPhish/nvim-ts-rainbow2
+-- https://github.com/RRethy/nvim-treesitter-textsubjects
 require('nvim-treesitter.install').update({
     with_sync = true
 })
@@ -312,20 +301,8 @@ require('nvim-treesitter.configs').setup({
     indent = {
         enable = true
     },
-    textobjects = {
-        select = {
-            enable = false,
-        },
-        move = {
-            enable = false,
-        },
-        lsp_interop = {
-            enable = false,
-        }
-    },
     refactor = {
         highlight_definitions = { enable = true },
-
         smart_rename = {
             enable = true,
             keymaps = {
@@ -336,6 +313,16 @@ require('nvim-treesitter.configs').setup({
     },
     rainbow = {
         enable = true,
+    },
+    textsubjects = {
+        enable = true,
+        prev_selection = ",",
+        keymaps = {
+                ['.'] = 'textsubjects-smart',
+                ['a;'] = 'textsubjects-container-outer',
+                ['i;'] = 'textsubjects-container-inner',
+        }
+    },
 })
 
 vim.cmd [[
