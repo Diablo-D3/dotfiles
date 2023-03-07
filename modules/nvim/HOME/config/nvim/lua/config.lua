@@ -534,7 +534,6 @@ require('lspconfig').html.setup {
 
 require('lspconfig').jsonls.setup {
     on_attach = on_attach,
-    capabilities = cap_snippets,
 }
 
 require('lspconfig').eslint.setup {
