@@ -96,10 +96,11 @@ end
 vim.api.nvim_set_keymap('i', '<CR>', 'v:lua._G.cr_action()', { noremap = true, expr = true })
 
 -- mini.indentscope
-require('mini.indentscope').setup({
+local indentscope = require('mini.indentscope')
+indentscope.setup({
     draw = {
         delay = 0,
-        animation = require('mini.indentscope').gen_animation.none()
+        animation = indentscope.gen_animation.none()
     },
     symbol = "│"
 })
@@ -111,7 +112,8 @@ require('mini.pairs').setup({})
 require('mini.sessions').setup({})
 
 -- mini.statusline
-require('mini.statusline').setup({
+local statusline = require('mini.statusline')
+statusline.setup({
     content = {
         active = function()
             local diagnostics_f = function()
@@ -139,19 +141,19 @@ require('mini.statusline').setup({
                 return vim.trim(e .. w .. i .. h)
             end
 
-            local mode, mode_hl = MiniStatusline.section_mode({ trunc_width = 1 })
+            local mode, mode_hl = statusline.section_mode({ trunc_width = 1 })
             local diagnostics   = diagnostics_f()
             local filename      = '%t'
             local fileinfo      = vim.bo.filetype
             local location      = '%l:%v'
 
-            return MiniStatusline.combine_groups({
+            return statusline.combine_groups({
                 { hl = mode_hl,                  strings = { mode } },
                 { hl = 'MiniStatuslineFilename', strings = { diagnostics } },
                 '%<', -- Mark general truncate point
                 { hl = 'MiniStatuslineDevinfo',  strings = { filename } },
                 '%=', -- End left alignment
-                { hl = 'MiniStatusLineFilename', strings = { fileinfo } },
+                { hl = 'MiniStatuslineFilename', strings = { fileinfo } },
                 { hl = mode_hl,                  strings = { location } },
             })
         end
@@ -166,14 +168,15 @@ vim.opt.laststatus = 3
 require('mini.surround').setup({})
 
 -- mini.trailspace
-require('mini.trailspace').setup({})
+local trailspace = require('mini.trailspace')
+trailspace.setup({})
 
-local trailspace = vim.api.nvim_create_augroup('mini.trailspace', {})
+local au_trailspace = vim.api.nvim_create_augroup('trailspace', {})
 vim.api.nvim_create_autocmd("bufwritepre", {
-    group = trailspace,
+    group = au_trailspace,
     callback = function()
-        MiniTrailspace.trim()
-        MiniTrailspace.trim_last_lines()
+        trailspace.trim()
+        trailspace.trim_last_lines()
     end,
 })
 
@@ -434,7 +437,6 @@ require("formatter").setup {
     filetype = {
         -- prettier
         markdown = { f_ft("markdown", "prettier") },
-
         -- fish
         fish = { f_ft("fish", "fishindent") }
     }
@@ -583,7 +585,6 @@ local rust_tools = require("rust-tools")
 rust_tools.setup({
     server = {
         on_attach = on_attach,
-
         settings = {
             checkonsave = {
                 command = "clippy"
