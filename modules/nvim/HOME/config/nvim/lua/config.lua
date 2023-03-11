@@ -4,6 +4,30 @@
 
 local keyopts = { noremap = true, silent = true }
 
+-- popupify
+local popupify = function(ft)
+    local au = vim.api.nvim_create_augroup(ft .. '_popup', {})
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = ft,
+        group = au,
+        callback = function()
+            local cols = vim.o.columns
+            local rows = vim.o.lines
+
+            vim.opt_local.number = false
+            vim.opt_local.relativenumber = false
+
+            vim.api.nvim_win_set_config(0, {
+                relative = 'editor',
+                col = math.min(cols / 2, cols - 80),
+                row = 0,
+                width = math.max(cols / 2, 80),
+                height = rows - 2,
+            })
+        end
+    })
+end
+
 ------------------------
 -- base functionality --
 ------------------------
@@ -223,24 +247,7 @@ local troubleopts = { skip_group = true, jump = true }
 vim.keymap.set('n', '[q', function() trouble.next(troubleopts) end, keyopts)
 vim.keymap.set('n', ']q', function() trouble.previous(troubleopts) end, keyopts)
 
--- Popupify Trouble
-local troublepopup = vim.api.nvim_create_augroup('TroublePopup', {})
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = "Trouble",
-    group = troublepopup,
-    callback = function()
-        local cols = vim.o.columns
-        local rows = vim.o.lines
-
-        vim.api.nvim_win_set_config(0, {
-            relative = 'editor',
-            col = cols / 2,
-            row = 0,
-            width = cols / 2,
-            height = rows - 2,
-        })
-    end
-})
+popupify("Trouble")
 
 -- fzf-lua
 -- https://github.com/ibhagwan/fzf-lua
