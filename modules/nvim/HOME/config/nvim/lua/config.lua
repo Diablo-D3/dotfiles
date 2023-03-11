@@ -93,9 +93,9 @@ vim.api.nvim_set_keymap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { 
 vim.api.nvim_set_keymap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
 
 local keys = {
-        ['cr']    = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
-        ['ctrl-y'] = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
-        ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
+    ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
+    ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
+    ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
 }
 
 _G.cr_action = function()
@@ -255,8 +255,8 @@ local fzf = require('fzf-lua')
 
 fzf.setup({
     fzf_opts = {
-            ['--info'] = 'hidden',
-            ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2'
+        ['--info'] = 'hidden',
+        ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2'
     },
     buffers = {
         prompt = "> ",
@@ -320,9 +320,9 @@ require('nvim-treesitter.configs').setup({
         enable = true,
         prev_selection = ",",
         keymaps = {
-                ['.'] = 'textsubjects-smart',
-                ['a;'] = 'textsubjects-container-outer',
-                ['i;'] = 'textsubjects-container-inner',
+            ['.'] = 'textsubjects-smart',
+            ['a;'] = 'textsubjects-container-outer',
+            ['i;'] = 'textsubjects-container-inner',
         }
     },
 })
@@ -609,12 +609,12 @@ end
 vim.g.clipboard = {
     name = 'osc52',
     copy = {
-            ['+'] = copy,
-            ['*'] = copy
+        ['+'] = copy,
+        ['*'] = copy
     },
     paste = {
-            ['+'] = paste,
-            ['*'] = paste
+        ['+'] = paste,
+        ['*'] = paste
     },
 }
 
