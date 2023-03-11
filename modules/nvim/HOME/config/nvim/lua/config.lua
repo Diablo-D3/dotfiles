@@ -592,11 +592,21 @@ rust_tools.setup({
 
 -- fugitive
 -- https://github.com/tpope/vim-fugitive
-vim.keymap.set('n', '<leader>g', "<Cmd>Git ++curwin<CR>", keyopts)
+vim.keymap.set('n', '<leader>g', function()
+    if vim.api.nvim_buf_get_option(0, "filetype") == "fugitive" then
+        vim.cmd.close()
+    else
+        vim.cmd.Git()
+    end
+end, keyopts)
+
+popupify("fugitive")
 
 -- vim-osc52
 -- https://github.com/ojroques/nvim-osc52
-require('osc52').setup {}
+require('osc52').setup({
+    silent = true
+})
 
 local function copy(lines, _)
     require('osc52').copy(table.concat(lines, '\n'))
