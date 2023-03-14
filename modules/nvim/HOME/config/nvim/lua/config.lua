@@ -592,7 +592,9 @@ rust_tools.setup({
 -- fugitive
 -- https://github.com/tpope/vim-fugitive
 vim.keymap.set('n', '<leader>g', function()
-    if vim.api.nvim_buf_get_option(0, "filetype") == "fugitive" then
+    if (vim.api.nvim_buf_get_option(0, "filetype") == "fugitive") or
+        (vim.api.nvim_buf_get_option(0, "filetype") == "git") or
+        (vim.api.nvim_buf_get_option(0, "filetype") == "gitcommit") then
         vim.cmd.close()
     else
         vim.cmd.Git()
@@ -600,6 +602,8 @@ vim.keymap.set('n', '<leader>g', function()
 end, keyopts)
 
 popupify("fugitive")
+popupify("git")
+popupify("gitcommit")
 
 -- vim-osc52
 -- https://github.com/ojroques/nvim-osc52
