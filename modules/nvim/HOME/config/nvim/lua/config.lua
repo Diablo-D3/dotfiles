@@ -521,6 +521,7 @@ require('lspconfig').html.setup {
 
 require('lspconfig').jsonls.setup {
     on_attach = on_attach,
+    capabilities = cap_snippets
 }
 
 require('lspconfig').eslint.setup {
@@ -539,7 +540,7 @@ require('lspconfig').lua_ls.setup {
                 version = "LuaJIT"
             },
             diagnostics = {
-                globals = {'vim'}
+                globals = { 'vim' }
             },
             workspace = {
                 checkThirdParty = false,
@@ -564,13 +565,6 @@ require('lspconfig').lemminx.setup {
     on_attach = on_attach
 }
 
--- lsp_signature
--- https://github.com/ray-x/lsp_signature.nvim
---[[
-require('lsp_signature').setup({
-    hint_enable = false,
-})
-]]
 -- rust-tools.nvim
 -- https://github.com/simrat39/rust-tools.nvim
 local rust_tools = require("rust-tools")
