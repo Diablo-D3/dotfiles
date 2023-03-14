@@ -11,19 +11,21 @@ local popupify = function(ft)
         pattern = ft,
         group = au,
         callback = function()
-            local cols = vim.o.columns
-            local rows = vim.o.lines
+            if #(vim.api.nvim_list_wins()) > 1 then
+                local cols = vim.o.columns
+                local rows = vim.o.lines
 
-            vim.opt_local.number = false
-            vim.opt_local.relativenumber = false
+                vim.opt_local.number = false
+                vim.opt_local.relativenumber = false
 
-            vim.api.nvim_win_set_config(0, {
-                relative = 'editor',
-                col = math.min(cols / 2, cols - 80),
-                row = 0,
-                width = math.max(cols / 2, 80),
-                height = rows,
-            })
+                vim.api.nvim_win_set_config(0, {
+                    relative = 'editor',
+                    col = math.min(cols / 2, cols - 80),
+                    row = 0,
+                    width = math.max(cols / 2, 80),
+                    height = rows,
+                })
+            end
         end
     })
 end
