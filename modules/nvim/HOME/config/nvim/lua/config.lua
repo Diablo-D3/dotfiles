@@ -201,7 +201,7 @@ vim.api.nvim_create_autocmd("bufwritepre", {
 
 -- tokyonight.nvim
 -- https://github.com/folke/tokyonight.nvim
-vim.cmd("colorscheme tokyonight-night")
+vim.cmd.colorscheme('tokyonight-night')
 
 -- nvim-colorizer
 -- https://github.com/norcalli/nvim-colorizer.lua
