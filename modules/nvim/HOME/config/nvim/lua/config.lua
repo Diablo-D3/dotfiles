@@ -608,6 +608,19 @@ vim.keymap.set('n', '<leader>g', function()
     end
 end, keyopts)
 
+local fugitive = vim.api.nvim_create_augroup('fugitive_binds', {})
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'fugitive',
+    group = fugitive,
+    callback = function()
+        vim.keymap.set('n', 'cc', function()
+            vim.o.cmdheight = 1
+            vim.cmd.Git('commit')
+            vim.o.cmdheight = 0
+        end, { silent = true, buffer = true })
+    end
+})
+
 popupify("fugitive")
 popupify("git")
 popupify("gitcommit")
