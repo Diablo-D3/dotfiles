@@ -22,7 +22,7 @@ local popupify = function(ft)
                 col = math.min(cols / 2, cols - 80),
                 row = 0,
                 width = math.max(cols / 2, 80),
-                height = rows - 2,
+                height = rows,
             })
         end
     })
@@ -176,7 +176,8 @@ statusline.setup({
     set_vim_settings = true,
 })
 
-vim.opt.laststatus = 3
+vim.o.laststatus = 3
+vim.o.cmdheight = 0
 
 -- mini.surround
 require('mini.surround').setup({})
