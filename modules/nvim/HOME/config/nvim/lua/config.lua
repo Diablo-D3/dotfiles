@@ -379,6 +379,9 @@ require("mason-tool-installer").setup({
         -- bash
         'bash-language-server',
 
+        -- c/c++
+        'clangd',
+
         -- css, less, scss
         'css-lsp',
 
@@ -508,6 +511,10 @@ require('lspconfig').bashls.setup {
             includeAllWorkspaceSymbols = true
         }
     }
+}
+
+require('lspconfig').clangd.setup {
+    on_attach = on_attach,
 }
 
 require('lspconfig').cssls.setup {
