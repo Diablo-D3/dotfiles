@@ -460,30 +460,24 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 -- nvim-lspconfig
 -- https://github.com/neovim/nvim-lspconfig
-local lspfmt = vim.api.nvim_create_augroup('LspFormatting', {})
-
 local on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    vim.api.nvim_buf_set_option(bufnr, 'tagfunc', 'v:lua.vim.lsp.tagfunc')
-    vim.api.nvim_buf_set_option(bufnr, 'formatexpr', 'v:lua.vim.lsp.formatexpr')
+    -- K and gq are defined correctly by default
 
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<leader>c', function() fzf.lsp_code_actions() end, bufopts)
-    vim.keymap.set('n', 'gq', function() vim.lsp.buf.format { async = true } end, bufopts)
-
+    vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', 'gc', function() fzf.lsp_code_actions() end, bufopts)
     vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
     vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
     vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
-    vim.keymap.set('n', 'gr', function() trouble.toggle('lsp_references') end, keyopts)
-    vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
+    vim.keymap.set('n', 'gR', function() trouble.toggle('lsp_references') end, keyopts)
 
     -- format on save
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
-    if client.supports_method("textDocument/formatting") then
+    local lspfmt = vim.api.nvim_create_augroup('LspFormatting', {})
+
+    if client.server_capabilities.documentFormattingProvider then
         vim.api.nvim_clear_autocmds({ group = lspfmt, buffer = bufnr })
         vim.api.nvim_create_autocmd("bufwritepre", {
             group = lspfmt,
@@ -499,7 +493,7 @@ vim.cmd [[
     " https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#highlight-line-number-instead-of-having-icons-in-sign-column
     sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticVirtualTextError
     sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticVirtualTextWarn
-    sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineVirtualTextInfo
+    sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticVirtualTextInfo
     sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticVirtualTextHint
 ]]
 
