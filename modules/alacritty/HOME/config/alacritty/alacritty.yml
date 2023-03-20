@@ -15,13 +15,13 @@ font:
     style: Bold Extended
   italic:
     family: Iosevka Term
-    style: Italic Extended
+    style: Extended Italic
   bold_italic:
     family: Iosevka Term
-    style: Bold Italic Extended
-  size: 18.75 # 13px, gives 240x63 on 1080p
+    style: Bold Extended Italic
+  size: 18 # 24px, gives 137x36 on 1080p
   offset:
-    x: 1
+    x: 0
     y: 0
   glyph_offset:
     x: 1

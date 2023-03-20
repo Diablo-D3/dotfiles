@@ -231,7 +231,7 @@
       "experimental.retroTerminalEffect": false,
       "font": {
         "face": "Iosevka Term",
-        "size": 18.75,
+        "size": 18,
         "weight": "normal"
       },
       "intenseTextStyle": "bold",
