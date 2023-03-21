@@ -435,15 +435,15 @@ require("formatter").setup {
     }
 }
 
-vim.cmd [[
-    " Remapped later in LSP buffers
-    nnoremap <silent> gq <Cmd>Format<CR>
+vim.keymap.set('n', 'gq', function() require("formatter.format").format("", "silent", 0, vim.api.nvim_buf_line_count(0), { lock = true }) end, keyopts)
 
-    augroup FormatterFormatting
-    autocmd!
-    autocmd BufWritePost * FormatWrite
-    augroup END
-]]
+local format = vim.api.nvim_create_augroup("Formatter", {})
+vim.api.nvim_create_autocmd("BufWritePost", {
+    group = format,
+    callback = function()
+        require("formatter.format").format("", "silent", 0, vim.api.nvim_buf_line_count(0), { lock = true, write = true })
+    end
+})
 
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint
@@ -453,7 +453,9 @@ require('lint').linters_by_ft = {
     vim = { 'vint' },
 }
 
+local lint = vim.api.nvim_create_augroup("Lint", {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    group = lint,
     callback = function()
         require("lint").try_lint()
     end,
