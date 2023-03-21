@@ -421,20 +421,18 @@ require("formatter").setup {
     filetype = {
         -- prettier
         markdown = { f_ft("markdown", "prettier") },
-        yaml  = { f_ft("yaml", "prettier") },
+        yaml     = { f_ft("yaml", "prettier") },
         -- fish
-        fish = { f_ft("fish", "fishindent") }
+        fish     = { f_ft("fish", "fishindent") }
     }
 }
 
-vim.keymap.set('n', 'gq', function() require("formatter.format").format("", "silent", 0, vim.api.nvim_buf_line_count(0), { lock = true }) end, keyopts)
+vim.keymap.set('n', 'gq', function() vim.cmd.FormatLock() end, keyopts)
 
 local format = vim.api.nvim_create_augroup("Formatter", {})
 vim.api.nvim_create_autocmd("BufWritePost", {
     group = format,
-    callback = function()
-        require("formatter.format").format("", "silent", 0, vim.api.nvim_buf_line_count(0), { lock = true, write = true })
-    end
+    callback = function() vim.cmd.FormatWriteLock() end
 })
 
 -- nvim-lint
