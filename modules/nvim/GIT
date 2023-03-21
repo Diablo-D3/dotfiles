@@ -34,6 +34,7 @@ https://github.com/mfussenegger/nvim-lint.git,master
 # lsp
 https://github.com/neovim/nvim-lspconfig.git,master
 https://github.com/simrat39/rust-tools.nvim.git,master
+https://github.com/folke/neodev.nvim.git,main
 
 # other language-specific support
 https://github.com/aliva/vim-fish.git,master

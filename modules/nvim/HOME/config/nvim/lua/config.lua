@@ -539,27 +539,6 @@ require('lspconfig').taplo.setup {
     on_attach = on_attach,
 }
 
-require('lspconfig').lua_ls.setup {
-    on_attach = on_attach,
-    settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT"
-            },
-            diagnostics = {
-                globals = { 'vim' }
-            },
-            workspace = {
-                checkThirdParty = false,
-                library = vim.api.nvim_get_runtime_file("", true)
-            },
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
-
 require('lspconfig').vimls.setup {
     on_attach = on_attach
 }
@@ -582,6 +561,25 @@ rust_tools.setup({
         }
     }
 })
+
+-- neodev.nvim
+-- https://github.com/folke/neodev.nvim
+require("neodev").setup({})
+
+-- Setup luals for non-neovim after neodev
+require('lspconfig').lua_ls.setup {
+    on_attach = on_attach,
+    settings = {
+        Lua = {
+            workspace = {
+                checkThirdParty = false,
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
 
 --------------------------------------
 -- other languages-specific support --
