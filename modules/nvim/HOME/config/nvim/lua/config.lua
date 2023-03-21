@@ -393,9 +393,6 @@ require("mason-tool-installer").setup({
         -- html,
         'html-lsp',
 
-        -- js, ts, vue, svelte
-        'eslint-lsp',
-
         -- json
         'json-lsp',
 
@@ -534,10 +531,6 @@ require('lspconfig').html.setup {
 require('lspconfig').jsonls.setup {
     on_attach = on_attach,
     capabilities = cap_snippets
-}
-
-require('lspconfig').eslint.setup {
-    on_attach = on_attach,
 }
 
 require('lspconfig').taplo.setup {
