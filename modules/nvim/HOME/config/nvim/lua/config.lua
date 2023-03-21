@@ -133,21 +133,13 @@ statusline.setup({
     content = {
         active = function()
             local diagnostics_f = function()
-                local hasnt_attached_client = next(vim.lsp.buf_get_clients()) == nil
+                local hasnt_attached_client = next(vim.lsp.get_active_clients({ buffer = 0 })) == nil
                 if (vim.bo.buftype ~= '' or hasnt_attached_client) then return '' end
 
-                local diagnostics = vim.diagnostic.get(0)
-                local count = { 0, 0, 0, 0 }
-                for _, diagnostic in ipairs(diagnostics) do
-                    if vim.startswith(vim.diagnostic.get_namespace(diagnostic.namespace).name, 'vim.lsp') then
-                        count[diagnostic.severity] = count[diagnostic.severity] + 1
-                    end
-                end
-
-                local ce = count[vim.diagnostic.severity.ERROR]
-                local cw = count[vim.diagnostic.severity.WARN]
-                local ci = count[vim.diagnostic.severity.INFO]
-                local ch = count[vim.diagnostic.severity.HINT]
+                local ce = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.ERROR }))
+                local cw = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.WARN }))
+                local ci = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.INFO }))
+                local ch = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.HINT }))
 
                 local e = (ce > 0) and "E" .. ce .. " " or ""
                 local w = (cw > 0) and "W" .. cw .. " " or ""
