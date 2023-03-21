@@ -371,6 +371,9 @@ require("mason-tool-installer").setup({
         -- sh
         -- deb: 'shellcheck',
 
+        -- yaml
+        -- deb: 'yamllint'
+
         -- vim
         'vint',
 
@@ -408,9 +411,6 @@ require("mason-tool-installer").setup({
         -- vim
         'vim-language-server',
 
-        -- yaml
-        'yaml-language-server',
-
         -- xml, xsd, xsl, xslt, svg
         'lemminx',
     },
@@ -432,6 +432,7 @@ require("formatter").setup {
     filetype = {
         -- prettier
         markdown = { f_ft("markdown", "prettier") },
+        yaml  = { f_ft("yaml", "prettier") },
         -- fish
         fish = { f_ft("fish", "fishindent") }
     }
@@ -451,6 +452,7 @@ vim.cmd [[
 -- https://github.com/mfussenegger/nvim-lint
 require('lint').linters_by_ft = {
     -- markdown = { 'markdownlint' },
+    yaml = { 'yamllint' },
     vim = { 'vint' },
 }
 
@@ -564,10 +566,6 @@ require('lspconfig').lua_ls.setup {
 }
 
 require('lspconfig').vimls.setup {
-    on_attach = on_attach
-}
-
-require('lspconfig').yamlls.setup {
     on_attach = on_attach
 }
 
