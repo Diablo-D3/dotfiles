@@ -3,28 +3,57 @@
 ------------
 
 local keyopts = { noremap = true, silent = true }
+local local_keyopts = { noremap = true, silent = true, buffer = true }
 
 -- popupify
-local popupify = function(ft)
-    local au = vim.api.nvim_create_augroup(ft .. '_popup', {})
+local zindexfix = vim.api.nvim_create_augroup("popup_zindexfix", {})
+vim.api.nvim_create_autocmd('WinEnter', {
+    group = zindexfix,
+    callback = function()
+        local win = vim.api.nvim_win_get_config(0)
+
+        if win.relative ~= '' then
+            vim.w.old_zindex = win.zindex
+            win.zindex = 99
+            vim.api.nvim_win_set_config(0, win)
+        end
+    end
+})
+
+vim.api.nvim_create_autocmd('WinLeave', {
+    group = zindexfix,
+    callback = function()
+        local win = vim.api.nvim_win_get_config(0)
+
+        if win.relative ~= '' then
+            win.zindex = vim.w.old_zindex
+            vim.api.nvim_win_set_config(0, win)
+        end
+    end
+})
+
+local popupify = function(ft, callback)
+    local popup = vim.api.nvim_create_augroup('popup_' .. ft, {})
     vim.api.nvim_create_autocmd('FileType', {
         pattern = ft,
-        group = au,
+        group = popup,
         callback = function()
             if #(vim.api.nvim_list_wins()) > 1 then
                 local cols = vim.o.columns
                 local rows = vim.o.lines
 
-                vim.opt_local.number = false
-                vim.opt_local.relativenumber = false
-
                 vim.api.nvim_win_set_config(0, {
                     relative = 'editor',
+                    style = "minimal",
                     col = math.min(cols / 2, cols - 80),
                     row = 0,
                     width = math.max(cols / 2, 80),
                     height = rows,
                 })
+
+                if callback then
+                    callback()
+                end
             end
         end
     })
@@ -581,32 +610,21 @@ require('lspconfig').lua_ls.setup {
 
 -- fugitive
 -- https://github.com/tpope/vim-fugitive
-vim.keymap.set('n', '<leader>g', function()
-    if (vim.api.nvim_buf_get_option(0, "filetype") == "fugitive") or
-        (vim.api.nvim_buf_get_option(0, "filetype") == "git") or
-        (vim.api.nvim_buf_get_option(0, "filetype") == "gitcommit") then
-        vim.cmd.close()
-    else
-        vim.cmd.Git()
-    end
-end, keyopts)
+vim.keymap.set('n', '<leader>g', function() vim.cmd.Git() end, keyopts)
 
-local fugitive = vim.api.nvim_create_augroup('fugitive_binds', {})
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'fugitive',
-    group = fugitive,
-    callback = function()
-        vim.keymap.set('n', 'cc', function()
-            vim.o.cmdheight = 1
-            vim.cmd.Git('commit')
-            vim.o.cmdheight = 0
-        end, { silent = true, buffer = true })
-    end
-})
+local fugitive_keymap = function()
+    vim.keymap.set('n', '<leader>g', function() vim.cmd.close() end, local_keyopts)
 
-popupify("fugitive")
-popupify("git")
-popupify("gitcommit")
+    vim.keymap.set('n', 'cc', function()
+        vim.o.cmdheight = 1
+        vim.cmd.Git('commit')
+        vim.o.cmdheight = 0
+    end, local_keyopts)
+end
+
+popupify("fugitive", fugitive_keymap)
+popupify("git", fugitive_keymap)
+popupify("gitcommit", fugitive_keymap)
 
 -- vim-osc52
 -- https://github.com/ojroques/nvim-osc52
