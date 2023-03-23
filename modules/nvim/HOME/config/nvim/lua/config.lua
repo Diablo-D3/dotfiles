@@ -87,7 +87,7 @@ local mini_animate = require('mini.animate')
 local quartic = mini_animate.gen_timing.quartic
 mini_animate.setup({
     cursor = {
-        timing = quartic({ duration = 33.3, unit = 'total' }),
+        enable = false
     },
     scroll = {
         timing = quartic({ duration = 33.3, unit = 'total' }),
