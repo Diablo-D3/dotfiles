@@ -509,6 +509,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
         vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
         vim.keymap.set('n', 'gc', function() fzf.lsp_code_actions() end, bufopts)
         vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
         vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
