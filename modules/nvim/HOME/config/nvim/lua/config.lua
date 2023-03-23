@@ -288,20 +288,35 @@ fzf.setup({
     grep = {
         prompt = "> ",
         no_header_i = true,
+        continue_last_search = true,
+        fzf_cli_args = '--with-nth=4..'
     },
     files = {
         prompt = "> ",
         fzf_opts = { ['--scheme'] = "path" },
-    }
+    },
+    winopts_fn = function()
+        local cols = vim.o.columns
+        local rows = vim.o.lines
+
+        return {
+            -- col = math.min(cols / 2, cols - 80),
+            col = 0,
+            row = 0,
+            -- width = math.max(cols / 2, 80),
+            width = cols,
+            height = rows,
+            border = false,
+            preview = {
+                horizontal = "left:" .. math.max(cols / 2, 80),
+                layout = "horizontal"
+            }
+        }
+    end
 })
 
-vim.keymap.set('n', '/', function()
-    fzf.lgrep_curbuf({
-        fzf_cli_args = '--with-nth 4..',
-        exec_empty_query = false
-    })
-end, keyopts)
-vim.keymap.set('n', '<leader>/', function() fzf.live_grep_native({ fzf_cli_args = '--with-nth 4..' }) end, keyopts)
+vim.keymap.set('n', '/', function() fzf.lgrep_curbuf({ exec_empty_query = false }) end, keyopts)
+vim.keymap.set('n', '<leader>/', function() fzf.live_grep_native() end, keyopts)
 vim.keymap.set('n', '<C-`>', function() fzf.buffers() end, keyopts)
 vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 
