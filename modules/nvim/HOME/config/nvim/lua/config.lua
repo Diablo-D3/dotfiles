@@ -300,10 +300,8 @@ fzf.setup({
         local rows = vim.o.lines
 
         return {
-            -- col = math.min(cols / 2, cols - 80),
             col = 0,
             row = 0,
-            -- width = math.max(cols / 2, 80),
             width = cols,
             height = rows,
             border = false,
@@ -501,34 +499,36 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 -- nvim-lspconfig
 -- https://github.com/neovim/nvim-lspconfig
-local on_attach = function(client, bufnr)
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+local lspconfig = require('lspconfig')
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('LspConfig', {}),
+    callback = function(ev)
+        local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 
-    -- K and gq are defined correctly by default
+        -- K and gq are defined correctly by default
 
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', 'gc', function() fzf.lsp_code_actions() end, bufopts)
-    vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
-    vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
-    vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
-    vim.keymap.set('n', 'gR', function() trouble.toggle('lsp_references') end, keyopts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
+        vim.keymap.set('n', 'gc', function() fzf.lsp_code_actions() end, bufopts)
+        vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
+        vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
+        vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
+        vim.keymap.set('n', 'gR', function() trouble.toggle('lsp_references') end, keyopts)
 
-    -- format on save
-    -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
-    local lspfmt = vim.api.nvim_create_augroup('LspFormatting', {})
-
-    if client.server_capabilities.documentFormattingProvider then
-        vim.api.nvim_clear_autocmds({ group = lspfmt, buffer = bufnr })
-        vim.api.nvim_create_autocmd("bufwritepre", {
-            group = lspfmt,
-            buffer = bufnr,
-            callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr })
-            end,
-        })
-    end
-end
+        -- format on save
+        -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client.server_capabilities.documentFormattingProvider then
+            vim.api.nvim_create_autocmd("bufwritepre", {
+                group = vim.api.nvim_create_augroup('LspFmt', {}),
+                buffer = ev.buf,
+                callback = function()
+                    vim.lsp.buf.format({ bufnr = ev.buf })
+                end,
+            })
+        end
+    end,
+})
 
 vim.cmd [[
     " https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#highlight-line-number-instead-of-having-icons-in-sign-column
@@ -538,48 +538,27 @@ vim.cmd [[
     sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticVirtualTextHint
 ]]
 
-local cap_snippets = vim.lsp.protocol.make_client_capabilities()
-cap_snippets.textDocument.completion.completionItem.snippetSupport = true
-
-require('lspconfig').bashls.setup {
-    on_attach = on_attach,
+lspconfig.bashls.setup({
     settings = {
         bashIde = {
             includeAllWorkspaceSymbols = true
         }
     }
-}
+})
 
-require('lspconfig').clangd.setup {
-    on_attach = on_attach,
-}
+lspconfig.clangd.setup({})
 
-require('lspconfig').cssls.setup {
-    on_attach = on_attach,
-    capabilities = cap_snippets
-}
+lspconfig.cssls.setup({})
 
-require('lspconfig').html.setup {
-    on_attach = on_attach,
-    capabilities = cap_snippets
-}
+lspconfig.html.setup({})
 
-require('lspconfig').jsonls.setup {
-    on_attach = on_attach,
-    capabilities = cap_snippets
-}
+lspconfig.jsonls.setup({})
 
-require('lspconfig').taplo.setup {
-    on_attach = on_attach,
-}
+lspconfig.taplo.setup({})
 
-require('lspconfig').vimls.setup {
-    on_attach = on_attach
-}
+lspconfig.vimls.setup({})
 
-require('lspconfig').lemminx.setup {
-    on_attach = on_attach
-}
+lspconfig.lemminx.setup({})
 
 -- rust-tools.nvim
 -- https://github.com/simrat39/rust-tools.nvim
@@ -587,7 +566,6 @@ local rust_tools = require("rust-tools")
 
 rust_tools.setup({
     server = {
-        on_attach = on_attach,
         settings = {
             checkonsave = {
                 command = "clippy"
@@ -601,8 +579,7 @@ rust_tools.setup({
 require("neodev").setup({})
 
 -- Setup luals for non-neovim after neodev
-require('lspconfig').lua_ls.setup {
-    on_attach = on_attach,
+lspconfig.lua_ls.setup({
     settings = {
         Lua = {
             workspace = {
@@ -613,7 +590,7 @@ require('lspconfig').lua_ls.setup {
             },
         },
     },
-}
+})
 
 --------------------------------------
 -- other languages-specific support --
