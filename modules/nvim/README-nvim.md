@@ -35,20 +35,23 @@ I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [
 | `<leader>f`         | Fuzzy find files                 |
 | `<leader>d`         | Diagnostics list                 |
 | `<leader>t`         | Todo list                        |
-| `<leader>c`         | LSP Code Action list             |
 
-### LSP and the `g` operator gotos
+### LSP and the `g` operators
 
-| Map         | Stock Neovim                  | nvim-lspconfig          |
-| ----------- | ----------------------------- | ----------------------- |
-| `gd`        | Goto local declaration        | lsp.buf.definition      |
-| `gD`        | Goto global declaration       | lsp.buf.declaration     |
-| `gi`        | Unrelated (insert at '^ mark) | lsp.buf.implementation  |
-| `gt`        | Unrelated (goto next tab)     | lsp.buf.type_definition |
-| `gq`        | Format                        | lsp.buf.formatting      |
-| `gr`        | Unrelated (replace chars)     | lsp.buf.references      |
-| `K`         | Run keywordprog               | lsp.vim.lsp.hover       |
-| `<leader>r` | Unrelated (unmapped)          | lsp.buf.rename          |
+The g operator means 'global', but also shares a mnemonic with 'goto'. Some of these are handled with Trouble or fzf-lua when available.
+
+| Map     | Stock Neovim                  | nvim-lspconfig              |
+| ------- | ----------------------------- | --------------------------- |
+| `gd`    | Goto local declaration        | vim.lsp.buf.definition      |
+| `gD`    | Goto global declaration       | vim.lsp.buf.declaration     |
+| `gi`    | Unrelated (insert at '^ mark) | vim.lsp.buf.implementation  |
+| `gq`    | Format                        | vim.lsp.buf.formatting      |
+| `gt`    | Unrelated (goto next tab)     | vim.lsp.buf.type_definition |
+| `gr`    | Unrelated (replace chars)     | vim.lsp.buf.rename          |
+| `gR`    | Unrelated (replace chars)     | vim.lsp.buf.references      |
+| `g.`    | Unbound                       | vim.lsp.buf.hover           |
+| `K`     | Run keywordprog               | vim.lsp.buf.hover           |
+| `<C-k>` | Unrelated (diagraph)          | vim.lsp.buf.signature_help  |
 
 ### `[`/`]` operator pairs
 
@@ -70,7 +73,6 @@ Many of these take capitals to do first/last instead of next/prev, many of these
 | `]u` | Undo                              | Mini-bracketed   |
 | `]w` | Window                            | Mini-bracketed   |
 | `]y` | Yank                              | Mini-bracketed   |
-| `]q` | Quickfix list                     | Trouble          |
 | `g]` | Goto specified text object        | Mini-ai          |
 | `]i` | Jump to start/end of indent scope | Mini-indentscope |
 
@@ -80,11 +82,10 @@ Many of these take capitals to do first/last instead of next/prev, many of these
 
 | Map         | Action                     |
 | ----------- | -------------------------- |
-| `<leader>g` | Open Fugitive status       |
+| `<leader>g` | Toggle Fugitive window     |
 | `<CR>/o`    | Open file in split         |
 | `>`/`<`     | Inline diff open and close |
-| `s`         | Stage hunk                 |
-| `u`         | Unstage hunk               |
+| `s` / `u`   | Stage or unstage hunk      |
 | `]c`/`]c`   | Hunk forwards/backwards    |
 | `cc`        | Commit                     |
 | `ca`        | Amend commit               |
@@ -93,7 +94,7 @@ Many of these take capitals to do first/last instead of next/prev, many of these
 
 Vim textobjects often come with `a`, `i`, and `o` prefixes, for around, inner, and outer; inner only selects whats inside the block, around selects whats inside and the block itself, and outer selects the entire block that contains the selector. Outer and around are usually the same thing.
 
-[Mini-ai](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md) allows rapid construction of textobjects and operators on them. Formerly, I used [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) directly for Treesitter textobjects, instead of through Mini-ai.
+[Mini-ai](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md) and [nvim-treesitter-textsubjects](https://github.com/RRethy/nvim-treesitter-textsubjects) adds flexibility to what I can do with textobjects. Formerly, I used [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects).
 
 [Mini-comment](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-comment.md) allows you to comment code using the `gc` operator. Formerly, I used [vim-commentary](https://github.com/tpope/vim-commentary).
 

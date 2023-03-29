@@ -51,9 +51,7 @@ local popupify = function(ft, callback)
                     height = rows,
                 })
 
-                if callback then
-                    callback()
-                end
+                if callback then callback() end
             end
         end
     })
@@ -267,10 +265,6 @@ trouble.setup {
 vim.keymap.set('n', '<leader>d', function() trouble.toggle('workspace_diagnostics') end, keyopts)
 vim.keymap.set('n', '<leader>t', function() trouble.toggle('todo') end, keyopts)
 
-local troubleopts = { skip_group = true, jump = true }
-vim.keymap.set('n', '[q', function() trouble.next(troubleopts) end, keyopts)
-vim.keymap.set('n', ']q', function() trouble.previous(troubleopts) end, keyopts)
-
 popupify("Trouble")
 
 -- fzf-lua
@@ -383,7 +377,7 @@ require("mason-tool-installer").setup({
     ensure_installed = {
         -----------
         -- tools --
-        -- --------
+        -----------
 
         -- markdown
         'glow',
@@ -505,16 +499,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 
-        -- K and gq are defined correctly by default
-
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-        vim.keymap.set('n', 'gc', function() fzf.lsp_code_actions() end, bufopts)
         vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
         vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
+        -- gq stock calls formatexpr when set
         vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
         vim.keymap.set('n', 'gR', function() trouble.toggle('lsp_references') end, keyopts)
+        vim.keymap.set('n', 'g.', function() fzf.lsp_code_actions() end, bufopts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 
         -- format on save
         -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
@@ -609,6 +603,7 @@ local fugitive_keymap = function()
     vim.keymap.set('n', '<leader>g', function() vim.cmd.close() end, local_keyopts)
 
     vim.keymap.set('n', 'cc', function()
+        -- temporary fix for "press enter"
         vim.o.cmdheight = 1
         vim.cmd.Git('commit')
         vim.o.cmdheight = 0
