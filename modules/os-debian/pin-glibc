@@ -1,0 +1,4 @@
+# Don't include src:glibc here, else breaks autoadd/autoremove in dotfiles script
+Package: src:build-essental src:binutils src:llvm-toolchain-15 src:gcc-defaults src:gcc-10 src:gcc-11 src:gcc-12 src:jansson src:libzstd src:z3 src:gmp src:dpkg src:xz-utils
+Pin: release a=unstable
+Pin-Priority: 1001

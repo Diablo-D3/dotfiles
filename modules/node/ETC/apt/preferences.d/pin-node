@@ -1,3 +1,3 @@
-Package: src:npm node* src:node* libjs-* src:libjs-* src:libuv1 src:c-ares src:build-essential src:gcc-12 src:binutils src:jansson src:libzstd
+Package: src:npm node* src:node* libjs-* src:libjs-* src:libuv1 src:c-ares src:glibc
 Pin: release a=unstable
 Pin-Priority: 1001

@@ -45,9 +45,9 @@ local popupify = function(ft, callback)
                 vim.api.nvim_win_set_config(0, {
                     relative = 'editor',
                     style = "minimal",
-                    col = math.min(cols / 2, cols - 80),
+                    col = cols > 80 and cols - 80 or cols / 2,
                     row = 0,
-                    width = math.max(cols / 2, 80),
+                    width = cols > 80 and 80 or cols / 2,
                     height = rows,
                 })
 
@@ -294,13 +294,30 @@ fzf.setup({
         local rows = vim.o.lines
 
         return {
+            on_create = function()
+                local self = require('fzf-lua').utils.fzf_winobj()
+
+                if not self._previewer then
+                    self.winopts.col = cols > 80 and cols - 80 or cols / 2
+                    self.winopts.row = 0
+                    self.winopts.width = cols
+                    self.winopts.height = rows
+                    self.winopts.border = false
+                    self.winopts.preview = {
+                        hidden = true,
+                        horizontal = "left:0%"
+                    }
+                    self.layout = self:generate_layout(self.winopts)
+                    self:redraw_main()
+                end
+            end,
             col = 0,
             row = 0,
             width = cols,
             height = rows,
             border = false,
             preview = {
-                horizontal = "left:" .. math.max(cols / 2, 80),
+                horizontal = "left:" .. math.floor((100 * (cols > 80 and cols - 80 or cols / 2) / cols) + 0.5) .. "%",
                 layout = "horizontal"
             }
         }
