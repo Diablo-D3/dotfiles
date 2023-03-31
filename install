@@ -19,6 +19,8 @@ _end
 
 _start "Remove stale symlinks"
 
+_mkdir "$HOME/bin"
+
 find "$HOME" -mindepth 1 -name ".*" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 find "$HOME/bin" -mindepth 1 -xtype l -print0 | xargs -0 -r -t -n 1 unlink
 
