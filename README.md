@@ -16,13 +16,15 @@ Run `~/.dotfiles/install` again.
 
 I should write an actual script to stand-up my personal Debian VMs (or use one of the thousands of tools for this). Until then...
 
-`sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file git lsb-release vim rsync wget` (remove systemd, install sshd without systemd dep, install basic tools)
+#### Core OS
+`sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file git lsb-release vim rsync wget unzip`
 
+#### Additional userland tools
 `sudo apt install fzf fd-find ripgrep tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
 
-`sudo apt install neovim shellcheck python3-venv` (everything required for neovim)
-
-`sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev` (install all the relevant manpages)
+#### Neovim and dev
+`sudo apt install neovim shellcheck yamllint python3-venv npm nodejs`
+`sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev`
 
 ### opensshd on WSL2
 
