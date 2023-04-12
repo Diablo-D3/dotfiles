@@ -221,10 +221,11 @@ local trouble = require('trouble');
 
 trouble.setup {
     auto_open = false,
-    auto_close = false,
+    auto_close = true,
     action_keys = {
         jump = {},
-        jump_close = "<cr>"
+        jump_close = "<cr>",
+        close = "<esc>",
     },
 
     -- remove icons
