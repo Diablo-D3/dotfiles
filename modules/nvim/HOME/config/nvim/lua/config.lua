@@ -104,6 +104,8 @@ mini_animate.setup({
 -- mini.basics
 require('mini.basics').setup({})
 
+vim.o.signcolumn = "no"
+
 -- mini.bracketed
 require('mini.bracketed').setup({})
 
