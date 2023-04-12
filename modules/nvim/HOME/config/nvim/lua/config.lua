@@ -117,29 +117,6 @@ vim.keymap.set('n', '<leader>w', function() mini_bufremove.wipeout(0, false) end
 -- mini.comment
 require('mini.comment').setup({})
 
--- mini.completion
-require('mini.completion').setup({})
---https://github.com/echasnovski/mini.nvim/blob/main/doc/mini-completion.txt#L92
-vim.api.nvim_set_keymap('i', '<Tab>', [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { noremap = true, expr = true })
-vim.api.nvim_set_keymap('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
-
-local keys = {
-    ['cr']        = vim.api.nvim_replace_termcodes('<CR>', true, true, true),
-    ['ctrl-y']    = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
-    ['ctrl-y_cr'] = vim.api.nvim_replace_termcodes('<C-y><CR>', true, true, true),
-}
-
-_G.cr_action = function()
-    if vim.fn.pumvisible() ~= 0 then
-        local item_selected = vim.fn.complete_info()['selected'] ~= -1
-        return item_selected and keys['ctrl-y'] or keys['ctrl-y_cr']
-    else
-        return require('mini.pairs').cr()
-    end
-end
-
-vim.api.nvim_set_keymap('i', '<CR>', 'v:lua._G.cr_action()', { noremap = true, expr = true })
-
 -- mini.indentscope
 local indentscope = require('mini.indentscope')
 indentscope.setup({
