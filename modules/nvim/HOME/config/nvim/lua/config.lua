@@ -164,12 +164,12 @@ statusline.setup({
             local location      = '%l:%v'
 
             return statusline.combine_groups({
-                { hl = mode_hl,                  strings = { mode } },
-                { hl = 'MiniStatuslineFilename', strings = { diagnostics } },
+                { hl = mode_hl,                 strings = { mode } },
+                { hl = 'MiniStatuslineDevinfo', strings = { diagnostics } },
                 '%<', -- Mark general truncate point
-                { hl = 'MiniStatuslineDevinfo',  strings = { filename } },
+                { hl = 'MiniStatuslineFilename', strings = { filename } },
                 '%=', -- End left alignment
-                { hl = 'MiniStatuslineFilename', strings = { fileinfo } },
+                { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
                 { hl = mode_hl,                  strings = { location } },
             })
         end
@@ -201,9 +201,27 @@ vim.api.nvim_create_autocmd("bufwritepre", {
 -- themes and highlighting --
 -----------------------------
 
--- tokyonight.nvim
--- https://github.com/folke/tokyonight.nvim
-vim.cmd.colorscheme('tokyonight-night')
+local night = require('tokyonight.colors').night
+
+require('tokyonight').setup({
+    style = 'moon',
+    dim_inactive = false,
+    styles = {
+        sidebars = "transparent",
+        floats = "transparent"
+    },
+    on_colors = function(c)
+        c.bg = night.bg
+        c.bg_dark = night.bg_dark
+    end,
+    on_highlights = function(hl, c)
+        hl.MiniStatuslineDevinfo = { fg = c.fg_dark, bg = c.fg_gutter }
+        hl.MiniStatuslineFileinfo = { fg = c.fg_dark, bg = c.fg_gutter }
+        hl.MiniStatuslineFilename = { fg = c.fg_dark, bg = c.bg_highlight }
+    end,
+})
+
+vim.cmd.colorscheme('tokyonight')
 
 -- nvim-colorizer
 -- https://github.com/norcalli/nvim-colorizer.lua
