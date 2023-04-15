@@ -5,6 +5,8 @@
 local keyopts = { noremap = true, silent = true }
 local local_keyopts = { noremap = true, silent = true, buffer = true }
 
+vim.cmd.helptags("ALL")
+
 -- popupify
 local zindexfix = vim.api.nvim_create_augroup("popup_zindexfix", {})
 vim.api.nvim_create_autocmd('WinEnter', {
