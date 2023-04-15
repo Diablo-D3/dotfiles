@@ -245,7 +245,6 @@ trouble.setup {
     action_keys = {
         jump = {},
         jump_close = "<cr>",
-        close = "<esc>",
     },
 
     -- remove icons
@@ -265,7 +264,13 @@ trouble.setup {
 vim.keymap.set('n', '<leader>d', function() trouble.toggle('workspace_diagnostics') end, keyopts)
 vim.keymap.set('n', '<leader>t', function() trouble.toggle('todo') end, keyopts)
 
-popupify("Trouble")
+local trouble_keymap = function()
+    vim.keymap.set('n', '<leader>d', function() vim.cmd.close() end, local_keyopts)
+    vim.keymap.set('n', '<leader>t', function() vim.cmd.close() end, local_keyopts)
+    vim.keymap.set('n', '<esc>', function() vim.cmd.close() end, local_keyopts)
+end
+
+popupify("Trouble", trouble_keymap)
 
 -- fzf-lua
 -- https://github.com/ibhagwan/fzf-lua
