@@ -622,6 +622,7 @@ vim.keymap.set('n', '<leader>g', function() vim.cmd.Git() end, keyopts)
 
 local fugitive_keymap = function()
     vim.keymap.set('n', '<leader>g', function() vim.cmd.close() end, local_keyopts)
+    vim.keymap.set('n', '<esc>', function() vim.cmd.close() end, local_keyopts)
 
     vim.keymap.set('n', 'cc', function()
         -- temporary fix for "press enter"
