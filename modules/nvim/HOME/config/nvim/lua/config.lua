@@ -294,39 +294,17 @@ fzf.setup({
         prompt = "> ",
         fzf_opts = { ['--scheme'] = "path" },
     },
-    winopts_fn = function()
-        local cols = vim.o.columns
-        local rows = vim.o.lines
-
-        return {
-            on_create = function()
-                local self = require('fzf-lua').utils.fzf_winobj()
-
-                if not self._previewer then
-                    self.winopts.col = cols > 80 and cols - 80 or cols / 2
-                    self.winopts.row = 0
-                    self.winopts.width = cols
-                    self.winopts.height = rows
-                    self.winopts.border = false
-                    self.winopts.preview = {
-                        hidden = true,
-                        horizontal = "left:0%"
-                    }
-                    self.layout = self:generate_layout(self.winopts)
-                    self:redraw_main()
-                end
-            end,
-            col = 0,
-            row = 0,
-            width = cols,
-            height = rows,
-            border = false,
-            preview = {
-                horizontal = "left:" .. math.floor((100 * (cols > 80 and cols - 80 or cols / 2) / cols) + 0.5) .. "%",
-                layout = "horizontal"
-            }
+    winopts = {
+        width = vim.o.columns,
+        height = vim.o.lines,
+        row = 0,
+        col = 0,
+        border = false,
+        preview = {
+            horizontal = "left:" .. math.floor(100 * (vim.o.columns - 80) / vim.o.columns) .. "%",
+            layout = "horizontal"
         }
-    end
+    }
 })
 
 vim.keymap.set('n', '/', function() fzf.lgrep_curbuf({ exec_empty_query = false }) end, keyopts)
