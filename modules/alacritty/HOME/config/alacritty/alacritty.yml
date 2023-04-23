@@ -19,7 +19,8 @@ font:
   bold_italic:
     family: Iosevka Term
     style: Bold Extended Italic
-  size: 18 # 24px, gives 137x36 on 1080p
+  size: 18
+  # 18pt/24px = 137x36 on 1920x1080, 24pt/32px = 137x40 on 2560x1600
   offset:
     x: 0
     y: 0
@@ -28,9 +29,9 @@ font:
     y: 0
 
 shell:
-  program: wsl.exe
+  program: bash
   args:
-    - ~ -d Debian
+    - -l
 
 window:
   dimensions:
