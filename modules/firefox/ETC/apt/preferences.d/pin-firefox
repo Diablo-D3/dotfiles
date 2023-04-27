@@ -1,0 +1,3 @@
+Package: src:firefox src:nspr src:nss src:libvpx src:libx11 src:dbus-glib
+Pin: release a=unstable
+Pin-Priority: 1001
