@@ -8,32 +8,6 @@ local local_keyopts = { noremap = true, silent = true, buffer = true }
 vim.cmd.helptags("ALL")
 
 -- popupify
-local zindexfix = vim.api.nvim_create_augroup("popup_zindexfix", {})
-vim.api.nvim_create_autocmd('WinEnter', {
-    group = zindexfix,
-    callback = function()
-        local win = vim.api.nvim_win_get_config(0)
-
-        if win.relative ~= '' then
-            vim.w.old_zindex = win.zindex
-            win.zindex = 99
-            vim.api.nvim_win_set_config(0, win)
-        end
-    end
-})
-
-vim.api.nvim_create_autocmd('WinLeave', {
-    group = zindexfix,
-    callback = function()
-        local win = vim.api.nvim_win_get_config(0)
-
-        if win.relative ~= '' then
-            win.zindex = vim.w.old_zindex
-            vim.api.nvim_win_set_config(0, win)
-        end
-    end
-})
-
 local popupify = function(ft, callback)
     local popup = vim.api.nvim_create_augroup('popup_' .. ft, {})
     vim.api.nvim_create_autocmd('FileType', {
@@ -47,17 +21,31 @@ local popupify = function(ft, callback)
                 vim.api.nvim_win_set_config(0, {
                     relative = 'editor',
                     style = "minimal",
-                    col = cols > 80 and cols - 80 or cols / 2,
+                    border = { "", "", "", "", "", "", "", "▏" },
+                    col = cols - 80,
                     row = 0,
-                    width = cols > 80 and 80 or cols / 2,
+                    width = 80,
                     height = rows,
                 })
+
+                vim.w.popup_autoclose = vim.api.nvim_get_current_win()
 
                 if callback then callback() end
             end
         end
     })
 end
+
+vim.api.nvim_create_autocmd('WinLeave', {
+    group = vim.api.nvim_create_augroup('popup_autoclose', {}),
+    callback = function()
+        local win = vim.w.popup_autoclose
+
+        if (win ~= nil and vim.api.nvim_win_is_valid(win)) then
+            vim.api.nvim_win_close(win, true)
+        end
+    end
+})
 
 ------------------------
 -- base functionality --
