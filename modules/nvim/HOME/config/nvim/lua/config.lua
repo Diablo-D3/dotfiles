@@ -412,7 +412,7 @@ require("mason-tool-installer").setup({
         -- lua
         'lua-language-server',
 
-        --
+        -- markdown
         'marksman',
 
         -- rust
@@ -444,6 +444,7 @@ end
 require("formatter").setup {
     filetype = {
         -- prettier
+        markdown = { f_ft("markdown", "prettier") },
         yaml = { f_ft("yaml", "prettier") },
         -- fish
         fish = { f_ft("fish", "fishindent") }
@@ -462,6 +463,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 -- https://github.com/mfussenegger/nvim-lint
 require('lint').linters_by_ft = {
     vim = { 'vint' },
+    yaml = { 'yamllint' }
 }
 
 local lint = vim.api.nvim_create_augroup("Lint", {})
