@@ -107,6 +107,15 @@ vim.keymap.set('n', '<leader>w', function() mini_bufremove.wipeout(0, false) end
 -- mini.comment
 require('mini.comment').setup({})
 
+-- mini.hues
+local mini_hues = require('mini.hues')
+
+mini_hues.setup({
+    foreground = '#000000',
+    background = '#ffffff',
+    saturation = 'high'
+})
+
 -- mini.indentscope
 local indentscope = require('mini.indentscope')
 indentscope.setup({
@@ -117,7 +126,7 @@ indentscope.setup({
     symbol = "│"
 })
 
---mini.pairs
+-- mini.pairs
 require('mini.pairs').setup({})
 
 -- mini.sessions
@@ -188,28 +197,6 @@ vim.api.nvim_create_autocmd("bufwritepre", {
 -----------------------------
 -- themes and highlighting --
 -----------------------------
-
-local night = require('tokyonight.colors').night
-
-require('tokyonight').setup({
-    style = 'moon',
-    dim_inactive = false,
-    styles = {
-        sidebars = "transparent",
-        floats = "transparent"
-    },
-    on_colors = function(c)
-        c.bg = night.bg
-        c.bg_dark = night.bg_dark
-    end,
-    on_highlights = function(hl, c)
-        hl.MiniStatuslineDevinfo = { fg = c.fg_dark, bg = c.fg_gutter }
-        hl.MiniStatuslineFileinfo = { fg = c.fg_dark, bg = c.fg_gutter }
-        hl.MiniStatuslineFilename = { fg = c.fg_dark, bg = c.bg_highlight }
-    end,
-})
-
-vim.cmd.colorscheme('tokyonight')
 
 -- nvim-colorizer
 -- https://github.com/norcalli/nvim-colorizer.lua

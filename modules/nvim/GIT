@@ -8,7 +8,6 @@ https://github.com/nvim-lua/plenary.nvim.git,master
 https://github.com/echasnovski/mini.nvim.git,main
 
 # themes and highlighting
-https://github.com/folke/tokyonight.nvim.git,main
 https://github.com/norcalli/nvim-colorizer.lua.git,master
 https://github.com/folke/todo-comments.nvim.git,main
 
