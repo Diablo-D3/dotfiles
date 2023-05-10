@@ -5,7 +5,7 @@
 local keyopts = { noremap = true, silent = true }
 local local_keyopts = { noremap = true, silent = true, buffer = true }
 
-vim.cmd.helptags("ALL")
+vim.cmd.helptags('ALL')
 
 -- popupify
 local popupify = function(ft, callback)
@@ -20,8 +20,8 @@ local popupify = function(ft, callback)
 
                 vim.api.nvim_win_set_config(0, {
                     relative = 'editor',
-                    style = "minimal",
-                    border = { "", "", "", "", "", "", "", "▏" },
+                    style = 'minimal',
+                    border = { '', '', '', '', '', '', '', '▏' },
                     col = cols - 80,
                     row = 0,
                     width = 80,
@@ -94,7 +94,7 @@ mini_animate.setup({
 -- mini.basics
 require('mini.basics').setup({})
 
-vim.o.signcolumn = "no"
+vim.o.signcolumn = 'no'
 
 -- mini.bracketed
 require('mini.bracketed').setup({})
@@ -123,7 +123,7 @@ indentscope.setup({
         delay = 0,
         animation = indentscope.gen_animation.none()
     },
-    symbol = "│"
+    symbol = '│'
 })
 
 -- mini.pairs
@@ -146,10 +146,10 @@ statusline.setup({
                 local ci = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.INFO }))
                 local ch = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.HINT }))
 
-                local e = (ce > 0) and "E" .. ce .. " " or ""
-                local w = (cw > 0) and "W" .. cw .. " " or ""
-                local i = (ci > 0) and "I" .. ci .. " " or ""
-                local h = (ch > 0) and "H" .. ch .. " " or ""
+                local e = (ce > 0) and 'E' .. ce .. ' ' or ''
+                local w = (cw > 0) and 'W' .. cw .. ' ' or ''
+                local i = (ci > 0) and 'I' .. ci .. ' ' or ''
+                local h = (ch > 0) and 'H' .. ch .. ' ' or ''
 
                 return vim.trim(e .. w .. i .. h)
             end
@@ -186,7 +186,7 @@ local trailspace = require('mini.trailspace')
 trailspace.setup({})
 
 local au_trailspace = vim.api.nvim_create_augroup('trailspace', {})
-vim.api.nvim_create_autocmd("bufwritepre", {
+vim.api.nvim_create_autocmd('bufwritepre', {
     group = au_trailspace,
     callback = function()
         trailspace.trim()
@@ -219,19 +219,19 @@ trouble.setup {
     auto_close = true,
     action_keys = {
         jump = {},
-        jump_close = "<cr>",
+        jump_close = '<cr>',
     },
 
     -- remove icons
     icons = false,
-    fold_open = "v",
-    fold_closed = ">",
+    fold_open = 'v',
+    fold_closed = '>',
     indent_lines = false,
     signs = {
-        error = "E",
-        warning = "W",
-        hint = "H",
-        information = "I"
+        error = 'E',
+        warning = 'W',
+        hint = 'H',
+        information = 'I'
     },
     use_diagnostic_signs = false
 }
@@ -245,7 +245,7 @@ local trouble_keymap = function()
     vim.keymap.set('n', '<esc>', function() vim.cmd.close() end, local_keyopts)
 end
 
-popupify("Trouble", trouble_keymap)
+popupify('Trouble', trouble_keymap)
 
 -- fzf-lua
 -- https://github.com/ibhagwan/fzf-lua
@@ -257,17 +257,17 @@ fzf.setup({
         ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2'
     },
     buffers = {
-        prompt = "> ",
+        prompt = '> ',
     },
     grep = {
-        prompt = "> ",
+        prompt = '> ',
         no_header_i = true,
         continue_last_search = true,
         fzf_cli_args = '--with-nth=4..'
     },
     files = {
-        prompt = "> ",
-        fzf_opts = { ['--scheme'] = "path" },
+        prompt = '> ',
+        fzf_opts = { ['--scheme'] = 'path' },
     },
     winopts = {
         width = vim.o.columns,
@@ -276,8 +276,8 @@ fzf.setup({
         col = 0,
         border = false,
         preview = {
-            horizontal = "left:" .. math.floor(100 * (vim.o.columns - 80) / vim.o.columns) .. "%",
-            layout = "horizontal"
+            horizontal = 'left:' .. math.floor(100 * (vim.o.columns - 80) / vim.o.columns) .. '%',
+            layout = 'horizontal'
         }
     }
 })
@@ -315,7 +315,7 @@ require('nvim-treesitter.configs').setup({
             enable = true,
             keymaps = {
                 -- Remapped later in LSP buffers
-                smart_rename = "<leader>r"
+                smart_rename = '<leader>r'
             }
         },
     },
@@ -324,7 +324,7 @@ require('nvim-treesitter.configs').setup({
     },
     textsubjects = {
         enable = true,
-        prev_selection = ",",
+        prev_selection = ',',
         keymaps = {
             ['.'] = 'textsubjects-smart',
             ['a;'] = 'textsubjects-container-outer',
@@ -347,8 +347,8 @@ vim.cmd [[
 -- https://github.com/williamboman/mason.nvim
 -- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
 
-require("mason").setup()
-require("mason-tool-installer").setup({
+require('mason').setup()
+require('mason-tool-installer').setup({
     ensure_installed = {
         -----------
         -- tools --
@@ -425,23 +425,23 @@ require("mason-tool-installer").setup({
 -- https://github.com/mhartington/formatter.nvim
 
 local function f_ft(ft, method)
-    return require("formatter.filetypes." .. ft)[method]
+    return require('formatter.filetypes.' .. ft)[method]
 end
 
-require("formatter").setup {
+require('formatter').setup {
     filetype = {
         -- prettier
-        markdown = { f_ft("markdown", "prettier") },
-        yaml = { f_ft("yaml", "prettier") },
+        markdown = { f_ft('markdown', 'prettier') },
+        yaml = { f_ft('yaml', 'prettier') },
         -- fish
-        fish = { f_ft("fish", "fishindent") }
+        fish = { f_ft('fish', 'fishindent') }
     }
 }
 
 vim.keymap.set('n', 'gq', function() vim.cmd.FormatLock() end, keyopts)
 
-local format = vim.api.nvim_create_augroup("Formatter", {})
-vim.api.nvim_create_autocmd("BufWritePost", {
+local format = vim.api.nvim_create_augroup('Formatter', {})
+vim.api.nvim_create_autocmd('BufWritePost', {
     group = format,
     callback = function() vim.cmd.FormatWriteLock() end
 })
@@ -453,11 +453,11 @@ require('lint').linters_by_ft = {
     yaml = { 'yamllint' }
 }
 
-local lint = vim.api.nvim_create_augroup("Lint", {})
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+local lint = vim.api.nvim_create_augroup('Lint', {})
+vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
     group = lint,
     callback = function()
-        require("lint").try_lint()
+        require('lint').try_lint()
     end,
 })
 
@@ -488,7 +488,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         if client.server_capabilities.documentFormattingProvider then
-            vim.api.nvim_create_autocmd("bufwritepre", {
+            vim.api.nvim_create_autocmd('bufwritepre', {
                 group = vim.api.nvim_create_augroup('LspFmt', {}),
                 buffer = ev.buf,
                 callback = function()
@@ -533,13 +533,13 @@ lspconfig.lemminx.setup({})
 
 -- rust-tools.nvim
 -- https://github.com/simrat39/rust-tools.nvim
-local rust_tools = require("rust-tools")
+local rust_tools = require('rust-tools')
 
 rust_tools.setup({
     server = {
         settings = {
             checkonsave = {
-                command = "clippy"
+                command = 'clippy'
             }
         }
     }
@@ -547,7 +547,7 @@ rust_tools.setup({
 
 -- neodev.nvim
 -- https://github.com/folke/neodev.nvim
-require("neodev").setup({})
+require('neodev').setup({})
 
 -- Setup luals for non-neovim after neodev
 lspconfig.lua_ls.setup({
@@ -580,16 +580,16 @@ local fugitive_keymap = function()
     vim.keymap.set('n', '<esc>', function() vim.cmd.close() end, local_keyopts)
 
     vim.keymap.set('n', 'cc', function()
-        -- temporary fix for "press enter"
+        -- temporary fix for 'press enter'
         vim.o.cmdheight = 1
         vim.cmd.Git('commit')
         vim.o.cmdheight = 0
     end, local_keyopts)
 end
 
-popupify("fugitive", fugitive_keymap)
-popupify("git", fugitive_keymap)
-popupify("gitcommit", fugitive_keymap)
+popupify('fugitive', fugitive_keymap)
+popupify('git', fugitive_keymap)
+popupify('gitcommit', fugitive_keymap)
 
 -- vim-osc52
 -- https://github.com/ojroques/nvim-osc52
