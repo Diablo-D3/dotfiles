@@ -102,19 +102,23 @@ require('mini.bracketed').setup({})
 -- mini.bufremove
 local mini_bufremove = require('mini.bufremove')
 mini_bufremove.setup({})
-vim.keymap.set('n', '<leader>w', function() mini_bufremove.wipeout(0, false) end, keyopts)
+vim.keymap.set('n', 'C-w', function() mini_bufremove.wipeout(0, false) end, keyopts)
 
 -- mini.comment
 require('mini.comment').setup({})
 
 -- mini.hues
 local mini_hues = require('mini.hues')
-
-mini_hues.setup({
-    foreground = '#000000',
-    background = '#ffffff',
+local palette = {
+    foreground = '#ffffff',
+    background = '#000000',
     saturation = 'high'
-})
+}
+
+mini_hues.setup(palette)
+
+-- uncomment to print values
+vim.print(mini_hues.make_palette(palette))
 
 -- mini.indentscope
 local indentscope = require('mini.indentscope')

@@ -46,6 +46,38 @@ selection:
 mouse:
   hide_when_typing: true
 
+colors:
+  primary:
+    background: "#000000"
+    foreground: "#C7C7C7"
+  dim:
+    black: "#000000"
+    red: "#B10B00"
+    green: "#376E00"
+    yellow: "#745B00"
+    blue: "#3122FF"
+    magenta: "#8D00B6"
+    cyan: "#006E60"
+    white: "#919191"
+  normal:
+    black: "#2e2e2e"
+    red: "#FF3D2B"
+    green: "#57A900"
+    yellow: "#B18C00"
+    blue: "#6786FF"
+    magenta: "#CC41FF"
+    cyan: "#00A894"
+    white: "#C7C7C7"
+  bright:
+    black: "#5E5E5E"
+    red: "#FFAFA2"
+    green: "#7AE700"
+    yellow: "#F1C000"
+    blue: "#B1C5FF"
+    magenta: "#E6ADFF"
+    cyan: "#00E6CA"
+    white: "#FFFFFF"
+
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
   - { key: D, mods: Control|Alt|Shift|Super, chars: "\x01d" }
