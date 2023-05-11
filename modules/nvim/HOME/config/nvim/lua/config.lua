@@ -375,9 +375,6 @@ require('mason-tool-installer').setup({
         -- sh
         -- deb: 'shellcheck',
 
-        -- yaml
-        -- deb: 'yamllint'
-
         -- vim
         'vint',
 
@@ -453,8 +450,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint
 require('lint').linters_by_ft = {
-    vim = { 'vint' },
-    yaml = { 'yamllint' }
+    vim = { 'vint' }
 }
 
 local lint = vim.api.nvim_create_augroup('Lint', {})
