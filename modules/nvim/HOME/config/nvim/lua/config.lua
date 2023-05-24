@@ -2,6 +2,8 @@
 -- global --
 ------------
 
+local vim = vim
+
 local keyopts = { noremap = true, silent = true }
 local local_keyopts = { noremap = true, silent = true, buffer = true }
 
