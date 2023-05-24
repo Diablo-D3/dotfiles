@@ -370,6 +370,9 @@ require('mason-tool-installer').setup({
         -- markdown
         'prettier',
 
+        -- sh
+        -- deb: 'shfmt'
+
         -------------
         -- linters --
         -------------
@@ -437,11 +440,18 @@ require('formatter').setup {
         markdown = { f_ft('markdown', 'prettier') },
         yaml = { f_ft('yaml', 'prettier') },
         -- fish
-        fish = { f_ft('fish', 'fishindent') }
+        fish = { f_ft('fish', 'fishindent') },
+        -- sh
+        sh = { f_ft('sh', 'shfmt') }
     }
 }
 
-vim.keymap.set('n', 'gq', function() vim.cmd.FormatLock() end, keyopts)
+function Formatexpr()
+    vim.print "hi"
+    vim.cmd.Format()
+end
+
+vim.o.formatexpr = "lua Formatexpr()"
 
 local format = vim.api.nvim_create_augroup('Formatter', {})
 vim.api.nvim_create_autocmd('BufWritePost', {
