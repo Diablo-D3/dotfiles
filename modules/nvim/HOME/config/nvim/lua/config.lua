@@ -447,11 +447,12 @@ require('formatter').setup {
 }
 
 function Formatexpr()
-    vim.print "hi"
-    vim.cmd.Format()
+    local lnum = vim.v.lnum;
+    local count = vim.v.count;
+    require("formatter.format").format("", "", lnum, (lnum + count + 1), { lock = true })
 end
 
-vim.o.formatexpr = "lua Formatexpr()"
+vim.o.formatexpr = "v:lua.Formatexpr()"
 
 local format = vim.api.nvim_create_augroup('Formatter', {})
 vim.api.nvim_create_autocmd('BufWritePost', {
@@ -496,10 +497,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 
-        -- format on save
-        -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         if client.server_capabilities.documentFormattingProvider then
+            -- set formatexpr even if already set
+            vim.api.nvim_buf_set_option(ev.buf, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+
+            -- format on save
+            -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
             vim.api.nvim_create_autocmd('bufwritepre', {
                 group = vim.api.nvim_create_augroup('LspFmt', {}),
                 buffer = ev.buf,
