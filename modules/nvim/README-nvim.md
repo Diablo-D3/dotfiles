@@ -49,7 +49,7 @@ The g operator means 'global', but also shares a mnemonic with 'goto'. Some of t
 | `gt`    | Unrelated (goto next tab)     | vim.lsp.buf.type_definition |
 | `gr`    | Unrelated (replace chars)     | vim.lsp.buf.rename          |
 | `gR`    | Unrelated (replace chars)     | vim.lsp.buf.references      |
-| `g.`    | Unbound                       | vim.lsp.buf.hover           |
+| `g.`    | Unbound                       | vim.lsp.buf.code_action     |
 | `K`     | Run keywordprog               | vim.lsp.buf.hover           |
 | `<C-k>` | Unrelated (diagraph)          | vim.lsp.buf.signature_help  |
 
