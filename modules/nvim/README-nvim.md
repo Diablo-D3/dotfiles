@@ -25,16 +25,18 @@ I have never really found a way to effortlessly navigate through buffers that is
 
 I use [Trouble](https://github.com/folke/trouble.nvim) to manage quickfix, and [Fzf-Lua](https://github.com/ibhagwan/fzf-lua) to manage fuzzy finding.
 
-| Map                 | Action                           |
-| ------------------- | -------------------------------- |
-| `/`                 | In buffer fuzzy search           |
-| `<leader>/`         | Project-wide fuzzy search        |
-| `C-Tab`             | Previous buffer (formerly `C-6`) |
-| `C-1` through `C-9` | Select oldest non-hidden buffers |
-| `` C-` ``           | Fuzzy search buffers             |
-| `<leader>f`         | Fuzzy find files                 |
-| `<leader>d`         | Diagnostics list                 |
-| `<leader>t`         | Todo list                        |
+| Map                 | Action                                |
+| ------------------- | ------------------------------------- |
+| `/`                 | In buffer fuzzy search                |
+| `S-/`               | ... but continue with previous search |
+| `C-/`               | Project-wide fuzzy search             |
+| `C-S-/`             | ... but continue with previous search |
+| `C-Tab`             | Previous buffer (formerly `C-6`)      |
+| `C-1` through `C-9` | Select oldest non-hidden buffers      |
+| `` C-` ``           | Fuzzy search buffers                  |
+| `<leader>f`         | Fuzzy find files                      |
+| `<leader>d`         | Diagnostics list                      |
+| `<leader>t`         | Todo list                             |
 
 ### LSP and the `g` operators
 

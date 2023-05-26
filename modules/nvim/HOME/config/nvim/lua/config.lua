@@ -268,7 +268,6 @@ fzf.setup({
     grep = {
         prompt = '> ',
         no_header_i = true,
-        continue_last_search = true,
         fzf_cli_args = '--with-nth=4..'
     },
     files = {
@@ -288,8 +287,13 @@ fzf.setup({
     }
 })
 
-vim.keymap.set('n', '/', function() fzf.lgrep_curbuf({ exec_empty_query = false }) end, keyopts)
-vim.keymap.set('n', '<leader>/', function() fzf.live_grep_native() end, keyopts)
+local lgrep = { exec_empty_query = false }
+local lgrep_continue = { exec_empty_query = false, continue_last_search = true }
+
+vim.keymap.set('n', '/', function() fzf.lgrep_curbuf(lgrep) end, keyopts)
+vim.keymap.set('n', '?', function() fzf.lgrep_curbuf(lgrep_continue) end, keyopts)
+vim.keymap.set('n', '<C-/>', function() fzf.live_grep_native(lgrep) end, keyopts)
+vim.keymap.set('n', '<C-?>', function() fzf.live_grep_native(lgrep_continue) end, keyopts)
 vim.keymap.set('n', '<C-`>', function() fzf.buffers() end, keyopts)
 vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 
