@@ -150,11 +150,6 @@ precmd() {
     PS1="${PRO_START}${PRO_END}"
   fi
 
-  if [ -n "$TMUX" ]; then
-    eval "$(tmux show-environment -s)"
-    eval "$("$HOME/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh")"
-  fi
-
   history -a
 }
 
