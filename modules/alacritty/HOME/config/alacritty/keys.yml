@@ -33,7 +33,7 @@ key_bindings:
 
   - { key: A, mods: Control, chars: "\x1b[97;5u" }
   - { key: B, mods: Control, chars: "\x1b[98;5u" }
-  - { key: C, mods: Control, chars: "\x1b[99;5u" }
+  # Control-C
   - { key: D, mods: Control, chars: "\x1b[100;5u" }
   - { key: E, mods: Control, chars: "\x1b[101;5u" }
   - { key: F, mods: Control, chars: "\x1b[102;5u" }
