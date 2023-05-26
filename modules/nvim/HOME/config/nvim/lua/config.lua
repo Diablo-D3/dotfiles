@@ -641,6 +641,4 @@ vim.g.clipboard = {
 -- https://github.com/christoomey/vim-tmux-navigator
 vim.cmd [[
     let g:tmux_navigator_preserve_zoom = 1
-    nnoremap <silent> <C-Space> :TmuxNavigatePrevious<cr>
-    tnoremap <silent> <C-Space> :TmuxNavigatePrevious<cr>
 ]]
