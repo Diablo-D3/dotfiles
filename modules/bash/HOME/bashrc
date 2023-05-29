@@ -196,15 +196,20 @@ MANPATH="$NPM_PACKAGES/share/man"
 # fzf and fd
 # Some is from https://github.com/junegunn/fzf#settings
 FZF_COMPLETION_TRIGGER=""
-FZF_DEFAULT_OPTS="+m -0 -1
-                  --bind 'tab:down,btab:up'
-                  --info='hidden'
-                  --no-bold
-                  --color='16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2'
-                  --height='25%'
-                  --layout='reverse-list'"
 
-FZF_COMPLETION_OPTS="--scheme=path"
+FZF_COMPLETION_OPTS="+m -0 -1
+  --bind 'tab:down,btab:up'
+  --info='hidden'
+  --no-bold
+  --color='fg+:14,bg+:-1,prompt:-1,hl+:10,query:2,bg+:-1'
+  --layout='reverse-list'
+  --scheme=path"
+FZF_CTRL_T_OPTS="$FZF_COMPLETION_OPTS"
+FZF_CTRL_R_OPTS="$FZF_COMPLETION_OPTS"
+FZF_ALT_C_OPTS="$FZF_COMPLETION_OPTS"
+
+FZF_TMUX=1
+FZF_TMUX_OPTS="-p -w 80 -h 100% -x R"
 
 if command -v fdfind >/dev/null 2>&1; then
   alias fd="fdfind"
