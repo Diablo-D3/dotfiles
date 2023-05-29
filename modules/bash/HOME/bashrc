@@ -213,11 +213,11 @@ fi
 if command -v fzf >/dev/null 2>&1; then
   if command -v fd >/dev/null 2>&1; then
     _fzf_compgen_path() {
-      fd --hidden --follow --exclude ".git" . "$1"
+      fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
     }
 
     _fzf_compgen_dir() {
-      fd --type d --hidden --follow --exclude ".git" . "$1"
+      fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
     }
   fi
 
