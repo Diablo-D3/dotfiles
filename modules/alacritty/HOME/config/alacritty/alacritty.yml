@@ -80,22 +80,3 @@ colors:
 
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
-  - { key: D, mods: Control|Alt|Shift|Super, chars: "\x01d" }
-  - { key: E, mods: Control|Alt|Shift|Super, chars: "\x01e" }
-  - { key: R, mods: Control|Alt|Shift|Super, chars: "\x01r" }
-  - { key: Z, mods: Control|Alt|Shift|Super, chars: "\x01z" }
-  - { key: V, mods: Control|Alt|Shift|Super, chars: "\x01v" }
-  - { key: H, mods: Control|Alt|Shift|Super, chars: "\x01h" }
-  - { key: Semicolon, mods: Control|Alt|Shift|Super, chars: "\x01;" }
-  - { key: Colon, mods: Control|Alt|Shift|Super, chars: "\x01:" }
-  - { key: Grave, mods: Control|Alt|Shift|Super, chars: "\x01`" }
-  - { key: Key1, mods: Control|Alt|Shift|Super, chars: "\x011" }
-  - { key: Key2, mods: Control|Alt|Shift|Super, chars: "\x012" }
-  - { key: Key3, mods: Control|Alt|Shift|Super, chars: "\x013" }
-  - { key: Key4, mods: Control|Alt|Shift|Super, chars: "\x014" }
-  - { key: Key5, mods: Control|Alt|Shift|Super, chars: "\x015" }
-  - { key: Key6, mods: Control|Alt|Shift|Super, chars: "\x016" }
-  - { key: Key7, mods: Control|Alt|Shift|Super, chars: "\x017" }
-  - { key: Key8, mods: Control|Alt|Shift|Super, chars: "\x018" }
-  - { key: Key9, mods: Control|Alt|Shift|Super, chars: "\x019" }
-  - { key: Key0, mods: Control|Alt|Shift|Super, chars: "\x010" }
