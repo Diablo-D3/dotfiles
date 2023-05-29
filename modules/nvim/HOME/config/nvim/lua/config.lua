@@ -259,20 +259,31 @@ local fzf = require('fzf-lua')
 
 fzf.setup({
     fzf_opts = {
-        ['--info'] = 'hidden',
-        ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2'
+        ['--color'] = '16,fg+:15,bg+:-1,prompt:-1,hl+:10,query:2',
+        ['--layout'] = 'reverse-list'
     },
     buffers = {
         prompt = '> ',
+        fzf_opts = {
+            ['--info'] = 'hidden'
+        }
     },
     grep = {
         prompt = '> ',
+        no_header = true,
         no_header_i = true,
-        fzf_cli_args = '--with-nth=4..'
+        fzf_cli_args = '--with-nth=4..',
+        fzf_opts = {
+            ['--info'] = 'hidden'
+        }
     },
     files = {
         prompt = '> ',
-        fzf_opts = { ['--scheme'] = 'path' },
+        fzf_opts = {
+            ['--scheme'] = 'path',
+            ['--info'] = 'hidden'
+        },
+        cwd_prompt = false
     },
     winopts = {
         width = vim.o.columns,
