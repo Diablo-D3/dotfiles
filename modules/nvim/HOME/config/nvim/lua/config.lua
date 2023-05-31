@@ -9,6 +9,21 @@ local local_keyopts = { noremap = true, silent = true, buffer = true }
 
 vim.cmd.helptags('ALL')
 
+local winopts = function()
+    local cols = vim.o.columns
+    local rows = vim.o.lines
+
+    return {
+        relative = 'editor',
+        style = 'minimal',
+        border = 'rounded',
+        col = cols,
+        row = 0,
+        width = 80,
+        height = rows,
+    }
+end
+
 -- popupify
 local popupify = function(ft, callback)
     local popup = vim.api.nvim_create_augroup('popup_' .. ft, {})
@@ -17,20 +32,9 @@ local popupify = function(ft, callback)
         group = popup,
         callback = function()
             if #(vim.api.nvim_list_wins()) > 1 then
-                local cols = vim.o.columns
-                local rows = vim.o.lines
+                vim.api.nvim_win_set_config(0, winopts())
 
-                vim.api.nvim_win_set_config(0, {
-                    relative = 'editor',
-                    style = 'minimal',
-                    border = { '', '', '', '', '', '', '', '▏' },
-                    col = cols - 80,
-                    row = 0,
-                    width = 80,
-                    height = rows,
-                })
-
-                vim.w.popup_autoclose = vim.api.nvim_get_current_win()
+                vim.w.popupify_win = vim.api.nvim_get_current_win()
 
                 if callback then callback() end
             end
@@ -41,10 +45,21 @@ end
 vim.api.nvim_create_autocmd('WinLeave', {
     group = vim.api.nvim_create_augroup('popup_autoclose', {}),
     callback = function()
-        local win = vim.w.popup_autoclose
+        local win = vim.w.popupify_win
 
         if (win ~= nil and vim.api.nvim_win_is_valid(win)) then
             vim.api.nvim_win_close(win, true)
+        end
+    end
+})
+
+vim.api.nvim_create_autocmd({'VimResized', 'WinResized'}, {
+    group = vim.api.nvim_create_augroup('popup_resize', {}),
+    callback = function()
+        local win = vim.w.popupify_win
+
+        if (win ~= nil and vim.api.nvim_win_is_valid(win)) then
+            vim.api.nvim_win_set_config(0, winopts())
         end
     end
 })
