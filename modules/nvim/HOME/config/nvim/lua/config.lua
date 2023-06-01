@@ -300,15 +300,10 @@ fzf.setup({
         },
         cwd_prompt = false
     },
+    winopts_fn = winopts,
     winopts = {
-        width = vim.o.columns,
-        height = vim.o.lines,
-        row = 0,
-        col = 0,
-        border = false,
         preview = {
-            horizontal = 'left:' .. math.floor(100 * (vim.o.columns - 80) / vim.o.columns) .. '%',
-            layout = 'horizontal'
+            hidden = 'hidden'
         }
     }
 })
