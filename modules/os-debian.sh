@@ -25,8 +25,9 @@ pin_glibc="$apt_prefs/pin-glibc"
 if (grep -q "glibc" "$apt_prefs/pin-"*); then
     if [ ! -f "$pin_glibc" ]; then
         run_apt_update=1
-        _sudo _ln "$module_dir/pin-glibc" "$pin_glibc"
     fi
+
+    _sudo _ln "$module_dir/pin-glibc" "$pin_glibc"
 else
     if [ -f "$pin_glibc" ]; then
         run_apt_update=1
