@@ -138,11 +138,11 @@ mini_hues.setup(palette)
 --vim.print(mini_hues.make_palette(palette))
 
 -- mini.indentscope
-local indentscope = require('mini.indentscope')
-indentscope.setup({
+local mini_indentscope = require('mini.indentscope')
+mini_indentscope.setup({
     draw = {
         delay = 0,
-        animation = indentscope.gen_animation.none()
+        animation = mini_indentscope.gen_animation.none()
     },
     symbol = '│'
 })
@@ -154,8 +154,8 @@ require('mini.pairs').setup({})
 require('mini.sessions').setup({})
 
 -- mini.statusline
-local statusline = require('mini.statusline')
-statusline.setup({
+local mini_statusline = require('mini.statusline')
+mini_statusline.setup({
     content = {
         active = function()
             local diagnostics_f = function()
@@ -175,13 +175,13 @@ statusline.setup({
                 return vim.trim(e .. w .. i .. h)
             end
 
-            local mode, mode_hl = statusline.section_mode({ trunc_width = 1 })
+            local mode, mode_hl = mini_statusline.section_mode({ trunc_width = 1 })
             local diagnostics   = diagnostics_f()
             local filename      = '%t'
             local fileinfo      = vim.bo.filetype
             local location      = '%l:%v'
 
-            return statusline.combine_groups({
+            return mini_statusline.combine_groups({
                 { hl = mode_hl,                 strings = { mode } },
                 { hl = 'MiniStatuslineDevinfo', strings = { diagnostics } },
                 '%<', -- Mark general truncate point
@@ -203,15 +203,15 @@ vim.o.cmdheight = 0
 require('mini.surround').setup({})
 
 -- mini.trailspace
-local trailspace = require('mini.trailspace')
-trailspace.setup({})
+local mini_trailspace = require('mini.trailspace')
+mini_trailspace.setup({})
 
 local au_trailspace = vim.api.nvim_create_augroup('trailspace', {})
 vim.api.nvim_create_autocmd('bufwritepre', {
     group = au_trailspace,
     callback = function()
-        trailspace.trim()
-        trailspace.trim_last_lines()
+        mini_trailspace.trim()
+        mini_trailspace.trim_last_lines()
     end,
 })
 
