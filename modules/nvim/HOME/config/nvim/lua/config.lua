@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd('WinLeave', {
     end
 })
 
-vim.api.nvim_create_autocmd({'VimResized', 'WinResized'}, {
+vim.api.nvim_create_autocmd({ 'VimResized', 'WinResized' }, {
     group = vim.api.nvim_create_augroup('popup_resize', {}),
     callback = function()
         local win = vim.w.popupify_win
@@ -123,6 +123,20 @@ vim.keymap.set('n', '<C-w>', function() mini_bufremove.wipeout(0, false) end, ke
 
 -- mini.comment
 require('mini.comment').setup({})
+
+-- mini.hipatterns
+local mini_hipatterns = require('mini.hipatterns')
+
+mini_hipatterns.setup({
+    highlighters = {
+        fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+        hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+        todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+        note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+
+        hex_color = mini_hipatterns.gen_highlighter.hex_color(),
+    },
+})
 
 -- mini.hues
 local mini_hues = require('mini.hues')
@@ -214,18 +228,6 @@ vim.api.nvim_create_autocmd('bufwritepre', {
         mini_trailspace.trim_last_lines()
     end,
 })
-
------------------------------
--- themes and highlighting --
------------------------------
-
--- nvim-colorizer
--- https://github.com/norcalli/nvim-colorizer.lua
-require('colorizer').setup()
-
--- todo-comments.nvim
--- https://github.com/folke/todo-comments.nvim
-require('todo-comments').setup()
 
 ----------------
 -- navigation --

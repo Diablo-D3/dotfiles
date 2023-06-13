@@ -7,10 +7,6 @@ https://github.com/ii14/autosplit.nvim.git,master
 https://github.com/nvim-lua/plenary.nvim.git,master
 https://github.com/echasnovski/mini.nvim.git,main
 
-# themes and highlighting
-https://github.com/norcalli/nvim-colorizer.lua.git,master
-https://github.com/folke/todo-comments.nvim.git,main
-
 # navigation
 https://github.com/folke/trouble.nvim.git,main
 https://github.com/ibhagwan/fzf-lua.git,main
