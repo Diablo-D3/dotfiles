@@ -14,7 +14,7 @@ _gh_dl "be5invis" "iosevka" "$term" "-VER" ".zip" "$fonts/$term-regular.ttf"
 _gh_dl "be5invis" "iosevka" "$aile" "-VER" ".zip" "$fonts/$aile-regular.ttf"
 
 if [ -f "/tmp/$term.zip" ] || [ -f "/tmp/$aile" ]; then
-    unzip -qqjo "/tmp/ttf-iosevka-term.zip" "*extended*ttf" -d "$fonts"
+    unzip -qqjo "/tmp/ttf-iosevka-term.zip" "*ttf" -d "$fonts"
     unzip -qqjo "/tmp/ttf-iosevka-aile.zip" "*ttf" -d "$fonts"
     rm -f "/tmp/$term.zip" "/tmp/$aile.zip"
 
