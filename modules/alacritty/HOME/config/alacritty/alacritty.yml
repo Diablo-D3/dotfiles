@@ -9,23 +9,29 @@ env:
 font:
   normal:
     family: Iosevka Term
-    style: Extended
+    style: Regular
   bold:
     family: Iosevka Term
-    style: Bold Extended
+    style: Bold
   italic:
     family: Iosevka Term
-    style: Extended Italic
+    style: Italic
   bold_italic:
     family: Iosevka Term
-    style: Bold Extended Italic
+    style: Bold Italic
   size: 18
-  # 18pt/24px = 137x36 on 1920x1080, 24pt/32px = 137x40 on 2560x1600
+
+  #          | 18pt/24px @ 1920x1080 | 24pt/32px @ 2560x1600 |
+  #          |-----------------------|-----------------------|
+  # Normal   | 160x36                | 160x40                |
+  # Extended | 137x36                | 137x40                |
+  # Laptop args: -o font.size=12 -o font.offset.y=-1 -o font.glyph_offset=-1
+
   offset:
     x: 0
     y: 0
   glyph_offset:
-    x: 1
+    x: 0
     y: 0
 
 shell:
