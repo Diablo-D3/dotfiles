@@ -100,29 +100,28 @@ Vim textobjects often come with `a`, `i`, and `o` prefixes, for around, inner, a
 
 [Mini-comment](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-comment.md) allows you to comment code using the `gc` operator. Formerly, I used [vim-commentary](https://github.com/tpope/vim-commentary).
 
-| Textobject | Action                      | Source           |
-| ---------- | --------------------------- | ---------------- |
-| `w`        | Word                        | Vim              |
-| `s`        | Sentence                    | Vim              |
-| `p`        | Paragraph                   | Vim              |
-| `,`        | Previous selection (no a/i) | TS-textsubjects  |
-| `.`        | Smart (no a/i)              | TS-textsubjects  |
-| `;`        | Outer Container             | TS-textsubjects  |
-| `[`        | `[]` brackets               | Mini-ai enhanced |
-| `(`        | `()` brackets               | Mini-ai enhanced |
-| `{`        | `{}` brackets               | Mini-ai enhanced |
-| `<`        | `<>` brackets               | Mini-ai enhanced |
-| `b`        | Any kind of brackets        | Mini-ai enhanced |
-| `` ` ``    | Backtick quote              | Mini-ai enhanced |
-| `'`        | Single quote                | Mini-ai enhanced |
-| `"`        | Double quote                | Mini-ai enhanced |
-| `q`        | Any kind of quote           | Mini-ai enhanced |
-| `t`        | XML/SGML tag                | Mini-ai enhanced |
-| `n`        | Next of same kind           | Mini-ai          |
-| `l`        | Last of same kind           | Mini-ai          |
-| `a`        | Argument (Paramter)         | Mini-ai          |
-| `f`        | Function call               | Mini-ai          |
-| `c`        | Class                       | Mini-ai + TS     |
-| `f`        | Function                    | Mini-ai + TS     |
-| `o`        | TS Block                    | Mini-ai + TS     |
-| `gc`       | Comment                     | Mini-comment     |
+| Textobject | Action               | Source           |
+| ---------- | -------------------- | ---------------- |
+| `w`        | Word                 | Vim              |
+| `s`        | Sentence             | Vim              |
+| `p`        | Paragraph            | Vim              |
+| `.`        | Smart                | TS-textsubjects  |
+| `;`        | Outer Container      | TS-textsubjects  |
+| `[`        | `[]` brackets        | Mini-ai enhanced |
+| `(`        | `()` brackets        | Mini-ai enhanced |
+| `{`        | `{}` brackets        | Mini-ai enhanced |
+| `<`        | `<>` brackets        | Mini-ai enhanced |
+| `b`        | Any kind of brackets | Mini-ai enhanced |
+| `` ` ``    | Backtick quote       | Mini-ai enhanced |
+| `'`        | Single quote         | Mini-ai enhanced |
+| `"`        | Double quote         | Mini-ai enhanced |
+| `q`        | Any kind of quote    | Mini-ai enhanced |
+| `t`        | XML/SGML tag         | Mini-ai enhanced |
+| `n`        | Next of same kind    | Mini-ai          |
+| `l`        | Last of same kind    | Mini-ai          |
+| `a`        | Argument (Paramter)  | Mini-ai          |
+| `f`        | Function call        | Mini-ai          |
+| `c`        | Class                | Mini-ai + TS     |
+| `f`        | Function             | Mini-ai + TS     |
+| `o`        | TS Block             | Mini-ai + TS     |
+| `gc`       | Comment              | Mini-comment     |
