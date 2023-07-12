@@ -328,8 +328,8 @@ vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 -- https://github.com/nvim-treesitter/nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter-refactor
 -- https://github.com/nvim-treesitter/nvim-treesitter-context
--- https://github.com/HiPhish/nvim-ts-rainbow2
 -- https://github.com/RRethy/nvim-treesitter-textsubjects
+-- https://gitlab.com/HiPhish/rainbow-delimiters.nvim
 require('nvim-treesitter.install').update({
     with_sync = true
 })
@@ -352,9 +352,6 @@ require('nvim-treesitter.configs').setup({
             }
         },
     },
-    rainbow = {
-        enable = true,
-    },
     textsubjects = {
         enable = true,
         prev_selection = ',',
@@ -372,6 +369,19 @@ vim.cmd [[
     set foldmethod=expr
     set foldexpr=nvim_treesitter#foldexpr()
 ]]
+
+local rainbow_delimiters = require('rainbow-delimiters')
+vim.g.rainbow_delimiters = {
+    strategy = {
+        [''] = rainbow_delimiters.strategy['global'],
+        vim = rainbow_delimiters.strategy['local'],
+    },
+    query = {
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+    }
+}
+
 
 -----------
 -- mason --
