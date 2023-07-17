@@ -216,11 +216,11 @@ fi
 if command -v fzf >/dev/null 2>&1; then
   if command -v fd >/dev/null 2>&1; then
     _fzf_compgen_path() {
-      fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+      fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1" | awk '{ printf "%s\t%s\t%s\n", gsub("/", "/"), length, $0 }' | LC_ALL=C sort -n -t $'\t' -k1,2 | cut -f3-
     }
 
     _fzf_compgen_dir() {
-      fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1"
+      fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1" | awk '{ printf "%s\t%s\t%s\n", gsub("/", "/"), length, $0 }' | LC_ALL=C sort -n -t $'\t' -k1,2 | cut -f3-
     }
   fi
 
