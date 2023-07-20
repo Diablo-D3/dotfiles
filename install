@@ -50,7 +50,12 @@ if [[ "$uname" == *"WSL"* ]]; then
 
   export wsl="true"
   "$modules_dir/os-wsl/stealenv.sh"
-  source "$HOME/.bashrc.win"
+  if [ -x "$HOME/.bashrc.win" ]; then
+    # shellcheck disable=SC1091
+    source "$HOME/.bashrc.win"
+  else
+    echo "Windows env vars didn't get stolen correctly"
+  fi
 fi
 
 # Add non-OS modules
