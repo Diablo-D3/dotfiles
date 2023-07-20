@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -n "${wsl+set}" ]; then
-    _stow "$module_home/config/alacritty" "$APPDATA/alacritty/"
+    _stow "$MODULE_HOME/config/alacritty" "$APPDATA/alacritty/"
 fi
 
 fonts="$HOME/.fonts"
@@ -18,10 +18,10 @@ if [ -f "/tmp/$term.zip" ] || [ -f "/tmp/$aile" ]; then
     unzip -qqjo "/tmp/ttf-iosevka-aile.zip" "*ttf" -d "$fonts"
     rm -f "/tmp/$term.zip" "/tmp/$aile.zip"
 
-    if [ -n "${wsl+set}" ]; then
+    if [ -n "${WSL+set}" ]; then
         oldpwd="$PWD"
         cd "$fonts" || exit
-        _ln "$modules_dir/os-wsl/fontreg.exe" "$USERPROFILE/bin/fontreg.exe"
+        _ln "$MODULES_DIR/os-wsl/fontreg.exe" "$USERPROFILE/bin/fontreg.exe"
         powershell.exe -Command "& \$env:USERPROFILE\bin\fontreg.exe" "/copy"
         cd "$oldpwd" || exit
     fi

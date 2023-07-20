@@ -3,12 +3,12 @@
 # shellcheck disable=SC1090
 
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit
-base_dir="$(pwd)"
-export base_dir
+BASE_DIR="$(pwd)"
+export BASE_DIR
 
-export modules_dir="$base_dir/modules"
+export MODULES_DIR="$BASE_DIR/modules"
 
-source "$base_dir/install-lib"
+source "$BASE_DIR/install-lib"
 
 ###
 ### Stage 1: Do housekeeping
@@ -32,7 +32,7 @@ _end
 
 _start "Module detection"
 
-declare -a modules
+declare -a MODULES
 
 uname="$(uname -a)"
 
@@ -46,10 +46,10 @@ fi
 if [[ "$uname" == *"WSL"* ]]; then
   _status "Discovered WSL"
 
-  modules+=("os-wsl")
+  MODULES+=("os-wsl")
 
-  export wsl="true"
-  "$modules_dir/os-wsl/stealenv.sh"
+  export WSL="true"
+  "$MODULES_DIR/os-wsl/stealenv.sh"
   if [ -x "$HOME/.bashrc.win" ]; then
     # shellcheck disable=SC1091
     source "$HOME/.bashrc.win"
@@ -59,14 +59,14 @@ if [[ "$uname" == *"WSL"* ]]; then
 fi
 
 # Add non-OS modules
-for module in "$modules_dir/"!(os)*/; do
+for MODULE in "$MODULES_DIR/"!(os)*/; do
   # remove "modules/" prefix and "/" suffix
-  module="${module#"$modules_dir/"}"
-  module="${module%/}"
+  MODULE="${MODULE#"$MODULES_DIR/"}"
+  MODULE="${MODULE%/}"
 
-  if (command -v "$module" >/dev/null 2>&1 || command -v "$module.exe" >/dev/null 2>&1); then
-    _status "Discovered $module"
-    modules+=("$module")
+  if (command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1); then
+    _status "Discovered $MODULE"
+    MODULES+=("$MODULE")
   fi
 done
 
@@ -75,38 +75,38 @@ if [ "$linux" != "" ]; then
   _status "Discovered $linux"
 
   # make lowercase
-  modules+=("os-${linux,,}")
+  MODULES+=("os-${linux,,}")
 fi
 
 ###
 ### Stage 3: Install modules
 ###
 
-for module in "${modules[@]}"; do
+for MODULE in "${MODULES[@]}"; do
   # reconstitute directory of module
-  module_dir="$modules_dir/$module"
+  MODULE_DIR="$MODULES_DIR/$MODULE"
 
   # path of config script
-  module_sh="$modules_dir/$module.sh"
+  MODULE_SH="$MODULES_DIR/$MODULE.sh"
 
   # paths for autorules
-  module_home="$module_dir/HOME"
-  module_bin="$module_dir/BIN"
-  module_etc="$module_dir/ETC"
-  module_list="$module_dir/GIT"
+  MODULE_HOME="$MODULE_DIR/HOME"
+  MODULE_BIN="$MODULE_DIR/BIN"
+  MODULE_ETC="$MODULE_DIR/ETC"
+  MODULE_LIST="$MODULE_DIR/GIT"
 
-  _start "Installing for $module"
+  _start "Installing for $MODULE"
 
-  _stow "$module_home" "$HOME/."
-  _stow "$module_bin" "$HOME/bin/"
-  _sudo _stow "$module_etc" "/etc"
+  _stow "$MODULE_HOME" "$HOME/."
+  _stow "$MODULE_BIN" "$HOME/bin/"
+  _sudo _stow "$MODULE_ETC" "/etc"
 
-  if [ -f "$module_list" ]; then
-    _git_list "$module_list"
+  if [ -f "$MODULE_LIST" ]; then
+    _git_list "$MODULE_LIST"
   fi
 
-  if [ -f "$module_sh" ]; then
-    "$module_sh"
+  if [ -f "$MODULE_SH" ]; then
+    "$MODULE_SH"
   fi
 
   _end

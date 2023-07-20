@@ -230,7 +230,7 @@ function _git_list {
                         echo -e "$hiblue>$reset $blue$short$reset"
                         git -C "$target" log --color "$orig_head".."$new_head"
                         echo ""
-                    } >> "$log"
+                    } >>"$log"
                 fi
             fi
         fi
@@ -357,7 +357,7 @@ function _sudo() {
         local IFS=" "
 
         # shellcheck disable=SC2154 # assigned elsewhere
-        sudo -E bash -c "source $base_dir/install-lib; $*"
+        sudo -E bash -c "source $BASE_DIR/install-lib; $*"
     else
         _status "Cannot become root: " "$@"
     fi

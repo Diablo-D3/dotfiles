@@ -11,7 +11,7 @@ for branch in "${branches[@]}"; do
     if (grep -q "$branch" "$apt_prefs/pin-"*); then
         if [ ! -f "$branch_list" ]; then
             run_apt_update=1
-            _sudo _ln "$module_dir/$branch.list" "$branch_list"
+            _sudo _ln "$MODULE_DIR/$branch.list" "$branch_list"
         fi
     else
         if [ -f "$branch_list" ]; then
@@ -27,7 +27,7 @@ if (grep -q "glibc" "$apt_prefs/pin-"*); then
         run_apt_update=1
     fi
 
-    _sudo _ln "$module_dir/pin-glibc" "$pin_glibc"
+    _sudo _ln "$MODULE_DIR/pin-glibc" "$pin_glibc"
 else
     if [ -f "$pin_glibc" ]; then
         run_apt_update=1
