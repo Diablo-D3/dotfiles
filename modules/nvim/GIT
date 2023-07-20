@@ -15,7 +15,7 @@ https://github.com/ibhagwan/fzf-lua.git,main
 https://github.com/nvim-treesitter/nvim-treesitter.git,master
 https://github.com/nvim-treesitter/nvim-treesitter-refactor.git,master
 https://github.com/nvim-treesitter/nvim-treesitter-context.git,master
-https://gitlab.com/HiPhish/rainbow-delimiters.nvim,master
+https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git,master
 https://github.com/RRethy/nvim-treesitter-textsubjects.git,master
 
 # mason
