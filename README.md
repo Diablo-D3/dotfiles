@@ -17,12 +17,15 @@ Run `~/.dotfiles/install` again.
 I should write an actual script to stand-up my personal Debian VMs (or use one of the thousands of tools for this). Until then...
 
 #### Core OS
+
 `sudo apt install sysvinit-core openssh-server libpam-elogind bash-completion bc deborphan file git lsb-release vim rsync wget unzip`
 
 #### Additional userland tools
-`sudo apt install fzf fd-find ripgrep tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
+
+`sudo apt install fzf fd-find bfs ripgrep tmux` (currently separated out because they pull in unstable/experimental versions, don't do this on low disk space VMs)
 
 #### Neovim and dev
+
 `sudo apt install neovim shellcheck shfmt python3-venv npm nodejs`
 `sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev`
 
@@ -34,7 +37,7 @@ Enable Developer Mode in Developer Settings, enable unsigned Powershell executio
 
 ### Kanata on Windows
 
-`. ${env:USERPROFILE}\install-task.ps1 kanata kanata\kanata.ps1 name.kbd` to install kanata as a service [&#10149;](./modules/os-wsl/kanata.ps1); includes copying `kanata.exe.new` to `kanata.exe` to facilitate seamless upgrades.
+`. ${env:USERPROFILE}\install-task.ps1 kanata kanata\kanata.ps1 name.kbd` to install kanata as a scheduled task [&#10149;](./modules/os-wsl/kanata.ps1); includes copying `kanata.exe.new` to `kanata.exe` to facilitate seamless upgrades.
 
 ### Apple Multitouch
 
