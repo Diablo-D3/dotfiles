@@ -33,7 +33,7 @@ key_bindings:
 
   - { key: A, mods: Control, chars: "\x1b[97;5u" }
   - { key: B, mods: Control, chars: "\x1b[98;5u" }
-  # Control-C
+  # Ctrl-C
   - { key: D, mods: Control, chars: "\x1b[100;5u" }
   - { key: E, mods: Control, chars: "\x1b[101;5u" }
   - { key: F, mods: Control, chars: "\x1b[102;5u" }
@@ -48,9 +48,9 @@ key_bindings:
   - { key: O, mods: Control, chars: "\x1b[111;5u" }
   - { key: P, mods: Control, chars: "\x1b[112;5u" }
   - { key: Q, mods: Control, chars: "\x1b[113;5u" }
-  - { key: R, mods: Control, chars: "\x1b[114;5u" }
+  # Ctrl-R, sh: Search through history backwards
   - { key: S, mods: Control, chars: "\x1b[115;5u" }
-  - { key: T, mods: Control, chars: "\x1b[116;5u" }
+  # Ctrl-T, sh: Put selected paths on command line
   - { key: U, mods: Control, chars: "\x1b[117;5u" }
   - { key: V, mods: Control, chars: "\x1b[118;5u" }
   - { key: W, mods: Control, chars: "\x1b[119;5u" }
@@ -141,7 +141,7 @@ key_bindings:
   # Alt
   - { key: A, mods: Alt, chars: "\x1ba" }
   - { key: B, mods: Alt, chars: "\x1bb" }
-  - { key: C, mods: Alt, chars: "\x1bc" }
+  # Alt-C, sh: cd to directory
   - { key: D, mods: Alt, chars: "\x1bd" }
   - { key: E, mods: Alt, chars: "\x1be" }
   - { key: F, mods: Alt, chars: "\x1bf" }
