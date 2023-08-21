@@ -193,8 +193,9 @@ NODE_PATH="$HOME/.npm/lib/node_modules"
 PATH="$HOME/.npm/bin:$PATH"
 MANPATH="$NPM_PACKAGES/share/man"
 
-# fzf and fd
-# Some is from https://github.com/junegunn/fzf#settings
+# fzf, fd, and bfs
+# https://github.com/junegunn/fzf#settings
+# https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
 FZF_COMPLETION_TRIGGER=""
 
 FZF_DEFAULT_OPTS="+m -0 -1
@@ -203,8 +204,12 @@ FZF_DEFAULT_OPTS="+m -0 -1
   --no-bold
   --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1'
   --layout='reverse-list'
-  --scheme=path"
-FZF_CTRL_R_OPTS="--no-sort --exact"
+  --ansi"
+FZF_CTRL_R_OPTS="--no-sort --exact --scheme=history"
+FZF_CTRL_T_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null"
+FZF_CTRL_T_OPTS="--scheme=path"
+FZF_ALT_C_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null"
+FZF_ALT_C_OPTS="--scheme=path"
 
 FZF_TMUX=1
 FZF_TMUX_OPTS="-p -w 80 -h 100% -x R"
@@ -214,13 +219,13 @@ if command -v fdfind >/dev/null 2>&1; then
 fi
 
 if command -v fzf >/dev/null 2>&1; then
-  if command -v fd >/dev/null 2>&1; then
+  if command -v bfs >/dev/null 2>&1; then
     _fzf_compgen_path() {
-      fd --hidden --follow --exclude ".git" --exclude "node_modules" . "$1" | awk '{ printf "%s\t%s\t%s\n", gsub("/", "/"), length, $0 }' | LC_ALL=C sort -n -t $'\t' -k1,2 | cut -f3-
+      bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
     }
 
     _fzf_compgen_dir() {
-      fd --type d --hidden --follow --exclude ".git" --exclude "node_modules" . "$1" | awk '{ printf "%s\t%s\t%s\n", gsub("/", "/"), length, $0 }' | LC_ALL=C sort -n -t $'\t' -k1,2 | cut -f3-
+      bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
     }
   fi
 
@@ -234,7 +239,6 @@ if command -v fzf >/dev/null 2>&1; then
 fi
 
 # vim
-
 if command -v nvim >/dev/null 2>&1; then
   export EDITOR=nvim
   alias vim=nvim
