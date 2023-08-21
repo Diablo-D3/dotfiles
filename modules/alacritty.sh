@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -n "${wsl+set}" ]; then
+if [ -n "${WSL+set}" ]; then
     _stow "$MODULE_HOME/config/alacritty" "$APPDATA/alacritty/"
 fi
 
