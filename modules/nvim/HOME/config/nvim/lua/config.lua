@@ -161,9 +161,6 @@ mini_indentscope.setup({
     symbol = '│'
 })
 
--- mini.pairs
-require('mini.pairs').setup({})
-
 -- mini.sessions
 require('mini.sessions').setup({})
 
