@@ -4,8 +4,8 @@
 
 local vim = vim
 
-local keyopts = { noremap = true, silent = true }
-local local_keyopts = { noremap = true, silent = true, buffer = true }
+local keyopts = { silent = true }
+local local_keyopts = { silent = true, buffer = true }
 
 vim.cmd.helptags('ALL')
 
