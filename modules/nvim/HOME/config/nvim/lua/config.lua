@@ -195,6 +195,20 @@ local palette = {
 
 mini_hues.setup(palette)
 
+-- setup secondary bg ns
+local tooltip = vim.api.nvim_create_namespace('tooltip')
+local visual = vim.api.nvim_get_hl(0, { name = 'Visual' })
+local highlights = vim.api.nvim_get_hl(0, {})
+
+for name, def in pairs(highlights) do
+    if not def['link'] then
+        def['bg'] = visual['bg']
+        def['ctermbg'] = visual['ctermbg']
+    end
+
+    vim.api.nvim_set_hl(tooltip, name, def)
+end
+
 -- uncomment to print values
 --vim.print(mini_hues.make_palette(palette))
 
@@ -594,6 +608,33 @@ vim.cmd [[
     sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticVirtualTextInfo
     sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticVirtualTextHint
 ]]
+
+-- Disable virtual text, use popup instead
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+    severity_sort = false,
+})
+
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+    group = vim.api.nvim_create_augroup('cursor_diag', {}),
+    callback = function()
+        local _, win = vim.diagnostic.open_float({
+            scope     = 'cursor',
+            header    = '',
+            prefix    = '',
+            source    = 'if_many',
+            max_width = 80,
+            focusable = false
+        })
+
+        if win and vim.api.nvim_win_is_valid(win) then
+            vim.api.nvim_win_set_hl_ns(win, tooltip)
+        end
+    end
+})
 
 lspconfig.bashls.setup({
     settings = {
