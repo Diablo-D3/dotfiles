@@ -9,60 +9,8 @@ local local_keyopts = { silent = true, buffer = true }
 
 vim.cmd.helptags('ALL')
 
-local winopts = function()
-    local cols = vim.o.columns
-    local rows = vim.o.lines
-
-    return {
-        relative = 'editor',
-        style = 'minimal',
-        border = 'rounded',
-        col = cols,
-        row = 0,
-        width = 80,
-        height = rows,
-    }
-end
-
--- popupify
-local popupify = function(ft, callback)
-    local popup = vim.api.nvim_create_augroup('popup_' .. ft, {})
-    vim.api.nvim_create_autocmd('FileType', {
-        pattern = ft,
-        group = popup,
-        callback = function()
-            if #(vim.api.nvim_list_wins()) > 1 then
-                vim.api.nvim_win_set_config(0, winopts())
-
-                vim.w.popupify_win = vim.api.nvim_get_current_win()
-
-                if callback then callback() end
-            end
-        end
-    })
-end
-
-vim.api.nvim_create_autocmd('WinLeave', {
-    group = vim.api.nvim_create_augroup('popup_autoclose', {}),
-    callback = function()
-        local win = vim.w.popupify_win
-
-        if (win ~= nil and vim.api.nvim_win_is_valid(win)) then
-            vim.api.nvim_win_close(win, true)
-        end
-    end
-})
-
-vim.api.nvim_create_autocmd({ 'VimResized', 'WinResized' }, {
-    group = vim.api.nvim_create_augroup('popup_resize', {}),
-    callback = function()
-        local win = vim.w.popupify_win
-
-        if (win ~= nil and vim.api.nvim_win_is_valid(win)) then
-            vim.api.nvim_win_set_config(0, winopts())
-        end
-    end
-})
+local winopts = require('popupify').default_winopts
+local popupify = require('popupify').popupify
 
 ------------------------
 -- base functionality --
@@ -320,16 +268,13 @@ trouble.setup {
     use_diagnostic_signs = false
 }
 
-vim.keymap.set('n', '<leader>d', function() trouble.toggle('workspace_diagnostics') end, keyopts)
-vim.keymap.set('n', '<leader>t', function() trouble.toggle('todo') end, keyopts)
+popupify('FileType', 'Trouble', 'n', '<leader>d', 'Trouble Diagnostics', function()
+    trouble.toggle('workspace_diagnostics')
+end)
 
-local trouble_keymap = function()
-    vim.keymap.set('n', '<leader>d', function() vim.cmd.close() end, local_keyopts)
-    vim.keymap.set('n', '<leader>t', function() vim.cmd.close() end, local_keyopts)
-    vim.keymap.set('n', '<esc>', function() vim.cmd.close() end, local_keyopts)
-end
-
-popupify('Trouble', trouble_keymap)
+popupify('FileType', 'Trouble', 'n', '<leader>t', 'Trouble Todo', function()
+    trouble.toggle('todo')
+end)
 
 -- fzf-lua
 -- https://github.com/ibhagwan/fzf-lua
@@ -707,23 +652,17 @@ lspconfig.lua_ls.setup({
 
 -- fugitive
 -- https://github.com/tpope/vim-fugitive
-vim.keymap.set('n', '<leader>g', function() vim.cmd.Git() end, keyopts)
-
-local fugitive_keymap = function()
-    vim.keymap.set('n', '<leader>g', function() vim.cmd.close() end, local_keyopts)
-    vim.keymap.set('n', '<esc>', function() vim.cmd.close() end, local_keyopts)
-
-    vim.keymap.set('n', 'cc', function()
-        -- temporary fix for 'press enter'
-        vim.o.cmdheight = 1
-        vim.cmd.Git('commit')
-        vim.o.cmdheight = 0
-    end, local_keyopts)
-end
-
-popupify('fugitive', fugitive_keymap)
-popupify('git', fugitive_keymap)
-popupify('gitcommit', fugitive_keymap)
+popupify('FileType', { 'fugitive', 'git', 'gitcommit' }, 'n', '<leader>g', 'Fugitive',
+    function()
+        vim.cmd.Git()
+    end, function()
+        vim.keymap.set('n', 'cc', function()
+            -- temporary fix for 'press enter'
+            vim.o.cmdheight = 1
+            vim.cmd.Git('commit')
+            vim.o.cmdheight = 0
+        end, local_keyopts)
+    end)
 
 -- vim-osc52
 -- https://github.com/ojroques/nvim-osc52
