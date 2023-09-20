@@ -205,6 +205,9 @@ mini_indentscope.setup({
         delay = 0,
         animation = mini_indentscope.gen_animation.none()
     },
+    options = {
+        try_as_border = true
+    },
     symbol = '│'
 })
 
