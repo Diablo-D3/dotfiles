@@ -688,8 +688,13 @@ lspconfig.lua_ls.setup({
             telemetry = {
                 enable = false,
             },
-        },
-    },
+            diagnostics = {
+                neededFileStatus = {
+                    ["codestyle-check"] = "Any"
+                }
+            }
+        }
+    }
 })
 
 --------------------------------------
