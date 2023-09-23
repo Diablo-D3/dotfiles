@@ -109,7 +109,7 @@ Sorted from widest to tallest
 
 I looked for the minimum size that glyphs are easily disernable and have no excessive fringing or misshapen glyph stems. Tested using both DirectWrite (via Windows Terminal) and Freetype (using Alacritty); also tested across aliased, greyscale, and subpixel in WT.
 
-For sanity and reproducability reasons, I tested integer pixel values only. Point values are listed in 96/100% DPI points.
+For sanity and reproducibility reasons, I tested integer pixel values only. Point values are listed in 96/100% DPI points.
 
 Sorted by smallest legitable size, and if multiple styles, by best scoring width/weight (in italic).
 
