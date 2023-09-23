@@ -28,6 +28,11 @@ vim.cmd [[
 -- mini.nvim
 -- https://github.com/echasnovski/mini.nvim
 
+-- mini.basics
+require('mini.basics').setup({})
+
+vim.o.signcolumn = 'no'
+
 -- mini.ai
 local mini_ai = require('mini.ai')
 mini_ai.setup({
@@ -55,11 +60,6 @@ mini_animate.setup({
         enable = false
     }
 })
-
--- mini.basics
-require('mini.basics').setup({})
-
-vim.o.signcolumn = 'no'
 
 -- mini.bracketed
 require('mini.bracketed').setup({})
