@@ -37,7 +37,7 @@ shopt -s nocaseglob
 # append, not overwrite, history
 shopt -s histappend
 
-# save multi-line commands as single entry with embeded newlines
+# save multi-line commands as single entry with embedded newlines
 shopt -s cmdhist
 shopt -s lithist
 
