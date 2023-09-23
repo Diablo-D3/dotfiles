@@ -7,7 +7,7 @@ I have used Vim for over 20 years, and recently filed for "vim config bankruptcy
 
 This README mostly exists as a reminder to myself, but also as documentation to others to help them consider how to craft their own configs. This README does not serve as a tutorial to use Vim.
 
-Vim functionalty can be divided into several important categories: core editing, syntax highlighting, autocompletion, navigation, formatting, and folding.
+Vim functionality can be divided into several important categories: core editing, syntax highlighting, autocompletion, navigation, formatting, and folding.
 
 ## Navigation
 
@@ -94,7 +94,7 @@ Many of these take capitals to do first/last instead of next/prev, many of these
 
 ### Textobjects
 
-Vim textobjects often come with `a`, `i`, and `o` prefixes, for around, inner, and outer; inner only selects whats inside the block, around selects whats inside and the block itself, and outer selects the entire block that contains the selector. Outer and around are usually the same thing.
+Vim textobjects often come with `a`, `i`, and `o` prefixes, for around, inner, and outer; inner only selects what's inside the block, around selects what's inside and the block itself, and outer selects the entire block that contains the selector. Outer and around are usually the same thing.
 
 [Mini-ai](https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md) and [nvim-treesitter-textsubjects](https://github.com/RRethy/nvim-treesitter-textsubjects) adds flexibility to what I can do with textobjects. Formerly, I used [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects).
 
@@ -119,7 +119,7 @@ Vim textobjects often come with `a`, `i`, and `o` prefixes, for around, inner, a
 | `t`        | XML/SGML tag         | Mini-ai enhanced |
 | `n`        | Next of same kind    | Mini-ai          |
 | `l`        | Last of same kind    | Mini-ai          |
-| `a`        | Argument (Paramter)  | Mini-ai          |
+| `a`        | Argument (Parameter)  | Mini-ai          |
 | `f`        | Function call        | Mini-ai          |
 | `c`        | Class                | Mini-ai + TS     |
 | `f`        | Function             | Mini-ai + TS     |
