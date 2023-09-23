@@ -141,7 +141,7 @@ vim.api.nvim_create_autocmd('BufLeave', {
     end
 })
 
--- Automatically close when leaving managed window
+-- Automatically close when leaving popup
 vim.api.nvim_create_autocmd('WinLeave', {
     group = augroup,
     callback = function()
