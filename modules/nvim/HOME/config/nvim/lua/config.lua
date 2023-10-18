@@ -173,9 +173,6 @@ mini_indentscope.setup({
     symbol = '│'
 })
 
--- mini.sessions
-require('mini.sessions').setup({})
-
 -- mini.statusline
 local mini_statusline = require('mini.statusline')
 mini_statusline.setup({
