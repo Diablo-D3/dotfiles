@@ -1,6 +1,6 @@
 {
   "$help": "https://aka.ms/terminal-documentation",
-  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "$schema": "https://aka.ms/terminal-profiles-schema-preview",
   "actions": [
     {
       "command": {
@@ -82,135 +82,135 @@
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001d"
+        "input": "\u001bd"
       },
-      "keys": "ctrl+alt+shift+win+d"
+      "keys": "alt+d"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001e"
+        "input": "\u001be"
       },
-      "keys": "ctrl+alt+shift+win+e"
+      "keys": "alt+e"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001r"
+        "input": "\u001br"
       },
-      "keys": "ctrl+alt+shift+win+r"
+      "keys": "alt+r"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001z"
+        "input": "\u001bv"
       },
-      "keys": "ctrl+alt+shift+win+z"
+      "keys": "alt+v"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001v"
+        "input": "\u001bh"
       },
-      "keys": "ctrl+alt+shift+win+v"
+      "keys": "alt+h"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001h"
+        "input": "\u001bb;"
       },
-      "keys": "ctrl+alt+shift+win+h"
+      "keys": "alt+;"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001;"
+        "input": "\u001b:"
       },
-      "keys": "ctrl+alt+shift+win+;"
+      "keys": "alt+:"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001:"
+        "input": "\u001b`"
       },
-      "keys": "ctrl+alt+shift+win+:"
+      "keys": "alt+`"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u0001`"
+        "input": "\u001b~"
       },
-      "keys": "ctrl+alt+shift+win+`"
+      "keys": "alt+shift+`"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00011"
+        "input": "\u001b1"
       },
-      "keys": "ctrl+alt+shift+win+1"
+      "keys": "alt+1"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00012"
+        "input": "\u001b2"
       },
-      "keys": "ctrl+alt+shift+win+2"
+      "keys": "alt+2"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00013"
+        "input": "\u001b3"
       },
-      "keys": "ctrl+alt+shift+win+3"
+      "keys": "alt+3"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00014"
+        "input": "\u001b4"
       },
-      "keys": "ctrl+alt+shift+win+4"
+      "keys": "alt+4"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00015"
+        "input": "\u001b5"
       },
-      "keys": "ctrl+alt+shift+win+5"
+      "keys": "alt+5"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00016"
+        "input": "\u001b6"
       },
-      "keys": "ctrl+alt+shift+win+6"
+      "keys": "alt+6"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00017"
+        "input": "\u001b7"
       },
-      "keys": "ctrl+alt+shift+win+7"
+      "keys": "alt+7"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00018"
+        "input": "\u001b8"
       },
-      "keys": "ctrl+alt+shift+win+8"
+      "keys": "alt+8"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00019"
+        "input": "\u001b9"
       },
-      "keys": "ctrl+alt+shift+win+9"
+      "keys": "alt+9"
     },
     {
       "command": {
         "action": "sendInput",
-        "input": "\u00010"
+        "input": "\u001b0"
       },
-      "keys": "ctrl+alt+shift+win+0"
+      "keys": "alt+0"
     }
   ],
   "alwaysShowTabs": false,
@@ -231,22 +231,34 @@
       "experimental.retroTerminalEffect": false,
       "font": {
         "face": "Iosevka Term",
-        "size": 18,
+        "size": 18.0,
         "weight": "normal"
       },
       "intenseTextStyle": "bold",
       "padding": 0,
       "scrollbarState": "hidden",
-      "useAtlasEngine": true
+      "setAtlasEngine": true,
     },
     "list": [
       {
         "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-        "name": "Command Prompt"
+        "name": "Command Prompt",
+        "colorScheme": "Campbell"
       },
       {
         "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-        "name": "Windows PowerShell"
+        "name": "Windows PowerShell",
+        "colorScheme": "Campbell Powershell"
+      },
+      {
+        "name": "Windows PowerShell (Administrator)",
+        "colorScheme": "Campbell Powershell",
+        "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "elevate": true,
+        "guid": "{95c69bf5-17d6-447c-8338-bf5d40a8d501}",
+        "hidden": false,
+        "icon": "ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png",
+        "startingDirectory": "%USERPROFILE%"
       },
       {
         "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
@@ -259,8 +271,8 @@
   },
   "schemes": [
     {
-      "cursorColor": "#aeafad",
       "name": "Tomorrow Night",
+      "cursorColor": "#aeafad",
       "selectionBackground": "#373b41",
       "background": "#1d1f21",
       "foreground": "#c5c8c6",
@@ -288,7 +300,9 @@
     {
       "name": "Default",
       "tab": {
-        "background": "accent",
+        "background": "terminalBackground",
+        "iconStyle": "hidden",
+        "showCloseButton": "always",
         "unfocusedBackground": "terminalBackground"
       },
       "tabRow": {
@@ -297,6 +311,9 @@
       },
       "window": {
         "applicationTheme": "dark",
+        "experimental.rainbowFrame": false,
+        "frame": "terminalBackground",
+        "unfocusedFrame": "terminalBackground",
         "useMica": false
       }
     }
