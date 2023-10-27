@@ -331,7 +331,6 @@ vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
 -- https://github.com/nvim-treesitter/nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter-refactor
 -- https://github.com/nvim-treesitter/nvim-treesitter-context
--- https://github.com/RRethy/nvim-treesitter-textsubjects
 -- https://gitlab.com/HiPhish/rainbow-delimiters.nvim
 require('nvim-treesitter.install').update({
     with_sync = true
@@ -354,17 +353,7 @@ require('nvim-treesitter.configs').setup({
                 smart_rename = '<leader>r'
             }
         },
-    },
-    textsubjects = {
-        enable = true,
-        prev_selection = ',',
-        keymaps = {
-            ['a.'] = 'textsubjects-smart',
-            ['i.'] = 'textsubjects-smart',
-            ['a;'] = 'textsubjects-container-outer',
-            ['i;'] = 'textsubjects-container-inner',
-        }
-    },
+    }
 })
 
 vim.cmd [[

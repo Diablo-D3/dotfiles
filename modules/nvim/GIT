@@ -16,7 +16,6 @@ https://github.com/nvim-treesitter/nvim-treesitter.git,master
 https://github.com/nvim-treesitter/nvim-treesitter-refactor.git,master
 https://github.com/nvim-treesitter/nvim-treesitter-context.git,master
 https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git,master
-https://github.com/RRethy/nvim-treesitter-textsubjects.git,master
 
 # mason
 https://github.com/williamboman/mason.nvim.git,main
