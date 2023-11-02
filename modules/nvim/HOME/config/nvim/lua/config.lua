@@ -77,7 +77,6 @@ mini_clue.setup({
         { mode = 'n', keys = '<Leader>' },
         { mode = 'x', keys = '<Leader>' },
 
-
         -- Built-in completion
         { mode = 'i', keys = '<C-x>' },
 
@@ -118,6 +117,49 @@ mini_clue.setup({
 
 -- mini.comment
 require('mini.comment').setup({})
+
+-- mini.complete
+require('mini.completion').setup({
+    delay = { completion = 4294967295 }
+})
+
+local replace_termcodes = function(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
+
+local keys = {
+    ['tab'] = replace_termcodes('<Tab>'),
+    ['s-tab'] = replace_termcodes('<S-Tab>'),
+    ['c-xc-o'] = replace_termcodes('<C-X><C-O>'),
+    ['c-n'] = replace_termcodes('<C-N>'),
+    ['c-p'] = replace_termcodes('<C-P>'),
+
+    ['cr'] = replace_termcodes('<CR>'),
+    ['ctrl-y'] = replace_termcodes('<C-Y>'),
+    ['ctrl-y_cr'] = replace_termcodes('<C-Y><CR>'),
+}
+
+local feedkeys = function(key) vim.fn.feedkeys(keys[key], 'n') end
+
+local function tab_complete(shift)
+    if vim.fn.pumvisible() == 1 then return feedkeys(shift and 'c-p' or 'c-n') end
+
+    local line = vim.api.nvim_get_current_line()
+    local pos = vim.api.nvim_win_get_cursor(0)[2]
+    local not_at_whitespace = line:sub(pos, pos):find('%s') == nil
+    if not_at_whitespace then return feedkeys('c-xc-o') end
+
+    feedkeys(shift and 's-tab' or 'tab')
+end
+
+vim.keymap.set('i', '<Tab>', function() tab_complete(false) end, keyopts)
+vim.keymap.set('i', '<S-Tab>', function() tab_complete(true) end, keyopts)
+
+local function cr_complete()
+    if vim.fn.pumvisible() == 0 then return feedkeys('cr') end
+    local has_selected = vim.fn.complete_info()['selected'] ~= -1
+    feedkeys(has_selected and 'ctrl-y' or 'ctrl-y_cr')
+end
+
+vim.keymap.set('i', '<CR>', cr_complete, keyopts)
 
 -- mini.hipatterns
 local mini_hipatterns = require('mini.hipatterns')
