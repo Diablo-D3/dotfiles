@@ -549,16 +549,23 @@ vim.diagnostic.config({
     severity_sort = false,
 })
 
-vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'CursorMoved', 'CursorMovedI' }, {
     group = vim.api.nvim_create_augroup('cursor_diag', {}),
     callback = function()
         local _, win = vim.diagnostic.open_float({
-            scope     = 'cursor',
-            header    = '',
-            prefix    = '',
-            source    = 'if_many',
-            max_width = 80,
-            focusable = false
+            scope        = 'cursor',
+            anchor       = 'NE',
+            header       = '',
+            prefix       = '',
+            source       = 'if_many',
+            max_width    = 80,
+            focusable    = false,
+            close_events = {
+                'CursorMoved',
+                'CursorMovedI',
+                'BufHidden',
+                'WinLeave'
+            }
         })
 
         if win and vim.api.nvim_win_is_valid(win) then
