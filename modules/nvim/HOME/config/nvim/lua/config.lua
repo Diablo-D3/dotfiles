@@ -663,10 +663,7 @@ lspconfig.lua_ls.setup({
     settings = {
         Lua = {
             workspace = {
-                checkThirdParty = false,
-            },
-            telemetry = {
-                enable = false,
+                checkThirdParty = "Disable",
             },
             diagnostics = {
                 neededFileStatus = {
