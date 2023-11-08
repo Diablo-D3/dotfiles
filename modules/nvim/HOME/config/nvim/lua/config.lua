@@ -674,6 +674,10 @@ lspconfig.lua_ls.setup({
     }
 })
 
+-- fidget.nvim
+-- https://github.com/j-hui/fidget.nvim
+require('fidget').setup({})
+
 --------------------------------------
 -- other languages-specific support --
 --------------------------------------
