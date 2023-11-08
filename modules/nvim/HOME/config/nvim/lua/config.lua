@@ -145,7 +145,7 @@ local function tab_complete(shift)
     local line = vim.api.nvim_get_current_line()
     local pos = vim.api.nvim_win_get_cursor(0)[2]
     local not_at_whitespace = line:sub(pos, pos):find('%s') == nil
-    if not_at_whitespace then return feedkeys('c-xc-o') end
+    if (not_at_whitespace and pos > 1) then return feedkeys('c-xc-o') end
 
     feedkeys(shift and 's-tab' or 'tab')
 end
