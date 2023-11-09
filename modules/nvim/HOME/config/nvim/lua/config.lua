@@ -505,18 +505,47 @@ require('formatter').setup {
     }
 }
 
+-- call lsp formatter if provided, else call formatter.nvim
+-- ... for gq
 function Formatexpr()
     local lnum = vim.v.lnum;
     local count = vim.v.count;
-    require("formatter.format").format("", "", lnum, (lnum + count + 1), { lock = true })
+
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+    -- check if lsp client offers format and quit early
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.documentFormattingProvider then
+            vim.lsp.formatexpr({})
+            return
+        end
+    end
+
+    -- else run formatter.nvim
+    return require("formatter.format").format("", "", lnum, (lnum + count + 1), { lock = true })
 end
 
 vim.o.formatexpr = "v:lua.Formatexpr()"
 
-local format = vim.api.nvim_create_augroup('Formatter', {})
-vim.api.nvim_create_autocmd('BufWritePost', {
+-- ... on save
+local format = vim.api.nvim_create_augroup('FormatOnWrite', {})
+vim.api.nvim_create_autocmd('BufWritePre', {
     group = format,
-    callback = function() vim.cmd.FormatWriteLock() end
+    callback = function(ev)
+        local bufnr = ev.buf
+
+        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+
+        -- check if lsp client offers format and quit early
+        for _, client in ipairs(clients) do
+            if client.server_capabilities.documentFormattingProvider then
+                vim.lsp.buf.format({ bufnr = bufnr })
+            end
+        end
+
+        -- else run formatter.nvim
+        require("formatter.format").format("", "", 1, "$", { lock = true })
+    end
 })
 
 -- nvim-lint
@@ -557,20 +586,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client.server_capabilities.documentFormattingProvider then
-            -- set formatexpr even if already set
-            vim.api.nvim_buf_set_option(ev.buf, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-
-            -- format on save
-            -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save#sync-formatting
-            vim.api.nvim_create_autocmd('bufwritepre', {
-                group = vim.api.nvim_create_augroup('LspFmt', {}),
-                buffer = ev.buf,
-                callback = function()
-                    vim.lsp.buf.format({ bufnr = ev.buf })
-                end,
-            })
-        end
     end,
 })
 
