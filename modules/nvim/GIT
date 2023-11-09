@@ -29,6 +29,7 @@ https://github.com/mfussenegger/nvim-lint.git,master
 https://github.com/neovim/nvim-lspconfig.git,master
 https://github.com/simrat39/rust-tools.nvim.git,master
 https://github.com/folke/neodev.nvim.git,main
+https://git.sr.ht/~whynothugo/lsp_lines.nvim,main
 https://github.com/j-hui/fidget.nvim.git,legacy
 
 # other language-specific support

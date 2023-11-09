@@ -589,48 +589,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
-vim.cmd [[
-    " https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#highlight-line-number-instead-of-having-icons-in-sign-column
-    sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticVirtualTextError
-    sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticVirtualTextWarn
-    sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticVirtualTextInfo
-    sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticVirtualTextHint
-]]
-
--- Disable virtual text, use popup instead
-vim.diagnostic.config({
-    virtual_text = false,
-    signs = true,
-    underline = true,
-    update_in_insert = true,
-    severity_sort = false,
-})
-
-vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'CursorMoved', 'CursorMovedI' }, {
-    group = vim.api.nvim_create_augroup('cursor_diag', {}),
-    callback = function()
-        local _, win = vim.diagnostic.open_float({
-            scope        = 'cursor',
-            anchor       = 'NE',
-            header       = '',
-            prefix       = '',
-            source       = 'if_many',
-            max_width    = 80,
-            focusable    = false,
-            close_events = {
-                'CursorMoved',
-                'CursorMovedI',
-                'BufHidden',
-                'WinLeave'
-            }
-        })
-
-        if win and vim.api.nvim_win_is_valid(win) then
-            vim.api.nvim_win_set_hl_ns(win, tooltip)
-        end
-    end
-})
-
 lspconfig.bashls.setup({
     settings = {
         bashIde = {
@@ -692,6 +650,30 @@ lspconfig.lua_ls.setup({
 -- fidget.nvim
 -- https://github.com/j-hui/fidget.nvim
 require('fidget').setup({})
+
+-- lsp_lines.nvim
+-- https://git.sr.ht/~whynothugo/lsp_lines.nvim
+require('lsp_lines').setup({})
+
+vim.diagnostic.config({
+    virtual_text = false,
+    virtual_lines = {
+        only_current_line = true,
+        highlight_whole_line = false,
+    },
+    update_in_insert = true,
+    severity_sort = true,
+})
+
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#highlight-line-number-instead-of-having-icons-in-sign-column
+for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
+    vim.fn.sign_define("DiagnosticSign" .. diag, {
+        text = "",
+        texthl = "DiagnosticSign" .. diag,
+        linehl = "",
+        numhl = "DiagnosticSign" .. diag,
+    })
+end
 
 --------------------------------------
 -- other languages-specific support --
