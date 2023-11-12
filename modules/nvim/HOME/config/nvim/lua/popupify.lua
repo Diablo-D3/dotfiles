@@ -19,9 +19,10 @@ local augroup = vim.api.nvim_create_augroup('popupify', {})
 
 local M = {}
 
---- Popupify's default window options: 80 column wide, full height, floating window with rounded border, minimal
---- style, on right side of editor. Useful if you want to match this style with plugins that don't need Popupify's
---- assistance.
+--- Popupify's default window options: 80 column wide, full height
+--- floating window with rounded border, minimal style, on right side of
+--- editor. Useful if you want to match this style with plugins that don't
+--- need Popupify's assistance.
 ---
 --- @return table Same as |vim.api.nvim_open_win()| {options}
 function M.default_winopts()
@@ -39,8 +40,9 @@ function M.default_winopts()
     }
 end
 
---- Close popup window only if inside popup window, and perform state cleanup. This is mapped by Popupify, while in
---- the popup, as <Esc> and the mapped key.
+--- Close popup window only if inside popup window, and perform state
+--- cleanup. This is mapped by Popupify, while in the popup, as <Esc> and
+--- the mapped key.
 function M.close()
     local curwin = vim.api.nvim_get_current_win()
     local win = vim.w[curwin].popupify_win
@@ -51,9 +53,11 @@ function M.close()
     end
 end
 
---- Helper pattern to automate calling a function that creates a new window and modifying it before showing the
---- window. This handles the autocmd, keymap to call and dismiss, auto-resize and auto-close steps. This is useful for
---- calling functions that do not accept a options/winopts/etc argument, such as ones written in vimscript.
+--- Helper pattern to automate calling a function that creates a new
+--- window and modifying it before showing the window. This handles the
+--- autocmd, keymap to call and dismiss, auto-resize and auto-close steps.
+--- This is useful for calling functions that do not accept a
+--- options/winopts/etc argument, such as ones written in vimscript.
 ---
 --- @param au_event    string|table       Same as |vim.api.nvim_create_autocmd()| {event}.
 --- @param au_pattern  string|table       Same as |vim.api.nvim_create_autocmd()| {opts.pattern}.
