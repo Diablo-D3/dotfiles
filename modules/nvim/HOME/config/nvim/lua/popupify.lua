@@ -66,8 +66,7 @@ end
 --- @param km_func     string|function    Same as |vim.keymap.set()| {rhs}
 --- @param km_desc     string|nil         Same as |vim.keymap.set()| {opts.desc}.
 --- @param callback    function|nil       Called at end of autocmd.
---- @param win_options table|function|nil Same as |vim.api.nvim_open_win()| {options}. If function, calls and passes
----                                       output. If nil, calls |default_winopts()|.
+--- @param win_options table|function|nil Same as |vim.api.nvim_open_win()| {options}. If function, calls and passes output. If nil, calls |default_winopts()|.
 function M.popupify(au_event, au_pattern, km_mode, km_map, km_desc, km_func, callback, win_options)
     vim.keymap.set(km_mode, km_map, function()
         local curwin = vim.api.nvim_get_current_win()
