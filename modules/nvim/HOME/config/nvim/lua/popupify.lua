@@ -19,6 +19,8 @@ local augroup = vim.api.nvim_create_augroup('popupify', {})
 
 local M = {}
 
+M.wins = {}
+
 --- Popupify's default window options: 80 column wide, full height
 --- floating window with rounded border, minimal style, on right side of
 --- editor. Useful if you want to match this style with plugins that don't
@@ -45,11 +47,11 @@ end
 --- the mapped key.
 function M.close()
     local curwin = vim.api.nvim_get_current_win()
-    local win = vim.w[curwin].popupify_win
+    local win = M.wins[curwin]
 
-    if (win == curwin) then
-        vim.w[curwin].popupify_win = nil
-        vim.api.nvim_win_close(win, true)
+    if win then
+        M.wins[curwin] = nil
+        vim.api.nvim_win_close(curwin, true)
     end
 end
 
@@ -70,9 +72,9 @@ end
 function M.popupify(au_event, au_pattern, km_mode, km_map, km_desc, km_func, callback, win_options)
     vim.keymap.set(km_mode, km_map, function()
         local curwin = vim.api.nvim_get_current_win()
-        local win = vim.w[curwin].popupify_win
+        local win = M.wins[curwin]
 
-        if (win ~= curwin) then
+        if (win == nil or km_map ~= win.map) then
             if (type(km_func) == "function") then
                 km_func()
             else
@@ -90,16 +92,21 @@ function M.popupify(au_event, au_pattern, km_mode, km_map, km_desc, km_func, cal
             if #(vim.api.nvim_list_wins()) > 1 then
                 local curwin = vim.api.nvim_get_current_win()
 
-                vim.w[curwin].popupify_win = curwin
-                vim.w[curwin].popupify_win_options = win_options
+                local win = {
+                    map = km_map
+                }
 
                 if (type(win_options) == "table") then
-                    vim.api.nvim_win_set_config(curwin, win_options)
+                    win.opts = vim.deepcopy(win_options)
                 elseif (type(win_options) == "function") then
-                    vim.api.nvim_win_set_config(curwin, win_options())
+                    win.opts = win_options
                 else
-                    vim.api.nvim_win_set_config(curwin, M.default_winopts())
+                    win.opts = M.default_winopts()
                 end
+
+                vim.api.nvim_win_set_config(curwin, win.opts)
+
+                M.wins[curwin] = win
 
                 if callback then callback() end
             end
@@ -112,16 +119,20 @@ vim.api.nvim_create_autocmd('BufEnter', {
     group = augroup,
     callback = function()
         local curwin = vim.api.nvim_get_current_win()
-        local win = vim.w[curwin].popupify_win
-
         local curbuf = vim.api.nvim_get_current_buf()
 
-        if (win == curwin) then
+        local win = M.wins[curwin]
+
+        if win then
             vim.keymap.set('n', '<Esc>', function()
                 M.close()
-            end, { buffer = curbuf, silent = true, desc = '<Esc>' })
+            end, {
+                    buffer = curbuf,
+                    silent = true,
+                    nowait = true,
+                    desc = '<Esc>' })
 
-            vim.b[curbuf].popupify_buf = curbuf
+            win.buf = curbuf
         end
     end
 })
@@ -131,15 +142,14 @@ vim.api.nvim_create_autocmd('BufLeave', {
     group = augroup,
     callback = function()
         local curwin = vim.api.nvim_get_current_win()
-        local win = vim.w[curwin].popupify_win
+        local win = M.wins[curwin]
 
         local curbuf = vim.api.nvim_get_current_buf()
-        local buf = vim.b[curbuf].popupify_buf
 
-        if (win == curwin) and (buf == curbuf) then
-            vim.keymap.del('n', '<Esc>')
+        if win and (curbuf == win.buf) then
+            vim.keymap.del('n', '<Esc>', { buffer = curbuf })
 
-            vim.b[curbuf].popupify_buf = nil
+            win.buf = nil
         end
     end
 })
@@ -149,10 +159,12 @@ vim.api.nvim_create_autocmd('WinLeave', {
     group = augroup,
     callback = function()
         local curwin = vim.api.nvim_get_current_win()
-        local win = vim.w[curwin].popupify_win
+        local win = M.wins[curwin]
 
-        if (win == curwin) then
+        if win then
             M.close()
+
+            M.wins[curwin] = nil
         end
     end
 })
@@ -162,16 +174,15 @@ vim.api.nvim_create_autocmd({ 'VimResized', 'WinResized' }, {
     group = augroup,
     callback = function()
         local curwin = vim.api.nvim_get_current_win()
-        local win = vim.w[curwin].popupify_win
-        local win_options = vim.w[curwin].popupify_win_options
+        local win = M.wins[curwin]
 
-        if (win == curwin) then
-            if (type(win_options) == "table") then
-                vim.api.nvim_win_set_config(win, win_options)
-            elseif (type(win_options) == "function") then
-                vim.api.nvim_win_set_config(win, win_options())
+        if win then
+            if (type(win.opts) == "table") then
+                vim.api.nvim_win_set_config(curwin, win.opts)
+            elseif (type(win.opts) == "function") then
+                vim.api.nvim_win_set_config(curwin, win.opts())
             else
-                vim.api.nvim_win_set_config(win, M.default_winopts())
+                vim.api.nvim_win_set_config(curwin, M.default_winopts())
             end
         end
     end
