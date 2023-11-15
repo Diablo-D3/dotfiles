@@ -98,13 +98,14 @@ function M.popupify(au_event, au_pattern, km_mode, km_map, km_desc, km_func, cal
 
                 if (type(win_options) == "table") then
                     win.opts = vim.deepcopy(win_options)
+                    vim.api.nvim_win_set_config(curwin, win_options)
                 elseif (type(win_options) == "function") then
                     win.opts = win_options
+                    vim.api.nvim_win_set_config(curwin, win_options())
                 else
                     win.opts = M.default_winopts()
+                    vim.api.nvim_win_set_config(curwin, M.default_winopts())
                 end
-
-                vim.api.nvim_win_set_config(curwin, win.opts)
 
                 M.wins[curwin] = win
 
@@ -127,10 +128,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
             vim.keymap.set('n', '<Esc>', function()
                 M.close()
             end, {
-                    buffer = curbuf,
-                    silent = true,
-                    nowait = true,
-                    desc = '<Esc>' })
+                buffer = curbuf,
+                silent = true,
+                nowait = true,
+                desc = '<Esc>'
+            })
 
             win.buf = curbuf
         end
