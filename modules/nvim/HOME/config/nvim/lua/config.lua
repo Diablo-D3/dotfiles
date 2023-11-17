@@ -345,7 +345,12 @@ fzf.setup({
         fzf_cli_args = '--with-nth=4..',
         fzf_opts = {
             ['--info'] = 'hidden'
-        }
+        },
+        winopts = {
+            preview = {
+                hidden = 'hidden'
+            }
+        },
     },
     files = {
         prompt = '> ',
@@ -366,12 +371,12 @@ fzf.setup({
 local lgrep = { exec_empty_query = false }
 local lgrep_continue = { exec_empty_query = false, continue_last_search = true }
 
-vim.keymap.set('n', '/', function() fzf.lgrep_curbuf(lgrep) end, keyopts)
-vim.keymap.set('n', '?', function() fzf.lgrep_curbuf(lgrep_continue) end, keyopts)
-vim.keymap.set('n', '<C-/>', function() fzf.live_grep_native(lgrep) end, keyopts)
-vim.keymap.set('n', '<C-?>', function() fzf.live_grep_native(lgrep_continue) end, keyopts)
-vim.keymap.set('n', '<C-`>', function() fzf.buffers() end, keyopts)
-vim.keymap.set('n', '<leader>f', function() fzf.files() end, keyopts)
+keymap('n', '/', 'grep', function() fzf.lgrep_curbuf(lgrep) end)
+keymap('n', '?', 'grep continued', function() fzf.lgrep_curbuf(lgrep_continue) end)
+keymap('n', '<C-/>', 'project grep', function() fzf.live_grep_native(lgrep) end)
+keymap('n', '<C-?>', 'project grep continued', function() fzf.live_grep_native(lgrep_continue) end)
+keymap('n', '<C-`>', 'buffers list', function() fzf.buffers() end)
+keymap('n', '<leader>f', 'open file', function() fzf.files() end)
 
 ----------------
 -- treesitter --
