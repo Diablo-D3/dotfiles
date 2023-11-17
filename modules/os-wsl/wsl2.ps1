@@ -15,7 +15,7 @@ Remove-NetFireWallRule -DisplayName "WSL2"
 New-NetFireWallRule -DisplayName "WSL2" -Direction Inbound -LocalPort $ports -Action Allow -Protocol TCP
 
 $host_ip = (Get-NetIPAddress -addressFamily IPv4 -addressState Preferred | where {($_.InterfaceAlias -NotMatch 'Loopback' -and $_.InterfaceAlias -NotMatch 'vEthernet' )} | select -First 1).IPAddress
-$vm_ip = (Get-HnsEndpoint | where {$_.VirtualNetworkName -Eq 'WSL'} | Select-Object -First 1).IPAddress
+$vm_ip = (Get-HnsEndpoint | where {$_.VirtualNetworkName -like 'WSL*'} | Select-Object -First 1).IPAddress
 
 netsh interface portproxy reset
 
