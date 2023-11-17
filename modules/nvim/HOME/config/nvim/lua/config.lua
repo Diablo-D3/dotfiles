@@ -4,13 +4,18 @@
 
 local vim = vim
 
+local winopts = require('popupify').default_winopts
+local popupify = require('popupify').popupify
+
 local keyopts = { silent = true }
 local local_keyopts = { silent = true, buffer = true }
 
-vim.cmd.helptags('ALL')
+local function extend(a, b) return vim.tbl_extend("force", a, b) end
+local function keymap(mode, lhs, desc, rhs) return vim.keymap.set(mode, lhs, rhs, extend(keyopts, { desc = desc })) end
+local function termcodes(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
+local feedkeys = function(key) vim.fn.feedkeys(key, 'n') end
 
-local winopts = require('popupify').default_winopts
-local popupify = require('popupify').popupify
+vim.cmd.helptags('ALL')
 
 ------------------------
 -- base functionality --
@@ -123,40 +128,36 @@ require('mini.completion').setup({
     delay = { completion = 4294967295 }
 })
 
-local replace_termcodes = function(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
-
 local keys = {
-    ['tab'] = replace_termcodes('<Tab>'),
-    ['s-tab'] = replace_termcodes('<S-Tab>'),
-    ['c-xc-o'] = replace_termcodes('<C-X><C-O>'),
-    ['c-n'] = replace_termcodes('<C-N>'),
-    ['c-p'] = replace_termcodes('<C-P>'),
+    ['tab'] = termcodes('<Tab>'),
+    ['s-tab'] = termcodes('<S-Tab>'),
+    ['c-xc-o'] = termcodes('<C-X><C-O>'),
+    ['c-n'] = termcodes('<C-N>'),
+    ['c-p'] = termcodes('<C-P>'),
 
-    ['cr'] = replace_termcodes('<CR>'),
-    ['ctrl-y'] = replace_termcodes('<C-Y>'),
-    ['ctrl-y_cr'] = replace_termcodes('<C-Y><CR>'),
+    ['cr'] = termcodes('<CR>'),
+    ['ctrl-y'] = termcodes('<C-Y>'),
+    ['ctrl-y_cr'] = termcodes('<C-Y><CR>'),
 }
 
-local feedkeys = function(key) vim.fn.feedkeys(keys[key], 'n') end
-
 local function tab_complete(shift)
-    if vim.fn.pumvisible() == 1 then return feedkeys(shift and 'c-p' or 'c-n') end
+    if vim.fn.pumvisible() == 1 then return feedkeys(shift and keys['c-p'] or keys['c-n']) end
 
     local line = vim.api.nvim_get_current_line()
     local pos = vim.api.nvim_win_get_cursor(0)[2]
     local not_at_whitespace = line:sub(pos, pos):find('%s') == nil
-    if (not_at_whitespace and pos > 1) then return feedkeys('c-xc-o') end
+    if (not_at_whitespace and pos > 1) then return feedkeys(keys['c-xc-o']) end
 
-    feedkeys(shift and 's-tab' or 'tab')
+    feedkeys(shift and keys['s-tab'] or keys['tab'])
 end
 
 vim.keymap.set('i', '<Tab>', function() tab_complete(false) end, keyopts)
 vim.keymap.set('i', '<S-Tab>', function() tab_complete(true) end, keyopts)
 
 local function cr_complete()
-    if vim.fn.pumvisible() == 0 then return feedkeys('cr') end
+    if vim.fn.pumvisible() == 0 then return feedkeys(keys['cr']) end
     local has_selected = vim.fn.complete_info()['selected'] ~= -1
-    feedkeys(has_selected and 'ctrl-y' or 'ctrl-y_cr')
+    feedkeys(has_selected and keys['ctrl-y'] or keys['ctrl-y_cr'])
 end
 
 vim.keymap.set('i', '<CR>', cr_complete, keyopts)
