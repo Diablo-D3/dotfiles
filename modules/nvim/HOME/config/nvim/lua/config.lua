@@ -326,9 +326,16 @@ fzf.setup({
     },
     buffers = {
         prompt = '> ',
+        no_header = true,
+        no_header_i = true,
         fzf_opts = {
             ['--info'] = 'hidden'
-        }
+        },
+        winopts = {
+            preview = {
+                hidden = 'hidden'
+            }
+        },
     },
     grep = {
         prompt = '> ',
@@ -345,14 +352,14 @@ fzf.setup({
             ['--scheme'] = 'path',
             ['--info'] = 'hidden'
         },
+        winopts = {
+            preview = {
+                hidden = 'hidden'
+            }
+        },
         cwd_prompt = false
     },
     winopts_fn = winopts,
-    winopts = {
-        preview = {
-            hidden = 'hidden'
-        }
-    }
 })
 
 local lgrep = { exec_empty_query = false }
