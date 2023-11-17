@@ -620,20 +620,6 @@ lspconfig.vimls.setup({})
 
 lspconfig.lemminx.setup({})
 
--- rust-tools.nvim
--- https://github.com/simrat39/rust-tools.nvim
-local rust_tools = require('rust-tools')
-
-rust_tools.setup({
-    server = {
-        settings = {
-            checkonsave = {
-                command = 'clippy'
-            }
-        }
-    }
-})
-
 -- neodev.nvim
 -- https://github.com/folke/neodev.nvim
 require('neodev').setup({})
