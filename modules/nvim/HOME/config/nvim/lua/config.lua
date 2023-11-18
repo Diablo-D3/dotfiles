@@ -395,27 +395,47 @@ require('nvim-treesitter.configs').setup({
     auto_install = true,
     highlight = {
         enable = true
-    },
-    indent = {
-        enable = true
-    },
-    refactor = {
-        highlight_definitions = { enable = true },
-        smart_rename = {
-            enable = true,
-            keymaps = {
-                -- Remapped later in LSP buffers
-                smart_rename = '<leader>r'
-            }
-        },
     }
 })
 
-vim.cmd [[
-    set nofoldenable
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
-]]
+vim.api.nvim_create_autocmd('CursorMoved', {
+    callback = function(ev)
+        local bufnr = ev.buf
+        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+
+        for _, client in ipairs(clients) do
+            if client.server_capabilities.documentHighlightProvider then
+                vim.lsp.buf.clear_references()
+                vim.lsp.buf.document_highlight()
+                return
+            end
+        end
+
+        if vim.b['ts_highlight'] then
+            require('nvim-treesitter-refactor.highlight_definitions').clear_usage_highlights(bufnr)
+            require('nvim-treesitter-refactor.highlight_definitions').highlight_usages(bufnr)
+        end
+    end,
+})
+
+keymap('n', 'gr', 'Rename', function()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.renameProvider then
+            vim.lsp.buf.rename()
+            return
+        end
+    end
+
+    if vim.b['ts_highlight'] then
+        require('nvim-treesitter-refactor.smart_rename').smart_rename(0)
+        return
+    end
+
+    local cmd = '%s/' .. vim.fn.expand('<cword>') .. '//g'
+    feedkeys(':' .. cmd .. termcodes('<Left><Left>'))
+end)
 
 -----------
 -- mason --
