@@ -222,9 +222,6 @@ mini_statusline.setup({
     content = {
         active = function()
             local diagnostics_f = function()
-                local hasnt_attached_client = next(vim.lsp.get_active_clients({ buffer = 0 })) == nil
-                if (vim.bo.buftype ~= '' or hasnt_attached_client) then return '' end
-
                 local ce = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.ERROR }))
                 local cw = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.WARN }))
                 local ci = #(vim.diagnostic.get(nil, { severity = vim.diagnostic.severity.INFO }))
