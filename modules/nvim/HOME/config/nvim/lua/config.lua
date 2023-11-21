@@ -41,6 +41,34 @@ vim.o.signcolumn = 'no'
 -- mini.extra
 local mini_extra = require('mini.extra')
 mini_extra.setup({})
+
+-- mini.hues
+local mini_hues = require('mini.hues')
+local palette = {
+    foreground = '#FFFFFF',
+    background = '#000000',
+    saturation = 'high'
+}
+
+mini_hues.setup(palette)
+
+-- setup secondary bg ns
+local tooltip = vim.api.nvim_create_namespace('tooltip')
+local visual = vim.api.nvim_get_hl(0, { name = 'Visual' })
+local highlights = vim.api.nvim_get_hl(0, {})
+
+for name, def in pairs(highlights) do
+    if not def['link'] then
+        def['bg'] = visual['bg']
+        def['ctermbg'] = visual['ctermbg']
+    end
+
+    vim.api.nvim_set_hl(tooltip, name, def)
+end
+
+-- uncomment to print values
+-- vim.print(mini_hues.make_palette(palette))
+
 -- mini.ai
 local mini_ai = require('mini.ai')
 mini_ai.setup({
