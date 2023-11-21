@@ -38,6 +38,9 @@ require('mini.basics').setup({})
 
 vim.o.signcolumn = 'no'
 
+-- mini.extra
+local mini_extra = require('mini.extra')
+mini_extra.setup({})
 -- mini.ai
 local mini_ai = require('mini.ai')
 mini_ai.setup({
@@ -164,44 +167,21 @@ vim.keymap.set('i', '<CR>', cr_complete, keyopts)
 
 -- mini.hipatterns
 local mini_hipatterns = require('mini.hipatterns')
+local hi_words = mini_extra.gen_highlighter.words
 
 mini_hipatterns.setup({
     highlighters = {
-        fixme     = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-        hack      = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-        todo      = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-        note      = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+        fixme     = hi_words({ 'FIXME', 'Fixme', 'fixme' }, 'DiagnosticError'),
+        hack      = hi_words({ 'HACK', 'Hack', 'hack' }, 'DiagnosticWarn'),
+        todo      = hi_words({ 'TODO', 'Todo', 'todo' }, 'DiagnosticInfo'),
+        note      = hi_words({ 'NOTE', 'Note', 'note', }, 'DiagnosticNote'),
+        rust_e    = hi_words({ 'error!' }, 'DiagnosticError'),
+        rust_w    = hi_words({ 'dbg!', 'debug!', 'warn!' }, 'DiagnosticWarn'),
+        rust_t    = hi_words({ 'todo!', 'unimplemented!', 'info!' }, 'DiagnosticInfo'),
 
         hex_color = mini_hipatterns.gen_highlighter.hex_color(),
     },
 })
-
--- mini.hues
-local mini_hues = require('mini.hues')
-local palette = {
-    foreground = '#ffffff',
-    background = '#000000',
-    saturation = 'high'
-}
-
-mini_hues.setup(palette)
-
--- setup secondary bg ns
-local tooltip = vim.api.nvim_create_namespace('tooltip')
-local visual = vim.api.nvim_get_hl(0, { name = 'Visual' })
-local highlights = vim.api.nvim_get_hl(0, {})
-
-for name, def in pairs(highlights) do
-    if not def['link'] then
-        def['bg'] = visual['bg']
-        def['ctermbg'] = visual['ctermbg']
-    end
-
-    vim.api.nvim_set_hl(tooltip, name, def)
-end
-
--- uncomment to print values
---vim.print(mini_hues.make_palette(palette))
 
 -- mini.indentscope
 local mini_indentscope = require('mini.indentscope')
