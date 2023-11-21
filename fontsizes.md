@@ -1,3 +1,4 @@
+# On font sizes...
 ## Historical size
 Kids these days use font sizes that are too small, historically.
 
@@ -60,9 +61,9 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 * **Hack**: Bitstream Vera/Deja Vu family.
 * **Input**: Highly customizable, and is hand hinted for light, regular, medium, and bold.
 * **Iosevka**: One of the best fonts ever produced, and highly customizable, with a huge array of glyphs. One of my favorites, easily in my top 3.
-* **Lucida Console**: Strongly hinted for 12pt and under, becomes very thin. 
+* **Lucida Console**: Strongly hinted for 12pt and under, becomes very thin.
 
-#### Apparent width/height, sorted from widest to tallest
+### Apparent width/height, sorted from widest to tallest
 | Name                | Points | Layout | Points | Layout |
 | ------------------- | ------:| ------ | ------:| ------ |
 | Lucida Console      |     12 | 192x67 |     15 | 160x54 |
@@ -98,8 +99,8 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 | Victor Mono         |     14 | 192x41 |     16 | 160x36 |
 | Mplus Code 50       |     15 | 192x37 |     18 | 160x30 |
 
-#### Optimal rendering of common fonts
-I looked for the minimum size that glyphs are easily discernable and have no excessive fringing or misshapen glyph stems. Tested using both DirectWrite (via Windows Terminal) and Freetype (using Alacritty); also tested across aliased, greyscale, and subpixel in WT. 
+### Optimal rendering of common fonts
+I looked for the minimum size that glyphs are easily discernable and have no excessive fringing or misshapen glyph stems. Tested using both DirectWrite (via Windows Terminal) and Freetype (using Alacritty); also tested across aliased, greyscale, and subpixel in WT.
 
 Sorted by smallest legible size, and if multiple styles, by best scoring width/weight (in italic).
 
@@ -148,7 +149,7 @@ Sorted by smallest legible size, and if multiple styles, by best scoring width/w
 | Lucida Console      |                 |  Regular |     18 |   174x60 |
 | Iosevka             |                 |  Regular |     24 |   160x36 |
 |                     |                 | _Medium_ |   _20_ | _192x43_ |
-| Luculent            |                 |  Regular |     15 |   174x43 | 
+| Luculent            |                 |  Regular |     15 |   174x43 |
 | Victor Mono         |                 |  Regular |     24 |   147x31 |
 |                     |                 | _Medium_ |   _20_ | _174x38_ |
 | Monoid              |                 |  Regular |     18 |   160x45 |
