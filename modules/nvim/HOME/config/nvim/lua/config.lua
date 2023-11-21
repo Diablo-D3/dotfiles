@@ -429,9 +429,6 @@ require('mason-tool-installer').setup({
         -- tools --
         -----------
 
-        -- markdown
-        'glow',
-
         ----------------
         -- formatters --
         ----------------
