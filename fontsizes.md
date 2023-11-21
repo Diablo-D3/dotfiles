@@ -128,6 +128,12 @@ Sorted by smallest legible size, and if multiple styles, by best scoring width/w
 |                     | Condensed       | _Medium_ |   _15_ | _213x60_ |
 |                     | Compressed      |  Regular |     26 |   137x34 |
 |                     | Compressed      |   Medium |     17 |   213x51 |
+| Monaspace           | Normal          |  Regular |     23 |   137x38 |
+|                     | Normal          | _Medium_ |   _15_ | _213x60_ |
+|                     | Semi-Wide       |  Regular |     14 |   192x63 |
+|                     | Semi-Wide       |   Medium |     14 |   192x63 |
+|                     | Wide            |  Regular |     16 |   160x56 |
+|                     | Wide            |   Medium |     14 |   174x63 |
 | Cascadia            |                 |  Regular |     20 |   160x47 |
 |                     |                 | _Medium_ |   _16_ | _213x56_ |
 | Hasklig             |                 |  Regular |     18 |   174x47 |
@@ -174,9 +180,3 @@ Sorted by smallest legible size, and if multiple styles, by best scoring width/w
 | Berkeley Mono       |                 |  Regular |     18 |   137x37 |
 | Anonymous Pro       |                 |  Regular |     27 |   128x40 |
 | Courier New         |                 |  Regular |     37 |    87x25 |
-| Monaspace           | Normal          |  Regular |     23 |   137x38 |
-|                     | Normal          | *Medium* |   *15* | *213x60* |
-|                     | Semi-Wide       |  Regular |     14 |   192x63 |
-|                     | Semi-Wide       |   Medium |     14 |   192x63 |
-|                     | Wide            |  Regular |     16 |   160x56 |
-|                     | Wide            |   Medium |     14 |   174x63 |
