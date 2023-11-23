@@ -9,6 +9,7 @@ local popupify = require('popupify').popupify
 
 local keyopts = { silent = true }
 local local_keyopts = { silent = true, buffer = true }
+local augroup = vim.api.nvim_create_augroup('init', {})
 
 local function extend(a, b) return vim.tbl_extend("force", a, b) end
 local function keymap(mode, lhs, desc, rhs) return vim.keymap.set(mode, lhs, rhs, extend(keyopts, { desc = desc })) end
@@ -273,9 +274,8 @@ require('mini.surround').setup({})
 local mini_trailspace = require('mini.trailspace')
 mini_trailspace.setup({})
 
-local au_trailspace = vim.api.nvim_create_augroup('trailspace', {})
-vim.api.nvim_create_autocmd('bufwritepre', {
-    group = au_trailspace,
+vim.api.nvim_create_autocmd('BufWritePre', {
+    group = augroup,
     callback = function()
         mini_trailspace.trim()
         mini_trailspace.trim_last_lines()
@@ -546,9 +546,8 @@ require('lint').linters_by_ft = {
     vim = { 'vint' }
 }
 
-local lint = vim.api.nvim_create_augroup('Lint', {})
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-    group = lint,
+    group = augroup,
     callback = function()
         require('lint').try_lint()
     end,
@@ -562,7 +561,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
 -- https://github.com/neovim/nvim-lspconfig
 local lspconfig = require('lspconfig')
 vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('LspConfig', {}),
+    group = augroup,
     callback = function(ev)
         local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 
