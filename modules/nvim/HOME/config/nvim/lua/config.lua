@@ -521,67 +521,25 @@ require('mason-tool-installer').setup({
 -- stand alone formatting and linting --
 ----------------------------------------
 
--- formatter.nvim
--- https://github.com/mhartington/formatter.nvim
+-- conform.nvim
+-- https://github.com/stevearc/conform.nvim
 
-local function f_ft(ft, method)
-    return require('formatter.filetypes.' .. ft)[method]
-end
-
-require('formatter').setup {
-    filetype = {
+require('conform').setup({
+    formatters_by_ft = {
         -- prettier
-        markdown = { f_ft('markdown', 'prettier') },
-        yaml = { f_ft('yaml', 'prettier') },
+        markdown = { 'prettier' },
+        yaml = { 'prettier' },
         -- fish
-        fish = { f_ft('fish', 'fishindent') },
-        -- sh
-        sh = { f_ft('sh', 'shfmt') }
-    }
-}
-
--- call lsp formatter if provided, else call formatter.nvim
--- ... for gq
-function Formatexpr()
-    local lnum = vim.v.lnum;
-    local count = vim.v.count;
-
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
-
-    -- check if lsp client offers format and quit early
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.documentFormattingProvider then
-            vim.lsp.formatexpr({})
-            return
-        end
-    end
-
-    -- else run formatter.nvim
-    return require("formatter.format").format("", "", lnum, (lnum + count + 1), { lock = true })
-end
-
-vim.o.formatexpr = "v:lua.Formatexpr()"
-
--- ... on save
-local format = vim.api.nvim_create_augroup('FormatOnWrite', {})
-vim.api.nvim_create_autocmd('BufWritePre', {
-    group = format,
-    callback = function(ev)
-        local bufnr = ev.buf
-
-        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-
-        -- check if lsp client offers format and quit early
-        for _, client in ipairs(clients) do
-            if client.server_capabilities.documentFormattingProvider then
-                vim.lsp.buf.format({ bufnr = bufnr })
-            end
-        end
-
-        -- else run formatter.nvim
-        require("formatter.format").format("", "", 1, "$", { lock = true })
-    end
+        fish = { 'fish_indent' },
+        -- shfmt
+        sh = { 'shfmt' },
+    },
+    format_on_save = {
+        lsp_fallback = true
+    },
 })
+
+vim.o.formatexpr = 'v:lua.require\'conform\'.formatexpr()'
 
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint

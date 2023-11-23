@@ -22,7 +22,7 @@ https://github.com/williamboman/mason.nvim.git,main
 https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim.git,main
 
 # stand alone formatting and linting
-https://github.com/mhartington/formatter.nvim.git,master
+https://github.com/stevearc/conform.nvim.git,master
 https://github.com/mfussenegger/nvim-lint.git,master
 
 # lsp
