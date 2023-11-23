@@ -195,19 +195,18 @@ vim.keymap.set('i', '<CR>', cr_complete, keyopts)
 
 -- mini.hipatterns
 local mini_hipatterns = require('mini.hipatterns')
-local hi_words = mini_extra.gen_highlighter.words
 
 mini_hipatterns.setup({
     highlighters = {
-        fixme     = hi_words({ 'FIXME', 'Fixme', 'fixme' }, 'DiagnosticError'),
-        hack      = hi_words({ 'HACK', 'Hack', 'hack' }, 'DiagnosticWarn'),
-        todo      = hi_words({ 'TODO', 'Todo', 'todo' }, 'DiagnosticInfo'),
-        note      = hi_words({ 'NOTE', 'Note', 'note', }, 'DiagnosticNote'),
-        rust_e    = hi_words({ 'error!' }, 'DiagnosticError'),
-        rust_w    = hi_words({ 'dbg!', 'debug!', 'warn!' }, 'DiagnosticWarn'),
-        rust_t    = hi_words({ 'todo!', 'unimplemented!', 'info!' }, 'DiagnosticInfo'),
+        fixme      = { pattern = { '[Ff][Ii][Xx][Mm][Ee]' }, group = 'DiagnosticError' },
+        hack       = { pattern = { '[Hh][Aa][Cc][Kk]' }, group = 'DiagnosticWarn' },
+        todo       = { pattern = { '[Tt][Oo][Dd][Oo]' }, group = 'DiagnosticInfo' },
+        note       = { pattern = { '[Nn][Oo][Tt][Ee]', }, group = 'DiagnosticHint' },
+        rust_error = { pattern = { 'error!' }, group = 'DiagnosticError' },
+        rust_warn  = { pattern = { 'dbg!', 'debug!', 'warn!' }, group = 'DiagnosticWarn' },
+        rust_info  = { pattern = { 'todo!', 'unimplemented!', 'info!' }, group = 'DiagnosticInfo' },
 
-        hex_color = mini_hipatterns.gen_highlighter.hex_color(),
+        hex_color  = mini_hipatterns.gen_highlighter.hex_color(),
     },
 })
 
