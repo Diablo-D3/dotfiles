@@ -290,7 +290,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 -- https://github.com/folke/trouble.nvim
 local trouble = require('trouble');
 
-trouble.setup {
+trouble.setup({
     auto_open = false,
     auto_close = true,
     action_keys = {
@@ -310,14 +310,82 @@ trouble.setup {
         information = 'I'
     },
     use_diagnostic_signs = false
-}
+})
 
-popupify('FileType', 'Trouble', 'n', '<leader>d', 'Trouble Diagnostics', function()
-    trouble.toggle('workspace_diagnostics')
+popupify('FileType', 'Trouble', 'n', '<leader>d', 'Diagnostics', function()
+    trouble.open('workspace_diagnostics')
 end)
 
-popupify('FileType', 'Trouble', 'n', '<leader>t', 'Trouble Todo', function()
-    trouble.toggle('todo')
+popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.declarationProvider then
+            vim.lsp.buf.declaration()
+            return
+        end
+    end
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.definitionProvider then
+            trouble.open('lsp_definitions')
+            return
+        end
+    end
+
+    feedkeys(termcodes('gd'))
+end)
+
+popupify('FileType', 'Trouble', 'n', 'gD', 'LSP Definitions', function()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.definitionProvider then
+            trouble.open('lsp_definitions')
+            return
+        end
+    end
+
+    feedkeys(termcodes('gD'))
+end)
+
+popupify('FileType', 'Trouble', 'n', 'gt', 'LSP Type Definitions', function()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.typeDefinitionsProvider then
+            trouble.open('lsp_type_definitions')
+            return
+        end
+    end
+
+    -- don't do gt = goto next tab page
+end)
+
+popupify('FileType', 'Trouble', 'n', 'gR', 'LSP References', function()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.referencesProvider then
+            trouble.open('lsp_references')
+            return
+        end
+    end
+
+    -- don't do gR = virtual replace mode
+end)
+
+popupify('FileType', 'Trouble', 'n', 'gi', 'LSP Implementations', function()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.implementationProvider then
+            trouble.open('lsp_implementations')
+            return
+        end
+    end
+
+    -- don't do gi = insert text
 end)
 
 -- fzf-lua
@@ -565,18 +633,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 
-        vim.keymap.set('n', 'gd', function() trouble.toggle('lsp_definitions') end, keyopts)
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set('n', 'gi', function() trouble.toggle('lsp_implementations') end, keyopts)
-        -- gq stock calls formatexpr when set
-        vim.keymap.set('n', 'gt', function() trouble.toggle('lsp_type_definitions') end, keyopts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.rename, bufopts)
-        vim.keymap.set('n', 'gR', function() trouble.toggle('lsp_references') end, keyopts)
         vim.keymap.set('n', 'g.', function() fzf.lsp_code_actions() end, bufopts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-
-        local client = vim.lsp.get_client_by_id(ev.data.client_id)
     end,
 })
 
