@@ -470,7 +470,7 @@ require('nvim-treesitter.configs').setup({
     }
 })
 
-vim.api.nvim_create_autocmd('CursorMoved', {
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
     callback = function(ev)
         local bufnr = ev.buf
         local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
