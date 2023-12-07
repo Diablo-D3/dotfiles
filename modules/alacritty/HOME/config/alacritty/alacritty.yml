@@ -9,22 +9,27 @@ env:
 font:
   normal:
     family: Iosevka Term
-    style: Regular
+    style: Medium
   bold:
     family: Iosevka Term
-    style: Bold
+    style: Heavy
   italic:
     family: Iosevka Term
-    style: Italic
+    style: Medium Italic
   bold_italic:
     family: Iosevka Term
-    style: Bold Italic
-  size: 18
+    style: Heavy Italic
+  size: 16.5
 
-  #          | 18pt/24px @ 1920x1080 | 24pt/32px @ 2560x1600 |
-  #          |-----------------------|-----------------------|
-  # Normal   | 160x36                | 160x40                |
-  # Extended | 137x36                | 137x40                |
+  # Iosevka
+  #              | 1920x1080 | 2560x1600 |
+  # -------------|-----------|-----------|
+  # 12.75pt/17px | 240x54    |           |
+  # 16.5pt/22px  | 192x40    |           |
+  # 18pt/24px    | 160x36    |           |
+  # 24pt/32px    | 120x27    | 160x40    |
+  # 36pt/48px    | 80x18     |           |
+
   # Laptop args: -o font.size=12 -o font.offset.y=-1 -o font.glyph_offset=-1
 
   offset:
@@ -45,6 +50,7 @@ window:
     lines: 25
 
   dynamic_title: true
+  resize_increments: true
 
 selection:
   save_to_clipboard: true
