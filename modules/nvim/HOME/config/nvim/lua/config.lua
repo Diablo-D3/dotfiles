@@ -310,7 +310,7 @@ popupify('FileType', 'Trouble', 'n', '<leader>d', 'Diagnostics', function()
 end)
 
 popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.declarationProvider then
@@ -330,7 +330,7 @@ popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
 end)
 
 popupify('FileType', 'Trouble', 'n', 'gD', 'LSP Definitions', function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.definitionProvider then
@@ -343,10 +343,10 @@ popupify('FileType', 'Trouble', 'n', 'gD', 'LSP Definitions', function()
 end)
 
 popupify('FileType', 'Trouble', 'n', 'gt', 'LSP Type Definitions', function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
-        if client.server_capabilities.typeDefinitionsProvider then
+        if client.server_capabilities.typeDefinitionProvider then
             trouble.open('lsp_type_definitions')
             return
         end
@@ -356,7 +356,7 @@ popupify('FileType', 'Trouble', 'n', 'gt', 'LSP Type Definitions', function()
 end)
 
 popupify('FileType', 'Trouble', 'n', 'gR', 'LSP References', function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.referencesProvider then
@@ -369,7 +369,7 @@ popupify('FileType', 'Trouble', 'n', 'gR', 'LSP References', function()
 end)
 
 popupify('FileType', 'Trouble', 'n', 'gi', 'LSP Implementations', function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.implementationProvider then
@@ -466,7 +466,7 @@ require('nvim-treesitter.configs').setup({
 vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
     callback = function(ev)
         local bufnr = ev.buf
-        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        local clients = vim.lsp.get_clients({ bufnr = bufnr })
 
         for _, client in ipairs(clients) do
             if client.server_capabilities.documentHighlightProvider then
@@ -484,7 +484,7 @@ vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
 })
 
 keymap('n', 'gr', 'Rename', function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.renameProvider then
