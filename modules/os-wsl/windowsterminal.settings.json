@@ -226,18 +226,20 @@
     "defaults": {
       "antialiasingMode": "cleartype",
       "closeOnExit": "always",
-      "colorScheme": "Tomorrow Night",
+      "colorScheme": "Default",
       "cursorShape": "filledBox",
       "experimental.retroTerminalEffect": false,
       "font": {
         "face": "Iosevka Term",
-        "size": 18.0,
-        "weight": "normal"
+        "size": 16.5,
+        "weight": "normal",
+        "cellHeight": "1.225",
+        "cellWidth": "0.45"
       },
       "intenseTextStyle": "bold",
       "padding": 0,
       "scrollbarState": "hidden",
-      "setAtlasEngine": true,
+      "useAtlasEngine": true
     },
     "list": [
       {
@@ -271,27 +273,27 @@
   },
   "schemes": [
     {
-      "name": "Tomorrow Night",
+      "name": "Default",
       "cursorColor": "#aeafad",
       "selectionBackground": "#373b41",
-      "background": "#1d1f21",
-      "foreground": "#c5c8c6",
-      "black": "#000000",
-      "red": "#cc6666",
-      "green": "#b5bd68",
-      "yellow": "#f0c674",
-      "blue": "#81a2be",
-      "purple": "#b294bb",
-      "cyan": "#8abeb7",
-      "white": "#c5c8c6",
-      "brightBlack": "#666666",
-      "brightRed": "#d54e52",
-      "brightGreen": "#b9ca4a",
-      "brightYellow": "#e7c547",
-      "brightBlue": "#7aa6da",
-      "brightPurple": "#c397d8",
-      "brightCyan": "#70c0b1",
-      "brightWhite": "#eaeaea"
+      "background": "#000000",
+      "foreground": "#c7c7c7",
+      "black": "#2e2e2e",
+      "red": "#f50000",
+      "green": "#009f00",
+      "yellow": "#e9e900",
+      "blue": "#3a75ff",
+      "purple": "#ff47ff",
+      "cyan": "#00c1c1",
+      "white": "#c7c7c7",
+      "brightBlack": "#5e5e5e",
+      "brightRed": "#9c0000",
+      "brightGreen": "#00df00",
+      "brightYellow": "#e9e900",
+      "brightBlue": "#8fb7ff",
+      "brightPurple": "#ffc8ff",
+      "brightCyan": "#08ffff",
+      "brightWhite": "#ffffff"
     }
   ],
   "showTabsInTitlebar": false,
