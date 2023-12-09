@@ -91,27 +91,6 @@ mini_ai.setup({
     search_method = 'cover_or_nearest'
 })
 
--- mini.animate
-local mini_animate = require('mini.animate')
-local quartic = mini_animate.gen_timing.quartic
-mini_animate.setup({
-    cursor = {
-        enable = false
-    },
-    scroll = {
-        timing = quartic({ duration = 33.3, unit = 'total' }),
-    },
-    resize = {
-        enable = false
-    },
-    open = {
-        enable = false
-    },
-    close = {
-        enable = false
-    }
-})
-
 -- mini.bracketed
 require('mini.bracketed').setup({})
 
