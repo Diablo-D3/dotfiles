@@ -18,6 +18,20 @@ local feedkeys = function(key) vim.fn.feedkeys(key, 'n') end
 
 vim.cmd.helptags('ALL')
 
+-- osc52 clipboard
+vim.g.clipboard = {
+    name = 'OSC 52',
+
+    copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy,
+        ['*'] = require('vim.ui.clipboard.osc52').copy,
+    },
+    paste = {
+        ['+'] = require('vim.ui.clipboard.osc52').paste,
+        ['*'] = require('vim.ui.clipboard.osc52').paste,
+    },
+}
+
 ------------------------
 -- base functionality --
 ------------------------
@@ -732,32 +746,6 @@ popupify('FileType', { 'fugitive', 'git', 'gitcommit' }, 'n', '<leader>g', 'Fugi
             vim.o.cmdheight = 0
         end, local_keyopts)
     end)
-
--- vim-osc52
--- https://github.com/ojroques/nvim-osc52
-require('osc52').setup({
-    silent = true
-})
-
-local function copy(lines, _)
-    require('osc52').copy(table.concat(lines, '\n'))
-end
-
-local function paste()
-    return { vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('') }
-end
-
-vim.g.clipboard = {
-    name = 'osc52',
-    copy = {
-        ['+'] = copy,
-        ['*'] = copy
-    },
-    paste = {
-        ['+'] = paste,
-        ['*'] = paste
-    },
-}
 
 -- vim-tmux-navigation
 -- https://github.com/christoomey/vim-tmux-navigator
