@@ -275,6 +275,230 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
+-----------
+-- mason --
+-----------
+
+-- mason.nvim and mason-lspconfig.nvim
+-- https://github.com/williamboman/mason.nvim
+-- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+
+require('mason').setup()
+require('mason-tool-installer').setup({
+    ensure_installed = {
+        ----------
+        -- lsps --
+        ----------
+
+        -- bash
+        'bash-language-server',
+
+        -- c/c++
+        'clangd',
+
+        -- css, less, scss
+        'css-lsp',
+
+        -- html,
+        'html-lsp',
+
+        -- json
+        'json-lsp',
+
+        -- lua
+        'lua-language-server',
+
+        -- markdown
+        'marksman',
+
+        -- rust
+        'rust-analyzer',
+
+        -- toml
+        'taplo',
+
+        -- vim
+        'vim-language-server',
+
+        -- xml, xsd, xsl, xslt, svg
+        'lemminx',
+
+        ----------------
+        -- formatters --
+        ----------------
+
+        -- markdown
+        'prettier',
+
+        -- sh
+        -- deb: 'shfmt'
+
+        -------------
+        -- linters --
+        -------------
+
+        -- sh
+        -- deb: 'shellcheck',
+
+        -- vim
+        'vint',
+
+        -----------
+        -- tools --
+        -----------
+    },
+    auto_update = true,
+})
+
+---------
+-- lsp --
+---------
+
+-- nvim-lspconfig
+-- https://github.com/neovim/nvim-lspconfig
+local lspconfig = require('lspconfig')
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = augroup,
+    callback = function(ev)
+        local bufopts = { noremap = true, silent = true, buffer = ev.buf }
+
+        vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, bufopts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    end,
+})
+
+lspconfig.bashls.setup({
+    settings = {
+        bashIde = {
+            includeAllWorkspaceSymbols = true
+        }
+    }
+})
+
+lspconfig.clangd.setup({})
+
+lspconfig.cssls.setup({})
+
+lspconfig.html.setup({})
+
+lspconfig.jsonls.setup({})
+
+lspconfig.marksman.setup({})
+
+lspconfig.taplo.setup({})
+
+lspconfig.vimls.setup({})
+
+lspconfig.lemminx.setup({})
+
+-- neodev.nvim
+-- https://github.com/folke/neodev.nvim
+require('neodev').setup({})
+
+-- Setup luals for non-neovim after neodev
+lspconfig.lua_ls.setup({
+    settings = {
+        Lua = {
+            workspace = {
+                checkThirdParty = "Disable",
+            },
+            diagnostics = {
+                neededFileStatus = {
+                    ["codestyle-check"] = "Any"
+                }
+            }
+        }
+    }
+})
+
+-- fidget.nvim
+-- https://github.com/j-hui/fidget.nvim
+require('fidget').setup({})
+
+-- lsp_lines.nvim
+-- https://git.sr.ht/~whynothugo/lsp_lines.nvim
+require('lsp_lines').setup({})
+
+vim.diagnostic.config({
+    virtual_text = false,
+    virtual_lines = {
+        only_current_line = true,
+        highlight_whole_line = false,
+    },
+    update_in_insert = true,
+    severity_sort = true,
+})
+
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#highlight-line-number-instead-of-having-icons-in-sign-column
+for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
+    vim.fn.sign_define("DiagnosticSign" .. diag, {
+        text = "",
+        texthl = "DiagnosticSign" .. diag,
+        linehl = "",
+        numhl = "DiagnosticSign" .. diag,
+    })
+end
+
+----------------
+-- treesitter --
+----------------
+
+-- nvim-treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter
+-- https://github.com/nvim-treesitter/nvim-treesitter-refactor
+-- https://github.com/nvim-treesitter/nvim-treesitter-context
+-- https://gitlab.com/HiPhish/rainbow-delimiters.nvim
+require('nvim-treesitter.install').update({
+    with_sync = true
+})
+
+require('nvim-treesitter.configs').setup({
+    auto_install = true,
+    highlight = {
+        enable = true
+    }
+})
+
+vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+    callback = function(ev)
+        local bufnr = ev.buf
+        local clients = vim.lsp.get_clients({ bufnr = bufnr })
+
+        for _, client in ipairs(clients) do
+            if client.server_capabilities.documentHighlightProvider then
+                vim.lsp.buf.clear_references()
+                vim.lsp.buf.document_highlight()
+                return
+            end
+        end
+
+        if vim.b['ts_highlight'] then
+            require('nvim-treesitter-refactor.highlight_definitions').clear_usage_highlights(bufnr)
+            require('nvim-treesitter-refactor.highlight_definitions').highlight_usages(bufnr)
+        end
+    end,
+})
+
+keymap('n', 'gr', 'Rename', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.renameProvider then
+            vim.lsp.buf.rename()
+            return
+        end
+    end
+
+    if vim.b['ts_highlight'] then
+        require('nvim-treesitter-refactor.smart_rename').smart_rename(0)
+        return
+    end
+
+    local cmd = '%s/' .. vim.fn.expand('<cword>') .. '//g'
+    feedkeys(':' .. cmd .. termcodes('<Left><Left>'))
+end)
+
 ----------------
 -- navigation --
 ----------------
@@ -326,7 +550,9 @@ popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
         end
     end
 
-    feedkeys(termcodes('gd'))
+    require('treesitter-refactor.navigation').goto_definition(0, function()
+        feedkeys(termcodes('gd'))
+    end)
 end)
 
 popupify('FileType', 'Trouble', 'n', 'gD', 'LSP Definitions', function()
@@ -441,145 +667,10 @@ keymap('n', '?', 'grep continued', function() fzf.lgrep_curbuf(lgrep_continue) e
 keymap('n', '<C-/>', 'project grep', function() fzf.live_grep_native(lgrep) end)
 keymap('n', '<C-?>', 'project grep continued', function() fzf.live_grep_native(lgrep_continue) end)
 keymap('n', '<C-`>', 'buffers list', function() fzf.buffers() end)
-keymap('n', '<leader>f', 'open file', function() fzf.files() end)
 
-----------------
--- treesitter --
-----------------
-
--- nvim-treesitter
--- https://github.com/nvim-treesitter/nvim-treesitter
--- https://github.com/nvim-treesitter/nvim-treesitter-refactor
--- https://github.com/nvim-treesitter/nvim-treesitter-context
--- https://gitlab.com/HiPhish/rainbow-delimiters.nvim
-require('nvim-treesitter.install').update({
-    with_sync = true
-})
-
-require('nvim-treesitter.configs').setup({
-    auto_install = true,
-    highlight = {
-        enable = true
-    }
-})
-
-vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-    callback = function(ev)
-        local bufnr = ev.buf
-        local clients = vim.lsp.get_clients({ bufnr = bufnr })
-
-        for _, client in ipairs(clients) do
-            if client.server_capabilities.documentHighlightProvider then
-                vim.lsp.buf.clear_references()
-                vim.lsp.buf.document_highlight()
-                return
-            end
-        end
-
-        if vim.b['ts_highlight'] then
-            require('nvim-treesitter-refactor.highlight_definitions').clear_usage_highlights(bufnr)
-            require('nvim-treesitter-refactor.highlight_definitions').highlight_usages(bufnr)
-        end
-    end,
-})
-
-keymap('n', 'gr', 'Rename', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.renameProvider then
-            vim.lsp.buf.rename()
-            return
-        end
-    end
-
-    if vim.b['ts_highlight'] then
-        require('nvim-treesitter-refactor.smart_rename').smart_rename(0)
-        return
-    end
-
-    local cmd = '%s/' .. vim.fn.expand('<cword>') .. '//g'
-    feedkeys(':' .. cmd .. termcodes('<Left><Left>'))
-end)
-
------------
--- mason --
------------
-
--- mason.nvim and mason-lspconfig.nvim
--- https://github.com/williamboman/mason.nvim
--- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
-
-require('mason').setup()
-require('mason-tool-installer').setup({
-    ensure_installed = {
-        -----------
-        -- tools --
-        -----------
-
-        ----------------
-        -- formatters --
-        ----------------
-
-        -- markdown
-        'prettier',
-
-        -- sh
-        -- deb: 'shfmt'
-
-        -------------
-        -- linters --
-        -------------
-
-        -- sh
-        -- deb: 'shellcheck',
-
-        -- vim
-        'vint',
-
-        ----------
-        -- lsps --
-        ----------
-
-        -- bash
-        'bash-language-server',
-
-        -- c/c++
-        'clangd',
-
-        -- css, less, scss
-        'css-lsp',
-
-        -- html,
-        'html-lsp',
-
-        -- json
-        'json-lsp',
-
-        -- lua
-        'lua-language-server',
-
-        -- markdown
-        'marksman',
-
-        -- rust
-        'rust-analyzer',
-
-        -- toml
-        'taplo',
-
-        -- vim
-        'vim-language-server',
-
-        -- xml, xsd, xsl, xslt, svg
-        'lemminx',
-    },
-    auto_update = true,
-})
-
-----------------------------------------
--- stand alone formatting and linting --
-----------------------------------------
+----------------------------------
+-- external tooling integration --
+----------------------------------
 
 -- conform.nvim
 -- https://github.com/stevearc/conform.nvim
@@ -613,104 +704,6 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
         require('lint').try_lint()
     end,
 })
-
----------
--- lsp --
----------
-
--- nvim-lspconfig
--- https://github.com/neovim/nvim-lspconfig
-local lspconfig = require('lspconfig')
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = augroup,
-    callback = function(ev)
-        local bufopts = { noremap = true, silent = true, buffer = ev.buf }
-
-        vim.keymap.set('n', 'g.', function() fzf.lsp_code_actions() end, bufopts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    end,
-})
-
-lspconfig.bashls.setup({
-    settings = {
-        bashIde = {
-            includeAllWorkspaceSymbols = true
-        }
-    }
-})
-
-lspconfig.clangd.setup({})
-
-lspconfig.cssls.setup({})
-
-lspconfig.html.setup({})
-
-lspconfig.jsonls.setup({})
-
-lspconfig.marksman.setup({})
-
-lspconfig.taplo.setup({})
-
-lspconfig.vimls.setup({})
-
-lspconfig.lemminx.setup({})
-
--- neodev.nvim
--- https://github.com/folke/neodev.nvim
-require('neodev').setup({})
-
--- Setup luals for non-neovim after neodev
-lspconfig.lua_ls.setup({
-    settings = {
-        Lua = {
-            workspace = {
-                checkThirdParty = "Disable",
-            },
-            diagnostics = {
-                neededFileStatus = {
-                    ["codestyle-check"] = "Any"
-                }
-            }
-        }
-    }
-})
-
--- fidget.nvim
--- https://github.com/j-hui/fidget.nvim
-require('fidget').setup({})
-
--- lsp_lines.nvim
--- https://git.sr.ht/~whynothugo/lsp_lines.nvim
-require('lsp_lines').setup({})
-
-vim.diagnostic.config({
-    virtual_text = false,
-    virtual_lines = {
-        only_current_line = true,
-        highlight_whole_line = false,
-    },
-    update_in_insert = true,
-    severity_sort = true,
-})
-
--- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#highlight-line-number-instead-of-having-icons-in-sign-column
-for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
-    vim.fn.sign_define("DiagnosticSign" .. diag, {
-        text = "",
-        texthl = "DiagnosticSign" .. diag,
-        linehl = "",
-        numhl = "DiagnosticSign" .. diag,
-    })
-end
-
---------------------------------------
--- other languages-specific support --
---------------------------------------
-
-----------------------------------
--- external tooling integration --
-----------------------------------
 
 -- fugitive
 -- https://github.com/tpope/vim-fugitive
