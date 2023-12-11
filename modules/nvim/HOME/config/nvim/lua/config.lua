@@ -290,9 +290,6 @@ require('mason-tool-installer').setup({
         -- lsps --
         ----------
 
-        -- bash
-        'bash-language-server',
-
         -- c/c++
         'clangd',
 
@@ -307,9 +304,6 @@ require('mason-tool-installer').setup({
 
         -- lua
         'lua-language-server',
-
-        -- markdown
-        'marksman',
 
         -- rust
         'rust-analyzer',
@@ -329,6 +323,7 @@ require('mason-tool-installer').setup({
 
         -- markdown
         'prettier',
+        'markdownlint',
 
         -- sh
         -- deb: 'shfmt'
@@ -350,6 +345,8 @@ require('mason-tool-installer').setup({
     auto_update = true,
 })
 
+require('mason-tool-installer').clean()
+
 ---------
 -- lsp --
 ---------
@@ -366,14 +363,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     end,
-})
-
-lspconfig.bashls.setup({
-    settings = {
-        bashIde = {
-            includeAllWorkspaceSymbols = true
-        }
-    }
 })
 
 lspconfig.clangd.setup({})
@@ -695,6 +684,8 @@ vim.o.formatexpr = 'v:lua.require\'conform\'.formatexpr()'
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint
 require('lint').linters_by_ft = {
+    md = { 'markdownlint' },
+    sh = { 'shellcheck' },
     vim = { 'vint' }
 }
 
