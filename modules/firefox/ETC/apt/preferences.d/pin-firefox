@@ -1,3 +1,0 @@
-Package: src:firefox src:nspr src:nss
-Pin: release a=stable
-Pin-Priority: 1001

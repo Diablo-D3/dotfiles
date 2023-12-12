@@ -1,3 +1,0 @@
-Package: src:rustc src:cargo src:glibc
-Pin: release a=stable
-Pin-Priority: 1001

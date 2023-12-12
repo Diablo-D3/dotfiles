@@ -1,3 +1,0 @@
-Package: src:npm node* src:node* libjs-* src:libjs-* src:libuv1 src:c-ares src:eslint src:glibc
-Pin: release a=stable
-Pin-Priority: 1001

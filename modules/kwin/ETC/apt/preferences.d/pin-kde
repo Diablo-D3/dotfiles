@@ -1,4 +1,0 @@
-Package: src:k* kde* src:qt* libqt* src:*kf* libkf* qml* plasma* src:gpg* src:breeze*
-Pin: release a=stable
-Pin-Priority: 1001
-

@@ -1,3 +1,0 @@
-Package: src:mpv src:ffmpeg src:glibc
-Pin: release a=stable
-Pin-Priority: 1001

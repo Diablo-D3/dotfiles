@@ -49,48 +49,48 @@ offset=0
 
 # Start of a block of jobs
 function _start() {
-    if [ $offset -ne 0 ]; then
-        offset=0
-        echo ""
-    fi
+	if [ $offset -ne 0 ]; then
+		offset=0
+		echo ""
+	fi
 
-    echo "$higreen>>>$reset $green$1$reset"
+	echo "$higreen>>>$reset $green$1$reset"
 }
 
 # End of a block of jobs
 function _end() {
-    offset=0
-    echo ""
+	offset=0
+	echo ""
 }
 
 # Status of the job
 function _status() {
-    offset=1
-    echo "$hiblue>$reset $blue$*$reset"
+	offset=1
+	echo "$hiblue>$reset $blue$*$reset"
 }
 
 # Status of the job, no newline
 function _status_stub() {
-    offset=1
-    echo -n "$hiblue>$reset $blue$*$reset"
+	offset=1
+	echo -n "$hiblue>$reset $blue$*$reset"
 }
 
 # Ok
 function _ok() {
-    offset=1
-    echo "$higreen>$reset $green$*$reset"
+	offset=1
+	echo "$higreen>$reset $green$*$reset"
 }
 
 # Warn
 function _warn() {
-    offset=1
-    echo "$hiyellow>$reset $yellow$*$reset"
+	offset=1
+	echo "$hiyellow>$reset $yellow$*$reset"
 }
 
 # Error
 function _error() {
-    offset=1
-    echo "$hired>$reset $red$*$reset"
+	offset=1
+	echo "$hired>$reset $red$*$reset"
 }
 
 ###
@@ -99,81 +99,81 @@ function _error() {
 
 # performs a status check, should be used by one of its wrappers
 function _check_status() {
-    local target="$1"
-    local new="$2"
-    local ext="$3"
-    local func="$4"
+	local target="$1"
+	local new="$2"
+	local ext="$3"
+	local func="$4"
 
-    local changed=1
-    local old state dirname basename
+	local changed=1
+	local old state dirname basename
 
-    dirname="$(dirname "$target")"
-    basename="$(basename "$target")"
+	dirname="$(dirname "$target")"
+	basename="$(basename "$target")"
 
-    if [[ "$basename" != "."* ]]; then
-        state="$dirname/.$basename.$ext"
-    else
-        state="$dirname/$basename.$ext"
-    fi
+	if [[ "$basename" != "."* ]]; then
+		state="$dirname/.$basename.$ext"
+	else
+		state="$dirname/$basename.$ext"
+	fi
 
-    if [ ! -e "$state" ]; then
-        changed=0
-    else
-        # shellcheck disable=SC2034
-        old=$(<"$state")
+	if [ ! -e "$state" ]; then
+		changed=0
+	else
+		# shellcheck disable=SC2034
+		old=$(<"$state")
 
-        eval "$func" && changed=0
-    fi
+		eval "$func" && changed=0
+	fi
 
-    if [ "$changed" -eq 0 ]; then
-        cat <<<"$new" >"$state"
-    fi
+	if [ "$changed" -eq 0 ]; then
+		cat <<<"$new" >"$state"
+	fi
 
-    return "$changed"
+	return "$changed"
 }
 
 # check if one or more files were modified by tracking checksum
 function _check_file() {
-    local changed=1
+	local changed=1
 
-    for file in "$@"; do
-        local new
-        new=$(git hash-object "$file")
+	for file in "$@"; do
+		local new
+		new=$(git hash-object "$file")
 
-        if _check_status "$file" "$new" "sum" "[ \$new != \$old ]"; then
-            changed=0
-        fi
-    done
+		if _check_status "$file" "$new" "sum" "[ \$new != \$old ]"; then
+			changed=0
+		fi
+	done
 
-    return "$changed"
+	return "$changed"
 }
 
 # check if one or more git repos were modified by tracking revision
 function _check_repo() {
-    local changed=1
+	local changed=1
 
-    for repo in "$@"; do
-        local new
-        new=$(git -C "$repo" rev-parse HEAD)
+	for repo in "$@"; do
+		local new
+		new=$(git -C "$repo" rev-parse HEAD)
 
-        if _check_status "$repo" "$new" "rev" "[ \$new != \$old ]"; then
-            changed=0
-        fi
-    done
+		if _check_status "$repo" "$new" "rev" "[ \$new != \$old ]"; then
+			changed=0
+		fi
+	done
 
-    return "$changed"
+	return "$changed"
 }
 
 # check if we've recently interacted with a file by timer
 function _check_time() {
-    _check_status "$1" "$(date +%s)" "time" "[ \$new -gt \$((\$old + $2)) ]"
-    return "$?"
+	_check_status "$1" "$(date +%s)" "time" "[ \$new -gt \$((\$old + $2)) ]"
+	return "$?"
 }
 
 # check if the supplied version has recently changed
 function _check_ver() {
-    _check_status "$1" "$2" "ver" "[ \$new != \$old ]"
-    return "$?"
+	_check_status "$1" "$2" "ver" "[ \$new != \$old ]"
+	return "$?"
 }
 
 ###
@@ -182,183 +182,183 @@ function _check_ver() {
 
 # clone/pull a list of git repos
 function _git_list {
-    local file="$1"
+	local file="$1"
 
-    # Setup changelog
-    local log="/tmp/install-git-log"
-    rm -f "$log"
+	# Setup changelog
+	local log="/tmp/install-git-log"
+	rm -f "$log"
 
-    # Read in base directory from top of list
-    local base
-    read -r base <"$file"
-    eval "base=$base"
+	# Read in base directory from top of list
+	local base
+	read -r base <"$file"
+	eval "base=$base"
 
-    if [[ "$base" != */ ]]; then
-        base="$base/"
-    fi
+	if [[ "$base" != */ ]]; then
+		base="$base/"
+	fi
 
-    # Read in repos from list, skipping base directory
-    readarray -t repos < <(tail -n +2 "$file")
+	# Read in repos from list, skipping base directory
+	readarray -t repos < <(tail -n +2 "$file")
 
-    # Clone or update repos
-    for repo in "${repos[@]}"; do
-        IFS="," read -r url branch <<<"$repo"
-        if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
-            local name dir
-            name="${url##*/}"
-            name="${name%%.git}"
-            target="$base$name"
+	# Clone or update repos
+	for repo in "${repos[@]}"; do
+		IFS="," read -r url branch <<<"$repo"
+		if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
+			local name dir
+			name="${url##*/}"
+			name="${name%%.git}"
+			target="$base$name"
 
-            if [ ! -d "$target" ]; then
-                _status_stub "Cloning $name: "
-                git clone --depth 1 --recurse-submodules --shallow-submodules --branch "$branch" "$url" "$target"
-            else
-                _status_stub "Updating $name: "
-                orig_head="$(git -C "$target" show-ref --hash "refs/heads/$branch")"
-                git -C "$target" pull --force --recurse-submodules=on-demand
-                new_head="$(git -C "$target" show-ref --hash "refs/heads/$branch")"
+			if [ ! -d "$target" ]; then
+				_status_stub "Cloning $name: "
+				git clone --depth 1 --recurse-submodules --shallow-submodules --branch "$branch" "$url" "$target"
+			else
+				_status_stub "Updating $name: "
+				orig_head="$(git -C "$target" show-ref --hash "refs/heads/$branch")"
+				git -C "$target" pull --force --recurse-submodules=on-demand
+				new_head="$(git -C "$target" show-ref --hash "refs/heads/$branch")"
 
-                # Change branch if mismatch
-                if [ "$(git -C "$target" branch --show current)" != "$branch" ]; then
-                    git -C "$target" switch "$branch"
-                fi
+				# Change branch if mismatch
+				if [ "$(git -C "$target" branch --show current)" != "$branch" ]; then
+					git -C "$target" switch "$branch"
+				fi
 
-                # Output changelog
-                if [ "$orig_head" != "$new_head" ]; then
-                    {
-                        local short="${target##*/}"
-                        echo -e "$hiblue>$reset $blue$short$reset"
-                        git -C "$target" log --color "$orig_head".."$new_head"
-                        echo ""
-                    } >>"$log"
-                fi
-            fi
-        fi
-    done
+				# Output changelog
+				if [ "$orig_head" != "$new_head" ]; then
+					{
+						local short="${target##*/}"
+						echo -e "$hiblue>$reset $blue$short$reset"
+						git -C "$target" log --color "$orig_head".."$new_head"
+						echo ""
+					} >>"$log"
+				fi
+			fi
+		fi
+	done
 
-    # Display changelog
-    if [ -f "$log" ]; then
-        less -rf "$log"
-    fi
+	# Display changelog
+	if [ -f "$log" ]; then
+		less -rf "$log"
+	fi
 
-    # Trim removed repos
-    local dirs=("$base"*)
+	# Trim removed repos
+	local dirs=("$base"*)
 
-    for dir in "${dirs[@]}"; do
-        local found=0
+	for dir in "${dirs[@]}"; do
+		local found=0
 
-        for repo in "${repos[@]}"; do
-            IFS="," read -r url branch <<<"$repo"
+		for repo in "${repos[@]}"; do
+			IFS="," read -r url branch <<<"$repo"
 
-            if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
-                local name
-                name="${url##*/}"
-                name="${name%%.git}"
-                target="$base$name"
+			if [[ "$url" != "#"* ]] && [ "$branch" != "" ]; then
+				local name
+				name="${url##*/}"
+				name="${name%%.git}"
+				target="$base$name"
 
-                if [ "$dir" == "$target" ]; then
-                    found=1
-                    break
-                fi
-            fi
-        done
+				if [ "$dir" == "$target" ]; then
+					found=1
+					break
+				fi
+			fi
+		done
 
-        if [ "$found" -eq 0 ]; then
-            _warn "Removing $dir"
-            rm -rf "$dir"
-        fi
-    done
+		if [ "$found" -eq 0 ]; then
+			_warn "Removing $dir"
+			rm -rf "$dir"
+		fi
+	done
 }
 
 function _gh_dl {
-    local user="$1"
-    local proj="$2"
-    local a_name="$3"
-    local a_ver="$4"
-    local a_ext="$5"
-    local target="$6"
+	local user="$1"
+	local proj="$2"
+	local a_name="$3"
+	local a_ver="$4"
+	local a_ext="$5"
+	local target="$6"
 
-    if _check_time "$target" "86400"; then
-        _status "Checking $a_name"
+	if _check_time "$target" "86400"; then
+		_status "Checking $a_name"
 
-        rm -f "/tmp/latest.json"
-        wget -q "https://api.github.com/repos/$user/$proj/releases/latest" -O "/tmp/latest.json"
+		rm -f "/tmp/latest.json"
+		wget -q "https://api.github.com/repos/$user/$proj/releases/latest" -O "/tmp/latest.json"
 
-        # Match '"tag_name":', one or more whitespace, a double quote, "v",
-        # then flush the match; match one or more non-whitespace until you
-        # reach one a double quote.
-        regex='"tag_name":\s*"v\K\S+(?=")'
-        ver="$(grep -oP "$regex" "/tmp/latest.json")"
-        url="https://github.com/$user/$proj/releases/download/v$ver"
+		# Match '"tag_name":', one or more whitespace, a double quote, "v",
+		# then flush the match; match one or more non-whitespace until you
+		# reach one a double quote.
+		regex='"tag_name":\s*"v\K\S+(?=")'
+		ver="$(grep -oP "$regex" "/tmp/latest.json")"
+		url="https://github.com/$user/$proj/releases/download/v$ver"
 
-        a_ver="${a_ver/VER/$ver}"
-        a_url="$url/$a_name$a_ver$a_ext"
-        a_path="/tmp/$a_name$a_ext"
+		a_ver="${a_ver/VER/$ver}"
+		a_url="$url/$a_name$a_ver$a_ext"
+		a_path="/tmp/$a_name$a_ext"
 
-        if _check_ver "$target" "$ver"; then
-            _status "Downloading $a_name $ver"
+		if _check_ver "$target" "$ver"; then
+			_status "Downloading $a_name $ver"
 
-            rm -f "$a_path"
-            wget -q "$a_url" -O "$a_path"
-        else
-            _status "$a_name $ver already installed, skipping"
-        fi
-    else
-        _status "Recently checked $a_name, skipping"
-    fi
+			rm -f "$a_path"
+			wget -q "$a_url" -O "$a_path"
+		else
+			_status "$a_name $ver already installed, skipping"
+		fi
+	else
+		_status "Recently checked $a_name, skipping"
+	fi
 }
 
 # mkdir with create parents
 function _mkdir {
-    mkdir -vp "$1"
+	mkdir -vp "$1"
 }
 
 # ln, but cp when doing /etc autorule or into Windows from WSL2, only ln/cp
 # files, not directories, for safety/sanity
 function _ln {
-    _mkdir "$(dirname "$2")"
-    rm -f "$2"
-    if [[ "$2" != "/mnt/c"* ]] && [[ "$2" != "/etc"* ]]; then
-        ln -sTv "$1" "$2"
-    else
-        cp -Tv "$1" "$2"
-    fi
+	_mkdir "$(dirname "$2")"
+	rm -f "$2"
+	if [[ "$2" != "/mnt/c"* ]] && [[ "$2" != "/etc"* ]]; then
+		ln -sTv "$1" "$2"
+	else
+		cp -Tv "$1" "$2"
+	fi
 }
 
 # ln/cp files and mkdir parents recursively, dst is a directory
 function _stow {
-    local src="$1"
-    local dst="$2"
+	local src="$1"
+	local dst="$2"
 
-    # normalize src to end in / if a dir
-    if [[ -d "$src" ]] && [[ "$src" != *"/" ]]; then
-        src="$src/"
-    fi
+	# normalize src to end in / if a dir
+	if [[ -d "$src" ]] && [[ "$src" != *"/" ]]; then
+		src="$src/"
+	fi
 
-    # normalize dst to end in / or .
-    if [[ "$dst" != */ ]] && [[ "$dst" != *. ]]; then
-        dst="$dst/"
-    fi
+	# normalize dst to end in / or .
+	if [[ "$dst" != */ ]] && [[ "$dst" != *. ]]; then
+		dst="$dst/"
+	fi
 
-    for child in "$src"**; do
-        local target="$dst${child#$src}"
+	for child in "$src"**; do
+		local target="$dst${child#"$src"}"
 
-        if [ -f "$child" ]; then
-            _ln "$child" "$target"
-        elif [ -d "$child" ]; then
-            _mkdir "$target"
-        fi
-    done
+		if [ -f "$child" ]; then
+			_ln "$child" "$target"
+		elif [ -d "$child" ]; then
+			_mkdir "$target"
+		fi
+	done
 }
 
 # run command with sudo while making install-lib functions available
 function _sudo() {
-    if [[ $(groups "$USER") == *"sudo"* ]]; then
-        local IFS=" "
+	if [[ $(groups "$USER") == *"sudo"* ]]; then
+		local IFS=" "
 
-        # shellcheck disable=SC2154 # assigned elsewhere
-        sudo -E bash -c "source $BASE_DIR/install-lib; $*"
-    else
-        _status "Cannot become root: " "$@"
-    fi
+		# shellcheck disable=SC2154 # assigned elsewhere
+		sudo -E bash -c "source $BASE_DIR/install-lib; $*"
+	else
+		_status "Cannot become root: " "$@"
+	fi
 }
