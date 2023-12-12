@@ -136,12 +136,24 @@ function _check_status() {
 function _check_file() {
 	local changed=1
 
-	for file in "$@"; do
-		local new
-		new=$(git hash-object "$file")
+	for target in "$@"; do
+		local dirname basename state new old
 
-		if _check_status "$file" "$new" "sum" "[ \$new != \$old ]"; then
+		dirname="$(dirname "$target")"
+		basename="$(basename "$target")"
+
+		state="$dirname/.$basename.sum"
+
+		new=$(git hash-object "$target")
+
+		if [ ! -e "$state" ]; then
 			changed=0
+		else
+			old=$(<"$state")
+
+			if [ "$new" != "$old" ]; then
+				changed=0
+			fi
 		fi
 	done
 
@@ -152,28 +164,92 @@ function _check_file() {
 function _check_repo() {
 	local changed=1
 
-	for repo in "$@"; do
-		local new
-		new=$(git -C "$repo" rev-parse HEAD)
+	for target in "$@"; do
+		local dirname basename state new old
 
-		if _check_status "$repo" "$new" "rev" "[ \$new != \$old ]"; then
+		dirname="$(dirname "$target")"
+		basename="$(basename "$target")"
+
+		state="$dirname/.$basename.repo"
+
+		new=$(git -C "$target" rev-parse HEAD)
+
+		if [ ! -e "$state" ]; then
 			changed=0
+		else
+			old=$(<"$state")
+
+			if [ "$new" != "$old" ]; then
+				changed=0
+			fi
 		fi
 	done
 
 	return "$changed"
 }
 
-# check if we've recently interacted with a file by timer
+# check if we've recently interacted with one or more files
 function _check_time() {
-	_check_status "$1" "$(date +%s)" "time" "[ \$new -gt \$((\$old + $2)) ]"
-	return "$?"
+	local changed=1
+
+	local new
+	new=$(date +%s)
+
+	local offset="$1"
+	shift 1
+
+	for target in "$@"; do
+		local dirname basename state new old
+
+		dirname="$(dirname "$target")"
+		basename="$(basename "$target")"
+
+		state="$dirname/.$basename.time"
+
+		if [ ! -e "$state" ]; then
+			changed=0
+		else
+			old=$(<"$state")
+
+			if [ "$new" -gt $(("$old" + "$offset")) ]; then
+				changed=0
+			fi
+		fi
+
+	done
+
+	return "$changed"
 }
 
-# check if the supplied version has recently changed
+# check if the supplied version has recently changed on one or more files
 function _check_ver() {
-	_check_status "$1" "$2" "ver" "[ \$new != \$old ]"
-	return "$?"
+	local changed=1
+
+	local new
+	new="$1"
+
+	shift 1
+
+	for target in "$@"; do
+		local dirname basename state new old
+
+		dirname="$(dirname "$target")"
+		basename="$(basename "$target")"
+
+		state="$dirname/.$basename.ver"
+
+		if [ ! -e "$state" ]; then
+			changed=0
+		else
+			old=$(<"$state")
+
+			if [ "$new" != "$old" ]; then
+				changed=0
+			fi
+		fi
+	done
+
+	return "$changed"
 }
 
 ###
@@ -278,7 +354,7 @@ function _gh_dl {
 	local a_ext="$5"
 	local target="$6"
 
-	if _check_time "$target" "86400"; then
+	if _check_time "86400" "$target"; then
 		_status "Checking $a_name"
 
 		rm -f "/tmp/latest.json"
@@ -295,7 +371,7 @@ function _gh_dl {
 		a_url="$url/$a_name$a_ver$a_ext"
 		a_path="/tmp/$a_name$a_ext"
 
-		if _check_ver "$target" "$ver"; then
+		if _check_ver "$ver" "$target"; then
 			_status "Downloading $a_name $ver"
 
 			rm -f "$a_path"
