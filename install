@@ -36,8 +36,7 @@ declare -a MODULES
 uname="$(uname -a)"
 
 if (command -v "lsb_release" >/dev/null 2>&1); then
-	# grep lsb_release to remove spurious warning "No LSB modules are available"
-	linux="$(lsb_release -is 2>/dev/null | grep -v LSB)"
+	linux="$(lsb_release -is 2>/dev/null || true)"
 else
 	linux=""
 fi
