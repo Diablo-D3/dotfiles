@@ -1,35 +1,39 @@
 #!/usr/bin/env bash
 
-if [ -n "${WSL+set}" ]; then
-    # Standard user directories
-    _ln "$USERPROFILE/Desktop" "$HOME/Desktop"
-    _ln "$USERPROFILE/Documents" "$HOME/Documents"
-    _ln "$USERPROFILE/Downloads" "$HOME/Downloads"
+# shellcheck enable=all
+# shellcheck source=install-lib
+source "${BASE_DIR:?}/install-lib"
 
-    # Microsoft Terminal
-    _ln "$MODULE_DIR/windowsterminal.settings.json" "$LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
-    _ln "$MODULE_DIR/windowsterminal.settings.json" "$LOCALAPPDATA/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json"
+if [[ -n "${WSL+set}" ]]; then
+	# Standard user directories
+	_ln "${USERPROFILE:?}/Desktop" "${HOME}/Desktop"
+	_ln "${USERPROFILE:?}/Documents" "${HOME}/Documents"
+	_ln "${USERPROFILE:?}/Downloads" "${HOME}/Downloads"
 
-    # Script for starting WSL2 at bootime
-    _ln "$MODULE_DIR/install-task.ps1" "$USERPROFILE/install-task.ps1"
-    _ln "$MODULE_DIR/hidden_powershell.js" "$USERPROFILE/hidden_powershell.js"
-    _ln "$MODULE_DIR/wsl2.ps1" "$USERPROFILE/wsl2.ps1"
+	# Microsoft Terminal
+	_ln "${MODULE_DIR:?}/windowsterminal.settings.json" "${LOCALAPPDATA:?}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+	_ln "${MODULE_DIR:?}/windowsterminal.settings.json" "${LOCALAPPDATA:?}/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json"
 
-    # Synchronize ssh keys
-    _stow "$HOME/.ssh" "$USERPROFILE/.ssh/"
+	# Script for starting WSL2 at bootime
+	_ln "${MODULE_DIR:?}/install-task.ps1" "${USERPROFILE:?}/install-task.ps1"
+	_ln "${MODULE_DIR:?}/hidden_powershell.js" "${USERPROFILE:?}/hidden_powershell.js"
+	_ln "${MODULE_DIR:?}/wsl2.ps1" "${USERPROFILE:?}/wsl2.ps1"
 
-    # Kanata
-    _stow "$MODULES_DIR/kanata" "$USERPROFILE/kanata"
+	# Synchronize ssh keys
+	_stow "${HOME}/.ssh" "${USERPROFILE:?}/.ssh/"
 
-    tmp="/tmp/kanata.exe"
-    target="$USERPROFILE/kanata/kanata.exe.new"
+	# Kanata
+	_stow "${MODULES_DIR:?}/kanata" "${USERPROFILE:?}/kanata"
 
-    rm -f "$tmp"
+	tmp="/tmp/kanata.exe"
+	target="${USERPROFILE:?}/kanata/kanata.exe.new"
 
-    _gh_dl "jtroo" "kanata" "kanata" "" ".exe" "$target"
+	rm -f "${tmp}"
 
-    if [ -f "$tmp" ]; then
-        _ln "$tmp" "$target"
-        rm -f "$tmp"
-    fi
+	_gh_dl "jtroo" "kanata" "kanata" "" ".exe" "${target}"
+
+	if [[ -f "${tmp}" ]]; then
+		_ln "${tmp}" "${target}"
+		rm -f "${tmp}"
+	fi
 fi

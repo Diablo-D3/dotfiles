@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-if [ -n "${WSL+set}" ]; then
-    _ln "$MODULE_HOME/config/streamlink/config" "$APPDATA/streamlink/config"
+# shellcheck enable=all
+# shellcheck source=install-lib
+source "${BASE_DIR:?}/install-lib"
+
+if [[ -n "${WSL+set}" ]]; then
+	_ln "${MODULE_HOME:?}/config/streamlink/config" "${APPDATA:?}/streamlink/config"
 fi
