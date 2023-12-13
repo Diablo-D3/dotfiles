@@ -66,71 +66,40 @@ function _end() {
 # Status of the job
 function _status() {
 	offset=1
-	echo "$hiblue>$reset $blue$*$reset"
+	echo "${hiblue}>${reset} ${blue}$*${reset}"
+
 }
 
 # Status of the job, no newline
 function _status_stub() {
 	offset=1
-	echo -n "$hiblue>$reset $blue$*$reset"
+	echo -n "${hiblue}>${reset} ${blue}$*${reset}"
+
 }
 
 # Ok
 function _ok() {
 	offset=1
-	echo "$higreen>$reset $green$*$reset"
+	echo "${higreen}>${reset} ${green}${*}${reset}"
+
 }
 
 # Warn
 function _warn() {
 	offset=1
-	echo "$hiyellow>$reset $yellow$*$reset"
+	echo "${hiyellow}>${reset} ${yellow}${*}${reset}"
+
 }
 
 # Error
 function _error() {
 	offset=1
-	echo "$hired>$reset $red$*$reset"
+	echo "${hired}>${reset} ${red}${*}${reset}"
 }
 
 ###
 ### Status checks
 ###
-
-# performs a status check, should be used by one of its wrappers
-function _check_status() {
-	local target="$1"
-	local new="$2"
-	local ext="$3"
-	local func="$4"
-
-	local changed=1
-	local old state dirname basename
-
-	dirname="$(dirname "$target")"
-	basename="$(basename "$target")"
-
-	if [[ "$basename" != "."* ]]; then
-		state="$dirname/.$basename.$ext"
-	else
-		state="$dirname/$basename.$ext"
-	fi
-
-	if [ ! -e "$state" ]; then
-		changed=0
-	else
-		# shellcheck disable=SC2034
-		old=$(<"$state")
-
-		eval "$func" && changed=0
-	fi
-
-	if [ "$changed" -eq 0 ]; then
-		cat <<<"$new" >"$state"
-	fi
-
-	return "$changed"
-}
 
 # check if one or more files were modified by tracking checksum
 function _check_file() {
