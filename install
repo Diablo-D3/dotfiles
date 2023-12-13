@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
+# shellcheck enable=all
+
 cd "$(dirname "${BASH_SOURCE[0]}")" || exit
 BASE_DIR="$(pwd)"
 export BASE_DIR
 
-export MODULES_DIR="$BASE_DIR/modules"
+export MODULES_DIR="${BASE_DIR}/modules"
 
 # shellcheck source=install-lib
-source "$BASE_DIR/install-lib"
+source "${BASE_DIR}/install-lib"
 
 ###
 ### Stage 1: Do housekeeping
@@ -18,10 +20,10 @@ _end
 
 _start "Remove stale symlinks"
 
-_mkdir "$HOME/bin"
+_mkdir "${HOME}/bin"
 
-find "$HOME" -mindepth 1 -name ".*" -xtype l -print0 | xargs -0 -r -t -n 1 unlink
-find "$HOME/bin" -mindepth 1 -xtype l -print0 | xargs -0 -r -t -n 1 unlink
+xargs -0 -r -t -n 1 unlink < <(find "${HOME}" -mindepth 1 -name ".*" -xtype l -print0 || true)
+xargs -0 -r -t -n 1 unlink < <(find "${HOME}/bin" -mindepth 1 -xtype l -print0 || true)
 
 _end
 
@@ -45,31 +47,31 @@ if (command -v "lsb_release" >/dev/null 2>&1); then
 	MODULES+=("os-${linux,,}")
 fi
 
-# Early OS pass
-if [[ "$uname" == *"WSL"* ]]; then
+if [[ "${uname}" == *"WSL"* ]]; then
 	_status "Discovered WSL"
 
 	MODULES+=("os-wsl")
 
 	export WSL="true"
-	"$MODULES_DIR/os-wsl/stealenv.sh"
-	if [ -x "$HOME/.bashrc.win" ]; then
+	"${MODULES_DIR}/os-wsl/stealenv.sh"
+
+	if [[ -x "${HOME}/.bashrc.win" ]]; then
 		# shellcheck disable=SC1091
-		source "$HOME/.bashrc.win"
+		source "${HOME}/.bashrc.win"
 	else
 		echo "Windows env vars didn't get stolen correctly"
 	fi
 fi
 
 # Add non-OS modules
-for MODULE in "$MODULES_DIR/"!(os)*/; do
+for MODULE in "${MODULES_DIR}/"!(os)*/; do
 	# remove "modules/" prefix and "/" suffix
-	MODULE="${MODULE#"$MODULES_DIR/"}"
+	MODULE="${MODULE#"${MODULES_DIR}/"}"
 	MODULE="${MODULE%/}"
 
-	if (command -v "$MODULE" >/dev/null 2>&1 || command -v "$MODULE.exe" >/dev/null 2>&1); then
-		_status "Discovered $MODULE"
-		MODULES+=("$MODULE")
+	if (command -v "${MODULE}" >/dev/null 2>&1 || command -v "${MODULE}.exe" >/dev/null 2>&1); then
+		_status "Discovered ${MODULE}"
+		MODULES+=("${MODULE}")
 	fi
 done
 
@@ -79,39 +81,39 @@ done
 
 for MODULE in "${MODULES[@]}"; do
 	# reconstitute directory of module
-	MODULE_DIR="$MODULES_DIR/$MODULE"
+	MODULE_DIR="${MODULES_DIR}/${MODULE}"
 
 	# paths for autorules
-	MODULE_PRE="$MODULE_DIR/pre.sh"
+	MODULE_PRE="${MODULE_DIR}/pre.sh"
 
-	if [ -f "$MODULE_PRE" ]; then
-		_start "Pre-install for $MODULE"
-		"$MODULE_PRE"
+	if [[ -f "${MODULE_PRE}" ]]; then
+		_start "Pre-install for ${MODULE}"
+		"${MODULE_PRE}"
 		_end
 	fi
 done
 
 for MODULE in "${MODULES[@]}"; do
 	# reconstitute directory of module
-	MODULE_DIR="$MODULES_DIR/$MODULE"
+	MODULE_DIR="${MODULES_DIR}/${MODULE}"
 
 	# paths for autorules
-	MODULE_HOME="$MODULE_DIR/home"
-	MODULE_ETC="$MODULE_DIR/etc"
-	MODULE_GIT="$MODULE_DIR/git"
-	MODULE_POST="$MODULE_DIR/post.sh"
+	MODULE_HOME="${MODULE_DIR}/home"
+	MODULE_ETC="${MODULE_DIR}/etc"
+	MODULE_GIT="${MODULE_DIR}/git"
+	MODULE_POST="${MODULE_DIR}/post.sh"
 
-	_start "Installing for $MODULE"
+	_start "Installing for ${MODULE}"
 
-	_stow "$MODULE_HOME" "$HOME/."
-	_sudo _stow "$MODULE_ETC" "/etc"
+	_stow "${MODULE_HOME}" "${HOME}/."
+	_sudo _stow "${MODULE_ETC}" "/etc"
 
-	if [ -f "$MODULE_GIT" ]; then
-		_git_list "$MODULE_GIT"
+	if [[ -f "${MODULE_GIT}" ]]; then
+		_git_list "${MODULE_GIT}"
 	fi
 
-	if [ -f "$MODULE_POST" ]; then
-		"$MODULE_POST"
+	if [[ -f "${MODULE_POST}" ]]; then
+		"${MODULE_POST}"
 	fi
 
 	_end
