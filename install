@@ -33,12 +33,16 @@ _start "Module detection"
 
 declare -a MODULES
 
+# Discover OS
 uname="$(uname -a)"
 
 if (command -v "lsb_release" >/dev/null 2>&1); then
 	linux="$(lsb_release -is 2>/dev/null || true)"
-else
-	linux=""
+
+	_status "Discovered ${linux}"
+
+	# make lowercase
+	MODULES+=("os-${linux,,}")
 fi
 
 # Early OS pass
@@ -68,14 +72,6 @@ for MODULE in "$MODULES_DIR/"!(os)*/; do
 		MODULES+=("$MODULE")
 	fi
 done
-
-# Late OS pass
-if [ "$linux" != "" ]; then
-	_status "Discovered $linux"
-
-	# make lowercase
-	MODULES+=("os-${linux,,}")
-fi
 
 ###
 ### Stage 3: Install modules
