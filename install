@@ -101,7 +101,7 @@ for MODULE in "${MODULES[@]}"; do
 	MODULE_HOME="${MODULE_DIR}/home"
 	MODULE_ETC="${MODULE_DIR}/etc"
 	MODULE_GIT="${MODULE_DIR}/git"
-	MODULE_POST="${MODULE_DIR}/post.sh"
+	MODULE_INSTALL="${MODULE_DIR}/install.sh"
 
 	_start "Installing for ${MODULE}"
 
@@ -112,11 +112,25 @@ for MODULE in "${MODULES[@]}"; do
 		_git_list "${MODULE_GIT}"
 	fi
 
-	if [[ -f "${MODULE_POST}" ]]; then
-		"${MODULE_POST}"
+	if [[ -f "${MODULE_INSTALL}" ]]; then
+		"${MODULE_INSTALL}"
 	fi
 
 	_end
+done
+
+for MODULE in "${MODULES[@]}"; do
+	# reconstitute directory of module
+	MODULE_DIR="${MODULES_DIR}/${MODULE}"
+
+	# paths for autorules
+	MODULE_POST="${MODULE_DIR}/post.sh"
+
+	if [[ -f "${MODULE_POST}" ]]; then
+		_start "Post-install for ${MODULE}"
+		"${MODULE_POST}"
+		_end
+	fi
 done
 
 ###
