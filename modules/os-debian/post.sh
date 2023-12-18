@@ -11,6 +11,8 @@ apt_prefs="/etc/apt/preferences.d"
 
 run_apt_update=1
 
+# scan pins placed by other modules for other branches,
+# and add/remove sources for those branches
 for branch in "${branches[@]}"; do
 	branch_list="/etc/apt/sources.list.d/${branch}.list"
 
@@ -27,6 +29,8 @@ for branch in "${branches[@]}"; do
 	fi
 done
 
+# scan pins to see if any of them explicitly pin glibc,
+# and add/remove pin for supporting packages
 pin_glibc="${apt_prefs}/pin-glibc"
 if (grep -q "glibc" "${apt_prefs}/pin-"*); then
 	if [[ ! -f "${pin_glibc}" ]]; then
@@ -36,11 +40,12 @@ if (grep -q "glibc" "${apt_prefs}/pin-"*); then
 	_sudo _ln "${MODULE_DIR:?}/pin-glibc" "${pin_glibc}"
 else
 	if [[ -f "${pin_glibc}" ]]; then
-		run_apt_update=1
+		run_apt_update=0
 		_sudo rm "${pin_glibc}"
 	fi
 fi
 
-if "${run_apt_update}"; then
+# update if pins changed
+if [[ "${run_apt_update}" -eq 0 ]]; then
 	_sudo apt update
 fi
