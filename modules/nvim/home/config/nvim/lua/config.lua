@@ -683,11 +683,15 @@ vim.o.formatexpr = 'v:lua.require\'conform\'.formatexpr()'
 
 -- nvim-lint
 -- https://github.com/mfussenegger/nvim-lint
-require('lint').linters_by_ft = {
+local lint = require('lint')
+lint.linters_by_ft = {
     md = { 'markdownlint' },
     sh = { 'shellcheck' },
     vim = { 'vint' }
 }
+
+local shellcheck = lint.linters.shellcheck
+shellcheck.args = vim.list_extend({ "-x" }, shellcheck.args)
 
 vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
     group = augroup,
