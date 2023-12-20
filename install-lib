@@ -406,8 +406,7 @@ function _sudo() {
 	if [[ "$(groups "${USER}" || true)" == *"sudo"* ]]; then
 		local IFS=" "
 
-		# shellcheck disable=SC2154 # assigned elsewhere
-		sudo -E bash -c "source ${BASE_DIR}/install-lib; $*"
+		sudo -E bash -c "source ${BASE_DIR:?}/install-lib; $*"
 	else
 		_status "Cannot become root: " "$@"
 	fi
