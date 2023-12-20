@@ -326,8 +326,8 @@ function _gh_dl {
 	local a_ext="$5"
 	local target="$6"
 
-	check_time=$(_check_time "86400" "${target}")
-	if ${check_time}; then
+	_check_time "86400" "${target}"
+	if [[ "${__check_time}" -eq 0 ]]; then
 		_status "Checking ${a_name}"
 
 		rm -f "/tmp/latest.json"
@@ -344,8 +344,8 @@ function _gh_dl {
 		a_url="${url}/${a_name}${a_ver}${a_ext}"
 		a_path="/tmp/${a_name}${a_ext}"
 
-		check_ver=$(_check_ver "${ver}" "${target}")
-		if ${check_ver}; then
+		_check_ver "${ver}" "${target}"
+		if [[ "${__check_ver}" -eq 0 ]]; then
 			_status "Downloading ${a_name} ${ver}"
 
 			rm -f "${a_path}"
