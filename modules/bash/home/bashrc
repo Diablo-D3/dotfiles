@@ -1,29 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# shellcheck disable=SC1090  # can't follow non-constant source
-# shellcheck disable=SC1091  # can't follow source
-# shellcheck disable=SC2034  # unused variables
+# shellcheck enable=all
 
 # if not interactive, exit early
-[ -z "${PS1+unset}" ] && return
+[[ -z "${PS1+unset}" ]] && return
 shopt -oq posix && return
 
 # if xterm or tmux, assume 24 bit support
-if [[ "$TERM" = "xterm"* || "$TERM" = "tmux"* || "$TERM" = "alacritty"* ]]; then
-  export COLORTERM="truecolor"
+if [[ "${TERM}" = "xterm"* || "${TERM}" = "tmux"* || "${TERM}" = "alacritty"* ]]; then
+	export COLORTERM="truecolor"
 fi
 
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
-PATH=$HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
+PATH=${HOME}/bin:${PATH}:/usr/local/sbin:/usr/sbin:/sbin
 
 # noramlize locale
 LANG=en_US.UTF-8
-LC_ALL=$LANG
-LC_CTYPE=$LANG
+LC_ALL=${LANG}
+LC_CTYPE=${LANG}
 
 # test phrase
-SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
+export SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
 
 # set window size
 shopt -s checkwinsize
@@ -72,10 +70,10 @@ bind "set colored-completion-prefix on"
 bind "set colored-stats on"
 
 # add bash-completion when available
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-  source /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-  source /etc/bash_completion
+if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+	source /usr/share/bash-completion/bash_completion
+elif [[ -f /etc/bash_completion ]]; then
+	source /etc/bash_completion
 fi
 
 # add git-prompt when available
@@ -86,9 +84,10 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 
 if [[ -e /usr/share/git/completion/git-prompt.sh ]]; then
-  source /usr/share/git/completion/git-prompt.sh
+	# shellcheck disable=SC1091 # can't follow source
+	source /usr/share/git/completion/git-prompt.sh
 elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
-  source /usr/lib/git-core/git-sh-prompt
+	source /usr/lib/git-core/git-sh-prompt
 fi
 
 # styles
@@ -121,14 +120,16 @@ HIMAGENTA="$(tput setaf 13)"
 HICYAN="$(tput setaf 14)"
 HIWHITE="$(tput setaf 15)"
 
-# hostname color
-HOSTCHECKSUM="$(echo "$HOSTNAME" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)"
-HOSTCOLOR="$((16#"$HOSTCHECKSUM" % 16))"
+export RESET BOLD DIM REV SITM RITM SMUL RMUL BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE HIBLACK HIRED HIGREEN HIYELLOW HIBLUE HIMAGENTA HICYAN HIWHITE
 
-if [ "$HOSTCOLOR" -eq 0 ]; then
-  PRO_FG="$REV$(tput setaf $HOSTCOLOR)"
+# hostname color
+HOSTCHECKSUM="$(echo "${HOSTNAME}" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)"
+HOSTCOLOR="$((16#"${HOSTCHECKSUM}" % 16))"
+
+if [[ "${HOSTCOLOR}" -eq 0 ]]; then
+	PRO_FG="${REV}$(tput setaf "${HOSTCOLOR}")"
 else
-  PRO_FG="$(tput setaf $HOSTCOLOR)"
+	PRO_FG="$(tput setaf "${HOSTCOLOR}")"
 fi
 
 unset HOSTCHECKSUM
@@ -137,46 +138,53 @@ unset HOSTCOLOR
 # set prompt
 PRO_START="[\[${RESET}${PRO_FG}\]\\h\[${RESET}\] \\W"
 
-if [ "$(id -u)" -eq 0 ]; then
-  PRO_END="]\[${RED}\]#\[${RESET}\] "
+id="$(id -u)"
+if [[ "${id}" -eq 0 ]]; then
+	PRO_END="]\[${RED}\]#\[${RESET}\] "
 else
-  PRO_END="]\$\[${RESET}\] "
+	PRO_END="]\$\[${RESET}\] "
 fi
+unset id
 
 precmd() {
-  if [ "$PWD" != "$HOME" ] && [ "$(type -t __git_ps1)" = "function" ]; then
-    __git_ps1 "$PRO_START" "$PRO_END"
-  else
-    PS1="${PRO_START}${PRO_END}"
-  fi
+	local git_check
+	git_check="$(type -t __git_ps1)"
 
-  history -a
+	if [[ "${PWD}" != "${HOME}" ]] && [[ "${git_check}" = "function" ]]; then
+		__git_ps1 "${PRO_START}" "${PRO_END}"
+	else
+		PS1="${PRO_START}${PRO_END}"
+	fi
+
+	history -a
 }
 
 PROMPT_COMMAND=precmd
 
 # set xterm title
 preexec() {
-  if [ "$BASH_COMMAND" == "precmd" ]; then
-    COMMAND="${DIRSTACK[*]}"
-  else
-    COMMAND="$BASH_COMMAND"
-  fi
+	if [[ "${BASH_COMMAND}" == "precmd" ]]; then
+		COMMAND="${DIRSTACK[*]}"
+	else
+		COMMAND="${BASH_COMMAND}"
+	fi
 
-  PRO_TITLE="\e]0;${HOSTNAME%%.*}: $COMMAND\a"
-  echo -ne "$PRO_TITLE"
+	PRO_TITLE="\e]0;${HOSTNAME%%.*}: ${COMMAND}\a"
+	echo -ne "${PRO_TITLE}"
 }
 
 trap preexec DEBUG
 
 # load local Win config
-if [ -x "$HOME/.bashrc.win" ]; then
-  source "$HOME/.bashrc.win"
+if [[ -x "${HOME}/.bashrc.win" ]]; then
+	# shellcheck disable=SC1091 # can't follow source
+	source "${HOME}/.bashrc.win"
 fi
 
 # load local config
-if [ -x "$HOME/.bashrc.local" ]; then
-  source "$HOME/.bashrc.local"
+if [[ -x "${HOME}/.bashrc.local" ]]; then
+	# shellcheck disable=SC1091 # can't follow source
+	source "${HOME}/.bashrc.local"
 fi
 
 # aliases
@@ -185,13 +193,13 @@ alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
 # rust/cargo
-PATH="$HOME/.cargo/bin:$PATH"
+PATH="${HOME}/.cargo/bin:${PATH}"
 
 # nodejs/npm
-NODE_PATH="$HOME/.npm/lib/node_modules"
+export NPMPATH="${HOME}/.npm/lib/node_modules"
 
-PATH="$HOME/.npm/bin:$PATH"
-MANPATH="$NPM_PACKAGES/share/man"
+PATH="${HOME}/.npm/bin:${PATH}"
+export MANPATH="${NPMPATH}/share/man"
 
 # fzf, fd, and bfs
 # https://github.com/junegunn/fzf#settings
@@ -215,35 +223,35 @@ FZF_TMUX=1
 FZF_TMUX_OPTS="-p -w 80 -h 100% -x R"
 
 if command -v fdfind >/dev/null 2>&1; then
-  alias fd="fdfind"
+	alias fd="fdfind"
 fi
 
 if command -v fzf >/dev/null 2>&1; then
-  if command -v bfs >/dev/null 2>&1; then
-    _fzf_compgen_path() {
-      bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
-    }
+	if command -v bfs >/dev/null 2>&1; then
+		_fzf_compgen_path() {
+			bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
+		}
 
-    _fzf_compgen_dir() {
-      bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
-    }
-  fi
+		_fzf_compgen_dir() {
+			bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
+		}
+	fi
 
-  if [ -f /usr/share/bash-completion/completions/fzf ]; then
-    source /usr/share/bash-completion/completions/fzf
-  fi
+	if [[ -f "/usr/share/bash-completion/completions/fzf" ]]; then
+		source /usr/share/bash-completion/completions/fzf
+	fi
 
-  if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-    source /usr/share/doc/fzf/examples/key-bindings.bash
-  fi
+	if [[ -f "/usr/share/doc/fzf/examples/key-bindings.bash" ]]; then
+		source /usr/share/doc/fzf/examples/key-bindings.bash
+	fi
 fi
 
 # vim
 if command -v nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
-  alias vim=nvim
+	export EDITOR=nvim
+	alias vim=nvim
 else
-  export EDITOR=vim
+	export EDITOR=vim
 fi
 
-export GIT_EDITOR=$EDITOR
+export GIT_EDITOR="${EDITOR}"
