@@ -539,7 +539,7 @@ popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
         end
     end
 
-    require('treesitter-refactor.navigation').goto_definition(0, function()
+    require('nvim-treesitter-refactor.navigation').goto_definition(0, function()
         feedkeys(termcodes('gd'))
     end)
 end)
