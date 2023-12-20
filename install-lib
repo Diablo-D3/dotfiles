@@ -106,7 +106,7 @@ function _error() {
 
 # check if one or more files were modified by tracking checksum
 function _check_file() {
-	local changed=1
+	__check_file=1
 
 	for target in "$@"; do
 		local dirname basename state new old
@@ -119,24 +119,22 @@ function _check_file() {
 		new=$(git hash-object "${target}")
 
 		if [[ ! -e "${state}" ]]; then
-			changed=0
+			__check_file=0
 			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" != "${old}" ]]; then
-				changed=0
+				__check_file=0
 				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 	done
-
-	return "${changed}"
 }
 
 # check if one or more git repos were modified by tracking revision
 function _check_repo() {
-	local changed=1
+	__check_repo=1
 
 	for target in "$@"; do
 		local dirname basename state new old
@@ -149,24 +147,22 @@ function _check_repo() {
 		new=$(git -C "${target}" rev-parse HEAD)
 
 		if [[ ! -e "${state}" ]]; then
-			changed=0
+			__check_repo=0
 			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" != "${old}" ]]; then
-				changed=0
+				__check_repo=0
 				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 	done
-
-	return "${changed}"
 }
 
 # check if we've recently interacted with one or more files
 function _check_time() {
-	local changed=1
+	__check_time=1
 
 	local new
 	new=$(date +%s)
@@ -183,25 +179,23 @@ function _check_time() {
 		state="${dirname}/.${basename}.time"
 
 		if [[ ! -e "${state}" ]]; then
-			changed=0
+			__check_time=0
 			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" -gt $(("${old}" + "${offset}")) ]]; then
-				changed=0
+				__check_time=0
 				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 
 	done
-
-	return "${changed}"
 }
 
 # check if the supplied version has recently changed on one or more files
 function _check_ver() {
-	local changed=1
+	__check_ver=1
 
 	local new
 	new="$1"
@@ -217,19 +211,17 @@ function _check_ver() {
 		state="${dirname}/.${basename}.ver"
 
 		if [[ ! -e "${state}" ]]; then
-			changed=0
+			__check_ver=0
 			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" != "${old}" ]]; then
-				changed=0
+				__check_ver=0
 				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 	done
-
-	return "${changed}"
 }
 
 ###
