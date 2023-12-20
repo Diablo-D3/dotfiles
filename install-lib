@@ -120,11 +120,13 @@ function _check_file() {
 
 		if [[ ! -e "${state}" ]]; then
 			changed=0
+			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" != "${old}" ]]; then
 				changed=0
+				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 	done
@@ -148,11 +150,13 @@ function _check_repo() {
 
 		if [[ ! -e "${state}" ]]; then
 			changed=0
+			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" != "${old}" ]]; then
 				changed=0
+				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 	done
@@ -180,11 +184,13 @@ function _check_time() {
 
 		if [[ ! -e "${state}" ]]; then
 			changed=0
+			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" -gt $(("${old}" + "${offset}")) ]]; then
 				changed=0
+				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 
@@ -212,11 +218,13 @@ function _check_ver() {
 
 		if [[ ! -e "${state}" ]]; then
 			changed=0
+			printf "%s" "${new}" >"${state}"
 		else
 			old=$(<"${state}")
 
 			if [[ "${new}" != "${old}" ]]; then
 				changed=0
+				printf "%s" "${new}" >"${state}"
 			fi
 		fi
 	done
