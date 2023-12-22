@@ -11,10 +11,13 @@ local keyopts = { silent = true }
 local local_keyopts = { silent = true, buffer = true }
 local augroup = vim.api.nvim_create_augroup('init', {})
 
-local function extend(a, b) return vim.tbl_extend("force", a, b) end
-local function keymap(mode, lhs, desc, rhs) return vim.keymap.set(mode, lhs, rhs, extend(keyopts, { desc = desc })) end
-local function termcodes(x) return vim.api.nvim_replace_termcodes(x, true, true, true) end
-local feedkeys = function(key) vim.fn.feedkeys(key, 'n') end
+local function keymap(mode, lhs, desc, rhs)
+    return vim.keymap.set(mode, lhs, rhs,
+        vim.tbl_extend("force", keyopts, { desc = desc })
+    )
+end
+local function keycode(key) return vim.keycode(key) end
+local function feedkeys(key) return vim.fn.feedkeys(key, 'n') end
 
 vim.cmd.helptags('ALL')
 
@@ -153,39 +156,27 @@ require('mini.completion').setup({
     delay = { completion = 4294967295 }
 })
 
-local keys = {
-    ['tab'] = termcodes('<Tab>'),
-    ['s-tab'] = termcodes('<S-Tab>'),
-    ['c-xc-o'] = termcodes('<C-X><C-O>'),
-    ['c-n'] = termcodes('<C-N>'),
-    ['c-p'] = termcodes('<C-P>'),
-
-    ['cr'] = termcodes('<CR>'),
-    ['ctrl-y'] = termcodes('<C-Y>'),
-    ['ctrl-y_cr'] = termcodes('<C-Y><CR>'),
-}
-
 local function tab_complete(shift)
-    if vim.fn.pumvisible() == 1 then return feedkeys(shift and keys['c-p'] or keys['c-n']) end
+    if (vim.fn.pumvisible() == 1) then return feedkeys(shift and keycode('<C-P>') or keycode('<C-N>')) end
 
     local line = vim.api.nvim_get_current_line()
     local pos = vim.api.nvim_win_get_cursor(0)[2]
     local not_at_whitespace = line:sub(pos, pos):find('%s') == nil
-    if (not_at_whitespace and pos > 1) then return feedkeys(keys['c-xc-o']) end
+    if (not_at_whitespace and pos > 1) then return feedkeys(keycode('<C-X><C-O>')) end
 
-    feedkeys(shift and keys['s-tab'] or keys['tab'])
+    feedkeys(shift and keycode('<S-Tab>') or keycode('<Tab>'))
 end
 
-vim.keymap.set('i', '<Tab>', function() tab_complete(false) end, keyopts)
-vim.keymap.set('i', '<S-Tab>', function() tab_complete(true) end, keyopts)
+keymap('i', '<Tab>', '<Tab>', function() tab_complete(false) end)
+keymap('i', '<S-Tab>', '<S-Tab>', function() tab_complete(true) end)
 
 local function cr_complete()
-    if vim.fn.pumvisible() == 0 then return feedkeys(keys['cr']) end
+    if (vim.fn.pumvisible() == 0) then return feedkeys(keycode('<CR>')) end
     local has_selected = vim.fn.complete_info()['selected'] ~= -1
-    feedkeys(has_selected and keys['ctrl-y'] or keys['ctrl-y_cr'])
+    feedkeys(has_selected and keycode('<C-Y>') or keycode('<C-Y><CR>'))
 end
 
-vim.keymap.set('i', '<CR>', cr_complete, keyopts)
+keymap('i', '<CR>', '<CR>', cr_complete)
 
 -- mini.hipatterns
 local mini_hipatterns = require('mini.hipatterns')
@@ -485,7 +476,7 @@ keymap('n', 'gr', 'Rename', function()
     end
 
     local cmd = '%s/' .. vim.fn.expand('<cword>') .. '//g'
-    feedkeys(':' .. cmd .. termcodes('<Left><Left>'))
+    feedkeys(':' .. cmd .. keycode('<Left><Left>'))
 end)
 
 ----------------
@@ -540,7 +531,7 @@ popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
     end
 
     require('nvim-treesitter-refactor.navigation').goto_definition(0, function()
-        feedkeys(termcodes('gd'))
+        feedkeys('gd')
     end)
 end)
 
@@ -554,7 +545,7 @@ popupify('FileType', 'Trouble', 'n', 'gD', 'LSP Definitions', function()
         end
     end
 
-    feedkeys(termcodes('gD'))
+    feedkeys('gD')
 end)
 
 popupify('FileType', 'Trouble', 'n', 'gt', 'LSP Type Definitions', function()
