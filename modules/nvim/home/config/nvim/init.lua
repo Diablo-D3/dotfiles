@@ -73,6 +73,7 @@ vim.opt.clipboard:append('unnamedplus')
 vim.g.rust_recommended_style = 0
 
 -- keybinds
+vim.g.mapleader = ' '
 keymap('n', '<leader>q', 'Close window', function() vim.nvim_win_close(0, true) end)
 keymap('n', '<leader>v', 'Split view', function() vim.cmd.split() end)
 
