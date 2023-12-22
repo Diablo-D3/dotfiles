@@ -21,6 +21,38 @@ local function feedkeys(key) return vim.fn.feedkeys(key, 'n') end
 
 vim.cmd.helptags('ALL')
 
+-- options
+vim.o.swapfile = false
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.wrap = true
+
+-- if in fish, use sh instead
+if (not not vim.o.shell:match('fish$')) then
+    vim.o.shell = "sh"
+end
+
+-- terminal
+vim.api.nvim_create_autocmd('TermOpen', {
+    callback = function(ev)
+        vim.opt_local[ev.bufnr].listchars = ''
+        vim.cmd.startinsert()
+    end,
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = 'term://*',
+    callback = function()
+        vim.cmd.startinsert()
+    end
+})
+
+vim.api.nvim_create_autocmd('BufLeave', {
+    pattern = 'term://*',
+    callback = function()
+        vim.cmd.stopinsert()
+    end
+})
 -- osc52 clipboard
 vim.g.clipboard = {
     name = 'OSC 52',
@@ -34,6 +66,15 @@ vim.g.clipboard = {
         ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
     },
 }
+
+vim.opt.clipboard:append('unnamedplus')
+
+-- override ftplugin/rust.vim textwidth
+vim.g.rust_recommended_style = 0
+
+-- keybinds
+keymap('n', '<leader>q', 'Close window', function() vim.nvim_win_close(0, true) end)
+keymap('n', '<leader>v', 'Split view', function() vim.cmd.split() end)
 
 ------------------------
 -- base functionality --
