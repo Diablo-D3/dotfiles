@@ -1,8 +1,9 @@
-[general]
 import = [
 	"~/.config/alacritty/keys.toml",
 	"~\\AppData\\Roaming\\alacritty\\keys.toml",
 ]
+
+shell = { program = "bash", args = ["-l"] }
 
 [env]
 TERM = "alacritty"
