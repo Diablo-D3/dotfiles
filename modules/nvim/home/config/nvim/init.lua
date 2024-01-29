@@ -11,11 +11,12 @@ local keyopts = { silent = true }
 local local_keyopts = { silent = true, buffer = true }
 local augroup = vim.api.nvim_create_augroup('init', {})
 
-local function keymap(mode, lhs, desc, rhs)
+local function keymap(mode, lhs, desc, rhs, opts)
     return vim.keymap.set(mode, lhs, rhs,
-        vim.tbl_extend("force", keyopts, { desc = desc })
+        vim.tbl_extend("force", vim.tbl_extend("force", keyopts, { desc = desc }), opts or {})
     )
 end
+
 local function keycode(key) return vim.keycode(key) end
 local function feedkeys(key) return vim.fn.feedkeys(key, 'n') end
 
@@ -74,7 +75,11 @@ vim.g.rust_recommended_style = 0
 
 -- keybinds
 vim.g.mapleader = ' '
-keymap('n', '<leader>q', 'Close window', function() vim.nvim_win_close(0, true) end)
+
+keymap({ 'v', 'n' }, ';', 'Command mode', function() feedkeys(':') end)
+keymap({ 'v', 'n' }, ':', 'Repeat f or t', function() feedkeys(';') end)
+
+keymap('n', '<leader>q', 'Close window', function() vim.api.nvim_win_close(0, true) end)
 keymap('n', '<leader>v', 'Split view', function() vim.cmd.split() end)
 
 ------------------------
