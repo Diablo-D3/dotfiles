@@ -26,6 +26,7 @@ vim.o.swapfile = false
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.wrap = true
+vim.o.gdefault = true
 
 -- if in fish, use sh instead
 if (not not vim.o.shell:match('fish$')) then
