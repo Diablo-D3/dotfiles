@@ -447,19 +447,23 @@ vim.diagnostic.config({
         only_current_line = true,
         highlight_whole_line = false,
     },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.INFO] = '',
+            [vim.diagnostic.severity.HINT] = '',
+        },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+            [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarning',
+            [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+            [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+        }
+    },
     update_in_insert = true,
     severity_sort = true,
 })
-
--- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#highlight-line-number-instead-of-having-icons-in-sign-column
-for _, diag in ipairs({ "Error", "Warn", "Info", "Hint" }) do
-    vim.fn.sign_define("DiagnosticSign" .. diag, {
-        text = "",
-        texthl = "DiagnosticSign" .. diag,
-        linehl = "",
-        numhl = "DiagnosticSign" .. diag,
-    })
-end
 
 ----------------
 -- treesitter --
