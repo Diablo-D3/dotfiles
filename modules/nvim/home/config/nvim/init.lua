@@ -34,8 +34,7 @@ end
 
 -- terminal
 vim.api.nvim_create_autocmd('TermOpen', {
-    callback = function(ev)
-        vim.opt_local[ev.bufnr].listchars = ''
+    callback = function()
         vim.cmd.startinsert()
     end,
 })
