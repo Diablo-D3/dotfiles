@@ -76,8 +76,8 @@ vim.g.rust_recommended_style = 0
 -- keybinds
 vim.g.mapleader = ' '
 
-keymap({ 'v', 'n' }, ';', 'Command mode', function() feedkeys(':') end)
-keymap({ 'v', 'n' }, ':', 'Repeat f or t', function() feedkeys(';') end)
+keymap({ 'x', 'n' }, ';', 'Command mode', ':', { silent = false })
+keymap({ 'x', 'n' }, ':', 'Repeat f or t', ';', { silent = false })
 
 keymap('n', '<leader>q', 'Close window', function() vim.api.nvim_win_close(0, true) end)
 keymap('n', '<leader>v', 'Split view', function() vim.cmd.split() end)
