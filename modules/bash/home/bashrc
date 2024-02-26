@@ -192,6 +192,9 @@ alias bc="bc -ql"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
+# start $MANPATH
+export MANPATH="$(manpath -g)"
+
 # rust/cargo
 PATH="${HOME}/.cargo/bin:${PATH}"
 
@@ -199,7 +202,7 @@ PATH="${HOME}/.cargo/bin:${PATH}"
 export NPMPATH="${HOME}/.npm/lib/node_modules"
 
 PATH="${HOME}/.npm/bin:${PATH}"
-export MANPATH="${NPMPATH}/share/man"
+export MANPATH="${NPMPATH}/share/man:${MANPATH}"
 
 # fzf, fd, and bfs
 # https://github.com/junegunn/fzf#settings
