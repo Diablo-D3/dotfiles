@@ -13,7 +13,7 @@ fi
 
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
-PATH=${HOME}/bin:${PATH}:/usr/local/sbin:/usr/sbin:/sbin
+PATH=${HOME}/bin:${HOME}/.bin:${PATH}:/usr/local/sbin:/usr/sbin:/sbin
 
 # noramlize locale
 LANG=en_US.UTF-8
