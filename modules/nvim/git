@@ -6,6 +6,7 @@ https://github.com/Diablo-D3/vim-yabs.git,master
 https://github.com/ii14/autosplit.nvim.git,master
 https://github.com/nvim-lua/plenary.nvim.git,master
 https://github.com/echasnovski/mini.nvim.git,main
+https://github.com/folke/edgy.nvim.git,main
 
 # navigation
 https://github.com/folke/trouble.nvim.git,main
@@ -35,5 +36,6 @@ https://github.com/j-hui/fidget.nvim.git,legacy
 https://github.com/aliva/vim-fish.git,master
 
 # external tooling integration
-https://github.com/tpope/vim-fugitive.git,master
+https://github.com/NeogitOrg/neogit.git,master
+https://github.com/sindrets/diffview.nvim.git,main
 https://github.com/christoomey/vim-tmux-navigator,master

@@ -4,9 +4,6 @@
 
 local vim = vim
 
-local winopts = require('popupify').default_winopts
-local popupify = require('popupify').popupify
-
 local keyopts = { silent = true }
 local local_keyopts = { silent = true, buffer = true }
 local augroup = vim.api.nvim_create_augroup('init', {})
@@ -286,6 +283,48 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
+-- edgy.nvim
+-- https://github.com/folke/edgy.nvim
+local edgy = require('edgy')
+edgy.setup({
+    options = {
+        right = {
+            size = function()
+                local half = vim.o.columns / 2
+                return math.floor(half <= 120 and half or 120)
+            end,
+        },
+    },
+    animate = {
+        enabled = false
+    },
+    wo = {
+        winbar = false
+    },
+    right = {
+        'Trouble',
+        'fzf',
+        'NeogitStatus'
+    }
+})
+
+vim.opt_local.fillchars:append({
+    vert = '\u{2595}',
+    horiz = '\u{2581}',
+    horizup = '\u{1FB7F}',
+    horizdown = '\u{2581}',
+    vertleft = '\u{2595}',
+    vertright = '\u{2595}',
+    verthoriz = '\u{1FB7F}',
+})
+
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'Trouble',
+--     callback = function()
+--         vim.opt_local.fillchars:append('vert:x')
+--     end,
+-- })
+
 -----------
 -- mason --
 -----------
@@ -533,11 +572,11 @@ trouble.setup({
     use_diagnostic_signs = false
 })
 
-popupify('FileType', 'Trouble', 'n', '<leader>d', 'Diagnostics', function()
+keymap('n', '<leader>d', 'Diagnostics', function()
     trouble.open('workspace_diagnostics')
 end)
 
-popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
+keymap('n', 'gd', 'Declaration', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -559,7 +598,7 @@ popupify('FileType', 'Trouble', 'n', 'gd', 'LSP Declaration', function()
     end)
 end)
 
-popupify('FileType', 'Trouble', 'n', 'gD', 'LSP Definitions', function()
+keymap('n', 'gD', 'Definitions', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -572,7 +611,7 @@ popupify('FileType', 'Trouble', 'n', 'gD', 'LSP Definitions', function()
     feedkeys('gD')
 end)
 
-popupify('FileType', 'Trouble', 'n', 'gt', 'LSP Type Definitions', function()
+keymap('n', 'gt', 'Type Definitions', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -585,7 +624,7 @@ popupify('FileType', 'Trouble', 'n', 'gt', 'LSP Type Definitions', function()
     -- don't do gt = goto next tab page
 end)
 
-popupify('FileType', 'Trouble', 'n', 'gR', 'LSP References', function()
+keymap('n', 'gR', 'LSP References', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -598,7 +637,7 @@ popupify('FileType', 'Trouble', 'n', 'gR', 'LSP References', function()
     -- don't do gR = virtual replace mode
 end)
 
-popupify('FileType', 'Trouble', 'n', 'gi', 'LSP Implementations', function()
+keymap('n', 'gi', 'LSP Implementations', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -660,11 +699,22 @@ fzf.setup({
         },
         cwd_prompt = false
     },
-    winopts_fn = winopts,
+    winopts = {
+        split = "belowright vnew"
+    },
 })
 
 local lgrep = { exec_empty_query = false }
 local lgrep_continue = { exec_empty_query = false, continue_last_search = true }
+
+local function edgy_wrap(fn)
+    local win = edgy.get_win()
+    if (win ~= nil) then
+        --win:hide()
+        fn()
+        --win:show()
+    end
+end
 
 keymap('n', '/', 'grep', function() fzf.lgrep_curbuf(lgrep) end)
 keymap('n', '?', 'grep continued', function() fzf.lgrep_curbuf(lgrep_continue) end)
@@ -715,19 +765,24 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
     end,
 })
 
--- fugitive
--- https://github.com/tpope/vim-fugitive
-popupify('FileType', { 'fugitive', 'git', 'gitcommit' }, 'n', '<leader>g', 'Fugitive',
-    function()
-        vim.cmd.Git()
-    end, function()
-        vim.keymap.set('n', 'cc', function()
-            -- temporary fix for 'press enter'
-            vim.o.cmdheight = 1
-            vim.cmd.Git('commit')
-            vim.o.cmdheight = 0
-        end, local_keyopts)
-    end)
+-- neogit
+-- https://github.com/NeogitOrg/neogit
+local neogit = require('neogit')
+neogit.setup({
+    kind = 'split',
+    disable_hint = true,
+    graph_style = 'unicode',
+    integrations = {
+        diffview = true,
+        fzf_lua = true
+    }
+})
+
+keymap('n', '<leader>g', 'open neogit', function() neogit.open() end)
+
+-- diffview
+-- https://github.com/sindrets/diffview.nvim
+require('diffview').setup()
 
 -- vim-tmux-navigation
 -- https://github.com/christoomey/vim-tmux-navigator
