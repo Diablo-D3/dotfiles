@@ -5,10 +5,10 @@ TERM = "alacritty"
 WSLENV = "TERM/u"
 
 [font]
-normal = { family = "Iosevka Term", style = "Medium" }
-bold = { family = "Iosevka Term", style = "Heavy" }
-italic = { family = "Iosevka Term", style = "Medium" }
-bold_italic = { family = "Iosevka Term", style = "Heavy Italic" }
+normal = { family = "Iosevka Term", style = "Regular" }
+bold = { family = "Iosevka Term", style = "Medium" }
+italic = { family = "Iosevka Term", style = "Italic" }
+bold_italic = { family = "Iosevka Term", style = "Medium Italic" }
 size = 16.5
 offset = { x = 0, y = 0 }
 glyph_offset = { x = 0, y = 0 }
