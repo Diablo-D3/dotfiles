@@ -22,18 +22,6 @@ if [[ -n "${WSL+set}" ]]; then
 	# Synchronize ssh keys
 	_stow "${HOME}/.ssh" "${USERPROFILE:?}/.ssh/"
 
-	# Kanata
-	_stow "${MODULES_DIR:?}/kanata" "${USERPROFILE:?}/kanata"
-
-	tmp="/tmp/kanata.exe"
-	target="${USERPROFILE:?}/kanata/kanata.exe.new"
-
-	rm -f "${tmp}"
-
-	_gh_dl "jtroo" "kanata" "kanata" "" ".exe" "${target}"
-
-	if [[ -f "${tmp}" ]]; then
-		_ln "${tmp}" "${target}"
-		rm -f "${tmp}"
-	fi
+	# Manually run kanata pre.sh
+	. "${MODULES_DIR:?}/kanata/pre.sh"
 fi
