@@ -231,10 +231,10 @@
       "experimental.retroTerminalEffect": false,
       "font": {
         "face": "Iosevka Term",
-        "size": 16.5,
+        "size": 14,
         "weight": "normal",
-        "cellHeight": "1.225",
-        "cellWidth": "0.45"
+        "cellHeight": "24px",
+        "cellWidth": "10px"
       },
       "intenseTextStyle": "bold",
       "padding": 0,

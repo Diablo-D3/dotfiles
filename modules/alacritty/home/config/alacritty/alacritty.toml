@@ -9,21 +9,9 @@ normal = { family = "Iosevka Term", style = "Regular" }
 bold = { family = "Iosevka Term", style = "Medium" }
 italic = { family = "Iosevka Term", style = "Italic" }
 bold_italic = { family = "Iosevka Term", style = "Medium Italic" }
-size = 16.5
-offset = { x = 0, y = 0 }
-glyph_offset = { x = 0, y = 0 }
-builtin_box_drawing = false
-
-# Iosevka
-#              | 1920x1080 | 2560x1600 |
-# -------------|-----------|-----------|
-# 12.75pt/17px | 240x54    |           |
-# 16.5pt/22px  | 192x40    |           |
-# 18pt/24px    | 160x36    |           |
-# 24pt/32px    | 120x27    | 160x40    |
-# 36pt/48px    | 80x18     |           |
-
-# Laptop args: -o font.size=12 -o font.offset.y=-1 -o font.glyph_offset=-1
+size = 14
+offset = { x = 1, y = 1 }
+glyph_offset = { x = 0, y = 1 }
 
 [window]
 dimensions = { columns = 80, lines = 25 }
