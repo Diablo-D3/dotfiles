@@ -193,7 +193,8 @@ alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
 # start $MANPATH
-export MANPATH="$(manpath -g)"
+MANPATH="$(manpath -g)"
+export MANPATH
 
 # rust/cargo
 PATH="${HOME}/.cargo/bin:${PATH}"
@@ -203,6 +204,9 @@ export NPMPATH="${HOME}/.npm/lib/node_modules"
 
 PATH="${HOME}/.npm/bin:${PATH}"
 export MANPATH="${NPMPATH}/share/man:${MANPATH}"
+
+# electron
+export ELECTRON_OZONE_PLATFORM_HINT="wayland"
 
 # fzf, fd, and bfs
 # https://github.com/junegunn/fzf#settings
