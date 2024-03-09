@@ -19,4 +19,6 @@ if [[ -n "${wsl+set}" ]]; then
 		_ln "${tmp}" "${target}"
 		rm -f "${tmp}"
 	fi
+
+	rm -f "/tmp/latest.json"
 fi

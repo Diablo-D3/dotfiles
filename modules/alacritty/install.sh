@@ -31,4 +31,6 @@ if [[ -f "/tmp/${iosevka}.zip" ]] || [[ -f "/tmp/${aile}.zip" ]]; then
 	fi
 fi
 
+rm -f "/tmp/latest.json"
+
 exit 0
