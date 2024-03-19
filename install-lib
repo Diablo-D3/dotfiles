@@ -261,14 +261,22 @@ function _git_list {
 				_status_stub "Cloning ${name}: "
 				git clone --depth 1 --recurse-submodules --shallow-submodules --branch "${branch}" "${url}" "${target}"
 			else
-				_status_stub "Updating ${name}: "
-				orig_head="$(git -C "${target}" show-ref --hash "refs/heads/${branch}")"
-				git -C "${target}" pull --force --recurse-submodules=on-demand
-				new_head="$(git -C "${target}" show-ref --hash "refs/heads/${branch}")"
-
 				# Change branch if mismatch
-				if [[ "$(git -C "${target}" branch --show current || true)" != "${branch}" ]]; then
+				orig_branch="$(git -C "${target}" branch --show current || true)"
+				if [[ "${orig_branch}" != "${branch}" ]]; then
+					_status_stub "Updating ${name}, ${orig_branch} -> ${branch}:"
+					git -C "${target}" config "remote.origin.fetch" "+refs/heads/${branch}:refs/remotes/origin/${branch}"
+					git -C "${target}" config "branch.${branch}.remote" "origin"
+					git -C "${target}" config "branch.${branch}.merge" "refs/heads/${branch}"
+					git -C "${target}" config --unset "branch.${orig_branch}.remote"
+					git -C "${target}" config --unset "branch.${orig_branch}.merge"
+					git -C "${target}" fetch origin "${branch}"
 					git -C "${target}" switch "${branch}"
+				else
+					_status_stub "Updating ${name}: "
+					orig_head="$(git -C "${target}" show-ref --hash "refs/heads/${branch}")"
+					git -C "${target}" pull --force --recurse-submodules=on-demand
+					new_head="$(git -C "${target}" show-ref --hash "refs/heads/${branch}")"
 				fi
 
 				# Output changelog
