@@ -10,6 +10,8 @@ config.window_padding = {
     bottom = 0
 }
 
+config.term = 'wezterm'
+
 config.font = wezterm.font('Iosevka Term', { weight = 'Regular' })
 
 config.font_rules = {
@@ -35,6 +37,7 @@ config.keys = {
     }
 }
 
+config.allow_win32_input_mode = false
 config.enable_kitty_keyboard = true
 
 config.default_prog = { 'bash' }
