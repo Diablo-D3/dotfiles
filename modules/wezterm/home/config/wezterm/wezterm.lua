@@ -35,6 +35,8 @@ config.keys = {
     }
 }
 
+config.enable_kitty_keyboard = true
+
 config.default_prog = { 'bash' }
 
 config.initial_cols = 80
