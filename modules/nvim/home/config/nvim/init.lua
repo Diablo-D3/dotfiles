@@ -35,6 +35,9 @@ end
 vim.api.nvim_create_autocmd('TermOpen', {
     callback = function()
         vim.cmd.startinsert()
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+        vim.wo.wrap = false
     end,
 })
 
