@@ -570,10 +570,6 @@ vim.diagnostic.config({
 -- https://github.com/nvim-treesitter/nvim-treesitter-refactor
 -- https://github.com/nvim-treesitter/nvim-treesitter-context
 -- https://gitlab.com/HiPhish/rainbow-delimiters.nvim
-require('nvim-treesitter.install').update({
-    with_sync = true
-})
-
 require('nvim-treesitter.configs').setup({
     auto_install = true,
     highlight = {
