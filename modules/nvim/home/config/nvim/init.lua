@@ -102,7 +102,7 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
                     tag = tags[1]
                 else
                     -- use real help to emit error message
-                    vim.cmd.help(args[2])
+                    pcall(vim.cmd.help, args[2])
                     return
                 end
             else
