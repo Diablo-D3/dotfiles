@@ -395,8 +395,6 @@ lspconfig.html.setup({})
 
 lspconfig.jsonls.setup({})
 
-lspconfig.marksman.setup({})
-
 lspconfig.taplo.setup({})
 
 lspconfig.vimls.setup({})
