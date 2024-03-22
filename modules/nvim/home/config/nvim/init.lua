@@ -106,15 +106,6 @@ require('help_unsplit').setup()
 -- https://github.com/Verf/deepwhite.nvim
 vim.cmd.colorscheme('deepwhite')
 
--- autosplit.nvim
--- https://github.com/ii14/autosplit.nvim
-vim.cmd [[
-    set splitright
-
-    let g:autosplit_loaded = 1
-    au WinNew * lua require('autosplit')()
-]]
-
 -- mini.nvim
 -- https://github.com/echasnovski/mini.nvim
 
