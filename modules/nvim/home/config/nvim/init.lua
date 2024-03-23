@@ -131,7 +131,7 @@ require('mini.bracketed').setup({})
 -- mini.bufremove
 local mini_bufremove = require('mini.bufremove')
 mini_bufremove.setup({})
-vim.keymap.set('n', '<C-w>', function() mini_bufremove.wipeout(0, false) end, keyopts)
+keymap('n', '<C-w>', 'wipeout buffer', function() mini_bufremove.wipeout(0, false) end, keyopts)
 
 -- mini.clue
 local mini_clue = require('mini.clue')
@@ -381,11 +381,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 
+        vim.lsp.inlay_hint.enable(0, true)
+
         vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, bufopts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     end,
 })
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
 
 lspconfig.clangd.setup({})
 
@@ -416,6 +420,9 @@ lspconfig.lua_ls.setup({
                 neededFileStatus = {
                     ["codestyle-check"] = "Any"
                 }
+            },
+            completion = {
+                callSnippet = "Replace"
             }
         }
     }
@@ -726,7 +733,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
 -- https://github.com/NeogitOrg/neogit
 local neogit = require('neogit')
 neogit.setup({
-    kind = 'split',
+    kind = 'tab',
     disable_hint = true,
     graph_style = 'unicode',
     integrations = {
