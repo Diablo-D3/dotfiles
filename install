@@ -1,141 +1,38 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # shellcheck enable=all
 
-cd "$(dirname "${BASH_SOURCE[0]}")" || exit
-BASE_DIR="$(pwd)"
-export BASE_DIR
+# Exit immediately if a command exits with a non-zero status
+set -e
 
-# shellcheck source=install-lib
-source "${BASE_DIR}/install-lib"
+# Treat unset variables as an error when substituting
+set -u
 
-export MODULES_DIR="${BASE_DIR}/modules"
+user="twpayne"
+proj="chezmoi"
+asset="chezmoi-linux-amd64-musl"
+target_dir="${HOME}/.local/bin"
+target_bin="chezmoi"
 
-###
-### Stage 1: Do housekeeping
-###
+rm -f "/tmp/latest.json"
+wget -q "https://api.github.com/repos/${user}/${proj}/releases/latest" -O "/tmp/latest.json"
 
-_start "Installing"
-_end
+# Match '"tag_name":', one or more whitespace, a double quote, "v",
+# then flush the match; match one or more non-whitespace until you
+# reach one a double quote.
+regex='"tag_name":\s*"v\K\S+(?=")'
+ver="$(grep -oP "${regex}" "/tmp/latest.json")"
+url="https://github.com/${user}/${proj}/releases/download/v${ver}/${asset}"
 
-_start "Remove stale symlinks"
+tmp="/tmp/${asset}"
 
-_mkdir "${HOME}/bin"
+printf "Downloading %s %s\n" "${asset}" "${ver}"
 
-xargs -0 -r -t -n 1 unlink < <(find "${HOME}" -mindepth 1 -name ".*" -xtype l -print0 || true)
-xargs -0 -r -t -n 1 unlink < <(find "${HOME}/bin" -mindepth 1 -xtype l -print0 || true)
-
-_end
-
-###
-### Stage 2: Build list of modules
-###
-
-_start "Module detection"
-
-declare -a MODULES
-
-# Discover OS
-uname="$(uname -a)"
-
-if (command -v "lsb_release" >/dev/null 2>&1); then
-	linux="$(lsb_release -is 2>/dev/null || true)"
-
-	_status "Discovered ${linux}"
-
-	# make lowercase
-	MODULES+=("os-${linux,,}")
+rm -f "${tmp}"
+if wget -q "${url}" -O "${tmp}" > /dev/null; then
+  mkdir -p "${target_dir}"
+  mv "${tmp}" "${target_dir}/${target_bin}"
+  chmod +x "${target_dir}/${target_bin}"
+else
+  printf "Failed to download %s\n" "${url}"
 fi
-
-if [[ "${uname}" == *"WSL"* ]]; then
-	_status "Discovered WSL"
-
-	MODULES+=("os-wsl")
-
-	export WSL="true"
-	"${MODULES_DIR}/os-wsl/stealenv.sh"
-
-	if [[ -x "${HOME}/.bashrc.win" ]]; then
-		# shellcheck disable=SC1091
-		source "${HOME}/.bashrc.win"
-	else
-		echo "Windows env vars didn't get stolen correctly"
-	fi
-fi
-
-# Add non-OS modules
-for MODULE in "${MODULES_DIR}/"!(os)*/; do
-	# remove "modules/" prefix and "/" suffix
-	MODULE="${MODULE#"${MODULES_DIR}/"}"
-	MODULE="${MODULE%/}"
-
-	if (command -v "${MODULE}" >/dev/null 2>&1 || command -v "${MODULE}.exe" >/dev/null 2>&1); then
-		_status "Discovered ${MODULE}"
-		MODULES+=("${MODULE}")
-	fi
-done
-
-###
-### Stage 3: Install modules
-###
-
-for MODULE in "${MODULES[@]}"; do
-	# reconstitute directory of module
-	MODULE_DIR="${MODULES_DIR}/${MODULE}"
-
-	# paths for autorules
-	MODULE_PRE="${MODULE_DIR}/pre.sh"
-
-	if [[ -f "${MODULE_PRE}" ]]; then
-		_start "Pre-install for ${MODULE}"
-		"${MODULE_PRE}"
-		_end
-	fi
-done
-
-for MODULE in "${MODULES[@]}"; do
-	# reconstitute directory of module
-	MODULE_DIR="${MODULES_DIR}/${MODULE}"
-
-	# paths for autorules
-	MODULE_HOME="${MODULE_DIR}/home"
-	MODULE_ETC="${MODULE_DIR}/etc"
-	MODULE_GIT="${MODULE_DIR}/git"
-	MODULE_INSTALL="${MODULE_DIR}/install.sh"
-
-	_start "Installing for ${MODULE}"
-
-	_stow "${MODULE_HOME}" "${HOME}/."
-	_sudo _stow "${MODULE_ETC}" "/etc"
-
-	if [[ -f "${MODULE_GIT}" ]]; then
-		_git_list "${MODULE_GIT}"
-	fi
-
-	if [[ -f "${MODULE_INSTALL}" ]]; then
-		"${MODULE_INSTALL}"
-	fi
-
-	_end
-done
-
-for MODULE in "${MODULES[@]}"; do
-	# reconstitute directory of module
-	MODULE_DIR="${MODULES_DIR}/${MODULE}"
-
-	# paths for autorules
-	MODULE_POST="${MODULE_DIR}/post.sh"
-
-	if [[ -f "${MODULE_POST}" ]]; then
-		_start "Post-install for ${MODULE}"
-		"${MODULE_POST}"
-		_end
-	fi
-done
-
-###
-### Stage 4: Final tasks
-###
-
-_start "Finished installing"
-_end

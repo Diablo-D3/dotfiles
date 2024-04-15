@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Treat unset variables as an error when substituting
+set -u
+
+# Mark variables which are modified or created for export
+set -a
+
+# Chezmoi source dir
+export SRC="${HOME}/.local/share/chezmoi"
+
+# run command with sudo while making install-lib functions available
+_sudo() {
+    case "$(groups "${USER}" || true)" in
+    *"sudo"*)
+        IFS=" "
+        sudo -E /bin/sh -c "$*"
+        ;;
+    *)
+        printf "Cannot become root: %s" "$@"
+        ;;
+    esac
+}
+
+# Download from github
+_gh_dl() {
+    user="$1"
+    proj="$2"
+    asset="$3"
+    target="$4"
+
+    rm -f "/tmp/latest.json"
+    wget -q "https://api.github.com/repos/${user}/${proj}/releases/latest" -O "/tmp/latest.json"
+
+    # Match '"tag_name":', one or more whitespace, a double quote, "v",
+    # then flush the match; match one or more non-whitespace until you
+    # reach one a double quote.
+    regex='"tag_name":\s*"v\K\S+(?=")'
+    ver="$(grep -oP "${regex}" "/tmp/latest.json")"
+
+    asset=$(echo "${asset:?}" | sed -r "s/VER/${ver:?}/")
+
+    url="https://github.com/${user}/${proj}/releases/download/v${ver}/${asset}"
+
+    tmp="/tmp/${asset}"
+
+    printf "Downloading %s %s\n" "${asset}" "${ver}"
+
+    rm -f "${tmp}"
+    if wget -q "${url}" -O "${tmp}" >/dev/null; then
+        mkdir -p "$(dirname "${target}")"
+        mv "${tmp}" "${target}"
+
+        printf "%s" "${ver}" >"${}"
+    else
+        printf "Failed to download %s\n" "${url}"
+    fi
+
+    rm -f "/tmp/latest.json"
+}

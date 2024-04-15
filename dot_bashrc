@@ -1,0 +1,264 @@
+#!/usr/bin/env bash
+
+# shellcheck enable=all
+
+# if not interactive, exit early
+[[ -z "${PS1+unset}" ]] && return
+shopt -oq posix && return
+
+# if xterm or tmux, assume 24 bit support
+if [[ "${TERM}" = "xterm"* || "${TERM}" = "tmux"* || "${TERM}" = "alacritty"* ]]; then
+	export COLORTERM="truecolor"
+fi
+
+# path: home, $PATH, sbin
+# global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
+PATH=${HOME}/bin:${HOME}/.local/bin:${PATH}:/usr/local/sbin:/usr/sbin:/sbin
+
+# noramlize locale
+LANG=en_US.UTF-8
+LC_ALL=${LANG}
+LC_CTYPE=${LANG}
+
+# test phrase
+export SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
+
+# set window size
+shopt -s checkwinsize
+
+# recursive glob
+shopt -s globstar 2>/dev/null
+
+# case-insensitive glob
+shopt -s nocaseglob
+
+# append, not overwrite, history
+shopt -s histappend
+
+# save multi-line commands as single entry with embedded newlines
+shopt -s cmdhist
+shopt -s lithist
+
+# force expand variable in tab complete to prevent escaping $
+shopt -s direxpand
+
+# unlimited power
+HISTSIZE=9001
+HISTFILESIZE=9001
+
+# ignore deps
+HISTCONTROL="erasedups:ignoreboth"
+
+# don't record useless commands
+HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+
+# ignore case for autocomplete
+bind "set completion-ignore-case on"
+
+# ... including - and _
+bind "set completion-map-case on"
+
+# don't require tab twice to get list
+bind "set show-all-if-ambiguous on"
+
+# treat symlinked dirs as dirs
+bind "set mark-symlinked-directories on"
+
+# colors and paren matching
+bind "set blink-matching-paren on"
+bind "set colored-completion-prefix on"
+bind "set colored-stats on"
+
+# add bash-completion when available
+if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+	source /usr/share/bash-completion/bash_completion
+elif [[ -f /etc/bash_completion ]]; then
+	source /etc/bash_completion
+fi
+
+# add git-prompt when available
+GIT_PS1_SHOWCOLORHINTS=true
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM=auto
+
+if [[ -e /usr/share/git/completion/git-prompt.sh ]]; then
+	# shellcheck disable=SC1091 # can't follow source
+	source /usr/share/git/completion/git-prompt.sh
+elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
+	source /usr/lib/git-core/git-sh-prompt
+fi
+
+# styles
+RESET="$(tput sgr0)"
+
+BOLD="$(tput bold)"
+DIM="$(tput dim)"
+REV="$(tput rev)"
+
+SITM="$(tput sitm)"
+RITM="$(tput ritm)"
+SMUL="$(tput smul)"
+RMUL="$(tput rmul)"
+
+# colors
+BLACK="$(tput setaf 0)"
+RED="$(tput setaf 1)"
+GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
+BLUE="$(tput setaf 4)"
+MAGENTA="$(tput setaf 5)"
+CYAN="$(tput setaf 6)"
+WHITE="$(tput setaf 7)"
+HIBLACK="$(tput setaf 8)"
+HIRED="$(tput setaf 9)"
+HIGREEN="$(tput setaf 10)"
+HIYELLOW="$(tput setaf 11)"
+HIBLUE="$(tput setaf 12)"
+HIMAGENTA="$(tput setaf 13)"
+HICYAN="$(tput setaf 14)"
+HIWHITE="$(tput setaf 15)"
+
+export RESET BOLD DIM REV SITM RITM SMUL RMUL BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE HIBLACK HIRED HIGREEN HIYELLOW HIBLUE HIMAGENTA HICYAN HIWHITE
+
+# hostname color
+HOSTCHECKSUM="$(echo "${HOSTNAME}" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)"
+HOSTCOLOR="$((16#"${HOSTCHECKSUM}" % 16))"
+
+if [[ "${HOSTCOLOR}" -eq 0 ]]; then
+	PRO_FG="${REV}$(tput setaf "${HOSTCOLOR}")"
+else
+	PRO_FG="$(tput setaf "${HOSTCOLOR}")"
+fi
+
+unset HOSTCHECKSUM
+unset HOSTCOLOR
+
+# set prompt
+PRO_START="[\[${RESET}${PRO_FG}\]\\h\[${RESET}\] \\W"
+
+id="$(id -u)"
+if [[ "${id}" -eq 0 ]]; then
+	PRO_END="]\[${RED}\]#\[${RESET}\] "
+else
+	PRO_END="]\$\[${RESET}\] "
+fi
+unset id
+
+precmd() {
+	local git_check
+	git_check="$(type -t __git_ps1)"
+
+	if [[ "${PWD}" != "${HOME}" ]] && [[ "${git_check}" = "function" ]]; then
+		__git_ps1 "${PRO_START}" "${PRO_END}"
+	else
+		PS1="${PRO_START}${PRO_END}"
+	fi
+
+	history -a
+}
+
+PROMPT_COMMAND=precmd
+
+# set xterm title
+preexec() {
+	if [[ "${BASH_COMMAND}" == "precmd" ]]; then
+		COMMAND="${DIRSTACK[*]}"
+	else
+		COMMAND="${BASH_COMMAND}"
+	fi
+
+	PRO_TITLE="\e]0;${HOSTNAME%%.*}: ${COMMAND}\a"
+	echo -ne "${PRO_TITLE}"
+}
+
+trap preexec DEBUG
+
+# load local Win config
+if [[ -x "${HOME}/.bashrc.win" ]]; then
+	# shellcheck disable=SC1091 # can't follow source
+	source "${HOME}/.bashrc.win"
+fi
+
+# load local config
+if [[ -x "${HOME}/.bashrc.local" ]]; then
+	# shellcheck disable=SC1091 # can't follow source
+	source "${HOME}/.bashrc.local"
+fi
+
+# aliases
+alias bc="bc -ql"
+alias grep="grep --color=auto"
+alias ls="ls --color=auto"
+
+# start $MANPATH
+MANPATH="$(manpath -g)"
+export MANPATH
+
+# rust/cargo
+PATH="${HOME}/.cargo/bin:${PATH}"
+
+# nodejs/npm
+export NPMPATH="${HOME}/.npm/lib/node_modules"
+
+PATH="${HOME}/.npm/bin:${PATH}"
+export MANPATH="${NPMPATH}/share/man:${MANPATH}"
+
+# electron
+export ELECTRON_OZONE_PLATFORM_HINT="wayland"
+
+# fzf, fd, and bfs
+# https://github.com/junegunn/fzf#settings
+# https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
+FZF_COMPLETION_TRIGGER=""
+
+FZF_DEFAULT_OPTS="+m -0 -1
+  --bind 'tab:down,btab:up'
+  --info='hidden'
+  --no-bold
+  --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1'
+  --layout='reverse-list'
+  --ansi"
+FZF_CTRL_R_OPTS="--no-sort --exact --scheme=history"
+FZF_CTRL_T_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null"
+FZF_CTRL_T_OPTS="--scheme=path"
+FZF_ALT_C_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null"
+FZF_ALT_C_OPTS="--scheme=path"
+
+FZF_TMUX=1
+FZF_TMUX_OPTS="-p -w 80 -h 100% -x R"
+
+if command -v fdfind >/dev/null 2>&1; then
+	alias fd="fdfind"
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+	if command -v bfs >/dev/null 2>&1; then
+		_fzf_compgen_path() {
+			bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
+		}
+
+		_fzf_compgen_dir() {
+			bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
+		}
+	fi
+
+	if [[ -f "/usr/share/bash-completion/completions/fzf" ]]; then
+		source /usr/share/bash-completion/completions/fzf
+	fi
+
+	if [[ -f "/usr/share/doc/fzf/examples/key-bindings.bash" ]]; then
+		source /usr/share/doc/fzf/examples/key-bindings.bash
+	fi
+fi
+
+# vim
+if command -v nvim >/dev/null 2>&1; then
+	export EDITOR=nvim
+	alias vim=nvim
+else
+	export EDITOR=vim
+fi
+
+export GIT_EDITOR="${EDITOR}"
