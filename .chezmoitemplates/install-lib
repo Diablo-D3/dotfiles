@@ -32,6 +32,12 @@ _gh_dl() {
     asset="$3"
     target="$4"
 
+    name="${HOME}/.config/chezmoi/${asset:?}.ver"
+    name=$(echo "${name:?}" | sed -r "s/-VER//")
+    name=$(echo "${name:?}" | sed -r "s/VER//")
+
+    state="${HOME}/.config/chezmoi/${name:?}.ver"
+
     rm -f "/tmp/latest.json"
     wget -q "https://api.github.com/repos/${user}/${proj}/releases/latest" -O "/tmp/latest.json"
 
@@ -41,22 +47,40 @@ _gh_dl() {
     regex='"tag_name":\s*"v\K\S+(?=")'
     ver="$(grep -oP "${regex}" "/tmp/latest.json")"
 
-    asset=$(echo "${asset:?}" | sed -r "s/VER/${ver:?}/")
+    check=1
 
-    url="https://github.com/${user}/${proj}/releases/download/v${ver}/${asset}"
-
-    tmp="/tmp/${asset}"
-
-    printf "Downloading %s %s\n" "${asset}" "${ver}"
-
-    rm -f "${tmp}"
-    if wget -q "${url}" -O "${tmp}" >/dev/null; then
-        mkdir -p "$(dirname "${target}")"
-        mv "${tmp}" "${target}"
-
-        printf "%s" "${ver}" >"${}"
+    if [ ! -e "${state}" ]; then
+        check=0
+        printf "%s" "${ver}" >"${state}"
     else
-        printf "Failed to download %s\n" "${url}"
+        old=$(cat "${state}")
+
+        if [ "${ver}" != "${old}" ]; then
+            check=0
+            printf "%s" "${ver}" >"${state}"
+        fi
+    fi
+
+    if [ "${check}" -eq 0 ]; then
+        asset=$(echo "${asset:?}" | sed -r "s/VER/${ver:?}/")
+
+        url="https://github.com/${user}/${proj}/releases/download/v${ver}/${asset}"
+
+        tmp="/tmp/${asset}"
+
+        printf "Downloading %s %s\n" "${name}" "${ver}"
+
+        rm -f "${tmp}"
+        if wget -q "${url}" -O "${tmp}" >/dev/null; then
+            mkdir -p "$(dirname "${target}")"
+            mv "${tmp}" "${target}"
+
+            printf "%s" "${ver}" >"${state}"
+        else
+            printf "Failed to download %s\n" "${url}"
+        fi
+    else
+        printf "Already have %s %s\n" "${name}" "${ver}"
     fi
 
     rm -f "/tmp/latest.json"

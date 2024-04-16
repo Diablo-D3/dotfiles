@@ -16,8 +16,8 @@ if (command -v "nvim" >/dev/null 2>&1); then
         old=$(cat "${state}")
 
         if [ "${new}" -gt $((old + 86400)) ]; then
-            check=0
             printf "%s" "${new}" >"${state}"
+            check=0
         fi
     fi
 

@@ -20,8 +20,8 @@ if (command -v "alacritty" >/dev/null 2>&1) ||
         old=$(cat "${state}")
 
         if [ "${new}" -gt $((old + 86400)) ]; then
-            check=0
             printf "%s" "${new}" >"${state}"
+            check=0
         fi
     fi
 
@@ -30,10 +30,12 @@ if (command -v "alacritty" >/dev/null 2>&1) ||
         _gh_dl "be5invis" "iosevka" "SuperTTC-IosevkaAile-VER.zip" "/tmp/IosevkaAile.zip"
 
         if [ -f "/tmp/Iosevka.zip" ] && [ -f "/tmp/IosevkaAile.zip" ]; then
-            mkdir "${HOME}/.local/share/fonts"
+            mkdir -p "${HOME}/.local/share/fonts"
             unzip -qqjo "/tmp/Iosevka.zip" "*ttc" -d "${HOME}/.local/share/fonts"
             unzip -qqjo "/tmp/IosevkaAile.zip" "*ttc" -d "${HOME}/.local/share/fonts"
             rm -f "/tmp/Iosevka.zip" "/tmp/IosevkaAile.zip"
         fi
+    else
+        printf "Skipping Iosevka\n"
     fi
 fi
