@@ -1,0 +1,27 @@
+theme = "flatwhite"
+
+[editor]
+line-number = "relative"
+#undercurl = "true"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+
+[editor.statusline]
+
+[editor.lsp]
+display-messages = true
+
+[keys.normal]
+"ins" = "insert_mode"
+";" = "command_mode"
+
+[keys.normal.space]
+"v" = "vsplit"
+
+[keys.insert]
+"ins" = "select_mode"
+
+[keys.select]
+"ins" = "normal_mode"
