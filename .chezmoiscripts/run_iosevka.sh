@@ -9,7 +9,7 @@ if (command -v "alacritty" >/dev/null 2>&1) ||
     (command -v "wezterm.exe" >/dev/null 2>&1); then
 
     new=$(date +%s)
-    state="${HOME}/.config/chezmoi/iosevka.time"
+    state="${HOME}/.config/chezmoi/run_iosevka.time"
 
     check=1
 

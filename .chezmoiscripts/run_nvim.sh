@@ -5,7 +5,7 @@
 
 if (command -v "nvim" >/dev/null 2>&1); then
     new=$(date +%s)
-    state="${HOME}/.config/chezmoi/nvim.time"
+    state="${HOME}/.config/chezmoi/run_nvim.time"
 
     check=1
 
