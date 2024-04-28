@@ -32,7 +32,7 @@ _gh_dl() {
     asset="$3"
     target="$4"
 
-    name="${HOME}/.config/chezmoi/${asset:?}.ver"
+    name="${asset:?}"
     name=$(echo "${name:?}" | sed -r "s/-VER//")
     name=$(echo "${name:?}" | sed -r "s/VER//")
 
