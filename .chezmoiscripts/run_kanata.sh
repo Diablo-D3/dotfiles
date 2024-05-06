@@ -12,5 +12,5 @@ if (command -v "kanata" >/dev/null 2>&1); then
         echo "uinput" | _sudo tee -a "/etc/modules"
     fi
 
-    _sudo cp "${SRC:?}/kanata/kanata.rules" "/etc/udev/rules.d/"
+    _sudo cp "${SRC:?}/src/kanata/kanata.rules" "/etc/udev/rules.d/"
 fi
