@@ -26,5 +26,7 @@ if (command -v "nvim" >/dev/null 2>&1); then
         wget -q -O "${HOME}/.local/bin/.nvim.new" "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"
         chmod u+x "${HOME}/.local/bin/.nvim.new"
         mv "${HOME}/.local/bin/.nvim.new" "${HOME}/.local/bin/nvim"
+    else
+        printf "Skipping neovim"
     fi
 fi

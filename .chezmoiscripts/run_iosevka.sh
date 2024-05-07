@@ -36,6 +36,6 @@ if (command -v "alacritty" >/dev/null 2>&1) ||
             rm -f "/tmp/Iosevka.zip" "/tmp/IosevkaAile.zip"
         fi
     else
-        printf "Skipping Iosevka\n"
+        printf "Skipping iosevka\n"
     fi
 fi
