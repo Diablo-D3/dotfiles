@@ -41,34 +41,38 @@ _gh_dl() {
     rm -f "/tmp/latest.json"
     wget -q "https://api.github.com/repos/${user}/${proj}/releases/latest" -O "/tmp/latest.json"
 
-    # Match '"tag_name":', one or more whitespace, a double quote, "v",
-    # then flush the match; match one or more non-whitespace until you
-    # reach one a double quote.
-    regex='"tag_name":\s*"v\K\S+(?=")'
+    # Match '"tag_name":', one or more whitespace, a double quote, flush the
+    # match, match one or more non-whitespace characters until you reach one
+    # a double quote.
+    regex='"tag_name":\s*"\K\S+(?=")'
     ver="$(grep -oP "${regex}" "/tmp/latest.json")"
+
+    # Many projects tag with tags that start with "vVER" but use "VER" in
+    # asset filename
+    asset_ver="$(echo "${ver:?}" | sed -r "s/^v//")"
 
     check=1
 
     if [ ! -e "${state}" ]; then
         check=0
-        printf "%s" "${ver}" >"${state}"
+        printf "%s" "${asset_ver}" >"${state}"
     else
         old=$(cat "${state}")
 
         if [ "${ver}" != "${old}" ]; then
             check=0
-            printf "%s" "${ver}" >"${state}"
+            printf "%s" "${asset_ver}" >"${state}"
         fi
     fi
 
     if [ "${check}" -eq 0 ]; then
-        asset=$(echo "${asset:?}" | sed -r "s/VER/${ver:?}/")
+        asset=$(echo "${asset:?}" | sed -r "s/VER/${asset_ver:?}/")
 
-        url="https://github.com/${user}/${proj}/releases/download/v${ver}/${asset}"
+        url="https://github.com/${user}/${proj}/releases/download/${ver}/${asset}"
 
         tmp="/tmp/${asset}"
 
-        printf "Downloading %s %s\n" "${name}" "${ver}"
+        printf "Downloading %s %s\n" "${name}" "${asset_ver}"
 
         rm -f "${tmp}"
         if wget -q "${url}" -O "${tmp}" >/dev/null; then
