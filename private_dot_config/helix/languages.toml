@@ -39,7 +39,7 @@ formatter = { command = 'shfmt', args = ["-i", "4"] }
 auto-format = true
 
 [language-servers.bash-language-server]
-environment = { "SHELLCHECK_ARGUMENTS" = "-x" }
+environment = { "SHELLCHECK_ARGUMENTS" = "-x -o all" }
 
 [[language]]
 name = "lua"
