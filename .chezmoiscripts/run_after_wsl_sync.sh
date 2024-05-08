@@ -1,14 +1,13 @@
 #!/bin/sh
 
-# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates
-. "${CHEZMOI_SOURCE_DIR}/.chezmoitemplates/install-lib"
+# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates/install-lib
+. "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
 case "$CHEZMOI_OS" in
 "Linux")
     case "$CHEZMOI_OSRELEASE" in
     *"microsoft"*)
         if [ -f "${HOME}/.bashrc.win" ]; then
-            # shellcheck source=/dev/null
             . "${HOME}/.bashrc.win"
         fi
 
