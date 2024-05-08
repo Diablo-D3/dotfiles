@@ -4,11 +4,11 @@ These are my own dotfiles. I share them to make it easier for other people to un
 
 ## Installation
 
-`git clone --recursive https://github.com/Diablo-D3/dotfiles.git ~/.dotfiles && ~/.dotfiles/install`
+`git clone --recursive https://github.com/Diablo-D3/dotfiles.git ~/.local/share/chezmoi && ~/.local/share/chezmoi/install`
 
-## Update
+## Update chezmoi
 
-Run `~/.dotfiles/install` again.
+Run `~/.local/share/chezmoi/install` again.
 
 ## Other important config
 
@@ -34,11 +34,11 @@ I should write an actual script to stand-up my personal Debian VMs (or use one o
 
 Enable Developer Mode in Developer Settings, enable unsigned Powershell execution at the bottom, from an elevated Powershell run:
 
-`. ${env:USERPROFILE}\install-task.ps1 WSL2 wsl2.ps1` [&#10149;](./modules/os-wsl/install-task.ps1) to install the scheduled task of `wsl.ps1` [&#10149;](./modules/os-wsl/wsl2.ps1), using `hidden_powershell`[&#10149;](./modules/os-wsl/hidden_powershell.js) to start services inside of WSL2 and properly setup the Windows firewall and port forwarding upon Windows user login.
+`. ${env:USERPROFILE}\install-task.ps1 WSL2 wsl2.ps1` [&#10149;](./src/wsl/install-task.ps1) to install the scheduled task of `wsl.ps1` [&#10149;](./src/wsl/wsl2.ps1), using `hidden_powershell`[&#10149;](./src/wsl/hidden_powershell.js) to start services inside of WSL2 and properly setup the Windows firewall and port forwarding upon Windows user login.
 
 ### Kanata on Windows
 
-`. ${env:USERPROFILE}\install-task.ps1 kanata kanata\kanata.ps1 name.kbd` to install kanata as a scheduled task [&#10149;](./modules/os-wsl/kanata.ps1); includes copying `kanata.exe.new` to `kanata.exe` to facilitate seamless upgrades.
+`. ${env:USERPROFILE}\install-task.ps1 kanata kanata\kanata.ps1 name.kbd` to install kanata as a scheduled task [&#10149;](./src/kanata/kanata.ps1); includes copying `kanata.exe.new` to `kanata.exe` to facilitate seamless upgrades.
 
 ### Apple Multitouch
 
