@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates/install-lib
+# shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
 if (command -v "helix" >/dev/null 2>&1); then
@@ -33,4 +33,6 @@ if (command -v "helix" >/dev/null 2>&1); then
     else
         printf "Skipping helix\n"
     fi
+else
+    print "Skipping helix, not found\n"
 fi

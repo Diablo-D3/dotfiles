@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates/install-lib
+# shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
-case "$CHEZMOI_OS" in
+case "${CHEZMOI_OS:?}" in
 "Linux")
-    case "$CHEZMOI_OSRELEASE" in
+    case "${CHEZMOI_OSRELEASE:?}" in
     *"microsoft"*)
         if [ -f "${HOME}/.bashrc.win" ]; then
             . "${HOME}/.bashrc.win"
@@ -54,8 +54,13 @@ case "$CHEZMOI_OS" in
         # wezterm
         mkdir -p "${USERPROFILE:?}/.config/wezterm"
         cp "${SRC:?}/private_dot_config/wezterm/*" "${USERPROFILE:?}/.config/wezterm/"
-
+        ;;
+    *)
+        printf "Skipping wsl (after), not found\n"
         ;;
     esac
+    ;;
+*)
+    printf "Skipping wsl (after), not found\n"
     ;;
 esac

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates/install-lib
+# shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
 if (command -v "nvim" >/dev/null 2>&1); then
@@ -27,6 +27,8 @@ if (command -v "nvim" >/dev/null 2>&1); then
         chmod u+x "${HOME}/.local/bin/.nvim.new"
         mv "${HOME}/.local/bin/.nvim.new" "${HOME}/.local/bin/nvim"
     else
-        printf "Skipping neovim"
+        printf "Skipping nvim\n"
     fi
+else
+    printf "Skipping nvim, not found\n"
 fi

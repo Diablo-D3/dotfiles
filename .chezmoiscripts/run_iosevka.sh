@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates/install-lib
+# shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
 if (command -v "alacritty" >/dev/null 2>&1) ||
@@ -38,4 +38,6 @@ if (command -v "alacritty" >/dev/null 2>&1) ||
     else
         printf "Skipping iosevka\n"
     fi
+else
+    printf "Skipping iosevka, alacritty or wezterm not found\n"
 fi

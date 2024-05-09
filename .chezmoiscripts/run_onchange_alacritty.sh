@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates/install-lib
+# shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
 if [ ! -f "${HOME}/.terminfo/a/alacritty" ]; then

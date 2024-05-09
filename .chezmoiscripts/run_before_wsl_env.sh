@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# shellcheck source-path=~/.local/share/chezmoi/.chezmoitemplates/install-lib
+# shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
-case "$CHEZMOI_OS" in
+case "${CHEZMOI_OS:?}" in
 "Linux")
-    case "$CHEZMOI_OSRELEASE" in
+    case "${CHEZMOI_OSRELEASE:?}" in
     *"microsoft"*)
 
         # steal envvars from Windows
@@ -21,6 +21,12 @@ case "$CHEZMOI_OS" in
         ln -sT "${USERPROFILE:?}/Downloads" "${HOME}/Downloads"
 
         ;;
+    *)
+        printf "Skipping wsl (before), not found\n"
+        ;;
     esac
+    ;;
+*)
+    printf "Skipping wsl (before), not found\n"
     ;;
 esac
