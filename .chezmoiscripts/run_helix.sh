@@ -34,5 +34,5 @@ if (command -v "helix" >/dev/null 2>&1); then
         printf "Skipping helix\n"
     fi
 else
-    print "Skipping helix, not found\n"
+    printf "Skipping helix, not found\n"
 fi
