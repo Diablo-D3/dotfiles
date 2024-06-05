@@ -23,7 +23,7 @@ if (command -v "helix" >/dev/null 2>&1); then
 
     if [ "${check}" -eq 0 ]; then
         mkdir -p "${HOME}/.local/bin"
-        _gh_dl "helix-editor" "helix" "helix-VER-x86_64.AppImage" "/tmp/helix"
+        _gh_dl "helix-editor" "helix" "helix-VER-x86_64.AppImage" "browser_download_url" "/tmp/helix"
 
         if [ -f "/tmp/helix" ]; then
             mkdir -p "${HOME}/.local/bin"

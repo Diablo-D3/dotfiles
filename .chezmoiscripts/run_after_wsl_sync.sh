@@ -37,7 +37,7 @@ case "${CHEZMOI_OS:?}" in
         cp "${SRC:?}/src/kanta/*.kbd" "${USERPROFILE:?}/kanata/"
 
         target="${USERPROFILE:?}/kanata/kanata.exe.new"
-        _gh_dl "jtroo" "kanata" "kanata_wintercept.exe" "${USERPROFILE:?}/kanata" "${target}"
+        _gh_dl "jtroo" "kanata" "kanata_wintercept.exe" "browser_download_url" "${target}"
 
         # alacritty
         mkdir -p "${APPDATA:?}/alacritty"

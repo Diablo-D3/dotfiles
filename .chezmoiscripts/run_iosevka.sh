@@ -26,8 +26,8 @@ if (command -v "alacritty" >/dev/null 2>&1) ||
     fi
 
     if [ "${check}" -eq 0 ]; then
-        _gh_dl "be5invis" "iosevka" "SuperTTC-Iosevka-VER.zip" "/tmp/Iosevka.zip"
-        _gh_dl "be5invis" "iosevka" "SuperTTC-IosevkaAile-VER.zip" "/tmp/IosevkaAile.zip"
+        _gh_dl "be5invis" "iosevka" "SuperTTC-Iosevka-VER.zip" "browser_download_url" "/tmp/Iosevka.zip"
+        _gh_dl "be5invis" "iosevka" "SuperTTC-IosevkaAile-VER.zip" "browser_download_url" "/tmp/IosevkaAile.zip"
 
         if [ -f "/tmp/Iosevka.zip" ] && [ -f "/tmp/IosevkaAile.zip" ]; then
             mkdir -p "${HOME}/.local/share/fonts"
