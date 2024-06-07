@@ -12,7 +12,24 @@ set -a
 # Chezmoi source dir
 export SRC="${HOME}/.local/share/chezmoi"
 
-# run command with sudo while making install-lib functions available
+# Pretty printers
+_msg() {
+    printf "%s>>>%s%s\n" "$(tput setaf 2)" "$1" "$(tput sgr0)"
+}
+
+_warn() {
+    printf "%s>>>%s%s\n" "$(tput setaf 3)" "$1" "$(tput sgr0)"
+}
+
+_error() {
+    printf "%s>>>%s%s\n" "$(tput setaf 1)" "$1" "$(tput sgr0)"
+}
+
+_quiet() {
+    printf "%s>>>%s%s\n" "$(tput setaf 8)" "$1" "$(tput sgr0)"
+}
+
+# Run command with sudo while making install-lib functions available
 _sudo() {
     case "$(groups "${USER}" || true)" in
     *"sudo"*)

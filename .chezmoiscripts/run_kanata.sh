@@ -14,5 +14,5 @@ if (command -v "kanata" >/dev/null 2>&1); then
 
     _sudo cp "${SRC:?}/src/kanata/kanata.rules" "/etc/udev/rules.d/"
 else
-    printf "Skipping kanata, not found\n"
+    _quiet "Skipping kanata, not found"
 fi

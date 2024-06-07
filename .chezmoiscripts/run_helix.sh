@@ -31,8 +31,8 @@ if (command -v "helix" >/dev/null 2>&1); then
             mv "/tmp/helix" "${HOME}/.local/bin/helix"
         fi
     else
-        printf "Skipping helix\n"
+        _quiet "Skipping helix"
     fi
 else
-    printf "Skipping helix, not found\n"
+    _quiet "Skipping helix, not found"
 fi

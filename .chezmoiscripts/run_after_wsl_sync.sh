@@ -56,11 +56,11 @@ case "${CHEZMOI_OS:?}" in
         cp "${SRC:?}/private_dot_config/wezterm/*" "${USERPROFILE:?}/.config/wezterm/"
         ;;
     *)
-        printf "Skipping wsl (after), not found\n"
+        _quiet "Skipping wsl (after), not found"
         ;;
     esac
     ;;
 *)
-    printf "Skipping wsl (after), not found\n"
+    _quiet "Skipping wsl (after), not found"
     ;;
 esac

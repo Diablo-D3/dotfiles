@@ -22,11 +22,11 @@ case "${CHEZMOI_OS:?}" in
 
         ;;
     *)
-        printf "Skipping wsl (before), not found\n"
+        _quiet "Skipping wsl (before), not found"
         ;;
     esac
     ;;
 *)
-    printf "Skipping wsl (before), not found\n"
+    _quiet "Skipping wsl (before), not found"
     ;;
 esac

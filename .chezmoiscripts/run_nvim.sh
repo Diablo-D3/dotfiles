@@ -22,13 +22,12 @@ if (command -v "nvim" >/dev/null 2>&1); then
     fi
 
     if [ "${check}" -eq 0 ]; then
-        printf "Downloading neovim nightly\n"
-        wget -q -O "${HOME}/.local/bin/.nvim.new" "https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage"
+        _gh_dl "neovim" "neovim" "nvim.appimage" "browser_download_url" "${HOME}/.local/bin/.nvim.new"
         chmod u+x "${HOME}/.local/bin/.nvim.new"
         mv "${HOME}/.local/bin/.nvim.new" "${HOME}/.local/bin/nvim"
     else
-        printf "Skipping nvim\n"
+        _quiet "Skipping nvim"
     fi
 else
-    printf "Skipping nvim, not found\n"
+    _quiet "Skipping nvim, not found"
 fi

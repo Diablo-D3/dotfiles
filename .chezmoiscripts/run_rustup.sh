@@ -24,8 +24,8 @@ if (command -v "rustup" >/dev/null 2>&1); then
     if [ "${check}" -eq 0 ]; then
         rustup update
     else
-        printf "Skipping rustup\n"
+        _quiet "Skipping rustup"
     fi
 else
-    printf "Skipping rustup, not found\n"
+    _quiet "Skipping rustup, not found"
 fi

@@ -24,8 +24,8 @@ if (command -v "cargo-install-update" >/dev/null 2>&1); then
     if [ "${check}" -eq 0 ]; then
         cargo install-update -a
     else
-        printf "Skipping cargo\n"
+        _quiet "Skipping cargo"
     fi
 else
-    printf "Skipping cargo, cargo-install-update not found\n"
+    _quiet "Skipping cargo, cargo-install-update not found"
 fi
