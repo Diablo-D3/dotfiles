@@ -13,20 +13,38 @@ set -a
 export SRC="${HOME}/.local/share/chezmoi"
 
 # Pretty printers
+reset="$(tput sgr0)"
+green="$(tput setaf 2)"
+yellow="$(tput setaf 3)"
+red="$(tput setaf 1)"
+grey="$(tput setaf 8)"
+
 _msg() {
-    printf "%s>>>%s%s\n" "$(tput setaf 2)" "$1" "$(tput sgr0)"
+    format="%s>>> $1 %s\n"
+    shift
+    # shellcheck disable=SC2059
+    printf "${format}" "${green}" "$@" "${reset}"
 }
 
 _warn() {
-    printf "%s>>>%s%s\n" "$(tput setaf 3)" "$1" "$(tput sgr0)"
+    format="%s>>> $1 %s\n"
+    shift
+    # shellcheck disable=SC2059
+    printf "${format}" "${yellow}" "$@" "${reset}"
 }
 
-_error() {
-    printf "%s>>>%s%s\n" "$(tput setaf 1)" "$1" "$(tput sgr0)"
+_err() {
+    format="%s>>> $1 %s\n"
+    shift
+    # shellcheck disable=SC2059
+    printf "${format}" "${red}" "$@" "${reset}"
 }
 
 _quiet() {
-    printf "%s>>>%s%s\n" "$(tput setaf 8)" "$1" "$(tput sgr0)"
+    format="%s>>> $1 %s\n"
+    shift
+    # shellcheck disable=SC2059
+    printf "${format}" "${grey}" "$@" "${reset}"
 }
 
 # Run command with sudo while making install-lib functions available
@@ -37,7 +55,7 @@ _sudo() {
         sudo -E /bin/sh -c "$*"
         ;;
     *)
-        printf "Cannot become root: %s" "$@"
+        _err "Cannot become root: %s" "$@"
         ;;
     esac
 }
@@ -102,7 +120,7 @@ _gh_dl() {
         if [ "${check}" -eq 0 ]; then
             tmp="$(mktemp)"
 
-            printf "Downloading %s %s\n" "${simple_asset}" "${ver}"
+            _msg "Downloading %s %s" "${simple_asset}" "${ver}"
 
             #rm -f "${tmp}"
             if wget -q "${url:?}" -O "${tmp}" >/dev/null; then
@@ -111,14 +129,14 @@ _gh_dl() {
 
                 printf "%s" "${ver}" >"${state}"
             else
-                printf "Failed to download %s\n" "${url}"
+                _err "Failed to download %s" "${url}"
             fi
         else
-            printf "Already have %s %s\n" "${simple_asset}" "${ver}"
+            _quiet "Already have %s %s" "${simple_asset}" "${ver}"
         fi
 
         rm -f "/tmp/latest.json"
     else
-        printf "Failed to download latest releases for %s/%s\n" "${user}" "${proj}"
+        _err "Failed to download latest releases for %s/%s" "${user}" "${proj}"
     fi
 }
