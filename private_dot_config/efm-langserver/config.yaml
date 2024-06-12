@@ -1,0 +1,21 @@
+version: 2
+root-markers:
+   - .git/
+lint-debounce: 1s
+
+tools:
+  markdownlint: &markdownlint
+    lint-command: 'markdownlint -s -c %USERPROFILE%\.markdownlintrc'
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l %m'
+      - '%f:%l:%c %m'
+      - '%f: %l: %m'
+
+  prettier-markdown: &prettier-markdown
+    format-command: 'prettier ${--tab-width:tabWidth} --parser markdown'
+
+languages:
+  markdown:
+    - <<: *markdownlint
+    - <<: *prettier-markdown
