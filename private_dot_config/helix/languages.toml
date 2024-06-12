@@ -1,4 +1,13 @@
 [[language]]
+name = "bash"
+language-servers = [ "bash-language-server" ]
+indent = { tab-width = 4, unit = "    " }
+auto-format = true
+
+[language-servers.bash-language-server]
+environment = { "SHELLCHECK_ARGUMENTS" = "-x -o all" }
+
+[[language]]
 name = "c"
 language-servers = [ "clangd" ]
 
@@ -6,6 +15,10 @@ language-servers = [ "clangd" ]
 name = "cpp"
 language-servers = [ "clangd" ]
 # todo: See https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-serverss#cmake
+
+[[language]]
+name = "opencl"
+language-servers = [ "clangd" ]
 
 [[language]]
 name = "css"
@@ -19,31 +32,26 @@ language-servers = [ "vscode-html-language-server" ]
 name = "json"
 language-servers = [ "vscode-json-language-server" ]
 
-[[language]]
-name = "toml"
-language-servers = [ "taplo" ]
-
-[language-server.lemminx]
-command = "lemminx"
-
-[[language]]
-name = "xml"
-language-servers = [ "lemminx" ]
-
-[[language]]
-name = "bash"
-language-servers = [ "bash-language-server" ]
-
-indent = { tab-width = 4, unit = "    " }
-formatter = { command = 'shfmt', args = ["-i", "4"] }
-auto-format = true
-
-[language-servers.bash-language-server]
-environment = { "SHELLCHECK_ARGUMENTS" = "-x -o all" }
+# [[language]]
+# name = "jsonc"
+# language-servers = [ "vscode-json-language-server" ]
 
 [[language]]
 name = "lua"
 language-servers = [ "lua-language-server" ]
+
+[[language]]
+name = "markdown"
+language-servers = [
+  { name = "efm", only-features = [ "diagnostics", "format" ] }
+]
+
+[language-server.efm]
+command = "efm-langserver"
+
+[[language]]
+name = "toml"
+language-servers = [ "taplo" ]
 
 [[language]]
 name = "rust"
@@ -51,3 +59,10 @@ language-servers = [ "rust-analyzer" ]
 
 [language-servers.rust-analyzer.config.check]
 command = "clippy"
+
+[[language]]
+name = "xml"
+language-servers = [ "lemminx" ]
+
+[language-server.lemminx]
+command = "lemminx"
