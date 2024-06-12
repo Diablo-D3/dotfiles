@@ -299,78 +299,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     end,
 })
 
------------
--- mason --
------------
-
--- mason.nvim and mason-lspconfig.nvim
--- https://github.com/williamboman/mason.nvim
--- https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
-
-require('mason').setup()
-require('mason-tool-installer').setup({
-    ensure_installed = {
-        ----------
-        -- lsps --
-        ----------
-
-        -- c/c++
-        'clangd',
-
-        -- css, less, scss
-        'css-lsp',
-
-        -- html,
-        'html-lsp',
-
-        -- json
-        'json-lsp',
-
-        -- lua
-        'lua-language-server',
-
-        -- rust
-        'rust-analyzer',
-
-        -- toml
-        'taplo',
-
-        -- vim
-        'vim-language-server',
-
-        -- xml, xsd, xsl, xslt, svg
-        'lemminx',
-
-        ----------------
-        -- formatters --
-        ----------------
-
-        -- markdown
-        'prettier',
-        'markdownlint',
-
-        -- sh
-        -- deb: 'shfmt'
-
-        -------------
-        -- linters --
-        -------------
-
-        -- sh
-        -- deb: 'shellcheck',
-
-        -- vim
-        'vint',
-
-        -----------
-        -- tools --
-        -----------
-    },
-    auto_update = true,
-})
-
-require('mason-tool-installer').clean()
-
 ---------
 -- lsp --
 ---------
@@ -383,7 +311,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 
-        vim.lsp.inlay_hint.enable(0, true)
+        vim.lsp.inlay_hint.enable(true, { bufnr = 0})
 
         vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, bufopts)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
@@ -397,15 +325,15 @@ lspconfig.clangd.setup({})
 
 lspconfig.cssls.setup({})
 
+lspconfig.efm.setup({})
+
 lspconfig.html.setup({})
 
 lspconfig.jsonls.setup({})
 
-lspconfig.taplo.setup({})
-
-lspconfig.vimls.setup({})
-
 lspconfig.lemminx.setup({})
+
+lspconfig.taplo.setup({})
 
 -- neodev.nvim
 -- https://github.com/folke/neodev.nvim
@@ -697,45 +625,6 @@ keymap('n', '<leader>e', 'edit files', function() fzf.files() end)
 ----------------------------------
 -- external tooling integration --
 ----------------------------------
-
--- conform.nvim
--- https://github.com/stevearc/conform.nvim
-
-require('conform').setup({
-    formatters_by_ft = {
-        -- prettier
-        markdown = { 'prettier' },
-        yaml = { 'prettier' },
-        -- fish
-        fish = { 'fish_indent' },
-        -- shfmt
-        sh = { 'shfmt' },
-    },
-    format_on_save = {
-        lsp_fallback = true
-    },
-})
-
-vim.o.formatexpr = 'v:lua.require\'conform\'.formatexpr()'
-
--- nvim-lint
--- https://github.com/mfussenegger/nvim-lint
-local lint = require('lint')
-lint.linters_by_ft = {
-    md = { 'markdownlint' },
-    sh = { 'shellcheck' },
-    vim = { 'vint' }
-}
-
-local shellcheck = lint.linters.shellcheck
-shellcheck.args = vim.list_extend({ "-x" }, shellcheck.args)
-
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-    group = augroup,
-    callback = function()
-        require('lint').try_lint()
-    end,
-})
 
 -- neogit
 -- https://github.com/NeogitOrg/neogit
