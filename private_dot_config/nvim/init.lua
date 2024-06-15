@@ -321,6 +321,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    buffer = buffer,
+    callback = function()
+        vim.lsp.buf.format { async = false }
+    end
+})
+
+lspconfig.bashls.setup({})
+
 lspconfig.clangd.setup({})
 
 lspconfig.cssls.setup({})
