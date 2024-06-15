@@ -22,9 +22,11 @@ if (command -v "nvim" >/dev/null 2>&1); then
     fi
 
     if [ "${check}" -eq 0 ]; then
-        _gh_dl "neovim" "neovim" "nvim.appimage" "browser_download_url" "${HOME}/.local/bin/.nvim.new"
-        chmod u+x "${HOME}/.local/bin/.nvim.new"
-        mv "${HOME}/.local/bin/.nvim.new" "${HOME}/.local/bin/nvim"
+        _gh_dl "neovim" "neovim" "nvim.appimage" "browser_download_url" "/tmp/nvim"
+        if [ -f "/tmp/nvim" ]; then
+            chmod u+x "/tmp/nvim"
+            mv "${HOME}/.local/bin/.nvim.new" "${HOME}/.local/bin/nvim"
+        fi
     else
         _quiet "Skipping nvim"
     fi
