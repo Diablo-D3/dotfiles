@@ -1,0 +1,13 @@
+# https://github.com/jtroo/kanata/discussions/130#discussioncomment-8518832
+
+[Unit]
+Description=Kanata keyboard remapper
+Documentation=https://github.com/jtroo/kanata
+
+[Service]
+Type=simple
+ExecStart=bash -c 'exec ~/.cargo/bin/kanata --cfg ~/.dotfiles/src/kanata/macswap.kbd'
+Restart=yes
+
+[Install]
+WantedBy=default.target
