@@ -26,9 +26,9 @@ I should write an actual script to stand-up my personal Debian VMs (or use one o
 
 #### Neovim and dev
 
-`sudo apt install neovim shellcheck shfmt python3-venv npm nodejs`
+`sudo apt install shellcheck shfmt python3-venv pip npm nodejs`
 
-`sudo apt install man-db manpages manpages-dev`
+`sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev`
 
 ### opensshd on WSL2
 
