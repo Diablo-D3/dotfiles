@@ -140,3 +140,110 @@ _gh_dl() {
         _err "Failed to download latest releases for %s/%s" "${user}" "${proj}"
     fi
 }
+
+# clone/pull a list of git repos
+_git_list() {
+    file="$1"
+    base="$2"
+
+    # Setup changelog
+    log="/tmp/install-git-log"
+    rm -f "${log}"
+
+    case "${base}" in
+    */) ;;
+    *)
+        base="${base}/"
+        ;;
+    esac
+
+    # Clone or update repos
+
+    # Read in repos from list, skip blank lines
+    # shellcheck disable=SC2086
+    while IFS= read -r repo && [ -n "${repo}" ]; do
+        # Split "url,branch", skip blank urls or branches
+        while IFS="," read -r url branch && [ -n "${url}" ] && [ -n "${branch}" ]; do
+            # Skip comments
+            case "${url}" in
+            \#*) ;;
+            *)
+                name="${url##*/}"
+                name="${name%%.git}"
+                target="${base}${name}"
+
+                if [ ! -d "${target}" ]; then
+                    _msg "Cloning %s: " "${name}"
+                    git clone --depth 1 --recurse-submodules --shallow-submodules --branch "${branch}" "${url}" "${target}"
+                else
+                    # Change branch if mismatch
+                    orig_branch="$(git -C "${target}" branch --show current || true)"
+                    if [ "${orig_branch}" != "${branch}" ]; then
+                        _msg "Updating %s, %s -> %s:" "${name}" "${orig_branch}" "${branch}"
+                        git -C "${target}" config "remote.origin.fetch" "+refs/heads/${branch}:refs/remotes/origin/${branch}"
+                        git -C "${target}" config "branch.${branch}.remote" "origin"
+                        git -C "${target}" config "branch.${branch}.merge" "refs/heads/${branch}"
+                        git -C "${target}" config --unset "branch.${orig_branch}.remote"
+                        git -C "${target}" config --unset "branch.${orig_branch}.merge"
+                        git -C "${target}" fetch origin "${branch}"
+                        git -C "${target}" switch "${branch}"
+                    else
+                        _msg "Updating %s:" "${name}"
+                        orig_head="$(git -C "${target}" show-ref --hash "refs/heads/${branch}")"
+                        git -C "${target}" pull --force --recurse-submodules=on-demand
+                        new_head="$(git -C "${target}" show-ref --hash "refs/heads/${branch}")"
+                    fi
+
+                    # Output changelog
+                    if [ "${orig_head}" != "${new_head}" ]; then
+                        {
+                            short="${target##*/}"
+                            _msg "%s" "${short}"
+                            git -C "${target}" log --color "${orig_head}".."${new_head}"
+                            echo ""
+                        } >>"${log}"
+                    fi
+                fi
+                ;;
+            esac
+        done
+        true
+    done <$file
+
+    # Display changelog
+    if [ -f "${log}" ]; then
+        less -rf "${log}"
+    fi
+
+    # Trim removed repos
+    for dir in "${base}"*/; do
+        found=0
+
+        # Read in repos from list, skip blank lines
+        # shellcheck disable=SC2086
+        while IFS= read -r repo && [ -n "${repo}" ]; do
+            # Split "url,branch", skip blank urls or branches
+            while IFS="," read -r url branch && [ -n "${url}" ] && [ -n "${branch}" ]; do
+                # Skip comments
+                case "${url}" in
+                \#*) ;;
+                *)
+                    name="${url##*/}"
+                    name="${name%%.git}"
+                    target="${base}${name}/"
+
+                    if [ "${dir}" = "${target}" ]; then
+                        found=1
+                        break
+                    fi
+                    ;;
+                esac
+            done
+        done <$file
+
+        if [ "${found}" -eq 0 ]; then
+            _warn "Removing ${dir}"
+            rm -rf "${dir}"
+        fi
+    done
+}
