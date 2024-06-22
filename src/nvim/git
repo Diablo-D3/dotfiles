@@ -1,5 +1,3 @@
-$HOME/.local/share/nvim/site/pack/bundle/start/
-
 # base functionality
 https://github.com/tpope/vim-sleuth.git,master
 https://github.com/Diablo-D3/vim-yabs.git,master
@@ -9,28 +7,17 @@ https://github.com/Verf/deepwhite.nvim,main
 
 # navigation
 https://github.com/folke/trouble.nvim.git,main
-https://github.com/ibhagwan/fzf-lua.git,main
+https://github.com/nvim-telescope/telescope.nvim,master
 
 # treesitter
 https://github.com/nvim-treesitter/nvim-treesitter.git,master
 https://github.com/nvim-treesitter/nvim-treesitter-refactor.git,master
-https://github.com/nvim-treesitter/nvim-treesitter-context.git,master
-https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git,master
-
-# mason
-https://github.com/williamboman/mason.nvim.git,main
-https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim.git,main
-
-# stand alone formatting and linting
-https://github.com/stevearc/conform.nvim.git,master
-https://github.com/mfussenegger/nvim-lint.git,master
 
 # lsp
 https://github.com/neovim/nvim-lspconfig.git,master
 https://github.com/mrcjkb/rustaceanvim.git,master
 https://github.com/folke/neodev.nvim.git,main
 https://github.com/j-hui/fidget.nvim.git,main
-https://git.sr.ht/~whynothugo/lsp_lines.nvim,main
 
 # other language-specific support
 https://github.com/aliva/vim-fish.git,master

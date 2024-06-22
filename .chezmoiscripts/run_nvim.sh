@@ -27,6 +27,8 @@ if (command -v "nvim" >/dev/null 2>&1); then
             chmod u+x "/tmp/nvim"
             mv "${HOME}/.local/bin/.nvim.new" "${HOME}/.local/bin/nvim"
         fi
+
+        _git_list "${SRC}/src/nvim/git" "${HOME}/.local/share/nvim/site/pack/bundle/start"
     else
         _quiet "Skipping nvim"
     fi
