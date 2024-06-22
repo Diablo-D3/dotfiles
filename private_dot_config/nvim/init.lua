@@ -343,6 +343,29 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
 })
 
+-- diagflow.nvim
+-- https://github.com/dgagn/diagflow.nvim
+require('diagflow').setup({})
+
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.INFO] = '',
+            [vim.diagnostic.severity.HINT] = '',
+        },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+            [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarning',
+            [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+            [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+        }
+    },
+    update_in_insert = true,
+    severity_sort = true,
+})
+
 lspconfig.bashls.setup({
     settings = {
         bashIde = {
@@ -391,34 +414,6 @@ lspconfig.lua_ls.setup({
 -- fidget.nvim
 -- https://github.com/j-hui/fidget.nvim
 require('fidget').setup({})
-
--- lsp_lines.nvim
--- https://git.sr.ht/~whynothugo/lsp_lines.nvim
-require('lsp_lines').setup({})
-
-vim.diagnostic.config({
-    virtual_text = false,
-    virtual_lines = {
-        only_current_line = true,
-        highlight_whole_line = false,
-    },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = '',
-            [vim.diagnostic.severity.WARN] = '',
-            [vim.diagnostic.severity.INFO] = '',
-            [vim.diagnostic.severity.HINT] = '',
-        },
-        numhl = {
-            [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
-            [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarning',
-            [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
-            [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
-        }
-    },
-    update_in_insert = true,
-    severity_sort = true,
-})
 
 ----------------
 -- treesitter --
