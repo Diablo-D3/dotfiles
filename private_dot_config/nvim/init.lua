@@ -93,7 +93,7 @@ keymap({ 'x', 'n' }, ';', 'Command mode', ':', { silent = false })
 keymap({ 'x', 'n' }, ':', 'Repeat f or t', ';', { silent = false })
 
 keymap('n', '<leader>q', 'Close window', function() vim.api.nvim_win_close(0, true) end)
-keymap('n', '<leader>v', 'Split view', function() vim.cmd.split() end)
+keymap('n', '<leader>v', 'Split view', function() vim.cmd.vsplit() end)
 
 -- local requires
 require('help_unsplit').setup()
@@ -133,7 +133,7 @@ require('mini.bracketed').setup({})
 -- mini.bufremove
 local mini_bufremove = require('mini.bufremove')
 mini_bufremove.setup({})
-keymap('n', '<C-w>', 'wipeout buffer', function() mini_bufremove.wipeout(0, false) end, keyopts)
+keymap('n', '<space>w', 'wipeout buffer', function() mini_bufremove.wipeout(0, false) end, keyopts)
 
 -- mini.clue
 local mini_clue = require('mini.clue')
@@ -311,15 +311,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local bufopts = { noremap = true, silent = true, buffer = ev.buf }
 
-        vim.lsp.inlay_hint.enable(true, { bufnr = 0})
+        vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 
-        vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+        keymap('n', 'ga', 'LSP Code Actions', vim.lsp.buf.code_action, bufopts)
+        keymap('n', '<C-k>', 'LSP Signature Help', vim.lsp.buf.signature_help, bufopts)
     end,
 })
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
+
+local function hover()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.hoverProvider then
+            vim.lsp.buf.hover()
+            return
+        end
+
+        feedkeys('K')
+    end
+end
+
+keymap('n', 'K', 'Hover', hover)
+keymap('n', '<space>k', 'Hover', hover)
 
 vim.api.nvim_create_autocmd("BufWritePre", {
     buffer = buffer,
@@ -328,7 +343,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end
 })
 
-lspconfig.bashls.setup({})
+lspconfig.bashls.setup({
+    settings = {
+        bashIde = {
+            shellcheckArguments = "-x -o all"
+        }
+    }
+})
 
 lspconfig.clangd.setup({})
 
@@ -488,7 +509,20 @@ keymap('n', '<leader>d', 'Diagnostics', function()
     trouble.open('workspace_diagnostics')
 end)
 
-keymap('n', 'gd', 'Declaration', function()
+keymap('n', 'gd', 'Definitions', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.definitionProvider then
+            trouble.open('lsp_definitions')
+            return
+        end
+    end
+
+    feedkeys('gd')
+end)
+
+keymap('n', 'gD', 'Declaration', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -506,24 +540,11 @@ keymap('n', 'gd', 'Declaration', function()
     end
 
     require('nvim-treesitter-refactor.navigation').goto_definition(0, function()
-        feedkeys('gd')
+        feedkeys('gD')
     end)
 end)
 
-keymap('n', 'gD', 'Definitions', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.definitionProvider then
-            trouble.open('lsp_definitions')
-            return
-        end
-    end
-
-    feedkeys('gD')
-end)
-
-keymap('n', 'gt', 'Type Definitions', function()
+keymap('n', 'gy', 'Type Definitions', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -536,7 +557,7 @@ keymap('n', 'gt', 'Type Definitions', function()
     -- don't do gt = goto next tab page
 end)
 
-keymap('n', 'gR', 'LSP References', function()
+keymap('n', 'gr', 'LSP References', function()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
     for _, client in ipairs(clients) do
@@ -628,8 +649,8 @@ keymap('n', '/', 'grep', function() fzf.lgrep_curbuf(lgrep) end)
 keymap('n', '?', 'grep continued', function() fzf.lgrep_curbuf(lgrep_continue) end)
 keymap('n', '<C-/>', 'project grep', function() fzf.live_grep_native(lgrep) end)
 keymap('n', '<C-?>', 'project grep continued', function() fzf.live_grep_native(lgrep_continue) end)
-keymap('n', '<C-`>', 'buffers list', function() fzf.buffers() end)
-keymap('n', '<leader>e', 'edit files', function() fzf.files() end)
+keymap('n', '<leader>b', 'buffers list', function() fzf.buffers() end)
+keymap('n', '<leader>f', 'edit files', function() fzf.files() end)
 
 ----------------------------------
 -- external tooling integration --

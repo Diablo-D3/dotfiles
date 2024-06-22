@@ -2,23 +2,39 @@ theme = "flatwhite"
 
 [editor]
 line-number = "relative"
-#undercurl = "true"
-
-[editor.cursor-shape]
-insert = "bar"
-normal = "block"
+auto-completion = false
+undercurl = true
+color-modes = true
+popup-border = "all"
+auto-pairs = false
 
 [editor.statusline]
 
 [editor.lsp]
 display-messages = true
+display-inlay-hints = true
+
+[editor.cursor-shape]
+normal = "block"
+insert = "bar"
+select = "block"
+
+[editor.smart-tab]
+enable = true
 
 [keys.normal]
 "ins" = "insert_mode"
 ";" = "command_mode"
+"S-k" = "hover"
+"C-k" = "signature_help"
 
 [keys.normal.space]
+"q" = "wclose"
+"w" = ":bclose"
 "v" = "vsplit"
+
+[keys.normal.g]
+"D" = "goto_declaration"
 
 [keys.insert]
 "ins" = "select_mode"
