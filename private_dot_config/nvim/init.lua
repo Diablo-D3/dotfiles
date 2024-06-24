@@ -392,15 +392,8 @@ lspconfig.html.setup({})
 
 lspconfig.jsonls.setup({})
 
-lspconfig.lemminx.setup({})
-
 lspconfig.taplo.setup({})
 
--- neodev.nvim
--- https://github.com/folke/neodev.nvim
-require('neodev').setup({})
-
--- Setup luals for non-neovim after neodev
 lspconfig.lua_ls.setup({
     settings = {
         Lua = {

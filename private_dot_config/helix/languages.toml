@@ -16,10 +16,3 @@ command = "efm-langserver"
 
 [language-servers.rust-analyzer.config.check]
 command = "clippy"
-
-[[language]]
-name = "xml"
-language-servers = [ "lemminx" ]
-
-[language-server.lemminx]
-command = "lemminx"
