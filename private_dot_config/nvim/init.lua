@@ -93,8 +93,6 @@ require('help_unsplit').setup()
 -- https://github.com/Verf/deepwhite.nvim
 vim.cmd.colorscheme('deepwhite')
 
-local colors = require("deepwhite.colors").get_colors({})
-
 -- mini.nvim
 -- https://github.com/echasnovski/mini.nvim
 
@@ -264,7 +262,83 @@ mini_pick.setup({})
 
 keymap('n', '<leader>/', 'Global search', mini_pick.builtin.grep_live)
 keymap('n', '<leader>b', 'Buffers', mini_pick.builtin.buffers)
+keymap('n', '<leader>d', 'Diagnostics', mini_extra.pickers.diagnostic)
 keymap('n', '<leader>f', 'Files', mini_pick.builtin.files)
+
+
+keymap('n', 'gd', 'Definitions', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.definitionProvider then
+            mini_extra.pickers.lsp({ scope = 'definition' })
+            return
+        end
+    end
+
+    feedkeys('gd')
+end)
+
+keymap('n', 'gD', 'Declaration', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.declarationProvider then
+            vim.lsp.buf.declaration()
+            return
+        end
+    end
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.definitionProvider then
+            mini_extra.pickers.lsp({ scope = 'definition' })
+            return
+        end
+    end
+
+    require('nvim-treesitter-refactor.navigation').goto_definition(0, function()
+        feedkeys('gD')
+    end)
+end)
+
+keymap('n', 'gy', 'Type Definitions', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.typeDefinitionProvider then
+            mini_extra.pickers.lsp({ scope = 'type_definition' })
+            return
+        end
+    end
+
+    -- don't do gt = goto next tab page
+end)
+
+keymap('n', 'gr', 'LSP References', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.referencesProvider then
+            mini_extra.pickers.lsp({ scope = 'references' })
+            return
+        end
+    end
+
+    -- don't do gR = virtual replace mode
+end)
+
+keymap('n', 'gi', 'LSP Implementations', function()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for _, client in ipairs(clients) do
+        if client.server_capabilities.implementationProvider then
+            mini_extra.pickers.lsp({ scope = 'implementation' })
+            return
+        end
+    end
+
+    -- don't do gi = insert text
+end)
 
 -- mini.surround
 require('mini.surround').setup({})
@@ -319,7 +393,6 @@ keymap('n', 'K', 'Hover', hover)
 keymap('n', '<space>k', 'Hover', hover)
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = buffer,
     callback = function()
         vim.lsp.buf.format { async = false }
     end
@@ -443,114 +516,6 @@ keymap('n', 'gr', 'Rename', function()
 
     local cmd = '%s/' .. vim.fn.expand('<cword>') .. '//g'
     feedkeys(':' .. cmd .. keycode('<Left><Left>'))
-end)
-
-----------------
--- navigation --
-----------------
-
--- trouble.nvim
--- https://github.com/folke/trouble.nvim
-local trouble = require('trouble');
-
-trouble.setup({
-    auto_open = false,
-    auto_close = true,
-    action_keys = {
-        jump = {},
-        jump_close = '<cr>',
-    },
-
-    -- remove icons
-    icons = false,
-    fold_open = 'v',
-    fold_closed = '>',
-    indent_lines = false,
-    signs = {
-        error = 'E',
-        warning = 'W',
-        hint = 'H',
-        information = 'I'
-    },
-    use_diagnostic_signs = false
-})
-
-keymap('n', '<leader>d', 'Diagnostics', function()
-    trouble.open('workspace_diagnostics')
-end)
-
-keymap('n', 'gd', 'Definitions', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.definitionProvider then
-            trouble.open('lsp_definitions')
-            return
-        end
-    end
-
-    feedkeys('gd')
-end)
-
-keymap('n', 'gD', 'Declaration', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.declarationProvider then
-            vim.lsp.buf.declaration()
-            return
-        end
-    end
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.definitionProvider then
-            trouble.open('lsp_definitions')
-            return
-        end
-    end
-
-    require('nvim-treesitter-refactor.navigation').goto_definition(0, function()
-        feedkeys('gD')
-    end)
-end)
-
-keymap('n', 'gy', 'Type Definitions', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.typeDefinitionProvider then
-            trouble.open('lsp_type_definitions')
-            return
-        end
-    end
-
-    -- don't do gt = goto next tab page
-end)
-
-keymap('n', 'gr', 'LSP References', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.referencesProvider then
-            trouble.open('lsp_references')
-            return
-        end
-    end
-
-    -- don't do gR = virtual replace mode
-end)
-
-keymap('n', 'gi', 'LSP Implementations', function()
-    local clients = vim.lsp.get_clients({ bufnr = 0 })
-
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.implementationProvider then
-            trouble.open('lsp_implementations')
-            return
-        end
-    end
-
-    -- don't do gi = insert text
 end)
 
 ----------------------------------
