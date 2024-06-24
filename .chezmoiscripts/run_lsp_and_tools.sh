@@ -31,41 +31,24 @@ if (command -v "nvim" >/dev/null 2>&1) ||
             _warn "clangd not found"
         fi
 
-        if ! (command -v "efm-server" >/dev/null 2>&1); then
-            mkdir -p "${HOME}/.local/bin"
-            _gh_dl "mattn" "efm-langserver" "efm-langserver_vVER_linux_amd64.tar.gz" "browser_download_url" "/tmp/efm-langserver.tar.gz"
+        mkdir -p "${HOME}/.local/bin"
+        _gh_dl "mattn" "efm-langserver" "efm-langserver_vVER_linux_amd64.tar.gz" "browser_download_url" "/tmp/efm-langserver.tar.gz"
 
-            if [ -f "/tmp/efm-langserver.tar.gz" ]; then
-                tar zxf "/tmp/efm-langserver.tar.gz" -C "${HOME}/.local/bin" --no-anchored --strip=1 "efm-langserver"
-                chmod u+x "${HOME}/.local/bin/efm-langserver"
-                rm "/tmp/efm-langserver.tar.gz"
-            fi
+        if [ -f "/tmp/efm-langserver.tar.gz" ]; then
+            tar zxf "/tmp/efm-langserver.tar.gz" -C "${HOME}/.local/bin" --no-anchored --strip=1 "efm-langserver"
+            chmod u+x "${HOME}/.local/bin/efm-langserver"
+            rm "/tmp/efm-langserver.tar.gz"
         fi
 
         if ! (command -v "markdownlint" >/dev/null 2>&1); then
             _warn "markdownlint not found, run: npm i -g markdownlint-cli"
         fi
+        _gh_dl "LuaLS" "lua-language-server" "lua-language-server-VER-linux-x64.tar.gz" "browser_download_url" "/tmp/lua-language-server.tar.gz"
 
-        if ! (command -v "lemminx" >/dev/null 2>&1); then
-            mkdir -p "${HOME}/.local/bin"
-            _gh_dl "redhat-developer" "vscode-xml" "lemminx-alpine.zip" "browser_download_url" "/tmp/lemminx.zip"
-
-            if [ -f "/tmp/lemminx.zip" ]; then
-                unzip -qqjo "/tmp/lemminx.zip" "*" -d "${HOME}/.local/bin"
-                chmod u+x "${HOME}/.local/bin/lemminx-alpine"
-                mv "${HOME}/.local/bin/lemminx-alpine" "${HOME}/.local/bin/lemmix"
-                rm "/tmp/lemminx.zip"
-            fi
-        fi
-
-        if ! (command -v "lua-language-server" >/dev/null 2>&1); then
+        if [ -f "/tmp/lua-language-server.tar.gz" ]; then
             mkdir -p "${HOME}/src/lua-language-server"
-            _gh_dl "LuaLS" "lua-language-server" "lua-language-server-VER-linux-x64-musl.tar.gz" "browser_download_url" "/tmp/lua-language-server.tar.gz"
-
-            if [ -f "/tmp/lua-language-server.tar.gz" ]; then
-                tar zxf "/tmp/lua-language-server.tar.gz" -C "${HOME}/src/lua-language-server"
-                rm "/tmp/lua-language-server.tar.gz"
-            fi
+            tar zxf "/tmp/lua-language-server.tar.gz" -C "${HOME}/src/lua-language-server"
+            rm "/tmp/lua-language-server.tar.gz"
         fi
 
         if ! (command -v "shellcheck" >/dev/null 2>&1); then
