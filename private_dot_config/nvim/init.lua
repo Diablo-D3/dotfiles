@@ -17,19 +17,6 @@ end
 local function keycode(key) return vim.keycode(key) end
 local function feedkeys(key) return vim.fn.feedkeys(key, 'n') end
 
-local function winopts()
-    return {
-        relative = 'editor',
-        row = 0,
-        col = vim.o.columns,
-        width = math.min(vim.o.columns / 2, 120),
-        height = vim.o.lines + 2,
-        anchor = 'NE',
-        style = 'minimal',
-        border = 'single'
-    }
-end
-
 vim.cmd.helptags('ALL')
 
 -- options
