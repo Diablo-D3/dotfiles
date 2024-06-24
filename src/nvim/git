@@ -7,7 +7,6 @@ https://github.com/Verf/deepwhite.nvim,main
 
 # navigation
 https://github.com/folke/trouble.nvim.git,main
-https://github.com/nvim-telescope/telescope.nvim,master
 
 # treesitter
 https://github.com/nvim-treesitter/nvim-treesitter.git,master

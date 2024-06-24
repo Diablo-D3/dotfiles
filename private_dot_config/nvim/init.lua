@@ -284,6 +284,14 @@ mini_statusline.setup({
 vim.o.laststatus = 3
 vim.o.cmdheight = 0
 
+-- mini.pick
+local mini_pick = require('mini.pick')
+mini_pick.setup({})
+
+keymap('n', '<leader>/', 'Global search', mini_pick.builtin.grep_live)
+keymap('n', '<leader>b', 'Buffers', mini_pick.builtin.buffers)
+keymap('n', '<leader>f', 'Files', mini_pick.builtin.files)
+
 -- mini.surround
 require('mini.surround').setup({})
 
@@ -577,75 +585,6 @@ keymap('n', 'gi', 'LSP Implementations', function()
 
     -- don't do gi = insert text
 end)
-
--- fzf-lua
--- https://github.com/ibhagwan/fzf-lua
-local fzf = require('fzf-lua')
-
-fzf.setup({
-    fzf_opts = {
-        ['--color'] = 'hl:' .. colors['yellow'] ..
-            ',fg+:' ..
-            colors.base0 ..
-            ',bg+:' .. colors.base3 .. ',hl+:' .. colors.yellow .. ',prompt:-1,query:-1,gutter:-1,hl:green',
-        ['--layout'] = 'reverse-list'
-    },
-    buffers = {
-        prompt = '> ',
-        no_header = true,
-        no_header_i = true,
-        fzf_opts = {
-            ['--info'] = 'hidden'
-        },
-        winopts = {
-            preview = {
-                hidden = 'hidden'
-            }
-        },
-    },
-    grep = {
-        prompt = '> ',
-        no_header = true,
-        no_header_i = true,
-        fzf_cli_args = '--with-nth=4..',
-        fzf_opts = {
-            ['--info'] = 'hidden'
-        },
-        winopts = {
-            preview = {
-                hidden = 'hidden'
-            }
-        },
-    },
-    files = {
-        prompt = '> ',
-        no_header = true,
-        no_header_i = true,
-        fzf_opts = {
-            ['--scheme'] = 'path',
-            ['--info'] = 'hidden'
-        },
-        winopts = {
-            preview = {
-                hidden = 'hidden'
-            }
-        },
-        cwd_prompt = false
-    },
-    winopts = {
-        split = "belowright vnew"
-    },
-})
-
-local lgrep = { exec_empty_query = false }
-local lgrep_continue = { exec_empty_query = false, continue_last_search = true }
-
-keymap('n', '/', 'grep', function() fzf.lgrep_curbuf(lgrep) end)
-keymap('n', '?', 'grep continued', function() fzf.lgrep_curbuf(lgrep_continue) end)
-keymap('n', '<C-/>', 'project grep', function() fzf.live_grep_native(lgrep) end)
-keymap('n', '<C-?>', 'project grep continued', function() fzf.live_grep_native(lgrep_continue) end)
-keymap('n', '<leader>b', 'buffers list', function() fzf.buffers() end)
-keymap('n', '<leader>f', 'edit files', function() fzf.files() end)
 
 ----------------------------------
 -- external tooling integration --
