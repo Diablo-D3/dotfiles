@@ -369,7 +369,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
 
-        keymap('n', 'ga', 'LSP Code Actions', vim.lsp.buf.code_action, bufopts)
+        keymap('n', '<leader>a', 'LSP Code Actions', vim.lsp.buf.code_action, bufopts)
         keymap('n', '<C-k>', 'LSP Signature Help', vim.lsp.buf.signature_help, bufopts)
     end,
 })
