@@ -215,19 +215,6 @@ mini_hipatterns.setup({
     },
 })
 
--- mini.indentscope
-local mini_indentscope = require('mini.indentscope')
-mini_indentscope.setup({
-    draw = {
-        delay = 0,
-        animation = mini_indentscope.gen_animation.none()
-    },
-    options = {
-        try_as_border = true
-    },
-    symbol = '│'
-})
-
 -- mini.statusline
 local mini_statusline = require('mini.statusline')
 mini_statusline.setup({
