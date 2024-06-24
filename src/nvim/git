@@ -1,6 +1,5 @@
 # base functionality
 https://github.com/tpope/vim-sleuth.git,master
-https://github.com/Diablo-D3/vim-yabs.git,master
 https://github.com/nvim-lua/plenary.nvim.git,master
 https://github.com/echasnovski/mini.nvim.git,main
 https://github.com/Verf/deepwhite.nvim,main
