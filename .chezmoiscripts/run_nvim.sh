@@ -25,7 +25,7 @@ if (command -v "nvim" >/dev/null 2>&1); then
         _gh_dl "neovim" "neovim" "nvim.appimage" "browser_download_url" "/tmp/nvim"
         if [ -f "/tmp/nvim" ]; then
             chmod u+x "/tmp/nvim"
-            mv "${HOME}/.local/bin/.nvim.new" "${HOME}/.local/bin/nvim"
+            mv "/tmp/nvim" "${HOME}/.local/bin/nvim"
         fi
 
         _git_list "${SRC}/src/nvim/git" "${HOME}/.local/share/nvim/site/pack/bundle/start"
