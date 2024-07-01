@@ -196,6 +196,10 @@ alias ls="ls --color=auto"
 MANPATH="$(manpath -g)"
 export MANPATH
 
+# remove green background for o+w dirs; can't read blue on green
+# wsl2's 9p2000 bridge doesn't filter these perms
+export LS_COLORS='ow=36:'
+
 # rust/cargo
 PATH="${HOME}/.cargo/bin:${PATH}"
 
