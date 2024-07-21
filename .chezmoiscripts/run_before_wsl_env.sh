@@ -4,8 +4,8 @@
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
 case "${CHEZMOI_OS:?}" in
-"Linux")
-    case "${CHEZMOI_OSRELEASE:?}" in
+"linux")
+    case "${CHEZMOI_KERNEL_OSRELEASE:?}" in
     *"microsoft"*)
 
         # steal envvars from Windows
@@ -16,10 +16,17 @@ case "${CHEZMOI_OS:?}" in
         fi
 
         # standard user directories
-        ln -sT "${USERPROFILE:?}/Desktop" "${HOME}/Desktop"
-        ln -sT "${USERPROFILE:?}/Documents" "${HOME}/Documents"
-        ln -sT "${USERPROFILE:?}/Downloads" "${HOME}/Downloads"
+        if [ ! -d "${HOME}/Desktop" ]; then
+            ln -sT "${USERPROFILE:?}/Desktop" "${HOME}/Desktop"
+        fi
 
+        if [ ! -d "${HOME}/Documents" ]; then
+           ln -sT "${USERPROFILE:?}/Documents" "${HOME}/Documents"
+        fi
+
+        if [ ! -d "${HOME}/Downloads" ]; then
+            ln -sT "${USERPROFILE:?}/Downloads" "${HOME}/Downloads"
+        fi
         ;;
     *)
         _quiet "Skipping wsl (before), not found"
