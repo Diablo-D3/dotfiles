@@ -1,5 +1,9 @@
+-- On Windows, change shortcut target to: "C:\Program Files\WezTerm\wezterm-gui.exe" start --domain WSL:Debian
+
 local wezterm = require('wezterm')
 local config = wezterm.config_builder()
+
+config.color_scheme = 'Tomorrow Night Bright'
 
 config.enable_tab_bar = false
 
