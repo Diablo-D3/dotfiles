@@ -10,7 +10,7 @@
 # (by checking if PATH contains "/mnt/c").
 
 # Purposely ignore WSLENV
-OLD_WSLENV="$WSLENV"
+OLD_WSLENV="${WSLENV}"
 export WSLENV=""
 
 # Variables to borrow
@@ -19,10 +19,10 @@ vars=(APPDATA LOCALAPPDATA USERPROFILE PATH)
 # Check if variables are set; if they aren't, don't record any of them, as we
 # we're probably ssh'd into the WSL2 VM and can't see the native environment
 for var in "${vars[@]}"; do
-  varw=$(/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "\$env:$var" | sed 's,\r,,')
+  varw=$(/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "\$env:${var}" | sed 's,\r,,' || true)
 
-  if [ -z "${var+unset}" ]; then
-    printf '%s missing, skipping environment theft...' "$var"
+  if [[ -z "${var+unset}" ]]; then
+    printf '%s missing, skipping environment theft...' "${var}"
     exit 0
   fi
 done
@@ -34,14 +34,14 @@ done
   printf 'PATH=""\n\n'
 
   for var in "${vars[@]}"; do
-    varw=$(/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "\$env:$var" | sed 's,\r,,')
-    printf 'export %s="%s"\n' "${var}W" "$varw"
+    varw=$(/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe -Command "\$env:${var}" | sed 's,\r,,' || true)
+    printf 'export %s="%s"\n' "${var}W" "${varw}"
 
-    varu=$(sed 's,\;,:,g;s,C:\\,/mnt/c/,g;s,\\,/,g' <<<"$varw")
-    printf 'export %s="%s"\n\n' "$var" "$varu"
+    varu=$(sed 's,\;,:,g;s,C:\\,/mnt/c/,g;s,\\,/,g' <<<"${varw}")
+    printf 'export %s="%s"\n\n' "${var}" "${varu}"
   done
 
-  printf 'if [[ "$OLD_PATH" != *"/mnt/c"* ]]; then\n'
+  printf 'if [ "$OLD_PATH" != *"/mnt/c"* ]; then\n'
   printf '  export PATH="$OLD_PATH:$PATH"\n'
   printf 'else\n'
   printf '  export PATH="$OLD_PATH"\n'
@@ -50,4 +50,4 @@ done
 
 chmod +x ~/.bashrc.win
 
-export WSLENV="$OLD_WSLENV"
+export WSLENV="${OLD_WSLENV}"
