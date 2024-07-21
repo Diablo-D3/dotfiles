@@ -29,35 +29,35 @@ osc52 = "CopyPaste"
 [keyboard]
 bindings = [{ key = "F11", action = "ToggleFullscreen" }]
 
-# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/alacritty/Tomorrow%20Night%20Bright.toml
+# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/alacritty/Tomorrow%20Night.toml
 [colors.bright]
 black = '#000000'
-blue = '#7aa6da'
-cyan = '#70c0b1'
-green = '#b9ca4a'
-magenta = '#c397d8'
-red = '#d54e53'
+blue = '#81a2be'
+cyan = '#8abeb7'
+green = '#b5bd68'
+magenta = '#b294bb'
+red = '#cc6666'
 white = '#ffffff'
-yellow = '#e7c547'
+yellow = '#f0c674'
 
 [colors.cursor]
-cursor = '#eaeaea'
-text = '#000000'
+cursor = '#c5c8c6'
+text = '#1d1f21'
 
 [colors.normal]
 black = '#000000'
-blue = '#7aa6da'
-cyan = '#70c0b1'
-green = '#b9ca4a'
-magenta = '#c397d8'
-red = '#d54e53'
+blue = '#81a2be'
+cyan = '#8abeb7'
+green = '#b5bd68'
+magenta = '#b294bb'
+red = '#cc6666'
 white = '#ffffff'
-yellow = '#e7c547'
+yellow = '#f0c674'
 
 [colors.primary]
-background = '#000000'
-foreground = '#eaeaea'
+background = '#1d1f21'
+foreground = '#c5c8c6'
 
 [colors.selection]
-background = '#424242'
-text = '#eaeaea'
+background = '#373b41'
+text = '#c5c8c6'

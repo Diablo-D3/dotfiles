@@ -3,7 +3,7 @@
 local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 
-config.color_scheme = 'Tomorrow Night Bright'
+config.color_scheme = 'Tomorrow Night'
 
 config.enable_tab_bar = false
 
