@@ -260,6 +260,8 @@ vim.o.cmdheight = 0
 local mini_pick = require('mini.pick')
 mini_pick.setup({})
 
+vim.ui.select = mini_pick.ui_select
+
 keymap('n', '<leader>/', 'Global search', mini_pick.builtin.grep_live)
 keymap('n', '<leader>b', 'Buffers', mini_pick.builtin.buffers)
 keymap('n', '<leader>d', 'Diagnostics', mini_extra.pickers.diagnostic)
@@ -271,7 +273,7 @@ keymap('n', 'gd', 'Definitions', function()
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.definitionProvider then
-            mini_extra.pickers.lsp({ scope = 'definition' })
+            vim.lsp.buf.definition()
             return
         end
     end
@@ -291,7 +293,7 @@ keymap('n', 'gD', 'Declaration', function()
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.definitionProvider then
-            mini_extra.pickers.lsp({ scope = 'definition' })
+            vim.lsp.buf.definition()
             return
         end
     end
@@ -306,7 +308,7 @@ keymap('n', 'gy', 'Type Definitions', function()
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.typeDefinitionProvider then
-            mini_extra.pickers.lsp({ scope = 'type_definition' })
+            vim.lsp.buf.type_definition()
             return
         end
     end
@@ -319,7 +321,7 @@ keymap('n', 'gr', 'LSP References', function()
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.referencesProvider then
-            mini_extra.pickers.lsp({ scope = 'references' })
+            vim.lsp.buf.references()
             return
         end
     end
@@ -332,7 +334,7 @@ keymap('n', 'gi', 'LSP Implementations', function()
 
     for _, client in ipairs(clients) do
         if client.server_capabilities.implementationProvider then
-            mini_extra.pickers.lsp({ scope = 'implementation' })
+            vim.lsp.buf.implementation()
             return
         end
     end
@@ -459,6 +461,10 @@ lspconfig.lua_ls.setup({
     }
 })
 
+-- lazydev
+-- https://github.com/folke/lazydev.nvim
+require('lazydev').setup({})
+
 -- fidget.nvim
 -- https://github.com/j-hui/fidget.nvim
 require('fidget').setup({})
@@ -531,7 +537,6 @@ neogit.setup({
     graph_style = 'unicode',
     integrations = {
         diffview = true,
-        fzf_lua = true
     }
 })
 
