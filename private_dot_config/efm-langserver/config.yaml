@@ -5,15 +5,18 @@ lint-debounce: 1s
 
 tools:
   markdownlint: &markdownlint
-    lint-command: 'markdownlint -s -c %USERPROFILE%\.markdownlintrc'
+    lint-command: 'markdownlint --stdin'
     lint-stdin: true
     lint-formats:
       - '%f:%l %m'
       - '%f:%l:%c %m'
       - '%f: %l: %m'
+    lint-ignore-exit-code: true
 
   prettier-markdown: &prettier-markdown
-    format-command: 'prettier ${--tab-width:tabWidth} --parser markdown'
+    format-command: "prettier --stdin --stdin-filepath '${INPUT}' ${--range-start:charStart} ${--range-end:charEnd} ${--tab-width:tabWidth} ${--use-tabs:!insertSpaces} --parser markdown"
+    format-stdin: true
+    format-can-range: true
 
 languages:
   markdown:

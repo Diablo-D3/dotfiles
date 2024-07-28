@@ -435,7 +435,9 @@ lspconfig.clangd.setup({})
 
 lspconfig.cssls.setup({})
 
-lspconfig.efm.setup({})
+lspconfig.efm.setup({
+    filetypes = { 'markdown' }
+})
 
 lspconfig.html.setup({})
 

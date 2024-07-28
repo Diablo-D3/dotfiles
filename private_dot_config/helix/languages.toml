@@ -7,9 +7,8 @@ bashIde.shellcheckArguments = "-x -o all"
 
 [[language]]
 name = "markdown"
-language-servers = [
-  { name = "efm", only-features = [ "diagnostics", "format" ] }
-]
+auto-format = true
+language-servers = [{ name = "efm", only-features = ["diagnostics", "format"] }]
 
 [language-server.efm]
 command = "efm-langserver"
