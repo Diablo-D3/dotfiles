@@ -40,9 +40,14 @@ if (command -v "nvim" >/dev/null 2>&1) ||
             rm "/tmp/efm-langserver.tar.gz"
         fi
 
+        if ! (command -v "prettier" >/dev/null 2>&1); then
+            _warn "prettier not found, run: npm i -g prettier"
+        fi
+
         if ! (command -v "markdownlint" >/dev/null 2>&1); then
             _warn "markdownlint not found, run: npm i -g markdownlint-cli"
         fi
+
         _gh_dl "LuaLS" "lua-language-server" "lua-language-server-VER-linux-x64.tar.gz" "browser_download_url" "/tmp/lua-language-server.tar.gz"
 
         if [ -f "/tmp/lua-language-server.tar.gz" ]; then
