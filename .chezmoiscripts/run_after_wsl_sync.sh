@@ -36,8 +36,29 @@ case "${CHEZMOI_OS:?}" in
         cp "${SRC:?}/src/kanata/kanata.ps1" "${USERPROFILE:?}/kanata/"
         cp "${SRC:?}/src/kanata/"*".kbd" "${USERPROFILE:?}/kanata/"
 
-        target="${USERPROFILE:?}/kanata/kanata.exe.new"
-        _gh_dl "jtroo" "kanata" "kanata_wintercept.exe" "browser_download_url" "${target}"
+        new=$(date +%s)
+        state="${HOME}/.config/chezmoi/run_after_wsl_sync_kanata.time"
+
+        check=1
+
+        if [ ! -e "${state}" ]; then
+            printf "%s" "${new}" >"${state}"
+            check=0
+        else
+            old=$(cat "${state}")
+
+            if [ "${new}" -gt $((old + 86400)) ]; then
+                printf "%s" "${new}" >"${state}"
+                check=0
+            fi
+        fi
+
+        if [ "${check}" -eq 0 ]; then
+            _gh_dl "jtroo" "kanata" "kanata_wintercept.exe" "browser_download_url" "${USERPROFILE:?}/kanata/kanata.exe.new"
+            _gh_dl "oblitum" "Interception" "Interception.zip" "browser_download_url" "${USERPROFILE:?}/kanata/interception.zip"
+        else
+            _quiet "Skipping kanata.exe"
+        fi
 
         # alacritty
         mkdir -p "${APPDATA:?}/alacritty"
