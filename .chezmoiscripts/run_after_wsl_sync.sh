@@ -26,13 +26,13 @@ case "${CHEZMOI_OS:?}" in
         fi
 
         # microsoft terminal
-        mkdir dir -p "${LOCALAPPDATA:?}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/"
+        mkdir -p "${LOCALAPPDATA:?}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/"
         cp "${SRC:?}/src/wsl/windowsterminal.settings.json" "${LOCALAPPDATA:?}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/"
         mkdir -p "${LOCALAPPDATA:?}/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/"
         cp "${SRC:?}/src/wsl/windowsterminal.settings.json" "${LOCALAPPDATA:?}/Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/"
 
         # kanata
-        mkdir dir -p "${USERPROFILE:?}/kanata"
+        mkdir -p "${USERPROFILE:?}/kanata"
         cp "${SRC:?}/src/kanata/kanata.ps1" "${USERPROFILE:?}/kanata/"
         cp "${SRC:?}/src/kanata/"*".kbd" "${USERPROFILE:?}/kanata/"
 
