@@ -155,8 +155,6 @@ precmd() {
 	else
 		PS1="${PRO_START}${PRO_END}"
 	fi
-
-	history -a
 }
 
 PROMPT_COMMAND=precmd
@@ -164,13 +162,14 @@ PROMPT_COMMAND=precmd
 # set xterm title
 preexec() {
 	if [[ "${BASH_COMMAND}" == "precmd" ]]; then
-		COMMAND="${DIRSTACK[*]}"
+		COMMAND="${PWD/${HOME}/\~}"
 	else
-		COMMAND="${BASH_COMMAND}"
+		COMMAND="${BASH_COMMAND//[^[:print:]]/}"
 	fi
 
-	PRO_TITLE="\e]0;${HOSTNAME%%.*}: ${COMMAND}\a"
-	echo -ne "${PRO_TITLE}"
+	printf "\e]-;%s: %s\a" "${HOSTNAME%%.*}" "${COMMAND}"
+
+	history -a
 }
 
 trap preexec DEBUG
