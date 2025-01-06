@@ -1,1 +1,1 @@
-deb http://mirrors.exelion.net/debian sid main non-free contrib
+deb http://deb.debian.org/debian sid main non-free contrib
