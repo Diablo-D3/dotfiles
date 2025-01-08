@@ -3,7 +3,9 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
-if (command -v "helix" >/dev/null 2>&1); then
+_msg "Running helix"
+
+if (command -v "hx" >/dev/null 2>&1); then
     new=$(date +%s)
     state="${HOME}/.config/chezmoi/run_helix.time"
 
@@ -31,8 +33,8 @@ if (command -v "helix" >/dev/null 2>&1); then
             mv "/tmp/helix.AppImage" "${HOME}/.local/bin/hx"
         fi
     else
-        _quiet "Skipping helix"
+        _quiet "Skipping, ran recently"
     fi
 else
-    _quiet "Skipping helix, not found"
+    _quiet "Skipping, helix not already installed"
 fi

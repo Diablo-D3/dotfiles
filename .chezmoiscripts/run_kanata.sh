@@ -3,6 +3,8 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
+_msg "Running kanata"
+
 # only run if kanata is installed
 if (command -v "kanata" >/dev/null 2>&1); then
     _sudo usermod -aG input "${USER}"
@@ -14,5 +16,5 @@ if (command -v "kanata" >/dev/null 2>&1); then
 
     _sudo cp "${SRC:?}/src/kanata/kanata.rules" "/etc/udev/rules.d/"
 else
-    _quiet "Skipping kanata, not found"
+    _quiet "Skipping, not found"
 fi

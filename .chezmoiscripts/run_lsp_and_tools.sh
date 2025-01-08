@@ -3,6 +3,8 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
+_msg "Running lsp and tools"
+
 if (command -v "nvim" >/dev/null 2>&1) ||
     (command -v "helix" >/dev/null 2>&1); then
     new=$(date +%s)
@@ -73,8 +75,8 @@ if (command -v "nvim" >/dev/null 2>&1) ||
         fi
 
     else
-        _quiet "Skipping lsp_and_tools"
+        _quiet "Skipping, ran recently"
     fi
 else
-    _quiet "Skipping lsp_and_tools, (nvim | helix) not found"
+    _quiet "Skipping, nvim or helix not found"
 fi

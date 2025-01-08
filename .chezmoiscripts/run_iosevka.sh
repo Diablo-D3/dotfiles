@@ -3,6 +3,8 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
+_msg "Running iosevka"
+
 if (command -v "alacritty" >/dev/null 2>&1) ||
     (command -v "alacritty.exe" >/dev/null 2>&1) ||
     (command -v "wezterm" >/dev/null 2>&1) ||
@@ -36,8 +38,8 @@ if (command -v "alacritty" >/dev/null 2>&1) ||
             rm -f "/tmp/Iosevka.zip" "/tmp/IosevkaAile.zip"
         fi
     else
-        _quiet "Skipping iosevka"
+        _quiet "Skipping, ran recently"
     fi
 else
-    _quiet "Skipping iosevka, alacritty or wezterm not found"
+    _quiet "Skipping, alacritty or wezterm not found"
 fi

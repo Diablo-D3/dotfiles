@@ -3,6 +3,8 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
+_msg "Running cargo"
+
 if (command -v "cargo-install-update" >/dev/null 2>&1); then
     new=$(date +%s)
     state="${HOME}/.config/chezmoi/run_cargo.time"
@@ -24,7 +26,7 @@ if (command -v "cargo-install-update" >/dev/null 2>&1); then
     if [ "${check}" -eq 0 ]; then
         cargo install-update -a
     else
-        _quiet "Skipping cargo"
+        _quiet "Skipping, ran recently"
     fi
 else
     _quiet "Skipping cargo, cargo-install-update not found"

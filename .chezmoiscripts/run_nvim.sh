@@ -3,6 +3,8 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
+_msg "Running nvim"
+
 if (command -v "nvim" >/dev/null 2>&1); then
     new=$(date +%s)
     state="${HOME}/.config/chezmoi/run_nvim.time"
@@ -30,8 +32,8 @@ if (command -v "nvim" >/dev/null 2>&1); then
 
         _git_list "${SRC}/src/nvim/git" "${HOME}/.local/share/nvim/site/pack/bundle/start"
     else
-        _quiet "Skipping nvim"
+        _quiet "Skipping, ran recently"
     fi
 else
-    _quiet "Skipping nvim, not found"
+    _quiet "Skipping, nvim not already installed"
 fi

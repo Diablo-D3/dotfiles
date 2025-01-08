@@ -3,11 +3,12 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
+_msg "Running wsl (before)"
+
 case "${CHEZMOI_OS:?}" in
 "linux")
     case "${CHEZMOI_KERNEL_OSRELEASE:?}" in
     *"microsoft"*)
-
         # steal envvars from Windows
         "${SRC:?}/src/wsl/stealenv.sh"
 
@@ -29,11 +30,11 @@ case "${CHEZMOI_OS:?}" in
         fi
         ;;
     *)
-        _quiet "Skipping wsl (before), not found"
+        _quiet "Skipping, wsl not found"
         ;;
     esac
     ;;
 *)
-    _quiet "Skipping wsl (before), not found"
+    _quiet "Skipping, wsl not found"
     ;;
 esac

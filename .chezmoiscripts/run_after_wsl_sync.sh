@@ -3,6 +3,8 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
+_msg "Running wsl (after)"
+
 case "${CHEZMOI_OS:?}" in
 "linux")
     case "${CHEZMOI_KERNEL_OSRELEASE:?}" in
@@ -77,11 +79,11 @@ case "${CHEZMOI_OS:?}" in
         cp "${SRC:?}/private_dot_config/wezterm/"* "${USERPROFILE:?}/.config/wezterm/"
         ;;
     *)
-        _quiet "Skipping wsl (after), not found"
+        _quiet "Skipping, wsl not found"
         ;;
     esac
     ;;
 *)
-    _quiet "Skipping wsl (after), not found"
+    _quiet "Skipping, wsl not found"
     ;;
 esac
