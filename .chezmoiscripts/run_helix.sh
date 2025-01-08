@@ -23,12 +23,12 @@ if (command -v "helix" >/dev/null 2>&1); then
 
     if [ "${check}" -eq 0 ]; then
         mkdir -p "${HOME}/.local/bin"
-        _gh_dl "helix-editor" "helix" "helix-VER-x86_64.AppImage" "browser_download_url" "/tmp/helix"
+        _gh_dl "helix-editor" "helix" "helix-VER-x86_64.AppImage" "browser_download_url" "/tmp/helix.AppImage"
 
-        if [ -f "/tmp/helix" ]; then
+        if [ -f "/tmp/helix.AppImage" ]; then
             mkdir -p "${HOME}/.local/bin"
-            chmod u+x "/tmp/helix"
-            mv "/tmp/helix" "${HOME}/.local/bin/helix"
+            chmod u+x "/tmp/helix.AppImage"
+            mv "/tmp/helix.AppImage" "${HOME}/.local/bin/hx"
         fi
     else
         _quiet "Skipping helix"

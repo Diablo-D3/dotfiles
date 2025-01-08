@@ -261,10 +261,9 @@ if [[ -d "${HOME}/src/lua-language-server/bin" ]]; then
 	PATH="${PATH}:${HOME}/src/lua-language-server/bin"
 fi
 
-if command -v helix >/dev/null 2>&1; then
-	export EDITOR=helix
-	alias hx=helix
-	alias vim=helix	
+if command -v hx >/dev/null 2>&1; then
+	export EDITOR=hx
+	alias vim=hx
 elif command -v nvim >/dev/null 2>&1; then
 	export EDITOR=nvim
 	alias vim=nvim
