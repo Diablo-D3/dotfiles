@@ -5,7 +5,7 @@
 
 _msg "Running helix"
 
-if (command -v "hx" >/dev/null 2>&1); then
+if (command -v "hx" >/dev/null 2>&1) || [ -d "${HOME}/src/helix" ]; then
     new=$(date +%s)
     state="${HOME}/.config/chezmoi/run_helix.time"
 
@@ -24,13 +24,21 @@ if (command -v "hx" >/dev/null 2>&1); then
     fi
 
     if [ "${check}" -eq 0 ]; then
-        mkdir -p "${HOME}/.local/bin"
-        _gh_dl "helix-editor" "helix" "helix-VER-x86_64.AppImage" "browser_download_url" "/tmp/helix.AppImage"
+        if [ -d "${HOME}/src/helix" ]; then
+            pwd="$(pwd)"
+            cd "${HOME}/src/helix" || exit
+            git pull
+            HELIX_DEFAULT_RUNTIME="${HOME}/src/helix/runtime" cargo build --profile opt --locked
+            ln -sfv "${HOME}/src/helix/target/opt/hx" "${HOME}/.local/bin"
+            cd "${pwd}" || exit
+        else
+            _gh_dl "helix-editor" "helix" "helix-VER-x86_64.AppImage" "browser_download_url" "/tmp/helix.AppImage"
 
-        if [ -f "/tmp/helix.AppImage" ]; then
-            mkdir -p "${HOME}/.local/bin"
-            chmod u+x "/tmp/helix.AppImage"
-            mv "/tmp/helix.AppImage" "${HOME}/.local/bin/hx"
+            if [ -f "/tmp/helix.AppImage" ]; then
+                mkdir -p "${HOME}/.local/bin"
+                chmod u+x "/tmp/helix.AppImage"
+                mv "/tmp/helix.AppImage" "${HOME}/.local/bin/hx"
+            fi
         fi
     else
         _quiet "Skipping, ran recently"
