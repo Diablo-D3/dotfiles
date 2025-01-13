@@ -38,29 +38,29 @@ bindings = [{ key = "F11", action = "ToggleFullscreen" }]
 # Milk: No milk
 
 [colors.primary]
-background = '#080808'
-foreground = '#e2e2e2'
+background = '#0a0611'
+foreground = '#e5dff1'
 
 [colors.cursor]
-text = '#e2e2e2'
-cursor = '#b9b9b9'
+text = '#e5dff1'
+cursor = '#beb1da'
 
 [colors.normal]
-black = '#222222'
+black = '#261d35'
 red = '#d97780'
 green = '#7aa860'
 yellow = '#bc904f'
 blue = '#6b9bd9'
 magenta = '#b77ed1'
 cyan = '#52a9a9'
-white = '#b9b9b9'
+white = '#beb1da'
 
 [colors.bright]
-black = '#525252'
+black = '#584875'
 red = '#e6949a'
 green = '#8ebf73'
 yellow = '#d3a563'
 blue = '#88b1e5'
 magenta = '#c899de'
 cyan = '#63c0bf'
-white = '#f1f1f1'
+white = '#f2eff8'

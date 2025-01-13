@@ -12,35 +12,34 @@ local config = wezterm.config_builder()
 -- Milk: No milk
 
 config.colors = {
-  foreground = "#e2e2e2",
-  background = "#080808",
-  cursor_bg = "#b9b9b9",
-  cursor_border = "#f1f1f1",
-  cursor_fg = "#e2e2e2",
-  selection_bg = "#e2e2e2",
-  selection_fg = "#080808",
+  foreground = "#e5dff1",
+  background = "#0a0611",
+  cursor_bg = "#beb1da",
+  cursor_border = "#f2eff8",
+  cursor_fg = "#e5dff1",
+  selection_bg = "#e5dff1",
+  selection_fg = "#0a0611",
   ansi = {
-    "#222222",
+    "#261d35",
     "#d97780",
     "#7aa860",
     "#bc904f",
     "#6b9bd9",
     "#b77ed1",
     "#52a9a9",
-    "#b9b9b9"
+    "#beb1da"
   },
   brights = {
-    "#525252",
+    "#584875",
     "#e6949a",
     "#8ebf73",
     "#d3a563",
     "#88b1e5",
     "#c899de",
     "#63c0bf",
-    "#f1f1f1"
+    "#f2eff8"
   },
 }
-
 config.enable_tab_bar = false
 
 config.window_padding = {
