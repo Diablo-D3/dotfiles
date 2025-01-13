@@ -29,35 +29,38 @@ osc52 = "CopyPaste"
 [keyboard]
 bindings = [{ key = "F11", action = "ToggleFullscreen" }]
 
-# https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/alacritty/Tomorrow%20Night.toml
-[colors.bright]
-black = '#000000'
-blue = '#81a2be'
-cyan = '#8abeb7'
-green = '#b5bd68'
-magenta = '#b294bb'
-red = '#cc6666'
-white = '#ffffff'
-yellow = '#f0c674'
-
-[colors.cursor]
-cursor = '#c5c8c6'
-text = '#1d1f21'
-
-[colors.normal]
-black = '#000000'
-blue = '#81a2be'
-cyan = '#8abeb7'
-green = '#b5bd68'
-magenta = '#b294bb'
-red = '#cc6666'
-white = '#ffffff'
-yellow = '#f0c674'
+# rootloops.sh
+# Sugar: 7
+# Colors: 6
+# Sogginess: 4
+# Flavor: Classic
+# Fruit: Blackberry
+# Milk: No milk
 
 [colors.primary]
-background = '#1d1f21'
-foreground = '#c5c8c6'
+background = '#080808'
+foreground = '#e2e2e2'
 
-[colors.selection]
-background = '#373b41'
-text = '#c5c8c6'
+[colors.cursor]
+text = '#e2e2e2'
+cursor = '#b9b9b9'
+
+[colors.normal]
+black = '#222222'
+red = '#d97780'
+green = '#7aa860'
+yellow = '#bc904f'
+blue = '#6b9bd9'
+magenta = '#b77ed1'
+cyan = '#52a9a9'
+white = '#b9b9b9'
+
+[colors.bright]
+black = '#525252'
+red = '#e6949a'
+green = '#8ebf73'
+yellow = '#d3a563'
+blue = '#88b1e5'
+magenta = '#c899de'
+cyan = '#63c0bf'
+white = '#f1f1f1'
