@@ -1,5 +1,3 @@
-shell = { program = "bash", args = ["-l"] }
-
 [env]
 TERM = "alacritty"
 WSLENV = "TERM/u"
@@ -24,6 +22,7 @@ save_to_clipboard = true
 hide_when_typing = true
 
 [terminal]
+shell = { program = "bash", args = ["-l"] }
 osc52 = "CopyPaste"
 
 [keyboard]
