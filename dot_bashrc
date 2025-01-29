@@ -7,7 +7,10 @@
 shopt -oq posix && return
 
 # if xterm or tmux, assume 24 bit support
-if [[ "${TERM}" = "xterm"* || "${TERM}" = "tmux"* || "${TERM}" = "alacritty"* ]]; then
+if [[ "${TERM}" = "xterm"* ||
+	  "${TERM}" = "tmux"* ||
+	  "${TERM}" = "alacritty"* ||
+	  "${TERM}" = "wezterm"* ]]; then
 	export COLORTERM="truecolor"
 fi
 
