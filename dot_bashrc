@@ -259,6 +259,18 @@ if command -v fzf >/dev/null 2>&1; then
 	fi
 fi
 
+# sccache
+if [[ -x "${HOME}/.cargo/bin/sccache" ]]; then
+	export RUSTC_WRAPPER="${HOME}/.cargo/bin/sccache"
+	export CARGO_INCREMENTAL="false"
+
+	export CC="${HOME}/.cargo/bin/sccache gcc"
+	export CXX="${HOME}/.cargo/bin/sccache g++"
+
+	export CMAKE_C_COMPILER_LAUNCHER="${HOME}/.cargo/bin/sccache"
+	export CMAKE_CXX_COMPILER_LAUNCHER="${HOME}/.cargo/bin/sccache"
+fi
+
 # vim and helix
 if [[ -d "${HOME}/src/lua-language-server/bin" ]]; then
 	PATH="${PATH}:${HOME}/src/lua-language-server/bin"
