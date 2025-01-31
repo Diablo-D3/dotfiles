@@ -28,10 +28,23 @@ enable = true
 "S-k" = "hover"
 "C-k" = "signature_help"
 
+"y" = "yank_main_selection_to_clipboard"
+"Y" = "yank_to_clipboard"
+"p" = "paste_clipboard_before"
+"P" = "paste_clipboard_after"
+
+"x" = "extend_to_line_bounds"
+"X" = "extend_line_below"
+
 [keys.normal.space]
 "q" = "wclose"
 "w" = ":bclose"
 "v" = "vsplit"
+
+"y" = "no_op"
+"Y" = "no_op"
+"p" = "no_op"
+"P" = "no_op"
 
 [keys.normal.g]
 "D" = "goto_declaration"
