@@ -56,7 +56,7 @@ case "${CHEZMOI_OS:?}" in
         fi
 
         if [ "${check}" -eq 0 ]; then
-            _gh_dl "jtroo" "kanata" "kanata_wintercept.exe" "browser_download_url" "${USERPROFILE:?}/kanata/kanata.exe.new"
+            _gh_dl "jtroo" "kanata" "kanata_winIOv2.exe" "browser_download_url" "${USERPROFILE:?}/kanata/kanata.exe.new"
             _gh_dl "oblitum" "Interception" "Interception.zip" "browser_download_url" "${USERPROFILE:?}/kanata/interception.zip"
         else
             _quiet "Skipping kanata.exe"
