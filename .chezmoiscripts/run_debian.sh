@@ -27,7 +27,7 @@ case "${CHEZMOI_OS:?}" in
         fi
 
         if [ "${check}" -eq 0 ]; then
-            _sudo cp -v "${SRC:?}/src/debian/pin-stable" "/etc/apt/preferences.d/"
+            _sudo cp -v "${SRC:?}/src/debian/preferences.d/pin-stable" "/etc/apt/preferences.d/"
         else
             _quiet "Skipping, ran recently"
         fi
