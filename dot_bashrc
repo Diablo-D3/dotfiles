@@ -171,7 +171,7 @@ preexec() {
 		COMMAND="${BASH_COMMAND//[^[:print:]]/}"
 	fi
 
-	printf "\e]-;%s: %s\a" "${HOSTNAME%%.*}" "${COMMAND}"
+	printf "\e]2;%s: %s\a" "${HOSTNAME%%.*}" "${COMMAND}"
 
 	history -a
 }
