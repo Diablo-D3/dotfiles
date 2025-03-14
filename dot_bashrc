@@ -140,7 +140,7 @@ unset HOSTCHECKSUM
 unset HOSTCOLOR
 
 # set prompt
-PRO_START="[\[${RESET}${PRO_FG}\]\\h\[${RESET}\] \\W"
+PRO_START="\[${RESET}\e[2K\][\[${PRO_FG}\]\\h\[${RESET}\] \\W"
 
 id="$(id -u)"
 if [[ "${id}" -eq 0 ]]; then
