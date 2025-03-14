@@ -548,12 +548,6 @@ keymap('n', '<leader>g', 'open neogit', function() neogit.open() end)
 -- https://github.com/sindrets/diffview.nvim
 require('diffview').setup()
 
--- vim-tmux-navigation
--- https://github.com/christoomey/vim-tmux-navigator
-vim.cmd [[
-    let g:tmux_navigator_preserve_zoom = 1
-]]
-
 --------------
 -- epilogue --
 --------------
