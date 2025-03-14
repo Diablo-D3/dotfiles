@@ -23,8 +23,9 @@ LANG=en_US.UTF-8
 LC_ALL=${LANG}
 LC_CTYPE=${LANG}
 
-# test phrase
+# test strings
 export SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
+export UNDERCURL="\e[4:3m\e[58:2:63:127:255mundercurl"
 
 # set window size
 shopt -s checkwinsize
