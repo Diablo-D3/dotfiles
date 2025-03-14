@@ -1,4 +1,8 @@
 Package: *
 Pin: release o=Debian,a=stable*
-Pin-Priority: 1001
+Pin-Priority: 501
+
+Package: *
+Pin: release o=Debian Backports,a=stable
+Pin-Priority: 99
 
