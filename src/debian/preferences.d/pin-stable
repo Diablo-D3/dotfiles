@@ -1,4 +1,4 @@
 Package: *
-Pin: release a=stable*
-Pin-Priority: 501
+Pin: release o=Debian,a=stable*
+Pin-Priority: 1001
 
