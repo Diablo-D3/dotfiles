@@ -1,5 +1,7 @@
 # On font sizes...
+
 ## Historical size
+
 Kids these days use font sizes that are too small, historically.
 
 The DEC VT100 (from 1978) is what most people consider the grandfather of all modern terminals because it was the first terminal to have a 80x24 layout with ANSI control codes (wasn't the first that did either feature by itself). It also supported a 132 wide mode, but with far less rows; most people didn't use 132 because the font was rendered condensed and was difficult to read.
@@ -8,7 +10,7 @@ The DEC VT100 (from 1978) is what most people consider the grandfather of all mo
 
 Fast-forward to the modern day: the most common desktop monitor size is a 24" 1080p (or 20.9" wide and 11.8" tall); keeping approximate apparent size the same...
 
-```
+```math
 80 / 8 * 20.9 = 209 cols
 1920 / 209 = 9.19 pixels wide
 24 / 5 * 11.8 = 56.64 lines
@@ -21,10 +23,12 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 
 [int10h.org](https://int10h.org/oldschool-pc-fonts/fontlist/) maintains a library of old bitmap fonts from old machines.
 
-## Sizes tested in Windows Terminal and Alacritty
-**Note**: Microsoft Terminal and Alacritty do not agree on cell size (I don't think any terminal ever will). During my testing, Alacritty needs `font.offset.x = 1` and/or `font.offset.y = 1` to match Terminal's spacing. Terminal now has cell height adjustment, but not width adjustment.
+## Sizes tested in Alacritty and WezTerm
+
+**Note**: Alacritty and Wezterm do not agree on cell size (I don't think any terminal ever will). During my testing, Alacritty needs `font.offset.x = 1` and/or `font.offset.y = 1` to match Wez's spacing.
 
 ### Fonts tested
+
 | Name                                                                                    | Version Tested | License                            |
 | --------------------------------------------------------------------------------------- | -------------- | ---------------------------------- |
 | [Anonymous Pro](https://www.marksimonson.com/fonts/view/anonymous-pro)                  | 1.002          | OFL                                |
@@ -55,17 +59,17 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 | [Victor Mono](https://rubjo.github.io/victor-mono/)                                     | 1.540          | OFL                                |
 
 #### Notes
-* **Anonymous Pro**: Has bitmaps for 7-10 points.
-* **Bitstream Vera Mono**: Exceptionally well hinted, all descendants removed hinting.
-* **Courier New**: Strongly hinted for 27pt(!) and under, becomes very thin.
-* **Hack**: Bitstream Vera/Deja Vu family.
-* **Input**: Highly customizable, and is hand hinted for light, regular, medium, and bold.
-* **Iosevka**: One of the best fonts ever produced, and highly customizable, with a huge array of glyphs. One of my favorites, easily in my top 3.
-* **Lucida Console**: Strongly hinted for 12pt and under, becomes very thin.
+
+- **Anonymous Pro**: Has bitmaps for 7-10 points, requires grayscale AA if you use them
+- **Bitstream Vera Mono**: Exceptionally well hinted, all descendants removed hinting, replaced with ttfautohint.
+- **Input**: Highly customizable, and is hand hinted for light, regular, medium, and bold.
+- **Iosevka**: One of the best fonts ever produced, and highly customizable, with a huge array of glyphs. One of my favorites, easily in my top 3.
+- **Monoid**: Unparalleled sharpness at exactly one size: 12px/9pt.
 
 ### Apparent width/height, sorted from widest to tallest
+
 | Name                | Points | Layout | Points | Layout |
-| ------------------- | ------:| ------ | ------:| ------ |
+| ------------------- | -----: | ------ | -----: | ------ |
 | Lucida Console      |     12 | 192x67 |     15 | 160x54 |
 | Anonymous Pro       |     14 | 192x56 |     16 | 160x51 |
 | Input               |     12 | 192x56 |     14 | 160x49 |
@@ -100,84 +104,128 @@ MDA/CGA/EGA/VGA monitors that were 12-14" would be slightly lower resolution (ex
 | Mplus Code 50       |     15 | 192x37 |     18 | 160x30 |
 
 ### Optimal rendering of common fonts
-I looked for the minimum size that glyphs are easily discernable and have no excessive fringing or misshapen glyph stems. Tested using both DirectWrite (via Windows Terminal) and Freetype (using Alacritty); also tested across aliased, greyscale, and subpixel in WT.
+
+I looked for size(s) that glyphs are easily discernable and have no excessive fringing or misshapen glyph stems. Tested using both DirectWrite (via Alacritty) and Freetype (using Wezterm, using default "Normal hinting /w gresycale AA"; "Light" hinting makes Freetype much more sloppier and blurrier, much like OSX).
+
+_Note:_ Higher _or_ lower than optimal become increasingly fuzzier. Some fonts are just ugly and hard to read at some sizes. Some are ugly at _any_ size.
 
 Sorted by smallest legible size, and if multiple styles, by best scoring width/weight (in italic).
 
-| Name                | Width/Variant   |   Weight | Pixels |   Layout |
-| ------------------- | --------------- | --------:| ------:| --------:|
-| Terminus TTF        |                 |  Regular |      9 |   320x83 |
-| Mplus               | Code 50         |   Normal |     20 |   192x37 |
-|                     | Code 50         |   Medium |     14 |   274x54 |
-|                     | Code Latin 50   |   Normal |     20 |   192x43 |
-|                     | _Code Latin 50_ | _Medium_ |   _14_ | _274x63_ |
-|                     | Code 60         |   Normal |     20 |   160x37 |
-|                     | Code 60         |   Medium |     14 |   240x54 |
-|                     | Code Latin 60   |   Normal |     20 |   160x43 |
-|                     | Code Latin 60   |   Medium |     14 |   240x63 |
-| Fira Mono           |                 |   Normal |     18 |   174x49 |
-|                     |                 | _Medium_ |   _14_ | _240x63_ |
-| Sudo                |                 |   Normal |     23 |   192x47 |
-|                     |                 | _Medium_ |   _18_ | _240x60_ |
-| IBM Plex            |                 |   Normal |     19 |   174x43 |
-|                     |                 | _Medium_ |   _14_ | _240x60_ |
-| Input               | Normal          |  Regular |     22 |   137x41 |
-|                     | Normal          |   Medium |     15 |   192x60 |
-|                     | Narrow          |  Regular |     23 |   137x40 |
-|                     | Narrow          |   Medium |     18 |   192x56 |
-|                     | Condensed       |  Regular |     24 |   137x37 |
-|                     | Condensed       | _Medium_ |   _15_ | _213x60_ |
-|                     | Compressed      |  Regular |     26 |   137x34 |
-|                     | Compressed      |   Medium |     17 |   213x51 |
-| Monaspace           | Normal          |  Regular |     23 |   137x38 |
-|                     | Normal          | _Medium_ |   _15_ | _213x60_ |
-|                     | Semi-Wide       |  Regular |     14 |   192x63 |
-|                     | Semi-Wide       |   Medium |     14 |   192x63 |
-|                     | Wide            |  Regular |     16 |   160x56 |
-|                     | Wide            |   Medium |     14 |   174x63 |
-| Cascadia            |                 |  Regular |     20 |   160x47 |
-|                     |                 | _Medium_ |   _16_ | _213x56_ |
-| Hasklig             |                 |  Regular |     18 |   174x47 |
-|                     |                 | _Medium_ |   _15_ | _213x56_ |
-| Source Code Pro     |                 |  Regular |     18 |   174x47 |
-|                     |                 | _Medium_ |   _15_ | _213x56_ |
-| Bitstream Vera Mono |                 |  Regular |     17 |   192x54 |
-| Consolas            |                 |  Regular |     18 |   192x51 |
-| Fira Code           |                 |  Regular |     21 |   147x41 |
-|                     |                 |   Retina |     19 |   160x47 |
-|                     |                 | _Medium_ |   _17_ | _192x51_ |
-| Lucida Console      |                 |  Regular |     18 |   174x60 |
-| Iosevka             |                 |  Regular |     24 |   160x36 |
-|                     |                 | _Medium_ |   _20_ | _192x43_ |
-| Luculent            |                 |  Regular |     15 |   174x43 |
-| Victor Mono         |                 |  Regular |     24 |   147x31 |
-|                     |                 | _Medium_ |   _20_ | _174x38_ |
-| Monoid              |                 |  Regular |     18 |   160x45 |
-| JuliaMono           |                 |  Regular |     23 |   137x40 |
-|                     |                 | _Medium_ |   _20_ | _160x45_ |
-| JetBrains Mono      |                 |  Regular |     22 |   147x37 |
-|                     |                 | _Medium_ |   _20_ | _160x41_ |
-| Inconsolata         | Normal          |  Regular |     27 |   137x38 |
-|                     | _Normal_        | _Medium_ |     24 | _160x41_ |
-|                     | Ultra Expanded  |  Regular |     22 |    87x47 |
-|                     | Ultra Expanded  |   Medium |     22 |    87x47 |
-|                     | Extra Expanded  |  Regular |     24 |   106x41 |
-|                     | Extra Expanded  |   Medium |     24 |   106x41 |
-|                     | Expanded        |  Regular |     27 |   120x38 |
-|                     | Expanded        |   Medium |     24 |   137x41 |
-|                     | Semi Expanded   |  Regular |     24 |   147x41 |
-|                     | Semi Expanded   |   Medium |     24 |   147x41 |
-|                     | Semi Condensed  |  Regular |     32 |   137x32 |
-|                     | Semi Condensed  |   Medium |     29 |   147x34 |
-|                     | Condensed       |  Regular |     31 |   160x32 |
-|                     | Condensed       |   Medium |     30 |   160x33 |
-|                     | Extra Condensed |  Regular |     32 |   174x32 |
-|                     | Extra Condensed |   Medium |     30 |   174x33 |
-|                     | Ultra Condensed |  Regular |     38 |   192x27 |
-|                     | Ultra Condensed |   Medium |     37 |   213x27 |
-| Hack                |                 |  Regular |     21 |   147x45 |
-| Cousine             |                 |   Normal |     22 |   147x43 |
-| MonoLisa            |                 |  Regular |     20 |   147x38 |
-| Berkeley Mono       |                 |  Regular |     18 |   137x37 |
-| Anonymous Pro       |                 |  Regular |     27 |   128x40 |
-| Courier New         |                 |  Regular |     37 |    87x25 |
+| Name                | Variant/Width   | Weight         | Pixels |   Layout |
+| ------------------- | --------------- | -------------- | -----: | -------: |
+| Anonymous Pro       |                 | Regular        |     12 |   320x98 |
+| Terminus TTF        |                 | Regular        |      9 |   320x83 |
+| Cascadia Code       |                 | ExtraLight     |     25 |   128x36 |
+|                     |                 | Light          |     17 |   192x54 |
+|                     |                 | _Regular_      |   _11_ | _320x83_ |
+| Input Mono          | Normal          | Thin/250       |     16 |   192x54 |
+|                     | Normal          | ExtraLight/275 |     16 |   192x54 |
+|                     | Normal          | Light          |     15 |   192x60 |
+|                     | Normal          | Regular        |     11 |   274x77 |
+|                     | Normal          | Medium         |     13 |   240x67 |
+|                     | Narrow          | Thin/250       |     16 |   192x54 |
+|                     | Narrow          | ExtraLight/275 |     16 |   192x54 |
+|                     | Narrow          | Regular        |     11 |   274x77 |
+|                     | Narrow          | Medium         |     13 |   240x67 |
+|                     | Condensed       | Thin/250       |     16 |   213x54 |
+|                     | Condensed       | ExtraLight/275 |     16 |   213x54 |
+|                     | Condensed       | Regular        |     11 |   320x77 |
+|                     | Condensed       | Medium         |     13 |   274x67 |
+|                     | Compressed      | Thin/250       |     16 |   213x54 |
+|                     | Compressed      | ExtraLight/275 |     16 |   213x54 |
+|                     | _Compressed_    | _Regular_      |   _11_ | _320x77_ |
+|                     | Compressed      | Medium         |     13 |   274x67 |
+| Iosevka             | Normal          | Thin           |     29 |   128x29 |
+|                     | Normal          | ExtraLight     |     26 |   147x32 |
+|                     | Normal          | Light          |     17 |   213x49 |
+|                     | Normal          | Regular        |     13 |   274x63 |
+|                     | _Normal_        | _Medium_       |   _11_ | _320x77_ |
+|                     | Extended        | Thin           |     29 |   112x29 |
+|                     | Extended        | ExtraLight     |     26 |   120x32 |
+|                     | Extended        | Light          |     17 |   192x49 |
+|                     | Extended        | Regular        |     13 |   240x63 |
+|                     | Extended        | Medium         |     11 |   274x77 |
+| Mplus               | Code 50         | Thin           |     26 |   147x28 |
+|                     | Code 50         | ExtraLight     |     30 |   128x24 |
+|                     | Code 50         | Light          |     22 |   174x33 |
+|                     | Code 50         | Regular        |     14 |   274x51 |
+|                     | Code 50         | Medium         |     11 |   320x67 |
+|                     | Code Latin 50   | Thin           |     26 |   147x32 |
+|                     | Code Latin 50   | ExtraLight     |     30 |   128x28 |
+|                     | Code Latin 50   | Light          |     22 |   174x38 |
+|                     | Code Latin 50   | Regular        |     14 |   274x60 |
+|                     | _Code Latin 50_ | _Medium_       |   _11_ | _320x77_ |
+|                     | Code 60         | Thin           |     26 |   120x28 |
+|                     | Code 60         | ExtraLight     |     30 |   106x24 |
+|                     | Code 60         | Light          |     22 |   147x33 |
+|                     | Code 60         | Regular        |     14 |   240x51 |
+|                     | Code 60         | Medium         |     11 |   274x67 |
+|                     | Code Latin 60   | Thin           |     26 |   120x32 |
+|                     | Code Latin 60   | ExtraLight     |     30 |   106x28 |
+|                     | Code Latin 60   | Light          |     22 |   147x38 |
+|                     | Code Latin 60   | Regular        |     14 |   240x60 |
+|                     | Code Latin 60   | Medium         |     11 |   274x77 |
+| JetBrains Mono      |                 | Thin           |     22 |   147x36 |
+|                     |                 | ExtraLight     |     16 |   192x49 |
+|                     |                 | Light          |     13 |   240x60 |
+|                     |                 | Regular        |     12 |   274x67 |
+|                     |                 | _Medium_       |   _11_ | _320x72_ |
+| Hack                |                 | Regular        |     12 |   274x83 |
+| Fira Code           |                 | Regular        |     13 |   240x67 |
+|                     |                 | Retina         |     12 |   274x72 |
+|                     |                 | _Medium_       |   _11_ | _274x77_ |
+| Fira Mono           |                 | Regular        |     14 |   240x63 |
+|                     |                 | _Medium_       |   _11_ | _274x77_ |
+| Sudo                |                 | Light          |     20 |   213x54 |
+|                     |                 | Regular        |     17 |   274x63 |
+|                     |                 | _Medium_       |   _15_ | _274x72_ |
+| IBM Plex Mono       |                 | Thin           |     32 |   101x25 |
+|                     |                 | ExtraLight     |     22 |   147x37 |
+|                     |                 | Light          |     21 |   147x38 |
+|                     |                 | Regular        |     14 |   240x56 |
+|                     |                 | _Medium_       |   _11_ | _274x72_ |
+| Consolas            |                 | Regular        |     13 |   274x67 |
+| Lucida Console      |                 | Regular        |     13 |   240x83 |
+| Berkeley Mono       |                 | Regular        |     13 |   240x67 |
+| Monoid              |                 | Regular        |     12 |   240x67 |
+| Source Code Pro     |                 | ExtraLight     |     36 |    87x23 |
+|                     |                 | Light          |     27 |   120x31 |
+|                     |                 | Regular        |     16 |   192x51 |
+|                     |                 | _Medium_       |   _14_ | _240x60_ |
+| Hasklig             |                 | ExtraLight     |     36 |    87x23 |
+|                     |                 | Light          |     27 |   120x31 |
+|                     |                 | Regular        |     16 |   192x51 |
+|                     |                 | _Medium_       |   _14_ | _240x60_ |
+| Victor Mono         |                 | Regular        |     17 |   213x45 |
+|                     |                 | _Medium_       |   _14_ | _240x54_ |
+| Monaspace           | Normal          | Regular        |     23 |   137x38 |
+|                     | _Normal_        | _Medium_       |   _15_ | _213x60_ |
+|                     | Semi-Wide       | Regular        |     14 |   192x63 |
+|                     | Semi-Wide       | Medium         |     14 |   192x63 |
+|                     | Wide            | Regular        |     16 |   160x56 |
+|                     | Wide            | Medium         |     14 |   174x63 |
+| Bitstream Vera Mono |                 | Regular/Roman  |     15 |   213x56 |
+| Courier New         |                 | Regular        |     18 |   174x51 |
+| Luculent            |                 | Regular        |     20 |   174x41 |
+| JuliaMono           |                 | Regular        |     23 |   137x40 |
+|                     |                 | _Medium_       |   _20_ | _160x45_ |
+| Inconsolata         | Normal          | Regular        |     27 |   137x38 |
+|                     | _Normal_        | _Medium_       |     24 | _160x41_ |
+|                     | Ultra Expanded  | Regular        |     22 |    87x47 |
+|                     | Ultra Expanded  | Medium         |     22 |    87x47 |
+|                     | Extra Expanded  | Regular        |     24 |   106x41 |
+|                     | Extra Expanded  | Medium         |     24 |   106x41 |
+|                     | Expanded        | Regular        |     27 |   120x38 |
+|                     | Expanded        | Medium         |     24 |   137x41 |
+|                     | Semi Expanded   | Regular        |     24 |   147x41 |
+|                     | Semi Expanded   | Medium         |     24 |   147x41 |
+|                     | Semi Condensed  | Regular        |     32 |   137x32 |
+|                     | Semi Condensed  | Medium         |     29 |   147x34 |
+|                     | Condensed       | Regular        |     31 |   160x32 |
+|                     | Condensed       | Medium         |     30 |   160x33 |
+|                     | Extra Condensed | Regular        |     32 |   174x32 |
+|                     | Extra Condensed | Medium         |     30 |   174x33 |
+|                     | Ultra Condensed | Regular        |     38 |   192x27 |
+|                     | Ultra Condensed | Medium         |     37 |   213x27 |
+| Cousine             |                 | Normal         |     22 |   147x43 |
+| MonoLisa            |                 | Regular        |     20 |   147x38 |
