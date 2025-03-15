@@ -15,8 +15,8 @@ keybinds clear-defaults=true {
         bind "Ctrl l" { MoveFocus "Right"; SwitchToMode "Normal"; }
         bind "Ctrl j" { MoveFocus "Down"; SwitchToMode "Normal"; }
         bind "Ctrl k" { MoveFocus "Up"; SwitchToMode "Normal"; }
-        bind "Shift PageUp" { ScrollUp; SwitchToMode "Normal"; }
-        bind "Shift PageDown" { ScrollDown; SwitchToMode "Normal"; }
+        bind "Shift PageUp" { HalfPageScrollUp; SwitchToMode "Normal"; }
+        bind "Shift PageDown" { HalfPageScrollDown; SwitchToMode "Normal"; }
         bind "Shift Home" { ScrollToTop; SwitchToMode "Normal"; }
         bind "Shift End" { ScrollToBottom; SwitchToMode "Normal"; }
         bind "Alt e" { ToggleFloatingPanes; SwitchToMode "Normal"; }
