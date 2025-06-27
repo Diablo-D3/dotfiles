@@ -20,6 +20,9 @@ normal = "block"
 insert = "bar"
 select = "block"
 
+[editor.soft-wrap]
+enable = true
+
 [editor.smart-tab]
 enable = true
 
