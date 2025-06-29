@@ -10,7 +10,7 @@ The DEC VT100 (from 1978) is what most people consider the grandfather of all mo
 
 Fast-forward to the modern day: the most common desktop monitor size is a 24" 1080p (or 20.9" wide and 11.8" tall); keeping approximate apparent size the same...
 
-```math
+```console
 80 / 8 * 20.9 = 209 cols
 1920 / 209 = 9.19 pixels wide
 24 / 5 * 11.8 = 56.64 lines
