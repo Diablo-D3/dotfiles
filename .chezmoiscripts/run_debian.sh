@@ -3,41 +3,68 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
-_msg "Running debian"
-
 case "${CHEZMOI_OS:?}" in
 "linux")
     case "${CHEZMOI_OS_RELEASE_ID:?}" in
     "debian")
-        new=$(date +%s)
-        state="${HOME}/.config/chezmoi/run_debian.time"
+        _msg "Running debian"
 
-        check=1
+        psrc="${SRC:?}/src/debian/preferences.d"
+        pdst="/etc/apt/preferences.d/"
 
-        if [ ! -e "${state}" ]; then
-            printf "%s" "${new}" >"${state}"
-            check=0
+        ssrc="${SRC:?}/src/debian/sources.list.d"
+        sdst="/etc/apt/sources.list.d"
+
+        if [ ! -e "${pdst}/pin-stable" ] || ! cmp "${psrc}/pin-stable" "${pdst}/pin-stable"; then
+            _sudo cp -v "${psrc}/pin-stable" "${pdst}/pin-stable"
+        fi
+
+        for pref in "${pdst}"/*; do
+            if grep -q "testing" "${pref}"; then
+                testing=1
+            elif grep -q "unstable" "${pref}"; then
+                unstable=1
+            elif grep -q "experimental" "${pref}"; then
+                experimental=1
+            fi
+        done
+
+        if [ -n "${testing+x}" ]; then
+            if [ ! -e "${sdst}/testing.list" ] || ! cmp "${ssrc}/testing.list" "${sdst}/testing.list"; then
+                _sudo cp -v "${ssrc}/testing.list" "${sdst}/testing.list"
+            fi
         else
-            old=$(cat "${state}")
-
-            if [ "${new}" -gt $((old + 86400)) ]; then
-                printf "%s" "${new}" >"${state}"
-                check=0
+            if [ -e "${sdst}/testing.list" ]; then
+                _sudo rm "${sdst}/testing.list"
             fi
         fi
 
-        if [ "${check}" -eq 0 ]; then
-            _sudo cp -v "${SRC:?}/src/debian/preferences.d/pin-stable" "/etc/apt/preferences.d/"
+        if [ -n "${unstable+x}" ]; then
+            if [ ! -e "${sdst}/unstable.list" ] || ! cmp "${ssrc}/unstable.list" "${sdst}/unstable.list"; then
+                _sudo cp -v "${ssrc}/unstable.list" "${sdst}/unstable.list"
+            fi
         else
-            _quiet "Skipping, ran recently"
+            if [ -e "${sdst}/unstable.list" ]; then
+                _sudo rm "${sdst}/unstable.list"
+            fi
+        fi
+
+        if [ -n "${experimental+x}" ]; then
+            if [ ! -e "${sdst}/experimental.list" ] || ! cmp "${ssrc}/experimental.list" "${sdst}/experimental.list"; then
+                _sudo cp -v "${ssrc}/experimental.list" "${sdst}/experimental.list"
+            fi
+        else
+            if [ -e "${sdst}/experimental.list" ]; then
+                _sudo rm "${sdst}/experimental.list"
+            fi
         fi
         ;;
     *)
-        _quiet "Skipping, not Debian"
-    ;;
+        _quiet "Skipping debian"
+        ;;
     esac
     ;;
 *)
-    _quiet "Skipping, not Debian"
-;;
+    _quiet "Skipping debian"
+    ;;
 esac
