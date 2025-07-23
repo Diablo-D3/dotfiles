@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# List all debs not from Debian Stable
+apt list '?narrow(?installed,(!?archive(stable))) ?narrow(?installed,(!?origin(Debian)))'
+
