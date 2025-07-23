@@ -10,27 +10,33 @@ case "${CHEZMOI_OS:?}" in
         _msg "Running debian"
 
         psrc="${SRC:?}/src/debian/preferences.d"
-        pdst="/etc/apt/preferences.d/"
+        pdst="/etc/apt/preferences.d"
 
         ssrc="${SRC:?}/src/debian/sources.list.d"
         sdst="/etc/apt/sources.list.d"
 
-        if [ ! -e "${pdst}/pin-stable" ] || ! cmp "${psrc}/pin-stable" "${pdst}/pin-stable"; then
+        if [ ! -e "${pdst}/pin-stable" ] || ! cmp -s "${psrc}/pin-stable" "${pdst}/pin-stable"; then
             _sudo cp -v "${psrc}/pin-stable" "${pdst}/pin-stable"
         fi
 
-        for pref in "${pdst}"/*; do
-            if grep -q "testing" "${pref}"; then
-                testing=1
-            elif grep -q "unstable" "${pref}"; then
-                unstable=1
-            elif grep -q "experimental" "${pref}"; then
-                experimental=1
+        for pref in "${pdst}"/pkg*; do
+            if [ -e "${pref}" ]; then
+                if grep -q "testing" "${pref}"; then
+                    testing=1
+                fi
+        
+                if grep -q "unstable" "${pref}"; then
+                    unstable=1
+                fi
+        
+                if grep -q "experimental" "${pref}"; then
+                    experimental=1
+                fi
             fi
         done
 
         if [ -n "${testing+x}" ]; then
-            if [ ! -e "${sdst}/testing.list" ] || ! cmp "${ssrc}/testing.list" "${sdst}/testing.list"; then
+            if [ ! -e "${sdst}/testing.list" ] || ! cmp -s "${ssrc}/testing.list" "${sdst}/testing.list"; then
                 _sudo cp -v "${ssrc}/testing.list" "${sdst}/testing.list"
             fi
         else
@@ -40,7 +46,7 @@ case "${CHEZMOI_OS:?}" in
         fi
 
         if [ -n "${unstable+x}" ]; then
-            if [ ! -e "${sdst}/unstable.list" ] || ! cmp "${ssrc}/unstable.list" "${sdst}/unstable.list"; then
+            if [ ! -e "${sdst}/unstable.list" ] || ! cmp -s "${ssrc}/unstable.list" "${sdst}/unstable.list"; then
                 _sudo cp -v "${ssrc}/unstable.list" "${sdst}/unstable.list"
             fi
         else
@@ -50,7 +56,7 @@ case "${CHEZMOI_OS:?}" in
         fi
 
         if [ -n "${experimental+x}" ]; then
-            if [ ! -e "${sdst}/experimental.list" ] || ! cmp "${ssrc}/experimental.list" "${sdst}/experimental.list"; then
+            if [ ! -e "${sdst}/experimental.list" ] || ! cmp -s "${ssrc}/experimental.list" "${sdst}/experimental.list"; then
                 _sudo cp -v "${ssrc}/experimental.list" "${sdst}/experimental.list"
             fi
         else
