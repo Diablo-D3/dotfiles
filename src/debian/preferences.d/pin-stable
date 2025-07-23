@@ -6,3 +6,14 @@ Package: *
 Pin: release o=Debian Backports,a=stable-backports
 Pin-Priority: 99
 
+Package: *
+Pin: release o=Debian,a=testing*
+Pin-Priority: 99
+
+Package: *
+Pin: release o=Debian,a=unstable*
+Pin-Priority: 99
+
+Package: *
+Pin: release o=Debian,a=experimental*
+Pin-Priority: 99
