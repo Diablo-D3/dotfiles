@@ -98,24 +98,25 @@ _gh_dl() {
     proj="$2"
     asset="$3"
     field="$4"
-    target="$5"
+    _target="$(mktemp)"
 
     # Remove version signifier from asset name
     simple_asset="${asset:?}"
     simple_asset=$(echo "${simple_asset:?}" | sed -r "s/-v?VER//")
+    simple_asset=$(echo "${simple_asset:?}" | sed -r "s/_v?VER//")
     simple_asset=$(echo "${simple_asset:?}" | sed -r "s/v?VER//")
 
     state="${HOME}/.config/chezmoi/${simple_asset:?}.ver"
 
-    rm -f "/tmp/latest.json"
-    wget -q "https://api.github.com/repos/${user}/${proj}/releases/latest" -O "/tmp/latest.json"
+    latestjson="$(mktemp)"
+    wget -q "https://api.github.com/repos/${user}/${proj}/releases/latest" -O "${latestjson}"
 
-    if [ -f "/tmp/latest.json" ]; then
+    if [ -f "${latestjson}" ]; then
         # Match '"tag_name":', one or more whitespace, a double quote, flush the
         # match, match one or more non-whitespace characters until you reach one
         # a double quote.
         regex='"tag_name":\s*"\K\S+(?=")'
-        ver="$(grep -oP "${regex}" "/tmp/latest.json")"
+        ver="$(grep -oP "${regex}" "${latestjson}")"
 
         # Many projects tag with tags that start with "vVER" but use "VER" in
         # asset filename; if asset uses "vVER", add this literally to $asset
@@ -129,10 +130,10 @@ _gh_dl() {
         # If browser_download_url, only get url matching our asset name.
         if [ "${field:?}" = "browser_download_url" ]; then
             regex="\"${field:?}\":\\s*\"\\K\\S+${asset}(?=\")"
-            url="$(grep -oP "${regex}" "/tmp/latest.json")"
+            url="$(grep -oP "${regex}" "${latestjson}")"
         else
             regex="\"${field:?}\":\\s*\"\\K\\S+(?=\")"
-            url="$(grep -oP "${regex}" "/tmp/latest.json")"
+            url="$(grep -oP "${regex}" "${latestjson}")"
         fi
 
         check=1
@@ -150,15 +151,10 @@ _gh_dl() {
         fi
 
         if [ "${check}" -eq 0 ]; then
-            tmp="$(mktemp)"
-
             _msg "Downloading %s %s" "${simple_asset}" "${ver}"
 
-            #rm -f "${tmp}"
-            if wget -q "${url:?}" -O "${tmp}" >/dev/null; then
-                mkdir -p "$(dirname "${target}")"
-                mv "${tmp}" "${target}"
-
+            wget -q "${url:?}" -O "${_target}" >/dev/null
+            if [ -s "${_target}" ]; then
                 printf "%s" "${ver}" >"${state}"
             else
                 _err "Failed to download %s" "${url}"
@@ -167,7 +163,7 @@ _gh_dl() {
             _quiet "Already have %s %s" "${simple_asset}" "${ver}"
         fi
 
-        rm -f "/tmp/latest.json"
+        rm -f "${latestjson}"
     else
         _err "Failed to download latest releases for %s/%s" "${user}" "${proj}"
     fi
