@@ -9,8 +9,9 @@ set -u
 # Mark variables which are modified or created for export
 set -a
 
-# Chezmoi source dir
+# Chezmoi dirs
 export SRC="${HOME}/.local/share/chezmoi"
+export STATE="${HOME}/.config/chezmoi"
 
 # Pretty printers
 reset="$(tput sgr0)"
@@ -58,6 +59,37 @@ _sudo() {
         _err "Cannot become root: %s" "$@"
         ;;
     esac
+}
+
+# Timestamp and checksum check
+_check() {
+    time_state="${STATE}/$(basename "$0" .sh).time"
+    sum_state="${STATE}/$(basename "$0" .sh).sum"
+
+    new_time="$(date +%s)"
+    new_sum="$(sha256sum "$0")"
+
+    _run=1
+
+    if [ ! -f "${time_state}" ]; then
+        printf "%s" "${new_time}" >"${time_state}"
+    else
+        old_time="$(cat "${time_state}")"
+        if [ "${new_time}" -gt $((old_time + 86400)) ]; then
+            printf "%s" "${new_time}" >"${time_state}"
+            _run=0
+        fi
+    fi
+
+    if [ ! -f "${sum_state}" ]; then
+        printf "%s" "${new_sum}" >"${sum_state}"
+    else
+        old_sum="$(cat "${sum_state}")"
+        if [ "${new_sum}" != "${old_sum}" ]; then
+            printf "%s" "${new_sum}" >"${sum_state}"
+            _run=0
+        fi
+    fi
 }
 
 # Download from github
