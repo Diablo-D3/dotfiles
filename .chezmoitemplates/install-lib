@@ -63,11 +63,19 @@ _sudo() {
 
 # Timestamp and checksum check
 _check() {
-    time_state="${STATE}/$(basename "$0" .sh).time"
-    sum_state="${STATE}/$(basename "$0" .sh).sum"
+    if [ -n "${1:+}" ]; then
+        arg="_$(basename "$1")"
+        file="${arg}"
+    else
+        arg=""
+        file="$0"
+    fi
+
+    time_state="${STATE}/$(basename "$0" .sh)${arg}.time"
+    sum_state="${STATE}/$(basename "$0" .sh)${arg}.sum"
 
     new_time="$(date +%s)"
-    new_sum="$(sha256sum "$0")"
+    new_sum="$(sha256sum "${file}")"
 
     _run=1
 
