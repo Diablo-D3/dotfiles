@@ -3,15 +3,19 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
-_msg "Running alacritty"
-
 if [ ! -f "${HOME}/.terminfo/a/alacritty" ]; then
-    _quiet "Adding alacritty to terminfo db"
+    target="$(mktemp)"
 
-    wget -q "https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info" -O "/tmp/alacritty.info"
-    tic -x -o "${HOME}/.terminfo" "/tmp/alacritty.info"
+    wget -q "https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info" -O "${target}"
 
-    rm -f "/tmp/alacritty.info"
-else
-    _quiet "Skipping, already done"
+    if [ -s "${target}" ]; then
+        tic -x -o "${HOME}/.terminfo" "${target}"
+    fi
+
+    rm -f "${target}"
+fi
+
+if [ "${_wsl}" = 0 ]; then
+    mkdir -p "${APPDATA:?}/alacritty"
+    cp "${_src:?}/private_dot_config/alacritty/"* "${APPDATA:?}/alacritty/"
 fi

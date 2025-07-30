@@ -7,12 +7,10 @@ case "${CHEZMOI_OS:?}" in
 "linux")
     case "${CHEZMOI_OS_RELEASE_ID:?}" in
     "debian")
-        _msg "Running debian"
-
-        psrc="${SRC:?}/src/debian/preferences.d"
+        psrc="${_src:?}/src/debian/preferences.d"
         pdst="/etc/apt/preferences.d"
 
-        ssrc="${SRC:?}/src/debian/sources.list.d"
+        ssrc="${_src:?}/src/debian/sources.list.d"
         sdst="/etc/apt/sources.list.d"
 
         if [ ! -e "${pdst}/pin-stable" ] || ! cmp -s "${psrc}/pin-stable" "${pdst}/pin-stable"; then
@@ -24,11 +22,11 @@ case "${CHEZMOI_OS:?}" in
                 if grep -q "testing" "${pref}"; then
                     testing=1
                 fi
-        
+
                 if grep -q "unstable" "${pref}"; then
                     unstable=1
                 fi
-        
+
                 if grep -q "experimental" "${pref}"; then
                     experimental=1
                 fi
