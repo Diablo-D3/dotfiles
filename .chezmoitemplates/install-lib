@@ -10,8 +10,26 @@ set -u
 set -a
 
 # Chezmoi dirs
-export SRC="${HOME}/.local/share/chezmoi"
-export STATE="${HOME}/.config/chezmoi"
+_src="${HOME}/.local/share/chezmoi"
+_state="${HOME}/.config/chezmoi"
+
+# WSL2 detect
+_wsl=1
+case "${CHEZMOI_OS:?}" in
+"linux")
+    case "${CHEZMOI_KERNEL_OSRELEASE:?}" in
+    *"microsoft"*)
+        if [ -f "${HOME}/.bashrc.win" ]; then
+            . "${HOME}/.bashrc.win"
+        fi
+
+        _wsl=0
+        ;;
+    *) ;;
+    esac
+    ;;
+*) ;;
+esac
 
 # Pretty printers
 reset="$(tput sgr0)"
@@ -71,8 +89,8 @@ _check() {
         file="$0"
     fi
 
-    time_state="${STATE}/$(basename "$0" .sh)${arg}.time"
-    sum_state="${STATE}/$(basename "$0" .sh)${arg}.sum"
+    time_state="${_state}/$(basename "$0" .sh)${arg}.time"
+    sum_state="${_state}/$(basename "$0" .sh)${arg}.sum"
 
     new_time="$(date +%s)"
     new_sum="$(sha256sum "${file}")"
