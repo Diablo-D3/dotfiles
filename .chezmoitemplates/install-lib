@@ -20,6 +20,7 @@ case "${CHEZMOI_OS:?}" in
     case "${CHEZMOI_KERNEL_OSRELEASE:?}" in
     *"microsoft"*)
         if [ -f "${HOME}/.bashrc.win" ]; then
+            # shellcheck disable=SC1091
             . "${HOME}/.bashrc.win"
         fi
 
@@ -81,40 +82,42 @@ _sudo() {
 
 # Timestamp and checksum check
 _check() {
-    if [ -n "${1-}" ] && [ "$1" != "$0" ]; then
-        arg="_$(basename "$1")"
-        file="${arg}"
-    else
-        arg=""
-        file="$0"
+    if [ -n "${1:-}" ]; then
+        if [ "${1:-}" = "$0" ]; then
+            basename="$(basename "${CHEZMOI_SOURCE_FILE:-$0}")"
+        else
+            basename="$(basename "${1:-}")"
+        fi
     fi
 
-    time_state="${_state}/$(basename "$0" .sh)${arg}.time"
-    sum_state="${_state}/$(basename "$0" .sh)${arg}.sum"
+    time_file="${_state}/${basename}.time"
+    sum_file="${_state}/${basename}.sum"
+
+    if [ -f "${time_file}" ]; then
+        old_time="$(cat "${time_file}")"
+    else
+        old_time="0"
+    fi
+
+    if [ -f "${sum_file}" ]; then
+        old_sum="$(cat "${sum_file}")"
+    else
+        old_sum="0"
+    fi
 
     new_time="$(date +%s)"
-    new_sum="$(sha256sum "${file}")"
+    new_sum="$(sha256sum "${1:-}")"
 
     _run=1
 
-    if [ ! -f "${time_state}" ]; then
-        printf "%s" "${new_time}" >"${time_state}"
-    else
-        old_time="$(cat "${time_state}")"
-        if [ "${new_time}" -gt $((old_time + 86400)) ]; then
-            printf "%s" "${new_time}" >"${time_state}"
-            _run=0
-        fi
+    if [ "${new_time}" -gt $((old_time + 86400)) ]; then
+        echo "${new_time}" >"${time_file}"
+        _run=0
     fi
 
-    if [ ! -f "${sum_state}" ]; then
-        printf "%s" "${new_sum}" >"${sum_state}"
-    else
-        old_sum="$(cat "${sum_state}")"
-        if [ "${new_sum}" != "${old_sum}" ]; then
-            printf "%s" "${new_sum}" >"${sum_state}"
-            _run=0
-        fi
+    if [ "${new_sum}" != "${old_sum}" ]; then
+        echo "${new_sum}" >"${sum_file}"
+        _run=0
     fi
 }
 
@@ -262,7 +265,7 @@ _git_list() {
             esac
         done
         true
-    done <$file
+    done <${file}
 
     # Display changelog
     if [ -f "${log}" ]; then
@@ -293,7 +296,7 @@ _git_list() {
                     ;;
                 esac
             done
-        done <$file
+        done <${file}
 
         if [ "${found}" -eq 0 ]; then
             _warn "Removing ${dir}"
