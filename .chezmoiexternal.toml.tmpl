@@ -1,16 +1,36 @@
-{{ $helixVersion := (gitHubLatestRelease "helix-editor/helix").TagName -}}
 [".local/bin/hx"]
     type = "archive-file"
-    url = 'https://github.com/helix-editor/helix/releases/download/{{ $helixVersion }}/helix-{{ $helixVersion }}-x86_64-linux.tar.xz'
-    exact = true
+    url = "{{ gitHubLatestReleaseAssetURL "helix-editor/helix" "helix-*-x86_64-linux.tar.xz" }}"
+    path = "hx"
     executable = true
     stripComponents = 1
-    path = "hx"
     refreshPeriod = "168h"
 
 [".config/helix/runtime"]
     type = "archive"
-    url = 'https://github.com/helix-editor/helix/releases/download/{{ $helixVersion }}/helix-{{ $helixVersion }}-x86_64-linux.tar.xz'
+    url = "{{ gitHubLatestReleaseAssetURL "helix-editor/helix" "helix-*-x86_64-linux.tar.xz" }}"
     exact = true
     stripComponents = 2
+    refreshPeriod = "168h" 
+
+[".local/bin/jj"]
+    type = "archive-file"
+    url = "{{ gitHubLatestReleaseAssetURL "jj-vcs/jj" "jj-*-x86_64-unknown-linux-musl.tar.gz" }}"
+    path = "jj"
+    stripComponents = 1
+    executable = true
+    refreshPeriod = "168h" 
+
+[".local/bin/zellij"]
+    type = "archive-file"
+    url = "{{ gitHubLatestReleaseAssetURL "zellij-org/zellij" "zellij-x86_64-unknown-linux-musl.tar.gz" }}"
+    path = "zellij"
+    executable = true
+    refreshPeriod = "168h"
+
+["src/nvim"]
+    type = "archive"
+    url = "{{ gitHubLatestReleaseAssetURL "neovim/neovim" "nvim-linux-x86_64.tar.gz" }}"
+    exact = true
+    stripComponents = 1
     refreshPeriod = "168h" 
