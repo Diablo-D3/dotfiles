@@ -1,3 +1,12 @@
+[".local/bin/efm-langserver"]
+    type = "archive-file"
+    url = "{{ gitHubLatestReleaseAssetURL "mattn/efm-langserver" "efm-langserver_*_linux_amd64.tar.gz" }}"
+    path = "efm-langserver"
+    stripComponents = 1
+    executable = true
+    refreshPeriod = "168h" 
+
+
 [".local/bin/hx"]
     type = "archive-file"
     url = "{{ gitHubLatestReleaseAssetURL "helix-editor/helix" "helix-*-x86_64-linux.tar.xz" }}"

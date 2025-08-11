@@ -11,15 +11,6 @@ if [ "${_run}" -eq 0 ]; then
         _warn "vscode-langservers-extracted not found, run: npm i -g vscode-langservers-extracted"
     fi
 
-    mkdir -p "${HOME}/.local/bin"
-    _gh_dl "mattn" "efm-langserver" "efm-langserver_vVER_linux_amd64.tar.gz" "browser_download_url"
-
-    if [ -s "${_target}" ]; then
-        tar zxf "${_target}" -C "${HOME}/.local/bin" --no-anchored --strip=1 "efm-langserver"
-        chmod u+x "${HOME}/.local/bin/efm-langserver"
-        rm "${_target}"
-    fi
-
     if ! (command -v "prettier" >/dev/null 2>&1); then
         _warn "prettier not found, run: npm i -g prettier"
     fi
