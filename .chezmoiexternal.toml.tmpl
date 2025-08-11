@@ -28,6 +28,18 @@
     executable = true
     refreshPeriod = "168h"
 
+[".local/share/fonts/Iosevka.ttc"]
+    type = "archive-file"
+    url = "{{ gitHubLatestReleaseAssetURL "be5invis/iosevka" "SuperTTC-Iosevka-*.zip" }}"
+    path = "Iosevka.ttc"
+    refreshPeriod = "168h"
+
+[".local/share/fonts/IosevkaAile.ttc"]
+    type = "archive-file"
+    url = "{{ gitHubLatestReleaseAssetURL "be5invis/iosevka" "SuperTTC-IosevkaAile-*.zip" }}"
+    path = "IosevkaAile.ttc"
+    refreshPeriod = "168h"
+
 ["src/nvim"]
     type = "archive"
     url = "{{ gitHubLatestReleaseAssetURL "neovim/neovim" "nvim-linux-x86_64.tar.gz" }}"
