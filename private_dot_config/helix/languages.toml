@@ -1,18 +1,30 @@
+[language-server.bash-language-server.config]
+bashIde.shellcheckArguments = "-x -o all"
+
+[language-server.efm-langserver]
+command = "efm-langserver"
+
+[language-server.rumdl]
+command = "rumdl"
+args = ["server", "-v"]
+
+[language-servers.rust-analyzer.config.check]
+command = "clippy"
+
 [[language]]
 name = "bash"
 indent = { tab-width = 4, unit = "    " }
 auto-format = true
 
-[language-server.bash-language-server.config]
-bashIde.shellcheckArguments = "-x -o all"
-
 [[language]]
 name = "markdown"
 auto-format = true
-language-servers = [{ name = "efm", only-features = ["diagnostics", "format"] }]
+language-servers = ["rumdl"]
 
-[language-server.efm]
-command = "efm-langserver"
+[[language]]
+name = "rust"
 
-[language-servers.rust-analyzer.config.check]
-command = "clippy"
+[[language]]
+name = "yaml"
+auto-format = true
+language-servers = ["efm-langserver"]

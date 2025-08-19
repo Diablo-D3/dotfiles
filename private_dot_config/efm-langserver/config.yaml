@@ -1,24 +1,31 @@
 version: 2
+
 root-markers:
-   - .git/
+  - .git/
 lint-debounce: 1s
 
 tools:
-  markdownlint: &markdownlint
-    lint-command: 'markdownlint --stdin'
-    lint-stdin: true
-    lint-formats:
-      - '%f:%l %m'
-      - '%f:%l:%c %m'
-      - '%f: %l: %m'
-    lint-ignore-exit-code: true
-
-  prettier-markdown: &prettier-markdown
-    format-command: "prettier --stdin --stdin-filepath '${INPUT}' ${--range-start:charStart} ${--range-end:charEnd} ${--tab-width:tabWidth} ${--use-tabs:!insertSpaces} --parser markdown"
+  md-rumdl: &md-rumdl
+    format-command: 'rumdl fmt --stdin --stdin-filename ${INPUT} --quiet'
     format-stdin: true
-    format-can-range: true
+    lint-command: 'rumdl check --stdin --stdin-filename ${INPUT}'
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c: %m'
+
+  yaml-yamlfmt: &yaml-yamlfmt
+    format-command: 'yamlfmt -in'
+    format-stdin: true
+
+  yaml-yamllint: &yaml-yamllint
+    lint-command: 'yamllint -f parsable -'
+    lint-stdin: true
 
 languages:
   markdown:
-    - <<: *markdownlint
-    - <<: *prettier-markdown
+    - <<: *md-rumdl
+
+  yaml:
+    - <<: *yaml-yamlfmt
+    - <<: *yaml-yamllint

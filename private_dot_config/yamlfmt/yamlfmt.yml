@@ -1,0 +1,4 @@
+formatter:
+  retain_line_breaks_single: true
+  drop_merge_tag: true
+  max_line_length: 79
