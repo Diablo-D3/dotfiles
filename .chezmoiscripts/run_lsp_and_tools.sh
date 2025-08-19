@@ -25,15 +25,6 @@ if [ "${_run}" -eq 0 ]; then
         _warn "markdownlint not found, run: npm i -g markdownlint-cli"
     fi
 
-    # lua
-    _gh_dl "LuaLS" "lua-language-server" "lua-language-server-VER-linux-x64.tar.gz" "browser_download_url"
-
-    if [ -s "${_target}" ]; then
-        mkdir -p "${HOME}/src/lua-language-server"
-        tar zxf "${_target}" -C "${HOME}/src/lua-language-server"
-        rm "${_target}"
-    fi
-
     # sh
     if ! (command -v "bash-language-server" >/dev/null 2>&1); then
         _warn "bash-language-server not found, run: npm i -g bash-language-server"

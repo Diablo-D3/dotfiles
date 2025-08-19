@@ -6,7 +6,6 @@
     executable = true
     refreshPeriod = "168h" 
 
-
 [".local/bin/hx"]
     type = "archive-file"
     url = "{{ gitHubLatestReleaseAssetURL "helix-editor/helix" "helix-*-x86_64-linux.tar.xz" }}"
@@ -47,6 +46,13 @@
     type = "archive-file"
     url = "{{ gitHubLatestReleaseAssetURL "be5invis/iosevka" "SuperTTC-IosevkaAile-*.zip" }}"
     path = "IosevkaAile.ttc"
+    refreshPeriod = "168h"
+
+["src/lua-language-server"]
+    type = "archive"
+    url = "{{ gitHubLatestReleaseAssetURL "LuaLS/lua-language-server" "lua-language-server-*-linux-x64.tar.gz" }}"
+    exact = true
+    stripComponents = 1
     refreshPeriod = "168h"
 
 ["src/nvim"]
