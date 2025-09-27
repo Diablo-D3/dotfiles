@@ -8,9 +8,9 @@ shopt -oq posix && return
 
 # if xterm or tmux, assume 24 bit support
 if [[ "${TERM}" = "xterm"* ||
-	  "${TERM}" = "tmux"* ||
-	  "${TERM}" = "alacritty"* ||
-	  "${TERM}" = "wezterm"* ]]; then
+	"${TERM}" = "tmux"* ||
+	"${TERM}" = "alacritty"* ||
+	"${TERM}" = "wezterm"* ]]; then
 	export COLORTERM="truecolor"
 fi
 
@@ -73,6 +73,10 @@ bind "set blink-matching-paren on"
 bind "set colored-completion-prefix on"
 bind "set colored-stats on"
 
+# set MANPATH early
+MANPATH="${HOME}/.local/share/man:$(manpath -g)"
+export MANPATH
+
 # add bash-completion when available
 if [[ -f /usr/share/bash-completion/bash_completion ]]; then
 	source /usr/share/bash-completion/bash_completion
@@ -91,6 +95,7 @@ if [[ -e /usr/share/git/completion/git-prompt.sh ]]; then
 	# shellcheck disable=SC1091 # can't follow source
 	source /usr/share/git/completion/git-prompt.sh
 elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
+	# shellcheck disable=SC1091 # can't follow source
 	source /usr/lib/git-core/git-sh-prompt
 fi
 
@@ -195,10 +200,6 @@ alias bc="bc -ql"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
 
-# start $MANPATH
-MANPATH="$(manpath -g)"
-export MANPATH
-
 # remove green background for o+w dirs; can't read blue on green
 # wsl2's 9p2000 bridge doesn't filter these perms
 export LS_COLORS='ow=36:'
@@ -212,29 +213,25 @@ export NPMPATH="${HOME}/.npm/lib/node_modules"
 PATH="${HOME}/.npm/bin:${PATH}"
 export MANPATH="${NPMPATH}/share/man:${MANPATH}"
 
-# electron
-export ELECTRON_OZONE_PLATFORM_HINT="wayland"
-
 # fzf, fd, and bfs
 # https://github.com/junegunn/fzf#settings
 # https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
 FZF_COMPLETION_TRIGGER=""
 
-FZF_DEFAULT_OPTS="+m -0 -1
-  --bind 'tab:down,btab:up'
-  --info='hidden'
-  --no-bold
-  --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1'
-  --layout='reverse-list'
-  --ansi"
+set -- +m -0 -1 --bind 'tab:down,btab:up' --info='hidden' --no-bold --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1' --layout='reverse-list' --ansi
+FZF_DEFAULT_OPTS="$*"
 FZF_CTRL_R_OPTS="--no-sort --exact --scheme=history"
-FZF_CTRL_T_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null"
+set -- bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null
+FZF_CTRL_T_COMMAND="$*"
 FZF_CTRL_T_OPTS="--scheme=path"
-FZF_ALT_C_COMMAND="bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null"
+set -- bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null
+FZF_ALT_C_COMMAND="$*"
 FZF_ALT_C_OPTS="--scheme=path"
 
 FZF_TMUX=1
 FZF_TMUX_OPTS="-p -w 80 -h 100% -x R"
+
+export FZF_COMPLETION_TRIGGER FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS FZF_CTRL_T_COMMAND FZF_CTRL_T_OPTS FZF_ALT_C_COMMAND FZF_ALT_C_OPTS FZF_TMUX FZF_TMUX_OPTS
 
 if command -v fdfind >/dev/null 2>&1; then
 	alias fd="fdfind"
@@ -251,13 +248,7 @@ if command -v fzf >/dev/null 2>&1; then
 		}
 	fi
 
-	if [[ -f "/usr/share/bash-completion/completions/fzf" ]]; then
-		source /usr/share/bash-completion/completions/fzf
-	fi
-
-	if [[ -f "/usr/share/doc/fzf/examples/key-bindings.bash" ]]; then
-		source /usr/share/doc/fzf/examples/key-bindings.bash
-	fi
+	eval "$(fzf --bash || true)"
 fi
 
 # sccache
@@ -273,10 +264,6 @@ if [[ -x "${HOME}/.cargo/bin/sccache" ]]; then
 fi
 
 # vim and helix
-if [[ -d "${HOME}/src/lua-language-server/bin" ]]; then
-	PATH="${PATH}:${HOME}/src/lua-language-server/bin"
-fi
-
 if command -v hx >/dev/null 2>&1; then
 	export EDITOR=hx
 	alias vim=hx
