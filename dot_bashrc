@@ -218,7 +218,7 @@ export MANPATH="${NPMPATH}/share/man:${MANPATH}"
 # https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
 FZF_COMPLETION_TRIGGER=""
 
-set -- +m -0 -1 --bind 'tab:down,btab:up' --info='hidden' --no-bold --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1' --layout='reverse-list' --ansi
+set -- +m -0 -1 --bind 'tab:down,btab:up' --info='hidden' --no-bold --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1' --layout='reverse-list' --ansi --no-separator
 FZF_DEFAULT_OPTS="$*"
 FZF_CTRL_R_OPTS="--no-sort --exact --scheme=history"
 set -- bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null
