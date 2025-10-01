@@ -15,7 +15,7 @@ if [ ! -f "${HOME}/.terminfo/a/alacritty" ]; then
     rm -f "${target}"
 fi
 
-if [ "${_wsl}" = 0 ]; then
+if [ "${_wsl:?}" = 0 ]; then
     mkdir -p "${APPDATA:?}/alacritty"
     cp "${_src:?}/private_dot_config/alacritty/"* "${APPDATA:?}/alacritty/"
 fi

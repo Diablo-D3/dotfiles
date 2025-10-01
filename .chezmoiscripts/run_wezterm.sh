@@ -15,7 +15,7 @@ if [ ! -f "${HOME}/.terminfo/w/wezterm" ]; then
     rm -f "${target}"
 fi
 
-if [ "${_wsl}" = 0 ]; then
+if [ "${_wsl:?}" = 0 ]; then
     mkdir -p "${USERPROFILE:?}/.config/wezterm"
     cp "${_src:?}/private_dot_config/wezterm/"* "${USERPROFILE:?}/.config/wezterm/"
 fi
