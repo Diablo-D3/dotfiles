@@ -13,19 +13,19 @@ if [ "${_run}" -eq 0 ]; then
             _sudo usermod -aG uinput "${USER}"
         fi
 
-        _check "/etc/modules-load.d/kanata.conf"
-        if [ "${check}" -eq 0 ]; then
+        _check "${_src:?}/kanata/kanata.conf"
+        if [ "${_run}" -eq 0 ]; then
             _sudo cp -v "${_src:?}/src/kanata/kanata.conf" "/etc/modules-load.d/"
         fi
 
-        _check "/etc/udev/rules.d/kanata.rules"
-        if [ "${check}" -eq 0 ]; then
+        _check "${_src:?}/src/kanata/kanata.rules"
+        if [ "${_run}" -eq 0 ]; then
             _sudo cp -v "${_src:?}/src/kanata/kanata.rules" "/etc/udev/rules.d/"
         fi
     fi
 
     # WSL2 host
-    if [ "${_wsl}" = 0 ]; then
+    if [ "${_wsl:?}" = 0 ]; then
         mkdir -p "${USERPROFILE:?}/kanata"
         cp "${_src:?}/src/kanata/kanata.ps1" "${USERPROFILE:?}/kanata/"
         cp "${_src:?}/src/kanata/"*".kbd" "${USERPROFILE:?}/kanata/"
