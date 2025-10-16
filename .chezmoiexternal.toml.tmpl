@@ -1,76 +1,49 @@
-[".local/bin/efm-langserver"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/efm-langserver.tar.gz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "mattn/efm-langserver" "efm-langserver_*_linux_amd64.tar.gz" }}"
-    path = "efm-langserver"
-    stripComponents = 1
-    executable = true
     refreshPeriod = "168h" 
 
-[".local/bin/hx"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/helix.tar.xz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "helix-editor/helix" "helix-*-x86_64-linux.tar.xz" }}"
-    path = "hx"
-    executable = true
-    stripComponents = 1
     refreshPeriod = "168h"
 
-[".config/helix/runtime"]
-    type = "archive"
-    url = "{{ gitHubLatestReleaseAssetURL "helix-editor/helix" "helix-*-x86_64-linux.tar.xz" }}"
-    exact = true
-    stripComponents = 2
-    refreshPeriod = "168h" 
-
-[".local/bin/jj"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/jj.tar.gz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "jj-vcs/jj" "jj-*-x86_64-unknown-linux-musl.tar.gz" }}"
-    path = "jj"
-    stripComponents = 1
-    executable = true
     refreshPeriod = "168h" 
 
-[".local/bin/rumdl"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/rumdl.tar.gz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "rvben/rumdl" "rumdl-v*-x86_64-unknown-linux-musl.tar.gz" }}"
-    path = "rumdl"
-    executable = true
     refreshPeriod = "168h" 
 
-[".local/bin/yamlfmt"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/yamlfmt.tar.gz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "google/yamlfmt" "yamlfmt_*_Linux_x86_64.tar.gz" }} "
-    path = "yamlfmt"
-    executable = true
     refreshPeriod = "168h"
 
-[".local/bin/zellij"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/zellij.tar.gz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "zellij-org/zellij" "zellij-x86_64-unknown-linux-musl.tar.gz" }}"
-    path = "zellij"
-    executable = true
     refreshPeriod = "168h"
 
-[".local/share/fonts/Iosevka.ttc"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/iosevka.zip"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "be5invis/iosevka" "SuperTTC-Iosevka-*.zip" }}"
-    path = "Iosevka.ttc"
     refreshPeriod = "168h"
 
-[".local/share/fonts/IosevkaAile.ttc"]
-    type = "archive-file"
+[".cache/chezmoi/downloads/iosevka-aile.zip"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "be5invis/iosevka" "SuperTTC-IosevkaAile-*.zip" }}"
-    path = "IosevkaAile.ttc"
     refreshPeriod = "168h"
 
-["src/lua-language-server"]
-    type = "archive"
+[".cache/chezmoi/downloads/lua-language-server.tar.gz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "LuaLS/lua-language-server" "lua-language-server-*-linux-x64.tar.gz" }}"
-    exact = true
     refreshPeriod = "168h"
 
-["src/nvim"]
-    type = "archive"
+[".cache/chezmoi/downloads/nvim.tar.gz"]
+    type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "neovim/neovim" "nvim-linux-x86_64.tar.gz" }}"
-    exact = true
-    stripComponents = 1
     refreshPeriod = "168h" 

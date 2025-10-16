@@ -1,0 +1,108 @@
+#!/bin/sh
+
+# This file will be re-executed every time anything in .chezmoiexternals.toml
+# is updated, but instead of having type archive or archive-file unpack for me,
+# thus incuring a cost every time we run `chezmoi apply` (since it verifies all
+# the extracted files from the archive), I record the sum and only unpack again
+# if it changed.
+
+# hash: ${{ include (joinPath .chezmoi.sourceDir ".chezmoiexternal.toml.tmpl") | sha256sum }}
+
+dl="${HOME}/.cache/chezmoi/downloads"
+
+sum() {
+    file="${1}"
+    sum="${1}.sum"
+    old_sum="x"
+    new_sum="y"
+
+    if [ -r "${sum}" ]; then
+        old_sum=$(cat "${sum}")
+    fi
+
+    if [ -r "${file}" ]; then
+        new_sum=$(sha256sum "${file}")
+
+        if [ "${old_sum}" != "${new_sum}" ]; then
+            printf "%s" "${new_sum}" >"${sum}"
+
+            return 0
+        else
+            return 1
+        fi
+    fi
+}
+
+_rm() {
+    if [ -e "${1}" ]; then
+        mv "${1}" "${1}.old"
+        rm -rf "${1}.old"
+    fi
+}
+
+file="${dl}/efm-langserver.tar.gz"
+if sum "${file}"; then
+    tar --wildcards --strip-components=1 -xzf "${file}" -C "${HOME}/.local/bin" "**/efm-langserver"
+    chmod +x "${HOME}/.local/bin/efm-langserver"
+fi
+
+file="${dl}/helix.tar.xz"
+dir="${HOME}/.config/helix/runtime"
+if sum "${file}"; then
+    tar --wildcards --strip-components=1 -xJf "${file}" -C "${HOME}/.local/bin" "**/hx"
+    chmod +x "${HOME}/.local/bin/hx"
+
+    _rm "${dir}"
+    mkdir "${dir}"
+    tar --strip-components=2 -xJf "${file}" -C "${dir}"
+fi
+
+file="${dl}/jj.tar.gz"
+if sum "${file}"; then
+    tar --wildcards --strip-components=1 -xzf "${file}" -C "${HOME}/.local/bin" "**/jj"
+    chmod +x "${HOME}/.local/bin/jj"
+fi
+
+file="${dl}/rumdl.tar.gz"
+if sum "${file}"; then
+    tar -xzf "${file}" -C "${HOME}/.local/bin" "rumdl"
+    chmod +x "${HOME}/.local/bin/rumdl"
+fi
+
+file="${dl}/yamlfmt.tar.gz"
+if sum "${file}"; then
+    tar -xzf "${file}" -C "${HOME}/.local/bin" "yamlfmt"
+    chmod +x "${HOME}/.local/bin/yamlfmt"
+fi
+
+file="${dl}/zellij.tar.gz"
+if sum "${file}"; then
+    tar -xzf "${file}" -C "${HOME}/.local/bin" "zellij"
+    chmod +x "${HOME}/.local/bin/zellij"
+fi
+
+if sum "${dl}/iosevka.zip"; then
+    unzip -qqo "${file}" "Iosevka.ttc" -d "${HOME}/.local/share/fonts"
+fi
+
+if sum "${dl}/iosevka-aile.zip"; then
+    unzip -qqo "${file}" "IosevkaAile.ttc" -d "${HOME}/.local/share/fonts"
+fi
+
+file="${dl}/lua-language-server.tar.gz"
+dir="${HOME}/src/lua-language-server"
+if sum "${file}"; then
+    _rm "${dir}"
+    mkdir "${dir}"
+    tar -xzf "${file}" -C "${dir}"
+    chmod +x "${dir}/bin/lua-language-server"
+fi
+
+file="${dl}/nvim.tar.gz"
+dir="${HOME}/src/nvim"
+if sum "${file}"; then
+    _rm "${dir}"
+    mkdir "${dir}"
+    tar --strip-components=1 -xzf "${file}" -C "${dir}"
+    chmod +x "${dir}/bin/nvim"
+fi
