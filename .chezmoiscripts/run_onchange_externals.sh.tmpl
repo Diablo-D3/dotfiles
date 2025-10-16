@@ -106,3 +106,9 @@ if sum "${file}"; then
     tar --strip-components=1 -xzf "${file}" -C "${dir}"
     chmod +x "${dir}/bin/nvim"
 fi
+
+file="${dl}/taplo.gz"
+if sum "${file}"; then
+    gzip -dc "${file}" >"${HOME}/.local/bin/taplo"
+    chmod +x "${HOME}/.local/bin/taplo"
+fi
