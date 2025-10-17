@@ -3,9 +3,10 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
-_check "$0"
-
+_check "${_scripts}/run_kanata.sh"
 if [ "${_run}" -eq 0 ]; then
+    _checksum "${_scripts}/run_kanata.sh"
+
     # Local
     if (command -v "kanata" >/dev/null 2>&1); then
         if ! (groups | grep -wq 'input') || ! (groups | grep -wq 'uinput'); then
@@ -13,14 +14,18 @@ if [ "${_run}" -eq 0 ]; then
             _sudo usermod -aG uinput "${USER}"
         fi
 
-        _check "${_src:?}/kanata/kanata.conf"
+        kanata_conf="/etc/modules-load.d/kanata.conf"
+        _check "${kanata_conf}"
         if [ "${_run}" -eq 0 ]; then
-            _sudo cp -v "${_src:?}/src/kanata/kanata.conf" "/etc/modules-load.d/"
+            _sudo cp -v "${_src:?}/src/kanata/kanata.conf" "${kanata_conf}"
+            _checksum "${kanata_conf}"
         fi
 
-        _check "${_src:?}/src/kanata/kanata.rules"
+        kanata_rules="/etc/udev/rules.d/kanata.rules"
+        _check "${kanata_rules}"
         if [ "${_run}" -eq 0 ]; then
-            _sudo cp -v "${_src:?}/src/kanata/kanata.rules" "/etc/udev/rules.d/"
+            _sudo cp -v "${_src:?}/src/kanata/kanata.rules" "${kanata_rules}"
+            _checksum "${kanata_rules}"
         fi
     fi
 
@@ -30,22 +35,28 @@ if [ "${_run}" -eq 0 ]; then
         cp "${_src:?}/src/kanata/kanata.ps1" "${USERPROFILE:?}/kanata/"
         cp "${_src:?}/src/kanata/"*".kbd" "${USERPROFILE:?}/kanata/"
 
-        _check "${USERPROFILE:?}/kanata.exe.new"
+        kanata_exe="${USERPROFILE:?}/kanata/kanata.exe"
+        _check "${kanata_exe}"
         if [ "${_run}" -eq 0 ]; then
             _gh_dl "jtroo" "kanata" "kanata_winIOv2.exe" "browser_download_url"
 
             if [ -s "${_target}" ]; then
-                cp "${_target}" "${USERPROFILE:?}/kanata/interception.zip"
+                cp "${_target}" "${kanata_exe}"
+                _checksum "${kanata_exe}"
             fi
         fi
 
-        _check "${USERPROFILE:?}/kanata/interception.zip"
+        interception_zip="${USERPROFILE:?}/kanata/interception.zip"
+        _check "${interception_zip}"
         if [ "${_run}" -eq 0 ]; then
             _gh_dl "oblitum" "Interception" "Interception.zip" "browser_download_url"
 
             if [ -s "${_target}" ]; then
-                cp "${_target}" "${USERPROFILE:?}/kanata/interception.zip"
+                cp "${_target}" "${interception_zip}"
+                _checksum "${interception_zip}"
             fi
         fi
     fi
+
+    _checksum "${_scripts}/run_kanata.sh"
 fi

@@ -3,7 +3,7 @@
 # shellcheck source=.chezmoitemplates/install-lib
 . "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
 
-_check "$0"
+_check "${_scripts}/run_lsp_and_tools.sh"
 
 if [ "${_run}" -eq 0 ]; then
     # multiuse
@@ -42,4 +42,6 @@ if [ "${_run}" -eq 0 ]; then
     if ! (command -v "taplo" >/dev/null 2>&1); then
         _warn "taplo not found, run: cargo install taplo-cli --locked --features lsp"
     fi
+
+    _checksum "${_scripts}/run_lsp_and_tools.sh"
 fi

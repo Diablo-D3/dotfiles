@@ -12,6 +12,7 @@ set -a
 # Chezmoi dirs
 _src="${HOME}/.local/share/chezmoi"
 _state="${HOME}/.config/chezmoi"
+_scripts="${_src}/.chezmoiscripts"
 
 # WSL2 detect
 _wsl=1
@@ -82,14 +83,7 @@ _sudo() {
 
 # Timestamp and checksum check
 _check() {
-    if [ -n "${1:-}" ]; then
-        if [ "${1:-}" = "$0" ]; then
-            basename="$(basename "${CHEZMOI_SOURCE_FILE:-$0}")"
-        else
-            basename="$(basename "${1:-}")"
-        fi
-    fi
-
+    basename="$(basename "${1:-}")"
     time_file="${_state}/${basename}.time"
     sum_file="${_state}/${basename}.sum"
 
@@ -106,18 +100,37 @@ _check() {
     fi
 
     new_time="$(date +%s)"
-    new_sum="$(sha256sum "${1:-}")"
 
-    _run=1
+    _run="1"
+
+    if [ -f "${1:-}" ]; then
+        new_sum="$(sha256sum "${1:-}")"
+    else
+        new_sum="1"
+    fi
 
     if [ "${new_time}" -gt $((old_time + 86400)) ]; then
-        echo "${new_time}" >"${time_file}"
-        _run=0
+        _run="0"
     fi
 
     if [ "${new_sum}" != "${old_sum}" ]; then
+        _run="0"
+    fi
+}
+
+# Write checksum for _check()
+_checksum() {
+    basename="$(basename "${1:-}")"
+    time_file="${_state}/${basename}.time"
+    sum_file="${_state}/${basename}.sum"
+
+    new_time="$(date +%s)"
+
+    if [ -f "${1:-}" ]; then
+        new_sum="$(sha256sum "${1:-}")"
+
+        echo "${new_time}" >"${time_file}"
         echo "${new_sum}" >"${sum_file}"
-        _run=0
     fi
 }
 
