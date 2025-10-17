@@ -6,23 +6,9 @@
 _check "${_scripts}/run_lsp_and_tools.sh"
 
 if [ "${_run}" -eq 0 ]; then
-    # multiuse
-    if ! (command -v "vscode-css-language-server" >/dev/null 2>&1); then
-        _warn "vscode-langservers-extracted not found, run: npm i -g vscode-langservers-extracted"
-    fi
-
-    if ! (command -v "prettier" >/dev/null 2>&1); then
-        _warn "prettier not found, run: npm i -g prettier"
-    fi
-
     # c/c++
     if ! (command -v "clangd" >/dev/null 2>&1); then
         _warn "clangd not found"
-    fi
-
-    # markdown
-    if ! (command -v "markdownlint" >/dev/null 2>&1); then
-        _warn "markdownlint not found, run: npm i -g markdownlint-cli"
     fi
 
     # sh
@@ -36,11 +22,6 @@ if [ "${_run}" -eq 0 ]; then
 
     if ! (command -v "shfmt" >/dev/null 2>&1); then
         _warn "shfmt not found"
-    fi
-
-    # toml
-    if ! (command -v "taplo" >/dev/null 2>&1); then
-        _warn "taplo not found, run: cargo install taplo-cli --locked --features lsp"
     fi
 
     _checksum "${_scripts}/run_lsp_and_tools.sh"
