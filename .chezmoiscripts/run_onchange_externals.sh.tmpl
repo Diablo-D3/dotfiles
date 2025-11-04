@@ -57,12 +57,6 @@ if sum "${file}"; then
     tar --strip-components=2 -xJf "${file}" -C "${dir}"
 fi
 
-file="${dl}/jj.tar.gz"
-if sum "${file}"; then
-    tar --wildcards --strip-components=1 -xzf "${file}" -C "${HOME}/.local/bin" "**/jj"
-    chmod +x "${HOME}/.local/bin/jj"
-fi
-
 file="${dl}/rumdl.tar.gz"
 if sum "${file}"; then
     tar -xzf "${file}" -C "${HOME}/.local/bin" "rumdl"
