@@ -20,8 +20,8 @@ PATH=${HOME}/bin:${HOME}/.local/bin:${PATH}:/usr/local/sbin:/usr/sbin:/sbin
 
 # noramlize locale
 LANG=en_US.UTF-8
-LC_ALL=${LANG}
-LC_CTYPE=${LANG}
+LANGUAGE="${LANG}"
+LC_ALL=C
 
 # test strings
 export SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
@@ -101,37 +101,9 @@ fi
 
 # styles
 RESET="$(tput sgr0)"
-
-BOLD="$(tput bold)"
-DIM="$(tput dim)"
 REV="$(tput rev)"
-
-SITM="$(tput sitm)"
-RITM="$(tput ritm)"
-SMUL="$(tput smul)"
-RMUL="$(tput rmul)"
-
-# colors
-BLACK="$(tput setaf 0)"
 RED="$(tput setaf 1)"
-GREEN="$(tput setaf 2)"
-YELLOW="$(tput setaf 3)"
-BLUE="$(tput setaf 4)"
-MAGENTA="$(tput setaf 5)"
-CYAN="$(tput setaf 6)"
-WHITE="$(tput setaf 7)"
-HIBLACK="$(tput setaf 8)"
-HIRED="$(tput setaf 9)"
-HIGREEN="$(tput setaf 10)"
-HIYELLOW="$(tput setaf 11)"
-HIBLUE="$(tput setaf 12)"
-HIMAGENTA="$(tput setaf 13)"
-HICYAN="$(tput setaf 14)"
-HIWHITE="$(tput setaf 15)"
 
-export RESET BOLD DIM REV SITM RITM SMUL RMUL BLACK RED GREEN YELLOW BLUE MAGENTA CYAN WHITE HIBLACK HIRED HIGREEN HIYELLOW HIBLUE HIMAGENTA HICYAN HIWHITE
-
-# hostname color
 HOSTCHECKSUM="$(echo "${HOSTNAME}" | md5sum | tr '[:lower:]' '[:upper:]' | cut -b1-2)"
 HOSTCOLOR="$((16#"${HOSTCHECKSUM}" % 16))"
 
@@ -210,45 +182,13 @@ PATH="${HOME}/.cargo/bin:${PATH}"
 # nodejs/npm
 export NPMPATH="${HOME}/.npm/lib/node_modules"
 
+# shellcheck disable=SC1091 # can't follow source
 PATH="${HOME}/.npm/bin:${PATH}"
 export MANPATH="${NPMPATH}/share/man:${MANPATH}"
 
-# fzf, fd, and bfs
-# https://github.com/junegunn/fzf#settings
-# https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
-FZF_COMPLETION_TRIGGER=""
-
-set -- +m -0 -1 --bind 'tab:down,btab:up' --info='hidden' --no-bold --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1' --layout='reverse-list' --ansi --no-separator
-FZF_DEFAULT_OPTS="$*"
-FZF_CTRL_R_OPTS="--no-sort --exact --scheme=history"
-set -- bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null
-FZF_CTRL_T_COMMAND="$*"
-FZF_CTRL_T_OPTS="--scheme=path"
-set -- bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null
-FZF_ALT_C_COMMAND="$*"
-FZF_ALT_C_OPTS="--scheme=path"
-
-FZF_TMUX=1
-FZF_TMUX_OPTS="-p -w 80 -h 100% -x R"
-
-export FZF_COMPLETION_TRIGGER FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS FZF_CTRL_T_COMMAND FZF_CTRL_T_OPTS FZF_ALT_C_COMMAND FZF_ALT_C_OPTS FZF_TMUX FZF_TMUX_OPTS
-
+#fd
 if command -v fdfind >/dev/null 2>&1; then
 	alias fd="fdfind"
-fi
-
-if command -v fzf >/dev/null 2>&1; then
-	if command -v bfs >/dev/null 2>&1; then
-		_fzf_compgen_path() {
-			bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
-		}
-
-		_fzf_compgen_dir() {
-			bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
-		}
-	fi
-
-	eval "$(fzf --bash || true)"
 fi
 
 # sccache
