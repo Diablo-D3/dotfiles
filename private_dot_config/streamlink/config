@@ -1,8 +1,0 @@
-auto-version-check=yes
-
-player="mpv" --volume=50 --profile=hq
-verbose-player
-
-twitch-disable-ads
-#twitch-low-latency
-#hls-live-edge=1
