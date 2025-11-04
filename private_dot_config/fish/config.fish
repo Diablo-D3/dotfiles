@@ -2,29 +2,15 @@
 
 # disable greeting
 set -gx fish_greeting ""
+
+# set color theme
 set -g fish_term24bit 0
-
-# if xterm or tmux, assume 24 bit support
-if string match xterm "$TERM" || string match tmux "$TERM"
-    then
-    set -gx COLORTERM "truecolor"
-end
-
-# path: home, $PATH, sbin
-# global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
-set -gx PATH $HOME/bin:$PATH:/usr/local/sbin:/usr/sbin:/sbin
-
-# normalize locale
-set -gx LANG "en_US.UTF-8"
-set -gx LC_ALL "$LANG"
-set -gx LC_CTYPE "$LANG"
-
-# test phrase
-set -gx SPHINX "sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
+set -g fish_term256 0
+fish_config theme choose None
 
 # hostname color
-set -gx HOSTCHECKSUM (echo "$hostname" | md5sum | tr '[:lower:]' '[:upper:]' | cut '-b1-2')
-set -gx HOSTCOLOR (math 0x"$HOSTCHECKSUM" % 16)
+set -g HOSTCHECKSUM (echo "$hostname" | md5sum | tr '[:lower:]' '[:upper:]' | cut '-b1-2')
+set -g HOSTCOLOR (math 0x"$HOSTCHECKSUM" % 16)
 
 # add git-prompt when available
 set -g __fish_git_prompt_showcolorhints 1
@@ -50,17 +36,9 @@ function fish_prompt
     end
 end
 
-function fish_preexec
-    if tet -n "$TMUX"
-        then
-        eval "tmux show-environment -s"
-        eval "~/.tmux/plugins/tmux-continuum/scripts/continuum_save.sh"
-    end
-end
-
 # set xterm title
 function fish_title
-    if test $_ = 'fish'
+    if test $_ = fish
         echo (string join "" (prompt_hostname) ": " (prompt_pwd))
     else
         echo (string join "" (prompt_hostname) ": $_")
