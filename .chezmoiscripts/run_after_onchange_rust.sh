@@ -12,6 +12,9 @@ fi
 
 if (command -v "rustup" >/dev/null 2>&1); then
     rustup update
+
+    rustup completions bash >>"${HOME}/.local/share/bash-completion/completions/rustup"
+    rustup completions bash cargo >>"${HOME}/.local/share/bash-completion/completions/cargo"
 fi
 
 if (command -v "cargo" >/dev/null 2>&1); then
