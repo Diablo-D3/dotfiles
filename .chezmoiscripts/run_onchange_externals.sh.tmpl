@@ -75,12 +75,6 @@ if sum "${file}"; then
     chmod +x "${HOME}/.local/bin/yamlfmt"
 fi
 
-file="${dl}/zellij.tar.gz"
-if sum "${file}"; then
-    tar -xzf "${file}" -C "${HOME}/.local/bin" "zellij"
-    chmod +x "${HOME}/.local/bin/zellij"
-fi
-
 if sum "${dl}/iosevka.zip"; then
     unzip -qqo "${file}" "Iosevka.ttc" -d "${HOME}/.local/share/fonts"
 fi
