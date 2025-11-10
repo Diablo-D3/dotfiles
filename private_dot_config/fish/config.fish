@@ -1,7 +1,7 @@
 #!/usr/bin/fish
 
 # disable greeting
-set -gx fish_greeting ""
+set -U fish_greeting
 
 # set color theme
 set -g fish_term24bit 0
@@ -44,3 +44,11 @@ function fish_title
         echo (string join "" (prompt_hostname) ": $_")
     end
 end
+
+# fd
+if type -q fdfind
+    alias fd="fdfind"
+end
+
+# vim and helix
+alias vim="$EDITOR"
