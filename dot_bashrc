@@ -121,7 +121,7 @@ PRO_START="\[${RESET}\][\[${PRO_FG}\]\\h\[${RESET}\] \\W"
 
 id="$(id -u)"
 if [[ "${id}" -eq 0 ]]; then
-	PRO_END="]\[${RED}\]#\[${RESET}\] "
+	PRO_END="]\[${RED}\]\#\[${RESET}\] "
 else
 	PRO_END="]\$\[${RESET}\] "
 fi
@@ -191,6 +191,38 @@ if command -v fdfind >/dev/null 2>&1; then
 	alias fd="fdfind"
 fi
 
+# fzf and bfs
+# https://github.com/junegunn/fzf#settings
+# https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
+FZF_COMPLETION_TRIGGER=""
+
+set -- +m -0 -1 --bind 'tab:down,btab:up' --info='hidden' --no-bold --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1' --layout='reverse-list' --ansi --no-separator
+FZF_DEFAULT_OPTS="$*"
+FZF_CTRL_R_OPTS="--no-sort --exact --scheme=history"
+
+set -- bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null
+FZF_CTRL_T_COMMAND="$*"
+FZF_CTRL_T_OPTS="--scheme=path"
+
+set -- bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null
+FZF_ALT_C_COMMAND="$*"
+FZF_ALT_C_OPTS="--scheme=path"
+
+export FZF_COMPLETION_TRIGGER FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS FZF_CTRL_T_COMMAND FZF_CTRL_T_OPTS FZF_ALT_C_COMMAND FZF_ALT_C_OPTS
+
+if command -v fzf >/dev/null 2>&1; then
+	if command -v bfs >/dev/null 2>&1; then
+		_fzf_compgen_path() {
+			bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
+		}
+
+		_fzf_compgen_dir() {
+			bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
+		}
+	fi
+	eval "$(fzf --bash || true)"
+fi
+
 # sccache
 if [[ -x "${HOME}/.cargo/bin/sccache" ]]; then
 	export RUSTC_WRAPPER="${HOME}/.cargo/bin/sccache"
@@ -215,8 +247,3 @@ else
 fi
 
 export GIT_EDITOR="${EDITOR}"
-
-# start fish
-if command -v fish >/dev/null 2>&1; then
-	exec fish
-fi
