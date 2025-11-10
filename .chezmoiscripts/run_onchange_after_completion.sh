@@ -33,8 +33,6 @@ if (command -v "nvim" >/dev/null 2>&1); then
 fi
 
 if (command -v "rustup" >/dev/null 2>&1); then
-    rustup update
-
     rustup completions bash >>"${BASHC_DIR}/rustup"
     rustup completions bash cargo >>"${BASHC_DIR}/cargo"
     # fish: use built-in
