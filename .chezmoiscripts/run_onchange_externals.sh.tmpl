@@ -103,18 +103,24 @@ if sum "${file}"; then
     chmod +x "${HOME}/.local/bin/yamlfmt"
 fi
 
-# {{ if eq .chezmoi.os "linux" }}
-# {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-file="${dl}/interception.zip"
-if sum "${file}"; then
-    mkdir -p "${USERPROFILE:?}/kanata"
-    cp "${file}" "${USERPROFILE:?}/kanata/interception.zip"
-fi
+case "${CHEZMOI_OS+unset}" in
+"linux")
+    case "${CHEZMOI_KERNEL_OSRELEASE+unset}" in
+    *"microsoft"*)
+        file="${dl}/interception.zip"
+        if sum "${file}"; then
+            mkdir -p "${USERPROFILE:?}/kanata"
+            cp "${file}" "${USERPROFILE:?}/kanata/interception.zip"
+        fi
 
-file="${dl}/kanata_win.zip"
-if sum "${file}"; then
-    mkdir -p "${USERPROFILE:?}/kanata"
-    unzip -p "${dl}/kanata_win.zip" "kanata_windows_gui_winIOv2_x64.exe" >"${USERPROFILE:?}/kanata/kanata.exe.new"
-fi
-# {{   end }}
-# {{ end }}
+        file="${dl}/kanata_win.zip"
+        if sum "${file}"; then
+            mkdir -p "${USERPROFILE:?}/kanata"
+            unzip -p "${dl}/kanata_win.zip" "kanata_windows_gui_winIOv2_x64.exe" >"${USERPROFILE:?}/kanata/kanata.exe.new"
+        fi
+        ;;
+    *) ;;
+    esac
+    ;;
+*) ;;
+esac
