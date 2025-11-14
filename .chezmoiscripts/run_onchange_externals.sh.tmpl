@@ -42,6 +42,19 @@ _rm() {
     fi
 }
 
+file="${dl}/ble-nightly.tar.xz"
+if sum "${file}"; then
+    tar xJf "${file}" -C /tmp
+    bash /tmp/ble-nightly/ble.sh --install ~/.local/share
+    rm -rf /tmp/ble-nightly
+fi
+
+file="${dl}/carapace-bin.tar.gz"
+if sum "${file}"; then
+    tar -xzf "${file}" -C "${HOME}/.local/bin" "carapace"
+    chmod +x "${HOME}/.local/bin/carapace"
+fi
+
 file="${dl}/efm-langserver.tar.gz"
 if sum "${file}"; then
     tar --wildcards --strip-components=1 -xzf "${file}" -C "${HOME}/.local/bin" "**/efm-langserver"

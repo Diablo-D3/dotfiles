@@ -1,3 +1,13 @@
+[".cache/chezmoi/downloads/ble-nightly.tar.xz"]
+    type = "file"
+    url = "https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz"
+    refreshPeriod = "168h"
+
+[".cache/chezmoi/downloads/carapace-bin.tar.gz"]
+    type = "file"
+    url = "{{ gitHubLatestReleaseAssetURL "carapace-sh/carapace-bin" "carapace-bin_*_linux_amd64.tar.gz" }}"
+    refreshPeriod = "168h"
+
 [".cache/chezmoi/downloads/efm-langserver.tar.gz"]
     type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "mattn/efm-langserver" "efm-langserver_*_linux_amd64.tar.gz" }}"

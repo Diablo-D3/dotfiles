@@ -2,17 +2,16 @@
 
 # shellcheck enable=all
 
-# if not interactive, exit early
-[[ -z "${PS1+unset}" ]] && return
-shopt -oq posix && return
+# check if not interactive or in POSIX mode
+[[ $- != *i* ]] && [[ $- == *p* ]] && return
 
-# if xterm or tmux, assume 24 bit support
-if [[ "${TERM}" = "xterm"* ||
-	"${TERM}" = "tmux"* ||
-	"${TERM}" = "alacritty"* ||
-	"${TERM}" = "wezterm"* ]]; then
-	export COLORTERM="truecolor"
+# early ble
+if [[ -f "${HOME}/.local/share/blesh/ble.sh" ]]; then
+    # shellcheck disable=SC1091 # can't follow source
+    source "${HOME}/.local/share/blesh/ble.sh" --attach=none
 fi
+
+### environment
 
 # path: home, $PATH, sbin
 # global is assumed to contain at least: /usr/local/bin:/usr/bin:/bin
@@ -20,8 +19,6 @@ PATH=${HOME}/bin:${HOME}/.local/bin:${PATH}:/usr/local/sbin:/usr/sbin:/sbin
 
 # noramlize locale
 LANG=en_US.UTF-8
-LANGUAGE="${LANG}"
-LC_ALL=C
 
 # test strings
 export SPHINX="sphinx of black quartz judge my vow\nSPHINX OF BLACK QUARTZ JUDGE MY VOW"
@@ -56,6 +53,38 @@ HISTCONTROL="erasedups:ignoreboth"
 # don't record useless commands
 HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 
+# set MANPATH early
+MANPATH="${HOME}/.local/share/man:$(manpath -g)"
+export MANPATH
+
+# remove green background for o+w dirs; can't read blue on green
+# wsl2's 9p2000 bridge doesn't filter these perms
+eval "$(dircolors || true)"
+LS_COLORS="${LS_COLORS/:ow=*[^:]):/:ow=:}"
+export LS_COLORS
+
+# check for 24 bit support
+if [[ "${TERM}" = "xterm"* ||
+    "${TERM}" = "tmux"* ||
+    "${TERM}" = "alacritty"* ||
+    "${TERM}" = "wezterm"* ]]; then
+    export COLORTERM="truecolor"
+fi
+
+# load local Win config
+if [[ -x "${HOME}/.bashrc.win" ]]; then
+    # shellcheck disable=SC1091 # can't follow source
+    source "${HOME}/.bashrc.win"
+fi
+
+# load local config
+if [[ -x "${HOME}/.bashrc.local" ]]; then
+    # shellcheck disable=SC1091 # can't follow source
+    source "${HOME}/.bashrc.local"
+fi
+
+### readline
+
 # ignore case for autocomplete
 bind "set completion-ignore-case on"
 
@@ -65,38 +94,28 @@ bind "set completion-map-case on"
 # don't require tab twice to get list
 bind "set show-all-if-ambiguous on"
 
-# treat symlinked dirs as dirs
+# insert / after directory names when tab completed
+bind "set mark-directories on"
+
+# also do this for symlinks
 bind "set mark-symlinked-directories on"
 
-# colors and paren matching
-bind "set blink-matching-paren on"
+# colors
 bind "set colored-completion-prefix on"
 bind "set colored-stats on"
 
-# set MANPATH early
-MANPATH="${HOME}/.local/share/man:$(manpath -g)"
-export MANPATH
+### prompt
 
-# add bash-completion when available
-if [[ -f /usr/share/bash-completion/bash_completion ]]; then
-	source /usr/share/bash-completion/bash_completion
-elif [[ -f /etc/bash_completion ]]; then
-	source /etc/bash_completion
-fi
-
-# add git-prompt when available
+# git-prompt
 GIT_PS1_SHOWCOLORHINTS=true
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM=auto
 
-if [[ -e /usr/share/git/completion/git-prompt.sh ]]; then
-	# shellcheck disable=SC1091 # can't follow source
-	source /usr/share/git/completion/git-prompt.sh
-elif [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
-	# shellcheck disable=SC1091 # can't follow source
-	source /usr/lib/git-core/git-sh-prompt
+if [[ -e /usr/lib/git-core/git-sh-prompt ]]; then
+    # shellcheck disable=SC1091 # can't follow source
+    source /usr/lib/git-core/git-sh-prompt
 fi
 
 # styles
@@ -108,9 +127,9 @@ HOSTCHECKSUM="$(echo "${HOSTNAME}" | md5sum | tr '[:lower:]' '[:upper:]' | cut -
 HOSTCOLOR="$((16#"${HOSTCHECKSUM}" % 16))"
 
 if [[ "${HOSTCOLOR}" -eq 0 ]]; then
-	PRO_FG="${REV}$(tput setaf "${HOSTCOLOR}")"
+    PRO_FG="${REV}$(tput setaf "${HOSTCOLOR}")"
 else
-	PRO_FG="$(tput setaf "${HOSTCOLOR}")"
+    PRO_FG="$(tput setaf "${HOSTCOLOR}")"
 fi
 
 unset HOSTCHECKSUM
@@ -121,60 +140,131 @@ PRO_START="\[${RESET}\][\[${PRO_FG}\]\\h\[${RESET}\] \\W"
 
 id="$(id -u)"
 if [[ "${id}" -eq 0 ]]; then
-	PRO_END="]\[${RED}\]\#\[${RESET}\] "
+    PRO_END="]\[${RED}\]\#\[${RESET}\] "
 else
-	PRO_END="]\$\[${RESET}\] "
+    PRO_END="]\$\[${RESET}\] "
 fi
 unset id
 
 precmd() {
-	local git_check
-	git_check="$(type -t __git_ps1)"
+    local git_check
+    git_check="$(type -t __git_ps1)"
 
-	if [[ "${PWD}" != "${HOME}" ]] && [[ "${git_check}" = "function" ]]; then
-		__git_ps1 "${PRO_START}" "${PRO_END}"
-	else
-		PS1="${PRO_START}${PRO_END}"
-	fi
+    if [[ "${PWD}" != "${HOME}" ]] && [[ "${git_check}" = "function" ]]; then
+        __git_ps1 "${PRO_START}" "${PRO_END}"
+    else
+        PS1="${PRO_START}${PRO_END}"
+    fi
 }
 
 PROMPT_COMMAND=precmd
 
 # set xterm title
 preexec() {
-	if [[ "${BASH_COMMAND}" == "precmd" ]]; then
-		COMMAND="${PWD/${HOME}/\~}"
-	else
-		COMMAND="${BASH_COMMAND//[^[:print:]]/}"
-	fi
+    if [[ "${BASH_COMMAND}" == "precmd" ]]; then
+        COMMAND="${PWD/${HOME}/\~}"
+    else
+        COMMAND="${BASH_COMMAND//[^[:print:]]/}"
+    fi
 
-	printf "\e]2;%s: %s\a" "${HOSTNAME%%.*}" "${COMMAND}"
+    printf "\e]2;%s: %s\a" "${HOSTNAME%%.*}" "${COMMAND}"
 
-	history -a
+    history -a
 }
 
 trap preexec DEBUG
 
-# load local Win config
-if [[ -x "${HOME}/.bashrc.win" ]]; then
-	# shellcheck disable=SC1091 # can't follow source
-	source "${HOME}/.bashrc.win"
+### completion and fuzzy finding
+
+# ble.sh
+if [[ -n ${BLE_VERSION-} ]]; then
+    bleopt term_index_colors=
+    bleopt filename_ls_colors="${LS_COLORS}"
+    bleopt highlight_syntax=
+    bleopt highlight_filename=
+    bleopt highlight_variable=
+    bleopt color_scheme=base16
+    # shellcheck disable=SC1090 # non-constant source
+    source <((ble-face | sed 's/,*underline//') || true)
+    ble-face auto_complete=fg=gray
+
+    bleopt prompt_eol_mark=''
+    bleopt exec_errexit_mark=
+    bleopt exec_elapsed_mark=
+    bleopt exec_exit_mark=
+    bleopt edit_marker=
+    bleopt edit_marker_error=
+
+    ble-bind -m auto_complete -f C-i auto_complete/insert
+    ble-bind -m auto_complete -f TAB auto_complete/insert
 fi
 
-# load local config
-if [[ -x "${HOME}/.bashrc.local" ]]; then
-	# shellcheck disable=SC1091 # can't follow source
-	source "${HOME}/.bashrc.local"
+# completion
+if command -v carapace >/dev/null 2>&1; then
+    export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+    # shellcheck disable=SC1090 # non-constant source
+    source <(carapace _carapace bash || true)
+elif [[ -f /usr/share/bash-completion/bash_completion ]]; then
+    source /usr/share/bash-completion/bash_completion
 fi
 
-# aliases
+# fzf
+# https://github.com/junegunn/fzf#settings
+# https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
+FZF_COMPLETION_TRIGGER=""
+
+set -- +m -0 -1 --bind 'tab:down,btab:up' --info='hidden' --no-bold --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1' --layout='reverse-list' --ansi --no-separator
+FZF_DEFAULT_OPTS="$*"
+FZF_CTRL_R_OPTS="--no-sort --exact"
+
+if command -v fzf >/dev/null 2>&1; then
+    if command -v bfs >/dev/null 2>&1; then
+        _fzf_compgen_path() {
+            bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
+        }
+
+        _fzf_compgen_dir() {
+            bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
+        }
+
+        set -- bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null
+        FZF_CTRL_T_COMMAND="$*"
+
+        set -- bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null
+        FZF_ALT_C_COMMAND="$*"
+    elif command -v fd >/dev/null 2>&1; then
+        _fzf_compgen_path() {
+            fd --hidden --follow --exclude '.git' . "$1"
+        }
+
+        _fzf_compgen_dir() {
+            fd --type d --hidden --follow --exclude '.git' . "$1"
+        }
+
+        set -- fd --hidden --follow --exclude '.git' .
+        FZF_CTRL_T_COMMAND="$*"
+
+        set -- fd -t d --hidden --follow --exclude '.git' .
+        FZF_ALT_C_COMMAND="$*"
+    fi
+
+    if [[ -n ${BLE_VERSION-} ]]; then
+        ble-import -d integration/fzf-completion
+        ble-import -d integration/fzf-key-bindings
+        ble-import -d integration/fzf-menu
+    else
+        eval "$(fzf --bash || true)"
+    fi
+
+    export FZF_COMPLETION_TRIGGER FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS FZF_CTRL_T_COMMAND FZF_CTRL_T_OPTS FZF_ALT_C_COMMAND FZF_ALT_C_OPTS
+fi
+
+### programs
+
+# alias
 alias bc="bc -ql"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto"
-
-# remove green background for o+w dirs; can't read blue on green
-# wsl2's 9p2000 bridge doesn't filter these perms
-export LS_COLORS='ow=36:'
 
 # rust/cargo
 PATH="${HOME}/.cargo/bin:${PATH}"
@@ -188,62 +278,33 @@ export MANPATH="${NPMPATH}/share/man:${MANPATH}"
 
 #fd
 if command -v fdfind >/dev/null 2>&1; then
-	alias fd="fdfind"
-fi
-
-# fzf and bfs
-# https://github.com/junegunn/fzf#settings
-# https://github.com/tavianator/bfs/discussions/119#discussioncomment-6533106
-FZF_COMPLETION_TRIGGER=""
-
-set -- +m -0 -1 --bind 'tab:down,btab:up' --info='hidden' --no-bold --color='fg:7,bg:-1,hl:2,fg+:15,bg+:8,hl+:10,pointer:4,pointer:12,gutter:-1' --layout='reverse-list' --ansi --no-separator
-FZF_DEFAULT_OPTS="$*"
-FZF_CTRL_R_OPTS="--no-sort --exact --scheme=history"
-
-set -- bfs -color -mindepth 1 -exclude \( -name .git \) -printf '%P\n' 2>/dev/null
-FZF_CTRL_T_COMMAND="$*"
-FZF_CTRL_T_OPTS="--scheme=path"
-
-set -- bfs -color -mindepth 1 -exclude \( -name .git \) -type d -printf '%P\n' 2>/dev/null
-FZF_ALT_C_COMMAND="$*"
-FZF_ALT_C_OPTS="--scheme=path"
-
-export FZF_COMPLETION_TRIGGER FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS FZF_CTRL_T_COMMAND FZF_CTRL_T_OPTS FZF_ALT_C_COMMAND FZF_ALT_C_OPTS
-
-if command -v fzf >/dev/null 2>&1; then
-	if command -v bfs >/dev/null 2>&1; then
-		_fzf_compgen_path() {
-			bfs -H "$1" -color -exclude \( -name .git \) 2>/dev/null
-		}
-
-		_fzf_compgen_dir() {
-			bfs -H "$1" -color -exclude \( -name .git \) -type d 2>/dev/null
-		}
-	fi
-	eval "$(fzf --bash || true)"
+    alias fd="fdfind"
 fi
 
 # sccache
 if [[ -x "${HOME}/.cargo/bin/sccache" ]]; then
-	export RUSTC_WRAPPER="${HOME}/.cargo/bin/sccache"
-	export CARGO_INCREMENTAL="false"
+    export RUSTC_WRAPPER="${HOME}/.cargo/bin/sccache"
+    export CARGO_INCREMENTAL="false"
 
-	export CC="${HOME}/.cargo/bin/sccache gcc"
-	export CXX="${HOME}/.cargo/bin/sccache g++"
+    export CC="${HOME}/.cargo/bin/sccache gcc"
+    export CXX="${HOME}/.cargo/bin/sccache g++"
 
-	export CMAKE_C_COMPILER_LAUNCHER="${HOME}/.cargo/bin/sccache"
-	export CMAKE_CXX_COMPILER_LAUNCHER="${HOME}/.cargo/bin/sccache"
+    export CMAKE_C_COMPILER_LAUNCHER="${HOME}/.cargo/bin/sccache"
+    export CMAKE_CXX_COMPILER_LAUNCHER="${HOME}/.cargo/bin/sccache"
 fi
 
 # vim and helix
 if command -v hx >/dev/null 2>&1; then
-	export EDITOR=hx
-	alias vim=hx
+    export EDITOR=hx
+    alias vim=hx
 elif command -v nvim >/dev/null 2>&1; then
-	export EDITOR=nvim
-	alias vim=nvim
+    export EDITOR=nvim
+    alias vim=nvim
 else
-	export EDITOR=vim
+    export EDITOR=vim
 fi
 
 export GIT_EDITOR="${EDITOR}"
+
+# late ble.sh
+[[ -n ${BLE_VERSION-} ]] && ble-attach
