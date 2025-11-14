@@ -38,8 +38,33 @@
     url = "{{ gitHubLatestReleaseAssetURL "neovim/neovim" "nvim-linux-x86_64.tar.gz" }}"
     refreshPeriod = "168h"
 
+[".cache/chezmoi/downloads/rumdl.tar.gz"]
+    type = "file"
+    url = "{{ gitHubLatestReleaseAssetURL "rvben/rumdl" "rumdl-v*-x86_64-unknown-linux-musl.tar.gz" }}"
+    refreshPeriod = "168h" 
+
 [".cache/chezmoi/downloads/taplo.gz"]
     type = "file"
     url = "{{ gitHubLatestReleaseAssetURL "tamasfe/taplo" "taplo-linux-x86_64.gz" }}"
     refreshPeriod = "168h"
 
+[".cache/chezmoi/downloads/yamlfmt.tar.gz"]
+    type = "file"
+    url = "{{ gitHubLatestReleaseAssetURL "google/yamlfmt" "yamlfmt_*_Linux_x86_64.tar.gz" }}"
+    refreshPeriod = "168h"
+
+{{ if eq .chezmoi.os "linux" }}
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+
+[".cache/chezmoi/downloads/kanata_winIOv2.exe"]
+    type = "file"
+    url = "{{ gitHubLatestReleaseAssetURL "jtroo/kanata" "kanata_winIOv2.exe" }}"
+    refreshPeriod = "168h"
+
+[".cache/chezmoi/downloads/interception.zip"]
+    type = "file"
+    url = "{{ gitHubLatestReleaseAssetURL "oblitum/Interception" "interception.zip" }}"
+    refreshPeriod = "168h"
+
+{{   end }}
+{{ end }}

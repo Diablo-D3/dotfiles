@@ -6,7 +6,9 @@
 # the extracted files from the archive), I record the sum and only unpack again
 # if it changed.
 
-# hash: ${{ include (joinPath .chezmoi.sourceDir ".chezmoiexternal.toml.tmpl") | sha256sum }}
+# {{ include (joinPath .chezmoi.sourceDir ".chezmoiexternal.toml.tmpl") | sha256sum }}
+
+echo "-> externals.sh"
 
 dl="${HOME}/.cache/chezmoi/downloads"
 
@@ -100,3 +102,19 @@ if sum "${file}"; then
     gzip -dc "${file}" >"${HOME}/.local/bin/taplo"
     chmod +x "${HOME}/.local/bin/taplo"
 fi
+
+# {{ if eq .chezmoi.os "linux" }}
+# {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+file="${dl}/interception.zip"
+if sum "${file}"; then
+    mkdir -p "${USERPROFILE:?}/kanata"
+    cp "${file}" "${USERPROFILE:?}/kanata/interception.zip"
+fi
+
+file="${dl}/kanata_winIOv2.exe"
+if sum "${file}"; then
+    mkdir -p "${USERPROFILE:?}/kanata"
+    cp "${file}" "${USERPROFILE:?}/kanata/kanata.exe"
+fi
+# {{   end }}
+# {{ end }}
