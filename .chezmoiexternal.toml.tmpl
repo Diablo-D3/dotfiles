@@ -46,9 +46,9 @@
 {{ if eq .chezmoi.os "linux" }}
 {{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 
-[".cache/chezmoi/downloads/kanata_winIOv2.exe"]
+[".cache/chezmoi/downloads/kanata_win.zip"]
     type = "file"
-    url = "{{ gitHubLatestReleaseAssetURL "jtroo/kanata" "kanata_winIOv2.exe" }}"
+    url = "{{ gitHubLatestReleaseAssetURL "jtroo/kanata" "windows-binaries-x64-*.zip" }}"
     refreshPeriod = "168h"
 
 [".cache/chezmoi/downloads/interception.zip"]

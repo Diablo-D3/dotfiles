@@ -111,10 +111,10 @@ if sum "${file}"; then
     cp "${file}" "${USERPROFILE:?}/kanata/interception.zip"
 fi
 
-file="${dl}/kanata_winIOv2.exe"
+file="${dl}/kanata_win.zip"
 if sum "${file}"; then
     mkdir -p "${USERPROFILE:?}/kanata"
-    cp "${file}" "${USERPROFILE:?}/kanata/kanata.exe"
+    unzip -p "${dl}/kanata_win.zip" "kanata_windows_gui_winIOv2_x64.exe" >"${USERPROFILE:?}/kanata/kanata.exe.new"
 fi
 # {{   end }}
 # {{ end }}
