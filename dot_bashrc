@@ -8,7 +8,7 @@
 # early ble
 if [[ -f "${HOME}/.local/share/blesh/ble.sh" ]]; then
     # shellcheck disable=SC1091 # can't follow source
-    source "${HOME}/.local/share/blesh/ble.sh" --attach=none
+    source -- "${HOME}/.local/share/blesh/ble.sh" --attach=none
 fi
 
 ### environment
@@ -177,7 +177,7 @@ trap preexec DEBUG
 ### completion and fuzzy finding
 
 # ble.sh
-if [[ -n ${BLE_VERSION-} ]]; then
+if [[ -n ${BLE_VERSION:-} ]]; then
     bleopt term_index_colors=
     bleopt filename_ls_colors="${LS_COLORS}"
     bleopt highlight_syntax=
@@ -195,15 +195,15 @@ if [[ -n ${BLE_VERSION-} ]]; then
     bleopt edit_marker=
     bleopt edit_marker_error=
 
-    ble-bind -m auto_complete -f C-i auto_complete/insert
-    ble-bind -m auto_complete -f TAB auto_complete/insert
+    ble-bind -m auto_complete -f S-C-i auto_complete/insert
+    ble-bind -m auto_complete -f S-TAB auto_complete/insert
 fi
 
 # completion
 if command -v carapace >/dev/null 2>&1; then
     export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
     # shellcheck disable=SC1090 # non-constant source
-    source <(carapace _carapace bash || true)
+    source <(carapace _carapace || true)
 elif [[ -f /usr/share/bash-completion/bash_completion ]]; then
     source /usr/share/bash-completion/bash_completion
 fi
@@ -252,6 +252,7 @@ if command -v fzf >/dev/null 2>&1; then
         ble-import -d integration/fzf-completion
         ble-import -d integration/fzf-key-bindings
         ble-import -d integration/fzf-menu
+        true
     else
         eval "$(fzf --bash || true)"
     fi
@@ -307,4 +308,4 @@ fi
 export GIT_EDITOR="${EDITOR}"
 
 # late ble.sh
-[[ -n ${BLE_VERSION-} ]] && ble-attach
+[[ -n ${BLE_VERSION:-} ]] && ble-attach
