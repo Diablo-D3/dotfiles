@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# shellcheck source=.chezmoitemplates/install-lib
-. "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
-
 if [ ! -f "${HOME}/.terminfo/x/xterm-kitty" ]; then
     target="$(mktemp)"
 

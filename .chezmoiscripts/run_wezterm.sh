@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# shellcheck source=.chezmoitemplates/install-lib
-. "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
+set -eu
 
 if [ ! -f "${HOME}/.terminfo/w/wezterm" ]; then
     target="$(mktemp)"
@@ -13,9 +12,4 @@ if [ ! -f "${HOME}/.terminfo/w/wezterm" ]; then
     fi
 
     rm -f "${target}"
-fi
-
-if [ "${_wsl:?}" = 0 ]; then
-    mkdir -p "${USERPROFILE:?}/.config/wezterm"
-    cp "${_src:?}/private_dot_config/wezterm/"* "${USERPROFILE:?}/.config/wezterm/"
 fi

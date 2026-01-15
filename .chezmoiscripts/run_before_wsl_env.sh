@@ -1,27 +1,36 @@
 #!/bin/sh
 
-# shellcheck source=.chezmoitemplates/install-lib
-. "${HOME}/.local/share/chezmoi/.chezmoitemplates/install-lib"
+set -eu
 
-if [ "${_wsl}" = 0 ]; then
-    # steal envvars from Windows
-    "${_src:?}/src/wsl/stealenv.sh"
+_src="${CHEZMOI_SOURCE_DIR:?}"
 
-    # load again
-    if [ -f "${HOME}/.bashrc.win" ]; then
-        . "${HOME}/.bashrc.win"
-    fi
+case "${CHEZMOI_OS:?}" in
+"linux")
+    case "${CHEZMOI_KERNEL_OSRELEASE:?}" in
+    *"microsoft"*)
+        # steal envvars from Windows
+        "${_src:?}/src/wsl/stealenv.sh"
 
-    # standard user directories
-    if [ ! -d "${HOME}/Desktop" ]; then
-        ln -sT "${USERPROFILE:?}/Desktop" "${HOME}/Desktop"
-    fi
+        # load again
+        if [ -f "${HOME}/.bashrc.win" ]; then
+            . "${HOME}/.bashrc.win"
+        fi
 
-    if [ ! -d "${HOME}/Documents" ]; then
-        ln -sT "${USERPROFILE:?}/Documents" "${HOME}/Documents"
-    fi
+        # standard user directories
+        if [ ! -d "${HOME}/Desktop" ]; then
+            ln -sT "${USERPROFILE:?}/Desktop" "${HOME}/Desktop"
+        fi
 
-    if [ ! -d "${HOME}/Downloads" ]; then
-        ln -sT "${USERPROFILE:?}/Downloads" "${HOME}/Downloads"
-    fi
-fi
+        if [ ! -d "${HOME}/Documents" ]; then
+            ln -sT "${USERPROFILE:?}/Documents" "${HOME}/Documents"
+        fi
+
+        if [ ! -d "${HOME}/Downloads" ]; then
+            ln -sT "${USERPROFILE:?}/Downloads" "${HOME}/Downloads"
+        fi
+        ;;
+    *) ;;
+    esac
+    ;;
+*) ;;
+esac

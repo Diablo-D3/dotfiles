@@ -2,12 +2,12 @@
 
 set -eu
 
-# {{ div now.YearDay 7 }}
-
-echo "-> rust.sh"
+# {{ output "date" "+%V" | trim }}
 
 if ! (command -v "rustup" >/dev/null 2>&1); then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    rustup component add rust-analyzer
+    rustup component add clippy
 fi
 
 if (command -v "rustup" >/dev/null 2>&1); then
