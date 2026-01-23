@@ -12,34 +12,35 @@ local config = wezterm.config_builder()
 -- Milk: No milk
 
 config.colors = {
-  foreground = "#e5dff1",
-  background = "#0a0611",
-  cursor_bg = "#beb1da",
-  cursor_border = "#f2eff8",
-  cursor_fg = "#e5dff1",
-  selection_bg = "#e5dff1",
-  selection_fg = "#0a0611",
-  ansi = {
-    "#261d35",
-    "#d97780",
-    "#7aa860",
-    "#bc904f",
-    "#6b9bd9",
-    "#b77ed1",
-    "#52a9a9",
-    "#beb1da"
-  },
-  brights = {
-    "#584875",
-    "#e6949a",
-    "#8ebf73",
-    "#d3a563",
-    "#88b1e5",
-    "#c899de",
-    "#63c0bf",
-    "#f2eff8"
-  },
+    foreground = "#f4f2f9",
+    background = "#07040d",
+    cursor_bg = "#b2a2d1",
+    cursor_border = "#e5dff1",
+    cursor_fg = "#07040d",
+    selection_bg = "#f4f2f9",
+    selection_fg = "#07040d",
+    ansi = {
+        "#261d35",
+        "#d97780",
+        "#7aa860",
+        "#bc904f",
+        "#6b9bd9",
+        "#b77ed1",
+        "#52a9a9",
+        "#b2a2d1"
+    },
+    brights = {
+        "#584875",
+        "#e6949a",
+        "#8ebf73",
+        "#d3a563",
+        "#88b1e5",
+        "#c899de",
+        "#63c0bf",
+        "#e5dff1"
+    },
 }
+
 config.enable_tab_bar = false
 
 config.window_padding = {
@@ -51,22 +52,27 @@ config.window_padding = {
 
 config.term = 'wezterm'
 
-config.font = wezterm.font('Iosevka Term', { weight = 'Regular' })
+config.font = wezterm.font('Iosevka Term', { weight = 'Medium', stretch = 'Expanded' })
 
 config.font_rules = {
     {
+        intensity = 'Normal',
+        italic = true,
+        font = wezterm.font('Iosevka Term', { weight = 'Medium', stretch = 'Expanded', italic = true })
+    },
+    {
         intensity = 'Bold',
         italic = false,
-        font = wezterm.font('Iosevka Term', { weight = 'Medium' })
+        font = wezterm.font('Iosevka Term', { weight = 'Bold', stretch = 'Expanded' })
     },
     {
         intensity = 'Bold',
         italic = true,
-        font = wezterm.font('Iosevka Term', { weight = 'Medium', italic = true })
+        font = wezterm.font('Iosevka Term', { weight = 'Bold', stretch = 'Expanded', italic = true })
     },
 }
 
-config.font_size = 14.0
+config.font_size = 11.75
 
 config.keys = {
     {

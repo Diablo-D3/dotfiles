@@ -3,13 +3,13 @@ TERM = "alacritty"
 WSLENV = "TERM/u"
 
 [font]
-normal = { family = "Iosevka Term", style = "Regular" }
-bold = { family = "Iosevka Term", style = "Medium" }
-italic = { family = "Iosevka Term", style = "Italic" }
-bold_italic = { family = "Iosevka Term", style = "Medium Italic" }
-size = 14
-offset = { x = 1, y = 1 }
-glyph_offset = { x = 0, y = 1 }
+normal = { family = "Iosevka Term", style = "Medium Extended" }
+bold = { family = "Iosevka Term", style = "Bold Extended" }
+italic = { family = "Iosevka Term", style = "Medium Italic Extended" }
+bold_italic = { family = "Iosevka Term", style = "Bold Italic Extended" }
+size = 12
+offset = { x = 1, y = 0 }
+glyph_offset = { x = 0, y = 0 }
 
 [window]
 dimensions = { columns = 80, lines = 25 }
@@ -37,12 +37,12 @@ bindings = [{ key = "F11", action = "ToggleFullscreen" }]
 # Milk: No milk
 
 [colors.primary]
-background = '#0a0611'
-foreground = '#e5dff1'
+background = '#07040d'
+foreground = '#f4f2f9'
 
 [colors.cursor]
-text = '#e5dff1'
-cursor = '#beb1da'
+text = '#07040d'
+cursor = '#b2a2d1'
 
 [colors.normal]
 black = '#261d35'
@@ -52,7 +52,7 @@ yellow = '#bc904f'
 blue = '#6b9bd9'
 magenta = '#b77ed1'
 cyan = '#52a9a9'
-white = '#beb1da'
+white = '#b2a2d1'
 
 [colors.bright]
 black = '#584875'
@@ -62,4 +62,4 @@ yellow = '#d3a563'
 blue = '#88b1e5'
 magenta = '#c899de'
 cyan = '#63c0bf'
-white = '#f2eff8'
+white = '#e5dff1'
