@@ -60,7 +60,9 @@ export MANPATH
 # remove green background for o+w dirs; can't read blue on green
 # wsl2's 9p2000 bridge doesn't filter these perms
 eval "$(dircolors || true)"
-LS_COLORS="${LS_COLORS/:ow=*[^:]):/:ow=:}"
+shopt -s extglob
+LS_COLORS="${LS_COLORS/:ow=*([^:]):/:ow=:}"
+shopt -u extglob
 export LS_COLORS
 
 # check for 24 bit support
