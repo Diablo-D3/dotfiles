@@ -259,7 +259,7 @@ if command -v fzf >/dev/null 2>&1; then
         eval "$(fzf --bash || true)"
     fi
 
-    export FZF_COMPLETION_TRIGGER FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS FZF_CTRL_T_COMMAND FZF_CTRL_T_OPTS FZF_ALT_C_COMMAND FZF_ALT_C_OPTS
+    export FZF_COMPLETION_TRIGGER FZF_DEFAULT_OPTS FZF_CTRL_R_OPTS FZF_CTRL_T_COMMAND FZF_ALT_C_COMMAND
 fi
 
 ### programs
