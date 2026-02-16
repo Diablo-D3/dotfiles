@@ -7,7 +7,7 @@
 
 # early ble
 if [[ -f "${HOME}/.local/share/blesh/ble.sh" ]]; then
-    # shellcheck disable=SC1091 # can't follow source
+    # shellcheck disable=SC1091,SC1094 # can't follow source, can't parse source file
     source -- "${HOME}/.local/share/blesh/ble.sh" --attach=none
 fi
 
@@ -159,7 +159,11 @@ precmd() {
     fi
 }
 
-PROMPT_COMMAND=precmd
+if [[ -n ${BLE_VERSION-} ]]; then
+    blehook PRECMD!=precmd
+else
+    PROMPT_COMMAND=precmd
+fi
 
 # set xterm title
 preexec() {
@@ -174,12 +178,16 @@ preexec() {
     history -a
 }
 
-trap preexec DEBUG
+if [[ -n ${BLE_VERSION-} ]]; then
+    blehook PREEXEC!=preexec
+else
+    trap preexec DEBUG
+fi
 
 ### completion and fuzzy finding
 
 # ble.sh
-if [[ -n ${BLE_VERSION:-} ]]; then
+if [[ -n ${BLE_VERSION-} ]]; then
     bleopt term_index_colors=
     bleopt filename_ls_colors="${LS_COLORS}"
     bleopt highlight_syntax=
@@ -307,4 +315,4 @@ fi
 export GIT_EDITOR="${EDITOR}"
 
 # late ble.sh
-[[ -n ${BLE_VERSION:-} ]] && ble-attach
+[[ -n ${BLE_VERSION-} ]] && ble-attach
