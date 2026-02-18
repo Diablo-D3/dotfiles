@@ -5,8 +5,8 @@ WSLENV = "TERM/u"
 [font]
 normal = { family = "Iosevka Term", style = "Medium Extended" }
 bold = { family = "Iosevka Term", style = "Bold Extended" }
-italic = { family = "Iosevka Term", style = "Medium Italic Extended" }
-bold_italic = { family = "Iosevka Term", style = "Bold Italic Extended" }
+italic = { family = "Iosevka Term", style = "Medium Extended Italic" }
+bold_italic = { family = "Iosevka Term", style = "Bold Extended Italic" }
 size = 12
 offset = { x = 1, y = 0 }
 glyph_offset = { x = 0, y = 0 }
@@ -28,13 +28,8 @@ osc52 = "CopyPaste"
 [keyboard]
 bindings = [{ key = "F11", action = "ToggleFullscreen" }]
 
-# rootloops.sh
-# Sugar: 7
-# Colors: 6
-# Sogginess: 4
-# Flavor: Classic
-# Fruit: Blackberry
-# Milk: No milk
+# Colors (Root Loops)
+# via https://rootloops.sh?sugar=7&colors=6&sogginess=4&flavor=1&fruit=10&milk=0
 
 [colors.primary]
 background = '#07040d'
