@@ -1,7 +1,6 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema-preview",
-    "actions": [],
     "alwaysShowTabs": false,
     "compatibility.textMeasurement": "wcswidth",
     "copyOnSelect": true,
@@ -70,8 +69,16 @@
             "keys": "ctrl+alt+5"
         },
         {
+            "id": "Terminal.ScrollDownPage",
+            "keys": "shift+pgdn"
+        },
+        {
             "id": null,
             "keys": "ctrl+alt+6"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+v"
         },
         {
             "id": null,
@@ -111,6 +118,18 @@
         },
         {
             "id": null,
+            "keys": "ctrl+numpad0"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+pgup"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+pgdn"
+        },
+        {
+            "id": null,
             "keys": "ctrl+shift+period"
         },
         {
@@ -124,6 +143,10 @@
         {
             "id": null,
             "keys": "ctrl+shift+8"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+home"
         },
         {
             "id": null,
@@ -155,10 +178,6 @@
         },
         {
             "id": null,
-            "keys": "ctrl+plus"
-        },
-        {
-            "id": null,
             "keys": "ctrl+shift+3"
         },
         {
@@ -172,6 +191,10 @@
         {
             "id": null,
             "keys": "ctrl+alt+left"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+numpad_minus"
         },
         {
             "id": null,
@@ -204,6 +227,38 @@
         {
             "id": null,
             "keys": "enter"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+down"
+        },
+        {
+            "id": "Terminal.ScrollToBottom",
+            "keys": "shift+end"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+end"
+        },
+        {
+            "id": "Terminal.ScrollToTop",
+            "keys": "shift+home"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+up"
+        },
+        {
+            "id": "Terminal.ScrollUpPage",
+            "keys": "shift+pgup"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+p"
+        },
+        {
+            "id": null,
+            "keys": "alt+enter"
         }
     ],
     "newTabMenu": [],
@@ -218,12 +273,11 @@
             "experimental.retroTerminalEffect": false,
             "font": 
             {
-                "cellHeight": "20px",
+                "cellHeight": "24px",
                 "cellWidth": "10px",
-                "face": "Iosevka Term",
-                "size": 12,
-                "weight": "medium",
-                "axes": { "wdth": 600 }
+                "face": "Pragmasevka",
+                "size": 15,
+                "weight": "normal"
             },
             "intenseTextStyle": "bold",
             "padding": "0",
@@ -263,27 +317,27 @@
     "schemes": 
     [
         {
-            "name": "Root Loops",
-            "cursorColor": "#b2a2d1",
-            "selectionBackground": "#b2a2d1",
-            "background": "#07040d",
-            "foreground": "#f4f2f9",
-            "black": "#261d35",
-            "blue": "#6b9bd9",
-            "cyan": "#52a9a9",
-            "green": "#7aa860",
-            "purple": "#b77ed1",
-            "red": "#d97780",
-            "white": "#b2a2d1",
-            "yellow": "#bc904f",
+            "background": "#07040D",
+            "black": "#261D35",
+            "blue": "#6B9BD9",
             "brightBlack": "#584875",
-            "brightBlue": "#88b1e5",
-            "brightCyan": "#63c0bf",
-            "brightGreen": "#8ebf73",
-            "brightPurple": "#c899de",
-            "brightRed": "#e6949a",
-            "brightWhite": "#e5dff1",
-            "brightYellow": "#d3a563"
+            "brightBlue": "#88B1E5",
+            "brightCyan": "#63C0BF",
+            "brightGreen": "#8EBF73",
+            "brightPurple": "#C899DE",
+            "brightRed": "#E6949A",
+            "brightWhite": "#E5DFF1",
+            "brightYellow": "#D3A563",
+            "cursorColor": "#B2A2D1",
+            "cyan": "#52A9A9",
+            "foreground": "#F4F2F9",
+            "green": "#7AA860",
+            "name": "Root Loops",
+            "purple": "#B77ED1",
+            "red": "#D97780",
+            "selectionBackground": "#B2A2D1",
+            "white": "#B2A2D1",
+            "yellow": "#BC904F"
         }
     ],
     "showTabsInTitlebar": false,

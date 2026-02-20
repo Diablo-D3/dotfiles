@@ -3,14 +3,8 @@
 local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 
--- rootloops.sh
--- Sugar: 7
--- Colors: 6
--- Sogginess: 4
--- Flavor: Classic
--- Fruit: Blackberry
--- Milk: No milk
-
+-- Root Loops color scheme
+-- via https://rootloops.sh?sugar=7&colors=6&sogginess=4&flavor=1&fruit=10&milk=0
 config.colors = {
     foreground = "#f4f2f9",
     background = "#07040d",
@@ -52,27 +46,32 @@ config.window_padding = {
 
 config.term = 'wezterm'
 
-config.font = wezterm.font('Iosevka Term', { weight = 'Medium', stretch = 'Expanded' })
+config.font = wezterm.font('Pragmasevka', { weight = 'Regular' })
 
 config.font_rules = {
     {
         intensity = 'Normal',
         italic = true,
-        font = wezterm.font('Iosevka Term', { weight = 'Medium', stretch = 'Expanded', italic = true })
+        font = wezterm.font('Pragmasevka', { weight = 'Regular', italic = true })
     },
     {
         intensity = 'Bold',
         italic = false,
-        font = wezterm.font('Iosevka Term', { weight = 'Bold', stretch = 'Expanded' })
+        font = wezterm.font('Pragmasevka', { weight = 'Bold' })
     },
     {
         intensity = 'Bold',
         italic = true,
-        font = wezterm.font('Iosevka Term', { weight = 'Bold', stretch = 'Expanded', italic = true })
+        font = wezterm.font('Pragmasevka', { weight = 'Bold', italic = true })
     },
 }
 
-config.font_size = 11.75
+config.font_size = 15
+config.cell_width = (10 / 10)
+config.line_height = (24 / 22)
+
+--config.freetype_load_target = "Light"
+--config.freetype_render_target = "HorizontalLcd"
 
 config.keys = {
     {
