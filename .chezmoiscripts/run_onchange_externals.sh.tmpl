@@ -98,6 +98,11 @@ if sum "${file}"; then
     chmod +x "${dir}/bin/nvim"
 fi
 
+file="${dl}/pragmasevka.zip"
+if sum "${file}"; then
+    unzip -qqo "${file}" -d "${HOME}/.local/share/fonts"
+fi
+
 file="${dl}/rumdl.tar.gz"
 if sum "${file}"; then
     tar -xzf "${file}" -C "${HOME}/.local/bin" "rumdl"
