@@ -1,12 +1,6 @@
-# rootloops.sh
-# Sugar: 7
-# Colors: 6
-# Sogginess: 4
-# Flavor: Classic
-# Fruit: Blackberry
-# Milk: No milk
+# Root Loops (https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=0)
 
-"ui.background" = { fg = "background"}
+"ui.background" = { fg = "background" }
 "ui.background.separator" = { fg = "gray" }
 "ui.text" = { fg = "foreground" }
 "ui.text.focus" = { fg = "white" }
@@ -14,7 +8,7 @@
 "ui.menu.selected" = { modifiers = ["reversed"] }
 "ui.menu.scroll" = { fg = "light-gray" }
 "ui.linenr" = { fg = "light-gray" }
-"ui.linenr.selected" = { fg = "white",  modifiers = ["bold"] }
+"ui.linenr.selected" = { fg = "white", modifiers = ["bold"] }
 "ui.popup" = { fg = "white" }
 "ui.window" = { fg = "gray" }
 "ui.selection" = { bg = "gray" }
@@ -37,8 +31,8 @@
 "ui.virtual.whitespace" = "gray"
 "ui.virtual.indent-guide" = "gray"
 "ui.virtual.inlay-hint" = { fg = "white", bg = "gray" }
-"ui.virtual.inlay-hint.parameter" = { fg = "white", bg = "gray"}
-"ui.virtual.inlay-hint.type" = { fg = "white", bg = "gray"}
+"ui.virtual.inlay-hint.parameter" = { fg = "white", bg = "gray" }
+"ui.virtual.inlay-hint.type" = { fg = "white", bg = "gray" }
 "ui.virtual.wrap" = "gray"
 "ui.virtual.jump-label" = { fg = "blue", modifiers = ["bold", "underlined"] }
 
@@ -47,7 +41,7 @@
 "constant" = "yellow"
 "attribute" = "yellow"
 "type" = "light-yellow"
-"string"  = "light-green"
+"string" = "light-green"
 "variable.other.member" = "green"
 "constant.character.escape" = "light-cyan"
 "function" = "light-blue"
@@ -62,7 +56,7 @@
 "markup.bold" = { fg = "light-yellow", modifiers = ["bold"] }
 "markup.italic" = { fg = "light-magenta", modifiers = ["italic"] }
 "markup.strikethrough" = { modifiers = ["crossed_out"] }
-"markup.link.url" = { fg = "yellow", underline = { color = "yellow", style = "line"} }
+"markup.link.url" = { fg = "yellow", underline = { color = "yellow", style = "line" } }
 "markup.link.text" = "light-red"
 "markup.quote" = "light-cyan"
 "markup.raw" = "green"
@@ -84,28 +78,28 @@
 
 "diagnostic.info" = { underline = { color = "light-blue", style = "dotted" } }
 "diagnostic.hint" = { underline = { color = "light-gray", style = "double_line" } }
-"diagnostic.debug" = { underline ={ color ="light-gray", style = "dashed" } }
+"diagnostic.debug" = { underline = { color = "light-gray", style = "dashed" } }
 "diagnostic.warning" = { underline = { color = "light-yellow", style = "curl" } }
-"diagnostic.error" = { underline = { color ="light-red", style = "curl" } }
+"diagnostic.error" = { underline = { color = "light-red", style = "curl" } }
 
 [palette]
-black = "#261d35"
+black = "#222222"
 red = "#d97780"
 green = "#7aa860"
 yellow = "#bc904f"
 blue = "#6b9bd9"
 magenta = "#b77ed1"
 cyan = "#52a9a9"
-light-gray = "#beb1da"
+light-gray = "#ababab"
 
-gray = "#584875"
+gray = "#525252"
 light-red = "#e6949a"
 light-green = "#8ebf73"
 light-yellow = "#d3a563"
 light-blue = "#88b1e5"
 light-magenta = "#c899de"
 light-cyan = "#63c0bf"
-white = "#f2eff8"
+white = "#e2e2e2"
 
-foreground = "#e5dff1"
-background = "#0a0611"
+foreground = "#f3f3f3"
+background = "#060606"

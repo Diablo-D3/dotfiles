@@ -33,32 +33,32 @@ osc52 = "CopyPaste"
 bindings = [{ key = "F11", action = "ToggleFullscreen" }]
 
 # Colors (Root Loops)
-# via https://rootloops.sh?sugar=7&colors=6&sogginess=4&flavor=1&fruit=10&milk=0
+# via https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=0
 
 [colors.primary]
-background = '#07040d'
-foreground = '#f4f2f9'
+background = '#060606'
+foreground = '#f3f3f3'
 
 [colors.cursor]
-text = '#07040d'
-cursor = '#b2a2d1'
+text = '#060606'
+cursor = '#ababab'
 
 [colors.normal]
-black = '#261d35'
+black = '#222222'
 red = '#d97780'
 green = '#7aa860'
 yellow = '#bc904f'
 blue = '#6b9bd9'
 magenta = '#b77ed1'
 cyan = '#52a9a9'
-white = '#b2a2d1'
+white = '#ababab'
 
 [colors.bright]
-black = '#584875'
+black = '#525252'
 red = '#e6949a'
 green = '#8ebf73'
 yellow = '#d3a563'
 blue = '#88b1e5'
 magenta = '#c899de'
 cyan = '#63c0bf'
-white = '#e5dff1'
+white = '#e2e2e2'
