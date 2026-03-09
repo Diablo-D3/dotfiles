@@ -4,34 +4,34 @@ local wezterm = require('wezterm')
 local config = wezterm.config_builder()
 
 -- Root Loops color scheme
--- via https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=0
+-- via https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=1
 config.colors = {
-    foreground = "#f3f3f3",
-    background = "#060606",
-    cursor_bg = "#ababab",
-    cursor_border = "#e2e2e2",
-    cursor_fg = "#060606",
-    selection_bg = "#f3f3f3",
-    selection_fg = "#060606",
+    foreground = "#d6d6d6",
+    background = "#212121",
+    cursor_bg = "#a0a0a0",
+    cursor_border = "#cacaca",
+    cursor_fg = "#212121",
+    selection_bg = "#d6d6d6",
+    selection_fg = "#212121",
     ansi = {
-        "#222222",
+        "#373737",
         "#d97780",
         "#7aa860",
         "#bc904f",
         "#6b9bd9",
         "#b77ed1",
         "#52a9a9",
-        "#ababab"
+        "#a0a0a0"
     },
     brights = {
-        "#525252",
+        "#5b5b5b",
         "#e6949a",
         "#8ebf73",
         "#d3a563",
         "#88b1e5",
         "#c899de",
         "#63c0bf",
-        "#e2e2e2"
+        "#cacaca"
     },
 }
 

@@ -1,4 +1,7 @@
-# Root Loops (https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=0)
+# Copy the configuration below to ~/.config/helix/themes/rootloops.toml
+
+
+# Root Loops (https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=1)
 
 "ui.background" = { fg = "background" }
 "ui.background.separator" = { fg = "gray" }
@@ -83,23 +86,23 @@
 "diagnostic.error" = { underline = { color = "light-red", style = "curl" } }
 
 [palette]
-black = "#222222"
+black = "#373737"
 red = "#d97780"
 green = "#7aa860"
 yellow = "#bc904f"
 blue = "#6b9bd9"
 magenta = "#b77ed1"
 cyan = "#52a9a9"
-light-gray = "#ababab"
+light-gray = "#a0a0a0"
 
-gray = "#525252"
+gray = "#5b5b5b"
 light-red = "#e6949a"
 light-green = "#8ebf73"
 light-yellow = "#d3a563"
 light-blue = "#88b1e5"
 light-magenta = "#c899de"
 light-cyan = "#63c0bf"
-white = "#e2e2e2"
+white = "#cacaca"
 
-foreground = "#f3f3f3"
-background = "#060606"
+foreground = "#d6d6d6"
+background = "#212121"
