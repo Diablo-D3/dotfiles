@@ -77,6 +77,33 @@ now(function()
     })
 end)
 
+-- now_if_args
+now_if_args(function()
+    local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
+
+    local process_items = function(items, base)
+        return MiniCompletion.default_process_items(items, base, process_items_opts)
+    end
+
+    require('mini.completion').setup({
+        lsp_completion = {
+            source_func = 'omnifunc',
+            auto_setup = false,
+            process_items = process_items
+        }
+    })
+
+    create_autocmd('LspAttach', 'mini.completion omnifunc', {
+        callback = function(ev)
+            vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
+        end
+    })
+
+    vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
+end)
+
+now_if_args(function() require('mini.files').setup() end)
+
 -- later
 later(function() require('mini.extra').setup() end)
 
@@ -133,33 +160,7 @@ later(function() require('mini.cmdline').setup() end)
 
 later(function() require('mini.comment').setup() end)
 
-later(function()
-    local process_items_opts = { kind_priority = { Text = -1, Snippet = 99 } }
-
-    local process_items = function(items, base)
-        return MiniCompletion.default_process_items(items, base, process_items_opts)
-    end
-
-    require('mini.completion').setup({
-        lsp_completion = {
-            source_func = 'omnifunc',
-            auto_setup = false,
-            process_items = process_items
-        }
-    })
-
-    create_autocmd('LspAttach', 'mini.completion omnifunc', {
-        callback = function(ev)
-            vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
-        end
-    })
-
-    vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
-end)
-
 later(function() require('mini.diff').setup() end)
-
-later(function() require('mini.files').setup() end)
 
 later(function() require('mini.git').setup() end)
 
