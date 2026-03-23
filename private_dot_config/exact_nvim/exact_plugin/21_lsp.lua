@@ -21,7 +21,7 @@ now_if_args(function()
     require('lazydev').setup({
         library = {
             {
-                patm = '${3rd}/luv/library',
+                path = '${3rd}/luv/library',
                 words = { 'vim%.uv' }
             },
         }
