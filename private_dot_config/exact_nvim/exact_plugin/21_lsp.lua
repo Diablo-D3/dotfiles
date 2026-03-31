@@ -40,7 +40,7 @@ now_if_args(function()
                     cmd('RustLsp codeAction'), { buffer = buf })
 
                 map(n, '<Leader>ld', 'Diagnostic (Rustaceanvim)',
-                    cmd('RustLsp renderDiagnostics current'), { buffer = buf })
+                    cmd('RustLsp renderDiagnostic current'), { buffer = buf })
 
                 map(n, 'K', 'Hover (Rustaceanvim)',
                     cmd('RustLsp hover actions'), { buffer = buf })
