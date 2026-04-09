@@ -57,14 +57,6 @@ HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 MANPATH="${HOME}/.local/share/man:$(manpath -g)"
 export MANPATH
 
-# remove green background for o+w dirs; can't read blue on green
-# wsl2's 9p2000 bridge doesn't filter these perms
-eval "$(dircolors || true)"
-shopt -s extglob
-LS_COLORS="${LS_COLORS/:ow=*([^:]):/:ow=:}"
-shopt -u extglob
-export LS_COLORS
-
 # check for 24 bit support
 if [[ "${TERM}" = "xterm"* ||
     "${TERM}" = "tmux"* ||
@@ -72,6 +64,14 @@ if [[ "${TERM}" = "xterm"* ||
     "${TERM}" = "wezterm"* ]]; then
     export COLORTERM="truecolor"
 fi
+
+# remove green background for o+w dirs; can't read blue on green
+# wsl2's 9p2000 bridge doesn't filter these perms
+eval "$(dircolors || true)"
+shopt -s extglob
+LS_COLORS="${LS_COLORS/:ow=*([^:]):/:ow=:}"
+shopt -u extglob
+export LS_COLORS
 
 # load local Win config
 if [[ -x "${HOME}/.bashrc.win" ]]; then
