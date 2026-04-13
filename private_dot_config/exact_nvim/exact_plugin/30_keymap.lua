@@ -40,6 +40,8 @@ map(nvi, '<A-Down>', 'Focus window below',
 -- Leader
 map(n, '<Leader>?', 'Keymaps',
     cmd('Pick keymaps'))
+map(n, '<leader>z', 'Restart Neovim',
+    lua('MiniSessions.restart()'))
 
 -- Buffers
 map(n, '<leader>bb', 'Buffers',
@@ -54,10 +56,19 @@ map(n, '<leader>bW', 'Wipeout!',
     lua('MiniBufremove.wipeout(0, true)'))
 
 -- Finder/Picker
+map(n, '<Leader>f/', '"/" history',
+    cmd('Pick history scope="/"'))
+map(n, '<Leader>f:', '":" history',
+    cmd('Pick history scope=":"'))
 map(n, '<Leader>fe', 'Explorer',
     cmd('Pick explorer'))
 map(n, '<Leader>ff', 'Files',
     cmd('Pick files'))
+map(n, '<Leader>fh', 'Help tags',
+    cmd('Pick help'))
+map(n, '<Leader>fH', 'Highlight groups',
+    cmd('Pick hl_groups'))
+
 map(n, '<Leader>fm', 'Messages',
     lua('MiniNotify.show_history()'))
 

@@ -26,6 +26,8 @@ now(function()
     later(MiniIcons.tweak_lsp_kind)
 end)
 
+now(function() require('mini.sessions').setup() end)
+
 now(function()
     require('mini.notify').setup({
         window = {
