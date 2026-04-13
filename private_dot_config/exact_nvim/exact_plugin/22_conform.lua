@@ -1,5 +1,5 @@
 later(function()
-    add('stevearc/conform.nvim')
+    add({ 'https://github.com/stevearc/conform.nvim' })
 
     _G.Conform = require('conform')
     Conform.setup({

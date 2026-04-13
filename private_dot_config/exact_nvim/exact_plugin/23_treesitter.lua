@@ -1,11 +1,13 @@
 now_if_args(function()
-    add({
-        source = 'nvim-treesitter/nvim-treesitter',
-        hooks = { postcheckout = function() vim.cmd.TSUpdate() end }
-    })
+    on_packchanged('nvim-treesitter', { 'update' }, ':TSUpdate',
+        function()
+            vim.cmd.TSUpdate()
+        end
+    )
 
     add({
-        source = 'nvim-treesitter/nvim-treesitter-textobjects',
+        'https://github.com/nvim-treesitter/nvim-treesitter',
+        'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
     })
 
     local treesitter = require('nvim-treesitter')

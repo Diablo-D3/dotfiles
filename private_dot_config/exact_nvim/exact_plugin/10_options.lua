@@ -29,22 +29,22 @@ later(function()
         signs = {
             priority = 9999,
             severity = {
-                min = 'WARN',
-                max = 'ERROR'
+                min = vim.diagnostic.severity.WARN,
+                max = vim.diagnostic.severity.ERROR
             },
         },
         underline = {
             severity = {
-                min = 'HINT',
-                max = 'ERROR'
+                min = vim.diagnostic.severity.HINT,
+                max = vim.diagnostic.severity.ERROR
             }
         },
         virtual_lines = false,
         virtual_text = {
             current_line = true,
             severity = {
-                min = 'ERROR',
-                max = 'ERROR'
+                min = vim.diagnostic.severity.ERROR,
+                max = vim.diagnostic.severity.ERROR
             }
         }
     })

@@ -1,25 +1,19 @@
--- MiniDeps
-local path_package = vim.fn.stdpath('data') .. '/site'
-local mini_path = path_package .. '/pack/deps/start/mini.nvim'
-if not vim.uv.fs_stat(mini_path) then
-    vim.cmd('echo "Installing `mini.nvim`" | redraw')
-    local clone_cmd = {
-        'git', 'clone', '--filter=blob:none',
-        'https://github.com/nvim-mini/mini.nvim', mini_path
-    }
-    vim.fn.system(clone_cmd)
-    vim.cmd('packadd mini.nvim | helptags ALL')
-    vim.cmd('echo "Installed `mini.nvim`" | redraw')
-end
-
-require('mini.deps').setup()
-
-_G.add, _G.now, _G.later = MiniDeps.add, MiniDeps.now, MiniDeps.later
-_G.now_if_args = vim.fn.argc(-1) > 0 and now or later
-
 -- Global
 _G.tbl_contains = vim.tbl_contains
 _G.tbl_extend = vim.tbl_extend
+
+_G.add = vim.pack.add
+
+-- Mini.nvim
+add({ 'https://github.com/nvim-mini/mini.nvim' })
+
+_G.MiniMisc = require('mini.misc')
+
+_G.now = function(f) MiniMisc.safely('now', f) end
+_G.later = function(f) MiniMisc.safely('later', f) end
+_G.now_if_args = vim.fn.argc(-1) > 0 and _G.now or _G.later
+_G.on_event = function(ev, f) MiniMisc.safely('event:' .. ev, f) end
+_G.on_filetype = function(ft, f) MiniMisc.safely('filetype:' .. ft, f) end
 
 --- |vim.api.nvim_create_autocmd| wrapper that breaks opts.desc out
 --- @param event string|string[]
@@ -31,6 +25,17 @@ _G.create_autocmd = function(event, desc, opts)
         group = vim.api.nvim_create_augroup(desc, { clear = false })
     })
     return vim.api.nvim_create_autocmd(event, opts)
+end
+
+_G.on_packchanged = function(plugin_name, kinds, desc, callback)
+    create_autocmd('PackChanged', desc, {
+        callback = function(ev)
+            local name, kind = ev.data.spec.name, ev.data.kind
+            if not (name == plugin_name and tbl_contains(kinds, kind)) then return end
+            if not ev.data.active then vim.cmd.packadd(plugin_name) end
+            callback(ev.data)
+        end
+    })
 end
 
 -- Mode constants
@@ -47,6 +52,7 @@ _G.ni = { n, i }
 _G.nvi = { n, v, i }
 _G.nvic = { n, v, i, c }
 
+-- Keymap
 --- |vim.keymap.set()| wrapper that breaks `opts.desc` out
 --- @param mode string|string[]
 --- @param lhs string

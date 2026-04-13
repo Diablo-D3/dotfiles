@@ -1,6 +1,8 @@
 later(function()
-    add('NeogitOrg/neogit')
-    add('nvim-lua/plenary.nvim')
+    add({
+        'http://github.com/NeogitOrg/neogit',
+        'http://github.com/nvim-lua/plenary.nvim'
+    })
 
     local neogit = require('neogit')
     neogit.setup({

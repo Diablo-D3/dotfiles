@@ -1,5 +1,5 @@
 now_if_args(function()
-    add('neovim/nvim-lspconfig')
+    add({ 'https://github.com/neovim/nvim-lspconfig' })
 
     vim.lsp.config('bashls', {
         settings = {
@@ -16,7 +16,7 @@ now_if_args(function()
 end)
 
 now_if_args(function()
-    add('folke/lazydev.nvim')
+    add({ 'https://github.com/folke/lazydev.nvim' })
 
     require('lazydev').setup({
         library = {
@@ -31,7 +31,7 @@ now_if_args(function()
 end)
 
 now_if_args(function()
-    add('mrcjkb/rustaceanvim')
+    add({ 'https://github.com/mrcjkb/rustaceanvim' })
 
     vim.g.rustaceanvim = {
         server = {
@@ -50,7 +50,11 @@ now_if_args(function()
             default_settings = {
                 ['rust-analyzer'] = {
                     check = {
-                        command = "clippy"
+                        command = 'clippy'
+                    },
+                    inlayHints = {
+                        discriminantHints = { enable = true },
+                        paramaterHints = { missingArguments = { enable = true } }
                     }
                 }
             }
