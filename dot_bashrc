@@ -299,7 +299,7 @@ export NPMPATH="${HOME}/.npm/lib/node_modules"
 
 # shellcheck disable=SC1091 # can't follow source
 PATH="${HOME}/.npm/bin:${PATH}"
-export MANPATH="${NPMPATH}/share/man:${MANPATH}"
+export MANPATH="${HOME}/.npm/share/man:${MANPATH}"
 
 #fd
 if command -v fdfind >/dev/null 2>&1; then
