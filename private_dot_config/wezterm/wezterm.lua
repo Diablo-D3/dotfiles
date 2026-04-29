@@ -66,9 +66,9 @@ config.font_rules = {
     },
 }
 
-config.font_size = 15
-config.cell_width = (10 / 10)
-config.line_height = (24 / 22)
+config.font_size = 16
+config.cell_width = 1.0
+config.line_height = 1.0
 
 --config.freetype_load_target = "Light"
 --config.freetype_render_target = "HorizontalLcd"

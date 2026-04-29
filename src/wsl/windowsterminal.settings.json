@@ -273,10 +273,10 @@
             "experimental.retroTerminalEffect": false,
             "font": 
             {
-                "cellHeight": "24px",
-                "cellWidth": "10px",
+                "cellHeight": "1.125",
+                "cellWidth": "0.5",
                 "face": "Pragmasevka",
-                "size": 15,
+                "size": 16,
                 "weight": "normal"
             },
             "intenseTextStyle": "bold",
