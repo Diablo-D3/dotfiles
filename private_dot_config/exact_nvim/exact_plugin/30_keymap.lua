@@ -1,3 +1,7 @@
+-- Overrides
+map(n, 'ZR', 'Restart Neovim',
+    lua('MiniSessions.restart()'))
+
 -- Cursor
 map(nvi, '<C-Left>', 'Move left one word',
     keys('b'))
@@ -40,8 +44,6 @@ map(nvi, '<A-Down>', 'Focus window below',
 -- Leader
 map(n, '<Leader>?', 'Keymaps',
     cmd('Pick keymaps'))
-map(n, '<leader>z', 'Restart Neovim',
-    lua('MiniSessions.restart()'))
 
 -- Buffers
 map(n, '<leader>bb', 'Buffers',
@@ -68,7 +70,6 @@ map(n, '<Leader>fh', 'Help tags',
     cmd('Pick help'))
 map(n, '<Leader>fH', 'Highlight groups',
     cmd('Pick hl_groups'))
-
 map(n, '<Leader>fm', 'Messages',
     lua('MiniNotify.show_history()'))
 

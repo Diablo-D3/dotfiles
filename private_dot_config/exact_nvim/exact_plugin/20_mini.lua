@@ -137,7 +137,7 @@ later(function()
             { mode = { i, c }, keys = '<C-r>' },
             { mode = n,        keys = '<C-w>' },
             { mode = n,        keys = 's' },
-            { mode = { n, x }, keys = 'z' },
+            { mode = { n, x }, keys = 'z' }
         },
 
         clues = {

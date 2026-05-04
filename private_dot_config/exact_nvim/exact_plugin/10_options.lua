@@ -7,11 +7,24 @@ vim.o.tabstop = 4
 vim.o.completeopt = 'menuone,noselect,fuzzy,nosort'
 
 vim.opt.clipboard:append('unnamed')
---vim.opt.clipboard:append('unnamedplus')
+vim.opt.clipboard:append('unnamedplus')
 
 -- Neovim has weird clipboard detection preferences
 -- https://github.com/neovim/neovim/blob/8ab511bba524bcd5b5913d1b1205b5e4fe3f7210/runtime/autoload/provider/clipboard.vim#L219-L268
-if vim.env.TMUX then
+if vim.env.WSL_INTEROP then
+    vim.g.clipboard = {
+        name = 'WslClipboard',
+        copy = {
+            ['+'] = 'clip.exe',
+            ['*'] = 'clip.exe'
+        },
+        paste = {
+            ['+'] = { 'powershell.exe', '-nologo', '-noprofile', '-c', '[console]::out.write($(get-clipboard -raw).tostring().replace("`r", ""))' },
+            ['*'] = { 'powershell.exe', '-nologo', '-noprofile', '-c', '[console]::out.write($(get-clipboard -raw).tostring().replace("`r", ""))' }
+        },
+        cache_enabled = 0
+    }
+elseif vim.env.TMUX then
     vim.g.clipboard = 'tmux'
 else
     vim.g.clipboard = 'osc52'
