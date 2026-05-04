@@ -43,27 +43,35 @@ _rm() {
 }
 
 file="${dl}/ble-nightly.tar.xz"
+tag="{{ (gitHubLatestRelease "akinomyoga/ble.sh").TagName }}"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     tar xJf "${file}" -C /tmp
     bash /tmp/ble-nightly/ble.sh --install ~/.local/share
     rm -rf /tmp/ble-nightly
 fi
 
 file="${dl}/carapace-bin.tar.gz"
+tag="{{ (gitHubLatestRelease "carapace-sh/carapace-bin").TagName }}"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     tar -xzf "${file}" -C "${HOME}/.local/bin" "carapace"
     chmod +x "${HOME}/.local/bin/carapace"
 fi
 
 file="${dl}/efm-langserver.tar.gz"
+tag="{{ (gitHubLatestRelease "mattn/efm-langserver").TagName }}"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     tar --wildcards --strip-components=1 -xzf "${file}" -C "${HOME}/.local/bin" "**/efm-langserver"
     chmod +x "${HOME}/.local/bin/efm-langserver"
 fi
 
 file="${dl}/helix.tar.xz"
+tag="{{ (gitHubLatestRelease "helix-editor/helix").TagName }}"
 dir="${HOME}/.config/helix/runtime"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     tar --wildcards --strip-components=1 -xJf "${file}" -C "${HOME}/.local/bin" "**/hx"
     chmod +x "${HOME}/.local/bin/hx"
 
@@ -72,17 +80,25 @@ if sum "${file}"; then
     tar --strip-components=2 -xJf "${file}" -C "${dir}"
 fi
 
-if sum "${dl}/iosevka.zip"; then
+tag="{{ (gitHubLatestRelease "be5invis/iosevka").TagName }}"
+file="${dl}/iosevka.zip"
+if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     unzip -qqo "${file}" "Iosevka.ttc" -d "${HOME}/.local/share/fonts"
 fi
 
-if sum "${dl}/iosevka-aile.zip"; then
+tag="{{ (gitHubLatestRelease "be5invis/iosevka").TagName }}"
+file="${dl}/iosevka-aile.zip"
+if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     unzip -qqo "${file}" "IosevkaAile.ttc" -d "${HOME}/.local/share/fonts"
 fi
 
 file="${dl}/lua-language-server.tar.gz"
+tag="{{ (gitHubLatestRelease "LuaLS/lua-language-server").TagName }}"
 dir="${HOME}/src/lua-language-server"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     _rm "${dir}"
     mkdir "${dir}"
     tar -xzf "${file}" -C "${dir}"
@@ -90,8 +106,10 @@ if sum "${file}"; then
 fi
 
 file="${dl}/nvim.tar.gz"
+tag="{{ (gitHubLatestRelease "neovim/neovim").TagName }}"
 dir="${HOME}/src/nvim"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     _rm "${dir}"
     mkdir "${dir}"
     tar --strip-components=1 -xzf "${file}" -C "${dir}"
@@ -99,24 +117,33 @@ if sum "${file}"; then
 fi
 
 file="${dl}/pragmasevka.zip"
+tag="{{ (gitHubLatestRelease "shytikov/pragmasevka").TagName }}"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     unzip -qqo "${file}" -d "${HOME}/.local/share/fonts"
 fi
 
 file="${dl}/rumdl.tar.gz"
+tag="{{ (gitHubLatestRelease "rvben/rumdl").TagName }}"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     tar -xzf "${file}" -C "${HOME}/.local/bin" "rumdl"
     chmod +x "${HOME}/.local/bin/rumdl"
 fi
 
 file="${dl}/taplo.gz"
+tag="{{ (gitHubLatestRelease "tamasfe/taplo").TagName }}"
 if sum "${file}"; then
-    gzip -dc "${file}" >"${HOME}/.local/bin/taplo"
+    echo "-> $(basename "${file}") ${tag}"
+    gzip -dc "${file}" >"${HOME}/.local/bin/taplo.new"
+    mv "${HOME}/.local/bin/taplo.new" "${HOME}/.local/bin/taplo"
     chmod +x "${HOME}/.local/bin/taplo"
 fi
 
 file="${dl}/yamlfmt.tar.gz"
+tag="{{ (gitHubLatestRelease "google/yamlfmt").TagName }}"
 if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
     tar -xzf "${file}" -C "${HOME}/.local/bin" "yamlfmt"
     chmod +x "${HOME}/.local/bin/yamlfmt"
 fi
@@ -126,13 +153,17 @@ case "${CHEZMOI_OS+unset}" in
     case "${CHEZMOI_KERNEL_OSRELEASE+unset}" in
     *"microsoft"*)
         file="${dl}/interception.zip"
+        tag="{{ (gitHubLatestRelease "jtroo/kanata").TagName }}"
         if sum "${file}"; then
+            echo "-> $(basename "${file}") ${tag}"
             mkdir -p "${USERPROFILE:?}/kanata"
             cp "${file}" "${USERPROFILE:?}/kanata/interception.zip"
         fi
 
         file="${dl}/kanata_win.zip"
+        tag="{{ (gitHubLatestRelease "oblitum/Interception").TagName }}"
         if sum "${file}"; then
+            echo "-> $(basename "${file}") ${tag}"
             mkdir -p "${USERPROFILE:?}/kanata"
             unzip -p "${dl}/kanata_win.zip" "kanata_windows_gui_winIOv2_x64.exe" >"${USERPROFILE:?}/kanata/kanata.exe.new"
         fi
