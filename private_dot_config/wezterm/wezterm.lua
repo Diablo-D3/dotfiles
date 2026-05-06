@@ -66,7 +66,7 @@ config.font_rules = {
     },
 }
 
-config.font_size = 16
+config.font_size = 12
 config.cell_width = 1.0
 config.line_height = 1.0
 
