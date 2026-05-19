@@ -95,11 +95,11 @@ now_if_args(function()
         }
     })
 
-    create_autocmd('LspAttach', 'mini.completion omnifunc', {
-        callback = function(ev)
+    create_autocmd('LspAttach', 'mini.completion omnifunc',
+        function(ev)
             vim.bo[ev.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
         end
-    })
+    )
 
     vim.lsp.config('*', { capabilities = MiniCompletion.get_lsp_capabilities() })
 end)

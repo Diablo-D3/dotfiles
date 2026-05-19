@@ -7,9 +7,9 @@ later(function()
         yaml = { 'yamllint' }
     }
 
-    create_autocmd('BufWritePost', 'nvim-lint lint', {
-        callback = function()
+    create_autocmd('BufWritePost', 'nvim-lint lint',
+        function()
             nvim_lint.try_lint()
         end
-    })
+    )
 end)

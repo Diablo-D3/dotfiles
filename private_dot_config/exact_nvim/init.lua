@@ -18,24 +18,26 @@ _G.on_filetype = function(ft, f) MiniMisc.safely('filetype:' .. ft, f) end
 --- |vim.api.nvim_create_autocmd| wrapper that breaks opts.desc out
 --- @param event string|string[]
 --- @param desc string
+--- @param callback function
 --- @param opts? table
-_G.create_autocmd = function(event, desc, opts)
+_G.create_autocmd = function(event, desc, callback, opts)
     opts = tbl_extend('force', opts or {}, {
         desc = desc,
+        callback = callback,
         group = vim.api.nvim_create_augroup(desc, { clear = false })
     })
     return vim.api.nvim_create_autocmd(event, opts)
 end
 
 _G.on_packchanged = function(plugin_name, kinds, desc, callback)
-    create_autocmd('PackChanged', desc, {
-        callback = function(ev)
+    create_autocmd('PackChanged', desc,
+        function(ev)
             local name, kind = ev.data.spec.name, ev.data.kind
             if not (name == plugin_name and tbl_contains(kinds, kind)) then return end
             if not ev.data.active then vim.cmd.packadd(plugin_name) end
             callback(ev.data)
         end
-    })
+    )
 end
 
 -- Mode constants

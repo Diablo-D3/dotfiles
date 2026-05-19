@@ -1,19 +1,19 @@
 now_if_args(function()
+    add({
+        'https://github.com/nvim-treesitter/nvim-treesitter',
+        'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
+    })
+
     on_packchanged('nvim-treesitter', { 'update' }, ':TSUpdate',
         function()
             vim.cmd.TSUpdate()
         end
     )
 
-    add({
-        'https://github.com/nvim-treesitter/nvim-treesitter',
-        'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
-    })
-
     _G.nvim_treesitter = require('nvim-treesitter')
 
-    create_autocmd('FileType', 'nvim-treesitter setup', {
-        callback = function(ev)
+    create_autocmd('FileType', 'nvim-treesitter setup',
+        function(ev)
             local match = vim.treesitter.language.get_lang(ev.match)
 
             local avail = nvim_treesitter.get_available()
@@ -31,7 +31,7 @@ now_if_args(function()
                 vim.bo.indentexpr = 'v:lua.require(\'nvim-treesitter\').indentexpr()'
             end
         end
-    })
+    )
 
     -- Originally from https://github.com/ngynkvn/gotmpl.nvim, which seems to be abandoned
     -- Includes changes from:
