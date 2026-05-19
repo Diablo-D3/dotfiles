@@ -15,7 +15,7 @@ _G.now_if_args = vim.fn.argc(-1) > 0 and _G.now or _G.later
 _G.on_event = function(ev, f) MiniMisc.safely('event:' .. ev, f) end
 _G.on_filetype = function(ft, f) MiniMisc.safely('filetype:' .. ft, f) end
 
---- |vim.api.nvim_create_autocmd| wrapper that breaks opts.desc out
+--- |vim.api.nvim_create_autocmd| wrapper that breaks opts.{desc, callback} out, and wraps callback in pcall
 --- @param event string|string[]
 --- @param desc string
 --- @param callback function
@@ -23,7 +23,13 @@ _G.on_filetype = function(ft, f) MiniMisc.safely('filetype:' .. ft, f) end
 _G.create_autocmd = function(event, desc, callback, opts)
     opts = tbl_extend('force', opts or {}, {
         desc = desc,
-        callback = callback,
+        callback = function(ev)
+            local success, result = pcall(callback, ev)
+
+            if not success then
+                vim.notify(result, vim.log.levels.ERROR)
+            end
+        end,
         group = vim.api.nvim_create_augroup(desc, { clear = false })
     })
     return vim.api.nvim_create_autocmd(event, opts)
