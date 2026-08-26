@@ -94,6 +94,13 @@ if sum "${file}"; then
     unzip -qqo "${file}" "IosevkaAile.ttc" -d "${HOME}/.local/share/fonts"
 fi
 
+file="${dl}/ioskeleymono.zip"
+tag="{{ (gitHubLatestRelease "ahatem/IoskeleyMono").TagName }}"
+if sum "${file}"; then
+    echo "-> $(basename "${file}") ${tag}"
+    unzip -qqjo "${file}" "Normal/*" "SemiCondensed/*" -d "${HOME}/.local/share/fonts"
+fi
+
 file="${dl}/lua-language-server.tar.gz"
 tag="{{ (gitHubLatestRelease "LuaLS/lua-language-server").TagName }}"
 dir="${HOME}/src/lua-language-server"
