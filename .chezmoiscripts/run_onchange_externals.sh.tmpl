@@ -98,7 +98,7 @@ file="${dl}/ioskeleymono.zip"
 tag="{{ (gitHubLatestRelease "ahatem/IoskeleyMono").TagName }}"
 if sum "${file}"; then
     echo "-> $(basename "${file}") ${tag}"
-    unzip -qqjo "${file}" "Normal/*" "SemiCondensed/*" -d "${HOME}/.local/share/fonts"
+    unzip -qqjo "${file}" "SemiCondensed/*" -d "${HOME}/.local/share/fonts"
 fi
 
 file="${dl}/lua-language-server.tar.gz"
