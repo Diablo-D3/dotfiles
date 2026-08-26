@@ -46,29 +46,30 @@ config.window_padding = {
 
 config.term = 'wezterm'
 
-config.font = wezterm.font('Pragmasevka', { weight = 'Regular' })
+config.font = wezterm.font('IoskeleyMonoTerm Nerd Font Mono', { weight = 'Regular' })
 
 config.font_rules = {
     {
         intensity = 'Normal',
         italic = true,
-        font = wezterm.font('Pragmasevka', { weight = 'Regular', italic = true })
+        font = wezterm.font('IoskeleyMonoTerm Nerd Font Mono', { weight = 'Regular', italic = true })
     },
     {
         intensity = 'Bold',
         italic = false,
-        font = wezterm.font('Pragmasevka', { weight = 'Bold' })
+        font = wezterm.font('IoskeleyMonoTerm Nerd Font Mono', { weight = 'Bold' })
     },
     {
         intensity = 'Bold',
         italic = true,
-        font = wezterm.font('Pragmasevka', { weight = 'Bold', italic = true })
+        font = wezterm.font('IoskeleyMonoTerm Nerd Font Mono', { weight = 'Bold', italic = true })
     },
 }
 
-config.font_size = 12
-config.cell_width = 1.0
-config.line_height = 1.0
+config.font_size = 12      -- 17x41
+config.cell_width = 0.941  -- 16/17
+config.line_height = 0.976 -- 41/40
+
 
 --config.freetype_load_target = "Light"
 --config.freetype_render_target = "HorizontalLcd"
