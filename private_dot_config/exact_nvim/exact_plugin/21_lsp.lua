@@ -35,7 +35,7 @@ now_if_args(function()
 
     vim.g.rustaceanvim = {
         server = {
-            on_attach = function(client, buf)
+            on_attach = function(_, buf)
                 map(n, '<Leader>la', 'Actions (Rustaceanvim)',
                     cmd('RustLsp codeAction'), { buffer = buf })
 
