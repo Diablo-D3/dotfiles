@@ -1,0 +1,30 @@
+-- later(function()
+--     add({
+--         'https://github.com/rachartier/tiny-inline-diagnostic.nvim',
+--     })
+--
+--     require('tiny-inline-diagnostic').setup({
+--         signs = {
+--             left = "",
+--             right = "",
+--             diag = "",
+--             arrow = "",
+--             up_arrow = "",
+--             vertical = "  │",
+--             vertical_end = "  └"
+--         },
+--         blend = {
+--             factor = 0.22,
+--         },
+--         options = {
+--             show_source = {
+--                 enabled = false,
+--                 if_many = true,
+--             },
+--             throttle = 16,
+--             softwrap = 30,
+--             show_all_diags_on_cursorline = true
+--         },
+--
+--     })
+-- end)
