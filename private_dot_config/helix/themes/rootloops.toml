@@ -1,4 +1,7 @@
-# Root Loops (https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=0.77)
+# Copy the configuration below to ~/.config/helix/themes/rootloops.toml
+
+
+# Root Loops (https://rootloops.sh?sugar=8&colors=7&sogginess=0&flavor=2&fruit=10&milk=0)
 
 "ui.background" = { fg = "background" }
 "ui.background.separator" = { fg = "gray" }
@@ -83,23 +86,23 @@
 "diagnostic.error" = { underline = { color = "light-red", style = "curl" } }
 
 [palette]
-black = "#292929"
-red = "#d97780"
-green = "#7aa860"
-yellow = "#bc904f"
-blue = "#6b9bd9"
-magenta = "#b77ed1"
-cyan = "#52a9a9"
-light-gray = "#a8a8a8"
+black = "#222222"
+red = "#ec9384"
+green = "#6cc581"
+yellow = "#cbab4f"
+blue = "#96abed"
+magenta = "#dd8ed6"
+cyan = "#54c0d1"
+light-gray = "#ababab"
 
-gray = "#555555"
-light-red = "#e6949a"
-light-green = "#8ebf73"
-light-yellow = "#d3a563"
-light-blue = "#88b1e5"
-light-magenta = "#c899de"
-light-cyan = "#63c0bf"
-white = "#dadada"
+gray = "#525252"
+light-red = "#f2b2a6"
+light-green = "#80dc95"
+light-yellow = "#e1c166"
+light-blue = "#b2c3f2"
+light-magenta = "#e7aee1"
+light-cyan = "#70d5e7"
+white = "#e2e2e2"
 
-foreground = "#e9e9e9"
-background = "#101010"
+foreground = "#f3f3f3"
+background = "#060606"

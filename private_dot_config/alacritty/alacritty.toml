@@ -33,32 +33,32 @@ osc52 = "CopyPaste"
 bindings = [{ key = "F11", action = "ToggleFullscreen" }]
 
 # Colors (Root Loops)
-# via https://rootloops.sh?sugar=7&colors=6&sogginess=0&flavor=1&fruit=10&milk=0.77
+# via https://rootloops.sh?sugar=8&colors=7&sogginess=0&flavor=2&fruit=10&milk=0
 
 [colors.primary]
-background = '#101010'
-foreground = '#e9e9e9'
+background = '#060606'
+foreground = '#f3f3f3'
 
 [colors.cursor]
-text = '#101010'
-cursor = '#a8a8a8'
+text = '#060606'
+cursor = '#ababab'
 
 [colors.normal]
-black = '#292929'
-red = '#d97780'
-green = '#7aa860'
-yellow = '#bc904f'
-blue = '#6b9bd9'
-magenta = '#b77ed1'
-cyan = '#52a9a9'
-white = '#a8a8a8'
+black = '#222222'
+red = '#ec9384'
+green = '#6cc581'
+yellow = '#cbab4f'
+blue = '#96abed'
+magenta = '#dd8ed6'
+cyan = '#54c0d1'
+white = '#ababab'
 
 [colors.bright]
-black = '#555555'
-red = '#e6949a'
-green = '#8ebf73'
-yellow = '#d3a563'
-blue = '#88b1e5'
-magenta = '#c899de'
-cyan = '#63c0bf'
-white = '#dadada'
+black = '#525252'
+red = '#f2b2a6'
+green = '#80dc95'
+yellow = '#e1c166'
+blue = '#b2c3f2'
+magenta = '#e7aee1'
+cyan = '#70d5e7'
+white = '#e2e2e2'
